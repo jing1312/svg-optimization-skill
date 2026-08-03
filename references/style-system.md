@@ -77,4 +77,6 @@ repeatable system:
   single inner keyline, and at most one clipped gloss or bloom; the halo must
   remain subordinate to the glyph while the effects fade into the card.
 
-The reference implementation is `assets/examples/dreamy-detail-board.svg`.
+The reference implementations are `assets/examples/dreamy-detail-board.svg`
+for the semantic baseline and `assets/examples/ornate-style-gallery.svg` for
+the richer six-motif treatment.

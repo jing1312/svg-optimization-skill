@@ -96,11 +96,14 @@ test('approved seasonal themes share one brand semantic system', () => {
 
 test('dreamy detail board encodes motifs and a measured type ladder', () => {
   const board = read('assets/examples/dreamy-detail-board.svg');
+  const ornate = read('assets/examples/ornate-style-gallery.svg');
   const system = read('references/style-system.md');
   assert.match(board, /CHAPTER RELATIONSHIP/);
   assert.match(board, /SOURCE TO OUTLINE/);
   assert.match(board, /READ \/ TEST \/ RECALL/);
   assert.match(board, /CARD VERIFICATION/);
+  assert.match(ornate, /LECTURE TRANSCRIPT/);
+  assert.match(ornate, /EXPORT PACKAGE/);
   assert.match(board, /Georgia, Times New Roman, serif/);
   assert.match(system, /three-level text ladder/);
   assert.match(system, /node constellations/);
