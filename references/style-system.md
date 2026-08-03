@@ -55,6 +55,10 @@ repeatable system:
 
 - Use a pale base, a 1 px tinted border, a faint inner keyline, and one soft
   motif field. Keep the motif on the visual side so the reading side stays calm.
+- Give each card one dominant illustration. Use one stroke family, one node
+  size, and one accent hierarchy; do not mix a graph, flower, waveform, and
+  card in the same motif. Labels belong in the text column unless they carry
+  essential state.
 - Prefer motifs with meaning: node constellations for relationships, waveforms
   for audio or flow, plotted paths for progress, and tilted cards for memory.
   Build them from a few lines, nodes, arcs, and one accent mark instead of

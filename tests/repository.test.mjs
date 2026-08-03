@@ -106,6 +106,12 @@ test('dreamy detail board encodes motifs and a measured type ladder', () => {
   assert.match(system, /node constellations/);
 });
 
+test('logo concepts declare a meaningful secondary motif', () => {
+  const logos = read('assets/examples/logo-concepts.svg');
+  assert.match(logos, /data-logo-secondary-motif="chapter relationship \+ verification shield"/);
+  assert.match(logos, /verification shield/);
+});
+
 test('preference guidance keeps learning local and structured', () => {
   const skill = read('SKILL.md');
   const readme = read('README.md');

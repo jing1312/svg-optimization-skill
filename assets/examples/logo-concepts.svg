@@ -14,7 +14,7 @@
   <text x="48" y="96" font-family="Georgia, Times New Roman, serif" font-size="34" font-weight="700" fill="#2f304b">Logo 精修：识别度来自层次</text>
   <text x="48" y="123" font-size="15" fill="#77758b">固定 book-open-check 轮廓，调整外环、内衬、光晕与光学留白。</text>
 
-  <g transform="translate(48 160)" data-role="logo-variant" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC">
+  <g transform="translate(48 160)" data-role="logo-variant" data-logo-intent="knowledge verification" data-logo-secondary-motif="chapter relationship + verification shield" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC">
     <rect width="408" height="220" rx="22" fill="#f5effb" stroke="#dfd1ef"/>
     <circle cx="112" cy="102" r="92" fill="url(#dreamBloom)"/>
     <circle cx="112" cy="102" r="82" fill="#d5b7ed" fill-opacity=".2"/>
@@ -24,6 +24,7 @@
     <rect x="55" y="45" width="114" height="114" rx="32" fill="url(#dreamTile)" filter="url(#logoShadow)"/>
     <rect x="62" y="52" width="100" height="100" rx="27" fill="none" stroke="#fff" stroke-opacity=".55"/>
     <path d="M70 57h84c-10 19-28 31-52 35-17 3-28 0-37-7Z" fill="url(#gloss)" opacity=".7"/>
+    <path d="M112 78l22 9v18c0 15-10 25-22 32-12-7-22-17-22-32V87Z" fill="#fff" fill-opacity=".06" stroke="#fff" stroke-opacity=".24" stroke-width="1.5"/>
     <g data-role="logo-glyph" transform="translate(79 69) scale(2.8)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
     <text x="214" y="82" font-size="12" font-weight="700" letter-spacing="2" fill="#8068a9">J · DREAMY AURORA</text>
     <text x="214" y="119" font-family="Georgia, Times New Roman, serif" font-size="28" font-weight="700" fill="#43395e">梦幻极光</text>
@@ -31,7 +32,7 @@
     <path d="M214 194h128" stroke="#b89bd7" stroke-width="2"/><circle cx="214" cy="194" r="3" fill="#8068a9"/>
   </g>
 
-  <g transform="translate(504 160)" data-role="logo-variant" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC">
+  <g transform="translate(504 160)" data-role="logo-variant" data-logo-intent="knowledge verification" data-logo-secondary-motif="chapter relationship + verification shield" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC">
     <rect width="408" height="220" rx="22" fill="#effaf4" stroke="#c9e9d9"/>
     <circle cx="112" cy="102" r="92" fill="url(#summerBloom)"/>
     <circle cx="112" cy="102" r="82" fill="#aee5cb" fill-opacity=".25"/>
@@ -41,6 +42,7 @@
     <rect x="55" y="45" width="114" height="114" rx="32" fill="url(#summerTile)" filter="url(#logoShadow)"/>
     <rect x="62" y="52" width="100" height="100" rx="27" fill="none" stroke="#fff" stroke-opacity=".62"/>
     <path d="M70 57h84c-10 19-28 31-52 35-17 3-28 0-37-7Z" fill="url(#gloss)" opacity=".62"/>
+    <path d="M112 78l22 9v18c0 15-10 25-22 32-12-7-22-17-22-32V87Z" fill="#fff" fill-opacity=".06" stroke="#fff" stroke-opacity=".25" stroke-width="1.5"/>
     <g data-role="logo-glyph" transform="translate(79 69) scale(2.8)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
     <text x="214" y="82" font-size="12" font-weight="700" letter-spacing="2" fill="#3d907b">K · SUMMER SODA</text>
     <text x="214" y="119" font-family="Georgia, Times New Roman, serif" font-size="28" font-weight="700" fill="#31524d">夏日汽水</text>
