@@ -1,9 +1,17 @@
 import { readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const WS = 'C:/Users/江静静/.agents/skills/svg-optimization-workspace';
-const ITER = process.argv[2] || 'iteration-1';
-const PREV_ITER = process.argv[3] || '';
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+
+function optionValue(name) {
+  const index = process.argv.indexOf(name);
+  return index >= 0 ? process.argv[index + 1] : '';
+}
+
+const WS = resolve(optionValue('--workspace') || process.env.SVG_EVAL_WORKSPACE || join(REPO_ROOT, '.eval-workspace'));
+const ITER = optionValue('--iteration') || 'iteration-1';
+const PREV_ITER = optionValue('--previous') || '';
 const OUT_DIR = join(WS, ITER);
 
 const benchmark = JSON.parse(readFileSync(join(OUT_DIR, 'benchmark.json'), 'utf8'));
@@ -12,7 +20,7 @@ const EVALS = [
   { id: 2, name: 'eval-2-fix-overflowing-banner' },
   { id: 3, name: 'eval-3-popup-ui-mockup' },
 ];
-const PROMPTS = JSON.parse(readFileSync('C:/Users/江静静/.agents/skills/svg-optimization/evals/evals.json', 'utf8'));
+const PROMPTS = JSON.parse(readFileSync(join(REPO_ROOT, 'evals', 'evals.json'), 'utf8'));
 
 const cfgLabel = { with_skill: '用技能', without_skill: '不用技能（基线）' };
 const cfgColor = { with_skill: '#2f5fb8', without_skill: '#8a94a6' };

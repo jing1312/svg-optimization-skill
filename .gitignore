@@ -1,0 +1,4 @@
+.eval-workspace/
+node_modules/
+*.log
+*.png

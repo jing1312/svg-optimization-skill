@@ -1,8 +1,16 @@
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const WS = 'C:/Users/江静静/.agents/skills/svg-optimization-workspace';
-const ITER = process.argv[2] || 'iteration-1';
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+
+function optionValue(name) {
+  const index = process.argv.indexOf(name);
+  return index >= 0 ? process.argv[index + 1] : '';
+}
+
+const WS = resolve(optionValue('--workspace') || process.env.SVG_EVAL_WORKSPACE || join(REPO_ROOT, '.eval-workspace'));
+const ITER = optionValue('--iteration') || 'iteration-1';
 const OUT_DIR = join(WS, ITER);
 
 const EVALS = [
@@ -51,8 +59,8 @@ const withoutRates = runs.filter(r => r.configuration === 'without_skill').map(r
 const benchmark = {
   metadata: {
     skill_name: 'svg-optimization',
-    skill_path: 'C:/Users/江静静/.agents/skills/svg-optimization',
-    executor_model: 'deepseek-v4-flash-free',
+    skill_path: 'SKILL.md',
+    executor_model: process.env.SVG_EVAL_MODEL || 'unspecified',
     timestamp: new Date().toISOString(),
     evals_run: [1, 2, 3],
     runs_per_configuration: 1,

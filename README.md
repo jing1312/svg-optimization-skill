@@ -1,75 +1,115 @@
 # svg-optimization-skill
 
-手写 SVG 配图生成与优化技能：README banner、界面示意图、流程图、社交卡片。
+A practical skill for creating and repairing compact SVG assets used in
+READMEs, documentation, and product pages.
 
-## 核心思想
+The project combines hand-authored composition with measured typography and
+semantically selected open-source icon paths. It includes polished examples,
+an offline text measurement tool, visual style comparisons, privacy checks,
+local preference controls, and structural/logo quality evaluation.
 
-SVG 的 `<text>` **不会自动撑开**容器 `<rect>`——文字宽度和卡片宽度是两个独立
-数字，必须手动测量、回填、重排。本 skill 把「浏览器实测文字宽度 → 回填坐标 →
-重排布局 → 浏览器迭代验证」沉淀成一套可复现的工作流，并附带了离线测量工具，
-保证每次测量的尺子一致。
+## What changed
 
-## 安装
+- Logo generation now begins with a semantic brief instead of a fixed bolt or
+  generic AI symbol.
+- Copy-ready glyphs come from established icon libraries with source and
+  license metadata.
+- Halos and shadows have bounded proportions so effects cannot overwhelm the
+  mark.
+- SVG examples include accessible titles and descriptions.
+- Style selection compares complete banner and popup treatments, not isolated
+  color swatches, and works in agents with or without clickable UI cards.
+- Optional preference learning is local, allowlisted, and user-controlled. It
+  reorders suggestions without rewriting the public skill or uploading taste.
+- Eval scripts are repository-relative and work on any machine.
+- Automated checks reject private handoff files, local home paths, and known
+  project-specific identifiers in public templates.
 
-### Claude Code / Codex
+## Installation
 
-将整个 `skills/svg-optimization/` 目录复制到你的 skills 目录：
+Copy this repository directory into the skills folder used by your agent:
 
 ```bash
-# Claude Code
-cp -r skills/svg-optimization ~/.claude/skills/
-
 # Codex
-cp -r skills/svg-optimization ~/.codex/skills/
+cp -r svg-optimization-skill ~/.codex/skills/svg-optimization
+
+# Claude Code
+cp -r svg-optimization-skill ~/.claude/skills/svg-optimization
+
+# Agents / OpenCode
+cp -r svg-optimization-skill ~/.agents/skills/svg-optimization
 ```
 
-### opencode
+No runtime dependency is required for normal skill use. Node.js 20 or newer is
+needed only for automated checks and eval tooling.
 
-复制到 `~/.agents/skills/svg-optimization/`：
+## Workflow
+
+1. Define the content and logo semantics.
+2. If style is unclear or a redesign is requested, compare two or three
+   complete directions from `references/style-system.md` and let the user pick.
+3. Choose the canvas, layout regions, type ladder, and palette.
+4. Measure visible strings with `scripts/measure_text.html`.
+5. Source a relevant glyph from Lucide, Tabler, or Phosphor and record its
+   license.
+6. Build and render the SVG in a browser.
+7. Inspect at intrinsic and small sizes.
+8. Run the automated checks.
+
+## Validation
 
 ```bash
-cp -r skills/svg-optimization ~/.agents/skills/
+npm test
+npm run check
+
+# Check one logo-bearing SVG
+node evals/grade.mjs --check-logo assets/examples/banner-example.svg
+
+# Grade a generated eval workspace
+node evals/grade.mjs --workspace ./my-eval-workspace --iteration iteration-1
+node evals/aggregate.mjs --workspace ./my-eval-workspace --iteration iteration-1
+node evals/viewer.mjs --workspace ./my-eval-workspace --iteration iteration-1
 ```
 
-### 手动使用
+The eval workspace defaults to `.eval-workspace/` and can also be set with
+`SVG_EVAL_WORKSPACE`.
 
-不需要安装任何东西——`scripts/measure_text.html` 双击即可在浏览器中使用；
-`references/design-patterns.md` 和 `assets/examples/` 里的样例可以直接抄。
+## Local preference controls
 
-## 目录结构
+Persistence is opt-in. When enabled, the profile stays outside this repository
+and stores only small numeric weights for known style dimensions. It never
+stores prompts, raw feedback, project content, URLs, or local paths.
+
+```bash
+node scripts/preferences.mjs show
+node scripts/preferences.mjs forget --key material.glass
+node scripts/preferences.mjs reset
+```
+
+On hosts without a writable profile, keep preferences in the current session.
+
+## Repository layout
 
 ```text
-skills/svg-optimization/
-├── SKILL.md                        主流程：生成 → 测量 → 回填 → 验证 → 迭代
-├── README.md                       本文件
-├── USER-FEEDBACK-HANDOFF.md        用户逐轮真实反馈 + 未解决问题清单（新承接者必读）
-├── references/
-│   └── design-patterns.md          banner / UI 示意图 / 手绘图标 / 配色，可抄代码
-├── scripts/
-│   └── measure_text.html           离线文字宽度测量工具（浏览器打开即用）
-├── assets/
-│   └── examples/                   真实项目产出的完整样例
-│       ├── banner-example.svg      1100×300 项目 banner（实测宽度重排后）
-│       └── popup-mockup-example.svg 860×730 弹窗界面示意图（含投影/状态徽章）
-└── evals/
-    └── evals.json                  基准测试用例
+assets/examples/             Browser-verified banner, mockup, logo, and style choices
+evals/                       Structural and logo quality checks
+references/design-patterns.md
+references/logo-system.md
+references/style-system.md
+scripts/measure_text.html    Offline text measurement tool
+scripts/preferences.mjs      Local allowlisted preference profile CLI
+SKILL.md                     Agent workflow and delivery checklist
+PRIVACY.md                   Rules for safe public artifacts
+THIRD_PARTY_NOTICES.md       Icon licenses and attribution
 ```
 
-## 一句话工作流
+## Privacy
 
-1. **结构先行**：defs → 背景 → 装饰 → 内容分组，`viewBox` 必写
-2. **先测后画**：measure_text.html 量出文字宽度，`rect.width = 文字宽 + 2×内边距`
-3. **链式排布**：同行元素 x 坐标依次相加，改一个宽就重跑整条链
-4. **浏览器验证**：打开 SVG 看渲染（不是看代码），溢出/重叠/出界就重测重排
-5. **迭代 2–4 轮**是常态，直到渲染正确再交付
-
-## 验证
-
-```bash
-cd evals
-node run_eval.mjs          # 跑基准测试（需要按说明放置工作区）
-```
+Do not store raw conversations, original user feedback, internal handoff
+notes, private prompts, local paths, or secrets in this repository. Convert
+useful feedback into anonymous, reusable guidance. See `PRIVACY.md`.
 
 ## License
 
-MIT
+Project code and documentation are MIT licensed. Embedded Lucide icon paths
+are available under the ISC license; see `THIRD_PARTY_NOTICES.md`.

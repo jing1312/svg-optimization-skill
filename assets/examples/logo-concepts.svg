@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="390" viewBox="0 0 960 390" font-family="PingFang SC, Microsoft YaHei, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">开卷助手统一品牌 Logo 变体</title>
+  <desc id="desc">同一个 book-open-check 语义标记在深海玻璃、活力学习和瑞士编辑三种品牌材质中的变体。</desc>
+  <defs>
+    <linearGradient id="deep" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4ed5d2"/><stop offset="1" stop-color="#126078"/></linearGradient>
+    <linearGradient id="vital" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd86b"/><stop offset="1" stop-color="#ff8a5b"/></linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9f5ec"/><stop offset="1" stop-color="#dfd5c4"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#123442" flood-opacity=".22"/></filter>
+  </defs>
+  <rect width="960" height="390" fill="#eef2f4"/>
+  <text x="48" y="52" font-size="28" font-weight="700" fill="#14212b">同一语义，三种品牌材质</text>
+  <text x="48" y="80" font-size="15" fill="#65727d">固定 book-open-check 轮廓，只比较容器、材质与动势</text>
+
+  <g transform="translate(48 112)" data-role="logo-variant" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC">
+    <rect width="264" height="226" rx="16" fill="#103b4d" filter="url(#shadow)"/>
+    <circle cx="132" cy="104" r="78" fill="#58d5d0" fill-opacity=".12"/>
+    <rect x="72" y="44" width="120" height="120" rx="34" fill="url(#deep)" stroke="#baf4f2" stroke-opacity=".45"/>
+    <g transform="translate(94 66) scale(3.1)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
+    <text x="132" y="196" text-anchor="middle" font-size="18" font-weight="700" fill="#e9ffff">深海玻璃</text><text x="132" y="216" text-anchor="middle" font-size="12" fill="#a9dfe5">calm / premium</text>
+  </g>
+
+  <g transform="translate(348 112)" data-role="logo-variant" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC">
+    <rect width="264" height="226" rx="16" fill="#fff8ee" filter="url(#shadow)"/>
+    <rect x="74" y="46" width="116" height="116" rx="34" fill="url(#vital)" transform="rotate(-8 132 104)"/>
+    <g transform="translate(94 66) scale(3.1)" fill="none" stroke="#342d27" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
+    <text x="132" y="196" text-anchor="middle" font-size="18" font-weight="700" fill="#342d27">活力学习</text><text x="132" y="216" text-anchor="middle" font-size="12" fill="#9c725d">active / friendly</text>
+  </g>
+
+  <g transform="translate(648 112)" data-role="logo-variant" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC">
+    <rect width="264" height="226" rx="16" fill="url(#paper)" stroke="#d1c7b6" filter="url(#shadow)"/>
+    <path d="M70 48h124M70 62h76" stroke="#1d5aa6" stroke-width="3"/>
+    <rect x="74" y="76" width="116" height="88" fill="#1d5aa6"/>
+    <g transform="translate(94 66) scale(3.1)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
+    <text x="132" y="196" text-anchor="middle" font-size="18" font-weight="700" fill="#17212b">瑞士编辑</text><text x="132" y="216" text-anchor="middle" font-size="12" fill="#5c6972">clear / precise</text>
+  </g>
+</svg>

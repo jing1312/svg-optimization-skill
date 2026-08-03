@@ -1,8 +1,29 @@
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { dirname, isAbsolute, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { checkLogoQuality } from './lib/logo-quality.mjs';
 
-const WS = 'C:/Users/江静静/.agents/skills/svg-optimization-workspace';
-const ITER = process.argv[2] || 'iteration-1';
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+
+function optionValue(name) {
+  const index = process.argv.indexOf(name);
+  return index >= 0 ? process.argv[index + 1] : '';
+}
+
+const logoFile = optionValue('--check-logo');
+if (logoFile) {
+  const absoluteFile = isAbsolute(logoFile) ? logoFile : resolve(process.cwd(), logoFile);
+  const results = checkLogoQuality(readFileSync(absoluteFile, 'utf8'));
+  for (const result of results) {
+    console.log(`${result.passed ? 'PASS' : 'FAIL'} ${result.text}: ${result.evidence}`);
+  }
+  const passed = results.every(result => result.passed);
+  console.log(`logo-quality: ${passed ? 'PASS' : 'FAIL'}`);
+  process.exit(passed ? 0 : 1);
+}
+
+const WS = resolve(optionValue('--workspace') || process.env.SVG_EVAL_WORKSPACE || join(REPO_ROOT, '.eval-workspace'));
+const ITER = optionValue('--iteration') || 'iteration-1';
 
 const EVALS = [
   { id: 1, name: 'eval-1-readme-banner-generation' },
@@ -158,6 +179,7 @@ for (const evalInfo of EVALS) {
   for (const variant of ['with_skill', 'without_skill']) {
     const svgFile = join(evalDir, variant, 'outputs', 'result.svg');
     if (!existsSync(svgFile)) {
+      mkdirSync(join(evalDir, variant), { recursive: true });
       writeFileSync(join(evalDir, variant, 'grading.json'), JSON.stringify([{ text: 'result.svg-missing', passed: false, evidence: '未找到产物' }], null, 2));
       console.log(`graded ${evalInfo.name} / ${variant}: 0/1 (产物缺失)`);
       continue;
@@ -205,7 +227,7 @@ for (const evalInfo of EVALS) {
     }
 
     if (evalInfo.id === 2) {
-      const needed = ['景图题库助手', '浏览器扩展 · Edge / Chrome', 'JSON + Markdown', 'v 1.0.0'];
+      const needed = ['开卷助手', 'Chrome / Edge', 'Markdown + JSON', 'v 1.0.0'];
       const missing = needed.filter(s => !argContent.includes(s));
       assert(results, 'content-preserved', missing.length === 0, missing.length ? `缺失：${missing.join('、')}` : '4 处关键内容全部保留');
       const sub = doc.texts.find(t => t['fill'] === '#cfe0ff');
@@ -224,7 +246,7 @@ for (const evalInfo of EVALS) {
       assert(results, 'capsule-pills', pills >= 3, `圆角胶囊（rx=高/2）${pills} 个`);
       const hasGradTile = /linearGradient/.test(argContent) && /<rect[^>]*fill="url\(#/.test(argContent);
       const hasHalo = /radialGradient/.test(argContent);
-      const whitePaths = argContent.match(/<(?:path|polygon)\b[^>]*fill=["']?#?(?:ffffff|fff)[^>]*>/gi) || [];
+      const whitePaths = argContent.match(/<(?:path|polygon)\b[^>]*(?:fill|stroke)=["']#?(?:ffffff|fff)[^>]*>/gi) || [];
       const whiteRects = [...argContent.matchAll(/<rect\b[^>]*fill=["']#(?:ffffff|fff)["'][^>]*>/gi)].map(m => m[0]);
       const tinyWhiteRects = whiteRects.filter(r => {
         const w = +(/width="([\d.]+)"/.exec(r) || [])[1] || 0;
@@ -237,18 +259,19 @@ for (const evalInfo of EVALS) {
       assert(results, 'logo-glow-halo', hasHalo, hasHalo ? '径向渐变光环' : '缺发光光环');
       assert(results, 'logo-hand-drawn-glyph', hasHandGlyph, hasHandGlyph ? `手绘字形 path ${whitePaths.length} 个` : '字形不是手绘 path（应画闪电/折角便签）');
       assert(results, 'logo-not-two-rect-stack', !twoRectStack, twoRectStack ? `字形是 ${tinyWhiteRects.length} 个白色小矩形堆叠（禁止）` : '未用两个白矩形拼字形');
+      for (const check of checkLogoQuality(argContent)) assert(results, check.text, check.passed, check.evidence);
     }
 
     if (evalInfo.id === 3) {
       const lights = ['#ff5f57', '#febc2e', '#28c840'].filter(c => argContent.toLowerCase().includes(c)).length;
       const greenLight = /#27c93f|#28c840|#28c840/i.test(argContent.toLowerCase());
       assert(results, 'browser-chrome-present', (lights >= 2 && greenLight) || lights === 3, `红黄绿圆点 ${lights}/3`);
-      const badgeTexts = doc.texts.filter(t => /平台就绪|会话就绪|权限就绪/.test(t.content));
-      assert(results, 'status-cards-labeled', badgeTexts.length >= 3, `就绪文字卡片 ${badgeTexts.length} 个（应为「平台就绪/会话就绪/权限就绪」）`);
+      const badgeTexts = doc.texts.filter(t => /页面就绪|解析就绪|导出就绪/.test(t.content));
+      assert(results, 'status-cards-labeled', badgeTexts.length >= 3, `就绪文字卡片 ${badgeTexts.length} 个（应为「页面就绪/解析就绪/导出就绪」）`);
       const statusRects = doc.rects.filter(r => ['#e9f7ee', '#ecfdf3', '#e8f7ee', '#e8f8ee'].includes(r.fill) && r.height >= 30 && r.height <= 72);
       const sameColor = statusRects.length >= 3;
       assert(results, 'status-cards-same-color', sameColor, sameColor ? `状态卡片同色系（${statusRects.length} 张浅绿底）` : `状态卡片颜色不统一（浅绿底 ${statusRects.length} 张）`);
-      const btnTexts = doc.texts.filter(t => /抓取章节题库|抓取期末考试/.test(t.content));
+      const btnTexts = doc.texts.filter(t => /整理章节资料|导出复习提纲/.test(t.content));
       assert(results, 'action-buttons', btnTexts.length === 2, `按钮文字 ${btnTexts.length} 个`);
       const btnRects = doc.rects.filter(r => r.height >= 32 && r.height <= 64 && r.width >= 120);
       let sameRow = false;
@@ -276,17 +299,18 @@ for (const evalInfo of EVALS) {
       assert(results, 'no-decorative-circles', decoCircles.length === 0, `画布装饰圆 ${decoCircles.length} 个（应保持纯色背景）`);
       const minFs = Math.min(...doc.texts.filter(t => !['#8a94a6', '#5b6b82', '#98a0b0'].includes(t['fill'])).map(t => +t['font-size'] || 99));
       assert(results, 'min-font-size-14', minFs >= 14, `最小字号 ${minFs}（应 ≥14，地址栏除外）`);
-      assert(results, 'progress-bar', /113/.test(argContent) && doc.rects.some(r => r.height >= 6 && r.height <= 20), '进度文字 113 + 细条矩形');
+      assert(results, 'progress-bar', /24\s*\/\s*24/.test(argContent) && doc.rects.some(r => r.height >= 6 && r.height <= 20), '进度文字 24/24 + 细条矩形');
       assert(results, 'drop-shadow-filter', doc.hasFilter, 'feDropShadow 投影');
       const hasGradTile = /linearGradient/.test(argContent) && /<rect[^>]*fill="url\(#/.test(argContent);
       assert(results, 'logo-gradient-tile', hasGradTile, hasGradTile ? '渐变 logo 底' : '缺渐变 logo 底');
-      const whitePathsE3 = argContent.match(/<(?:path|polygon)\b[^>]*fill=["']?#?(?:ffffff|fff)[^>]*>/gi) || [];
+      const whitePathsE3 = argContent.match(/<(?:path|polygon)\b[^>]*(?:fill|stroke)=["']#?(?:ffffff|fff)[^>]*>/gi) || [];
       assert(results, 'logo-hand-drawn-glyph', whitePathsE3.length > 0, whitePathsE3.length ? `手绘字形 ${whitePathsE3.length} 个` : '字形不是手绘 path（禁止两个白矩形拼书本）');
+      for (const check of checkLogoQuality(argContent)) assert(results, check.text, check.passed, check.evidence);
       const logoRects = doc.rects.filter(r => r.width >= 60 && r.width <= 160 && r.height >= 60 && r.height <= 160 && r.fill.startsWith('url(#'));
       if (logoRects.length > 0) {
         const lr = logoRects[0];
         const below = doc.texts
-          .filter(t => (t.x || 0) > lr.x - 40 && (t.x || 0) < lr.x + lr.width + 40 && (+t.y || 0) > lr.y)
+          .filter(t => (t.x || 0) >= lr.x && (t.x || 0) <= lr.x + lr.width && (+t.y || 0) > lr.y + lr.height)
           .sort((a, b) => (+a.y || 0) - (+b.y || 0))[0];
         if (below) {
           const gap = (+below.y || 0) - (lr.y + lr.height);

@@ -1,264 +1,188 @@
-# Design Patterns for Hand-Written SVG
+# SVG Design Patterns
 
-Copy-ready patterns. Sizes shown are examples — always re-measure your own
-strings with `scripts/measure_text.html` before finalizing widths.
+These patterns are starting structures. Replace copy, measure every string,
+and adapt the palette and icon to the actual subject before delivery.
 
-## Banner (README header image)
+## Banner composition
 
-Typical canvas 1100×300. **Use a left-text + right-icon column layout**, not
-a centered pile — title/subtitle/badges anchor to the left, the logo icon
-cluster sits on the right; the empty middle lets the canvas breathe. **Round
-the background rect (`rx` = 24)** — a sharp-cornered banner looks
-unfinished. Layer order: gradient background → translucent circle blobs →
-title/subtitle left, badges left, icon cluster right.
-
-Vertical rhythm: keep the title baseline → subtitle baseline ≥ 60 px (the
-largest gap in the figure — let the 72 px title breathe), and subtitle →
-badge row ≥ 28 px. Cramped big-to-small text is the first thing reviewers
-notice; uniform gaps everywhere read flat and平庸.
+For a 1100 x 300 README banner, reserve roughly 68% for text and 32% for a
+semantic visual anchor. This avoids both a centered pile and an icon floating
+without relation to the title.
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300" font-family="PingFang SC, Microsoft YaHei, sans-serif">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#12294f"/>
-      <stop offset="0.55" stop-color="#1e4277"/>
-      <stop offset="1" stop-color="#2f5fb8"/>
-    </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#5b8def"/>
-      <stop offset="1" stop-color="#2f5fb8"/>
-    </linearGradient>
-  </defs>
-
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300"
+     viewBox="0 0 1100 300"
+     font-family="PingFang SC, Microsoft YaHei, sans-serif"
+     role="img" aria-labelledby="title desc">
+  <title id="title">OpenStudy project banner</title>
+  <desc id="desc">Project title and capability tags with a knowledge icon.</desc>
+  <defs><!-- background, tile, halo, and shadow definitions --></defs>
   <rect width="1100" height="300" rx="24" fill="url(#bg)"/>
-  <!-- decoration: big translucent circles, opacity 0.04-0.06 -->
-  <circle cx="980" cy="40" r="140" fill="#ffffff" opacity="0.05"/>
-  <circle cx="60" cy="300" r="130" fill="#ffffff" opacity="0.04"/>
 
-  <!-- LEFT column: title + subtitle (baseline gap ≥ 55) -->
-  <text x="70" y="118" font-size="72" font-weight="700" fill="#ffffff" letter-spacing="4">景图题库助手</text>
-  <text x="70" y="178" font-size="26" fill="#cfe0ff">一键导出课程练习题与隐藏答案 · 章节题库 & 期末考试</text>
+  <text x="70" y="112" font-size="68" font-weight="700" fill="#fff">开卷助手</text>
+  <text x="70" y="174" font-size="24" fill="#c9e8f5">整理公开课程资料 · 生成练习与复习提纲</text>
 
-  <!-- badges: y=210, height 46, rx=23 (pill). Width = measured text + 40.
-       x chain: 72 → 72+276+54 → 366+204+54 ... -->
   <g font-size="18">
-    <rect x="72" y="210" width="276" height="46" rx="23" fill="#ffffff" opacity="0.12" stroke="#ffffff" stroke-opacity="0.3"/>
-    <text x="92" y="239" fill="#ffffff">浏览器扩展 · Edge / Chrome</text>
-    <rect x="366" y="210" width="204" height="46" rx="23" fill="url(#accent)"/>
-    <text x="386" y="239" fill="#ffffff" font-weight="600">v 1.0.0</text>
+    <rect x="70" y="210" width="224" height="44" rx="22" fill="#fff" fill-opacity=".09"/>
+    <text x="182" y="238.3" text-anchor="middle" fill="#fff">Chrome / Edge</text>
   </g>
 
-  <!-- RIGHT column: logo (gradient tile + glow halo + white glyph) via translate(x,y) -->
+  <!-- Semantic logo lockup in the right region; see logo-system.md. -->
 </svg>
 ```
 
-Badge math: 46 px tall pill → text baseline y = 196 + 23 + 18 × 0.35 ≈ 225
-(`rect.y + height/2 + fontSize × 0.35`). Widths were measured (e.g.
-"浏览器扩展 · Edge / Chrome" at 18 px ≈ 236 px → rect = 236 + 40 = 276).
-Text horizontal placement: `text-anchor="middle"` with `x = rect.x +
-rect.width / 2` guarantees a centered label; if left-aligned, left and right
-padding must be equal. Minimum padding per side: 10 px, target: 20 px.
+Useful checks:
 
-Type scale for banners (pick a ladder, don't improvise):
-| Rung | Size | Where |
-|---|---|---|
-| Title | 72 | the product name |
-| Subtitle | 26 | one-line description |
-| Body | 18 | badges, pills |
+- Title baseline to subtitle baseline: about 0.85-1.05 x title size.
+- Subtitle to metadata row: 28-36 px.
+- Metadata pill width: measured text + 24-40 px.
+- Text region right edge and logo tile left edge: at least 40 px.
+- Background decoration: one motif, low opacity, outside the reading path.
 
-## UI mockup (popup / dashboard preview)
+### Edge-clipped bubble depth
 
-Canvas 860×730 example. Slim browser chrome on top, a popup card with drop
-shadow in the center. **Keep the canvas background a single solid fill (or
-drop it entirely when the card fills the frame)** — the decorative
-translucent circles belong in banners, not behind a UI mockup. Type scale
-for mockups:
-| Rung | Size | Where |
-|---|---|---|
-| Title | 20–24 | extension name |
-| Section | 15–16 | group labels |
-| Body / buttons | 15–16 | labels, values, buttons |
-| Status / captions | 14 | status cards, progress text |
-
-Nothing below 13.5; if a caption would be smaller, grow the text instead of
-the card.
-
-**Card size matters.** A popup that occupies ~55% of both canvas axes reads
-as "too small" next to the empty background — and a card surrounded by a wide
-margin of empty canvas reads as "lost in space". On an 860×730 canvas, make
-the popup ~65% of the canvas width **and** ~75%+ of the height (≈560 px wide,
-≈560–600 px tall), tending toward a clean square. Center it; keep the 24 px
-content inset. When in doubt, scale the card up — crowded-inside is fixable by
-raising the card, a tiny card is a bigger visual sin than a busy one.
-
-**Chrome stays slim.** The toolbar is furniture: ≤ 48 px tall, small traffic
-lights (r ≈ 6), a modest address pill. The popup card is the subject.
+For a richer background, use large translucent forms that enter from outside
+the canvas and are cut by the rounded boundary. A fully visible circle floating
+in the middle usually reads as decoration pasted on top; a clipped fragment
+feels integrated with the surface.
 
 ```svg
 <defs>
-  <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
-    <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#12294f" flood-opacity="0.14"/>
-  </filter>
-</defs>
-
-<!-- plain canvas background: one solid fill, no decoration -->
-<rect width="860" height="730" fill="#e9edf4"/>
-
-<!-- slim browser chrome: white bar ≤ 48 tall, 3 traffic-light circles, address pill -->
-<rect x="80" y="24" width="700" height="44" rx="12" fill="#ffffff" stroke="#dfe5ef"/>
-<circle cx="104" cy="46" r="6" fill="#ff5f57"/>  <!-- red -->
-<circle cx="124" cy="46" r="6" fill="#febc2e"/>  <!-- yellow -->
-<circle cx="144" cy="46" r="6" fill="#28c840"/>  <!-- green -->
-<rect x="176" y="34" width="440" height="24" rx="12" fill="#f2f4f9" stroke="#e3e8f0"/>
-<text x="194" y="50" font-size="13" fill="#8a94a6">jingtu-ai.com/smart-teaching</text>
-
-<!-- popup with shadow: centered horizontally, ≈65% canvas width -->
-<g filter="url(#sh)">
-  <rect x="150" y="96" width="560" height="570" rx="16" fill="#ffffff"/>
-  <!-- ...content cards, each x = 174 (24px inside popup)... -->
-</g>
-```
-
-**Two parallel actions go in a two-column row, not a vertical stack.** When
-the popup holds two peer buttons (e.g. 抓取章节 / 抓取期末), lay them side by
-side — each ~45% of the card width with a 16 px gap — so the card stays
-rectangular instead of stretched tall.
-
-```svg
-<!-- card content width ~472 (520 - 2x24 inset); two buttons 228 + 16 + 228 -->
-<rect x="194" y="380" width="228" height="40" rx="10" fill="url(#ic)"/>
-<text x="308" y="405" font-size="15" font-weight="600" fill="#ffffff" text-anchor="middle">抓取章节题库</text>
-<rect x="438" y="380" width="228" height="40" rx="10" fill="#ffffff" stroke="#2f5fb8" stroke-width="1.5"/>
-<text x="552" y="405" font-size="15" fill="#2f5fb8" text-anchor="middle">抓取期末考试</text>
-```
-
-The address-bar URL is placeholder content — pick one string and use it
-consistently; it carries no meaning.
-
-## Status cards: word the state, don't draw it
-
-Reviewers react well to small labeled cards — 「平台就绪」「会话就绪」「权限就绪」:
-a light tint fill, a small **check badge** (filled circle + white check,
-≤ 14 px), and the **word**. A lone dot reads plain; the check badge reads
-designed. Hand-drawn check marks read coarse at badge sizes; plain label
-cards always look cleaner.
-
-**Color matches meaning, not variety.** When several states mean the same
-thing (e.g. 平台就绪 / 会话就绪 / 权限就绪 are all positive), give every
-card the **same positive color** — all green — so one glance reads
-"everything OK". Only introduce a second color when a status is genuinely
-different (a warning, an error, a pending item). Never paint a ready item
-neutral gray — that reads as "not set up".
-
-- **Labeled status card** (three of these in a row, same green):
-  ```svg
-  <g font-size="14">
-    <rect x="0" y="0" width="140" height="42" rx="21" fill="#ecfdf3" stroke="#a7f3d0"/>
-    <circle cx="22" cy="21" r="9" fill="#16a34a"/>
-    <path d="M 18.5 21 l 2.5 2.5 l 4.5 -5" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="38" y="24.5" font-weight="600" fill="#15803d">平台就绪</text>
-  </g>
-  ```
-- Keep the three cards equal width so the row reads as a system.
-
-Status card recipe: `fill="#ecfdf3"` (green = ready), check badge circle
-`#16a34a` + white check path, label text vertically centered
-(`baseline = y + 21 + fontSize × 0.35`).
-
-## Hand-drawn icons
-
-Icon strokes must stay inside a ~24 px area centered in the tile (≤ 75% of
-tile size, ≥ 4 px from each edge) — a tile whose strokes run to the edge
-reads as "about to overflow".
-
-**App logo style (hero icon / banner logo)** — reviewers react badly to a
-plain line icon next to a big title, and reject dark/muddy logos. Layer it
-like a real app icon: **bright** gradient tile + soft glow halo + drop
-shadow + white **filled** glyph. **Critical: the glyph must be hand-drawn
-with diagonals/folds, never a stack of two plain rounded rects.** The
-"two-rect book" is the single most-cited reason a logo looks 丑. A lightning
-bolt (`M…L…` zigzag) is the safest glyph; a folded note sheet reads equally
-hand-designed:
-
-```svg
-<defs>
-  <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#5b8def"/><stop offset="1" stop-color="#2f5fb8"/>
-  </linearGradient>
-  <radialGradient id="halo" cx="0.5" cy="0.35" r="0.8">
-    <stop offset="0" stop-color="#8fb4f5" stop-opacity="0.9"/>
-    <stop offset="1" stop-color="#8fb4f5" stop-opacity="0"/>
+  <clipPath id="bannerClip">
+    <rect width="1100" height="300" rx="24"/>
+  </clipPath>
+  <radialGradient id="bubble" cx=".3" cy=".26" r=".82">
+    <stop offset="0" stop-color="#fff" stop-opacity=".18"/>
+    <stop offset=".5" stop-color="#7dd3fc" stop-opacity=".08"/>
+    <stop offset="1" stop-color="#38bdf8" stop-opacity=".01"/>
   </radialGradient>
 </defs>
-<circle cx="40" cy="40" r="36" fill="url(#halo)"/>                   <!-- glow halo -->
-<rect x="8" y="8" width="64" height="64" rx="14" fill="url(#lg)"/>   <!-- gradient tile -->
-<path d="M 40 20 L 24 42 h 10 L 30 58 L 48 40 H 36 Z" fill="#ffffff"/>  <!-- white bolt glyph -->
-```
 
-**Lightning bolt glyph (white filled)** — the default logo glyph; it only
-ever needs diagonals:
+<g clip-path="url(#bannerClip)" aria-hidden="true">
+  <!-- center is above the canvas: only the lower segment is visible -->
+  <circle cx="1048" cy="-82" r="226" fill="url(#bubble)"/>
+  <circle cx="1048" cy="-82" r="194" fill="none"
+          stroke="#fff" stroke-opacity=".09" stroke-width="1.5"/>
 
-```svg
-<path d="M 40 20 L 24 42 h 10 L 30 58 L 48 40 H 36 Z" fill="#ffffff"/>
-```
-
-Glyph ideas (all drawn filled in white, within the 75% margin — **each has a
-diagonal or fold, none is a stack of bars**):
-- 闪电 bolt (canonical): the zigzag path above
-- 折角便签 folded note: a sheet path + one folded-corner triangle
-- 对勾圆: circle + filled check
-- 音符: circle + stem + flag
-
-**Download arrow in a 32×32 tile** — bounds 711.5–732.5 (21 px wide),
-centered around 722:
-
-```svg
-<g fill="none" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M 722 58.5 L 722 63.5"/>                                   <!-- stem -->
-  <path d="M 718.2 62.3 L 722 66.1 L 725.8 62.3"/>                    <!-- arrowhead -->
-  <path d="M 711.5 70.5 C 714.8 66.8 719 67.5 722 71.3 L 722 78.4 C 719.4 77.1 715.9 76.9 711.5 78.2 Z"/> <!-- tray left -->
-  <path d="M 722 71.3 C 725 67.5 729.2 66.8 732.5 70.5 L 732.5 78.2 C 728.1 76.9 724.6 77.1 722 78.4 Z"/> <!-- tray right -->
+  <!-- center is beyond the left/bottom edge -->
+  <circle cx="-58" cy="322" r="184" fill="url(#bubble)" opacity=".65"/>
 </g>
 ```
 
-A good icon is 3–5 strokes of simple geometry. If an icon needs more than
-6 paths, simplify the idea instead of adding detail.
+Use two to four forms at clearly different scales. Keep their centers outside
+the content field, avoid equal spacing, and never let a bright edge pass behind
+small text. One faint outline or highlight arc is enough to suggest glass.
 
-**Microphone icon (note-taking / dictation app, 18×26 strokes in a 40×40 tile)** —
-a stem arc, a stand, and a base line, all centered in the tile:
+## App icon lockup
+
+Treat the icon and product name as one aligned header. A horizontal lockup
+often works better inside a compact UI than a large icon stacked over a title.
 
 ```svg
-<g fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M 9 14 a 6 6 0 0 1 12 0 v 4 a 6 6 0 0 1 -12 0 z"/>   <!-- capsule body -->
-  <path d="M 7 17 a 8 8 0 0 0 16 0"/>                            <!-- outer arc -->
-  <path d="M 15 25 v 3"/>                                         <!-- stand -->
-  <path d="M 11 31 h 12"/>                                        <!-- base -->
+<g data-role="logo"
+   data-logo-intent="knowledge verification"
+   data-icon-source="lucide"
+   data-icon-name="book-open-check"
+   data-icon-license="ISC">
+  <circle data-role="logo-halo" cx="44" cy="44" r="43" fill="url(#halo)"/>
+  <rect data-role="logo-tile" x="10" y="10" width="68" height="68" rx="17" fill="url(#tile)"/>
+  <g data-role="logo-glyph" transform="translate(23.6 23.6) scale(1.7)"
+     fill="none" stroke="#fff" stroke-width="1.7"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 5v16"/>
+    <path d="m16 12 2 2 4-4"/>
+    <path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/>
+  </g>
 </g>
+<text x="116" y="42" font-size="24" font-weight="700">Product name</text>
+<text x="116" y="68" font-size="14" fill="#64748b">Short functional description</text>
 ```
 
-## Spacing rhythm
+The halo diameter may exceed the tile, but its radius must remain at or below
+72% of the tile width. Keep the center transparent enough that the tile edge
+and glyph remain crisp.
 
-Vertical rhythm inside a card runs on a small ladder — 8 / 16 / 24 px — and
-every sibling of the same kind gets the same gap. Card content inset: ≥ 24 px
-on all sides (mockup content x = popup x + 24 in the example above). If the
-card feels crowded, grow the card (keep inset) instead of shrinking gaps
-unevenly; if it feels empty, grow the inset, not the element widths.
+## UI mockup
 
-**Hierarchy gets rhythm, not monotony.** The gap below a big title should be
-the largest in the figure (banner: title→subtitle ≥ 60 px, subtitle→badges
-≥ 28 px). Mockup content-block gaps: 24–32 px — 60+ px gaps between every
-block read as empty and 松散.
+A browser-extension mockup should show a believable operational surface:
 
-**Logo clearance:** ≥ 40 px between a logo tile and neighboring text; ≥ 32 px
-between the logo and the title below it in a mockup header. A logo crammed
-against text looks like an overlap bug.
+1. Compact browser chrome, 40-48 px tall.
+2. One main popup/card occupying about 65-75% of the canvas width and at least
+   75% of its height.
+3. A horizontal brand lockup.
+4. One or two content sections with clear labels.
+5. Repeated status items using one semantic color.
+6. Peer actions in one row.
+7. A progress or completion state near the bottom.
 
-## Color language
+Avoid placing a card around every section. Use dividers, headings, spacing, and
+background tints before adding another border.
 
-- Brand gradient: dark navy `#12294f` → `#1e4277` → `#2f5fb8`; lighter accent
-  `#4a7bd6` → `#6da3f0`.
-- On-dark text: white, `#cfe0ff` for secondary.
-- On-light mockups: text `#1c2733` (primary), `#5b6b82` (secondary),
-  `#8a94a6` (dim labels), borders `#dfe5ef`, canvas `#e9edf4`.
-- Status: green `#1a9e4b`/`#e8f7ee`, blue `#2f5fb8`/`#eef4ff`.
+### Status item
+
+```svg
+<rect x="0" y="0" width="164" height="54" rx="8"
+      fill="#ecfdf3" stroke="#bbf7d0"/>
+<circle cx="24" cy="27" r="9" fill="#16a34a"/>
+<path d="m20.5 27 2.5 2.5 4.8-5" fill="none" stroke="#fff"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="42" y="32.2" font-size="15" font-weight="600" fill="#15803d">页面就绪</text>
+```
+
+The icon owns a fixed 18 px area. The label begins after that area plus a
+12-18 px gap. Do not center the label independently inside the full card; that
+causes it to collide with the icon.
+
+### Peer actions
+
+```svg
+<rect x="0" y="0" width="256" height="56" rx="8" fill="url(#action)"/>
+<text x="128" y="33.6" font-size="16" font-weight="700"
+      fill="#fff" text-anchor="middle">Primary action</text>
+
+<rect x="272" y="0" width="256" height="56" rx="8"
+      fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="400" y="33.6" font-size="16" font-weight="600"
+      fill="#1d4ed8" text-anchor="middle">Secondary action</text>
+```
+
+## Text measurement and centering
+
+Use the included browser tool or `CanvasRenderingContext2D.measureText`. Match
+family, weight, and size exactly.
+
+For a 44 px pill with 18 px text:
+
+```text
+baseline = y + 44 / 2 + 18 * 0.35
+         = y + 28.3
+```
+
+Use `text-anchor="middle"` and the rectangle center for horizontal centering.
+For left-aligned icon labels, reserve the icon width and gap first, then place
+text. Never center icon and text independently in the same box.
+
+## Color construction
+
+Build a palette by roles rather than by collecting variations of one hue:
+
+- canvas or page surface;
+- primary text and secondary text;
+- one brand accent;
+- one supporting accent if needed;
+- semantic success, warning, and error colors;
+- borders and disabled states.
+
+On a deep-blue banner, cyan can provide contrast and a green success color can
+remain semantically distinct. On light UI surfaces, use neutral grays for
+structure so the brand color does not occupy every element.
+
+## Final visual pass
+
+- Inspect the full asset at 100%.
+- Inspect the logo at 32-64 px.
+- Confirm the glyph still reads without the product title.
+- Confirm halos, shadows, and decorations disappear before the glyph does.
+- Check that equal states use equal colors.
+- Check that repeated items share width, inset, and baseline.
+- Verify no text or vector extends beyond the viewBox.
