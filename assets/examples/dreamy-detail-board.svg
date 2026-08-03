@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="700" viewBox="0 0 1160 700" font-family="PingFang SC, Microsoft YaHei, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">开卷助手梦幻细节语言样板</title>
+  <desc id="desc">四张浅色渐变卡片，展示统一的眉题、衬线标题、说明文字、基线和知识图案：知识星座、梦幻波形、夏日复习路径与记忆卡片。</desc>
+  <defs>
+    <linearGradient id="skyCard" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef9ff"/><stop offset="1" stop-color="#dceff8"/></linearGradient>
+    <linearGradient id="roseCard" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3f8"/><stop offset="1" stop-color="#f8e6ef"/></linearGradient>
+    <linearGradient id="mintCard" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effbf4"/><stop offset="1" stop-color="#dbf1e6"/></linearGradient>
+    <linearGradient id="lilacCard" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f3ff"/><stop offset="1" stop-color="#ebe5fa"/></linearGradient>
+    <linearGradient id="jAccent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6f65c9"/><stop offset="1" stop-color="#ef9e9f"/></linearGradient>
+    <linearGradient id="kAccent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2aaeb0"/><stop offset="1" stop-color="#ecaa5e"/></linearGradient>
+    <filter id="cardShadow" x="-15%" y="-15%" width="130%" height="150%"><feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#8194a6" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1160" height="700" fill="#fbfaf8"/>
+  <text x="54" y="58" font-size="14" font-weight="700" letter-spacing="2" fill="#8e6fa5">KAĪJUAN / DETAIL LANGUAGE</text>
+  <text x="54" y="102" font-family="Georgia, Times New Roman, serif" font-size="34" font-weight="700" fill="#2f304b">开卷助手 · 梦幻细节样板</text>
+  <text x="54" y="128" font-size="15" fill="#77758b">渐变只是底色；真正的识别度来自图案、节奏、边界与文字层级。</text>
+
+  <g filter="url(#cardShadow)">
+    <rect x="40" y="160" width="520" height="220" rx="20" fill="url(#skyCard)" stroke="#c6e1ee"/>
+    <rect x="58" y="178" width="484" height="184" rx="15" fill="none" stroke="#fff" stroke-opacity=".72"/>
+    <text x="78" y="211" font-size="12" font-weight="700" letter-spacing="2" fill="#477da1">KNOWLEDGE CONSTELLATION</text>
+    <text x="78" y="252" font-family="Georgia, Times New Roman, serif" font-size="29" font-weight="700" fill="#2e3557">知识星座</text>
+    <text x="78" y="282" font-size="14" fill="#68758a">把章节、概念与核验关系</text><text x="78" y="302" font-size="14" fill="#68758a">连成一张可读的知识地图。</text>
+    <path d="M78 337h220" stroke="#8dbbd3" stroke-width="2"/><circle cx="78" cy="337" r="3" fill="#477da1"/>
+    <circle cx="437" cy="264" r="72" fill="#acd9e8" fill-opacity=".22"/><circle cx="437" cy="264" r="50" fill="none" stroke="#77adc7" stroke-opacity=".35"/>
+    <path d="M399 252 425 226 462 238 481 270 449 299 414 288Z" fill="none" stroke="#5b7fa6" stroke-width="2"/>
+    <path d="M425 226 437 204M462 238l21-7M481 270l19 14M449 299l5 21M414 288l-21 13" stroke="#5b7fa6" stroke-width="1.5"/>
+    <circle cx="425" cy="226" r="7" fill="#8bb7d5" stroke="#5b7fa6"/><circle cx="462" cy="238" r="7" fill="#ef9cae" stroke="#a96583"/><circle cx="481" cy="270" r="7" fill="#8bb7d5" stroke="#5b7fa6"/><circle cx="449" cy="299" r="7" fill="#7dc5b5" stroke="#4b9b92"/>
+    <path d="m426 263 10 10 19-24" fill="none" stroke="#40aaa8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g filter="url(#cardShadow)">
+    <rect x="600" y="160" width="520" height="220" rx="20" fill="url(#roseCard)" stroke="#efd0df"/>
+    <rect x="618" y="178" width="484" height="184" rx="15" fill="none" stroke="#fff" stroke-opacity=".72"/>
+    <text x="638" y="211" font-size="12" font-weight="700" letter-spacing="2" fill="#ad5d78">DREAM STUDY FLOW</text>
+    <text x="638" y="252" font-family="Georgia, Times New Roman, serif" font-size="29" font-weight="700" fill="#493452">梦幻学习流</text>
+    <text x="638" y="282" font-size="14" fill="#7d6c80">用柔和的波形和小节点</text><text x="638" y="302" font-size="14" fill="#7d6c80">表达“正在理解”的动势。</text>
+    <path d="M638 337h220" stroke="#e1a6bd" stroke-width="2"/><circle cx="638" cy="337" r="3" fill="#ad5d78"/>
+    <circle cx="1004" cy="254" r="72" fill="#f3c9d7" fill-opacity=".34"/><path d="M930 273c18-39 30-38 46 0s28 39 44 0 30-39 46 0" fill="none" stroke="#bf6f94" stroke-width="3" stroke-linecap="round"/><path d="M930 288c18-23 30-24 46 0s28 24 44 0 30-24 46 0" fill="none" stroke="#e7a3bb" stroke-width="2" stroke-linecap="round"/><circle cx="976" cy="273" r="5" fill="#7dc5b5"/><circle cx="1020" cy="273" r="5" fill="#f0ad63"/><circle cx="1066" cy="273" r="5" fill="#8b79d4"/><path d="M990 207c8-8 18-8 26 0M1003 198c8-8 18-8 26 0" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#cardShadow)">
+    <rect x="40" y="414" width="520" height="220" rx="20" fill="url(#mintCard)" stroke="#c6e6d4"/>
+    <rect x="58" y="432" width="484" height="184" rx="15" fill="none" stroke="#fff" stroke-opacity=".72"/>
+    <text x="78" y="465" font-size="12" font-weight="700" letter-spacing="2" fill="#4d8974">SUMMER REVIEW PATH</text>
+    <text x="78" y="506" font-family="Georgia, Times New Roman, serif" font-size="29" font-weight="700" fill="#31524d">夏日复习路径</text>
+    <text x="78" y="536" font-size="14" fill="#678078">用一条轻盈的曲线串起</text><text x="78" y="556" font-size="14" fill="#678078">记忆点、练习和完成状态。</text>
+    <path d="M78 591h220" stroke="#89c8ae" stroke-width="2"/><circle cx="78" cy="591" r="3" fill="#4d8974"/>
+    <circle cx="444" cy="514" r="72" fill="#a9dfc6" fill-opacity=".32"/><path d="M389 570c25-40 41-55 67-50 27 5 36-26 62-48" fill="none" stroke="#4b9b92" stroke-width="3" stroke-linecap="round"/><path d="M389 570c25-40 41-55 67-50 27 5 36-26 62-48v83H389Z" fill="#7dc5b5" fill-opacity=".14"/><circle cx="389" cy="570" r="6" fill="#ef9cae"/><circle cx="456" cy="520" r="6" fill="#f0ad63"/><circle cx="518" cy="472" r="6" fill="#7a70cc"/><path d="M420 538c-11-12-26-11-31 3 12-1 22 4 31 9M501 498c12-14 27-13 33 1-12-2-22 2-33 8" fill="none" stroke="#4d9d82" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#cardShadow)">
+    <rect x="600" y="414" width="520" height="220" rx="20" fill="url(#lilacCard)" stroke="#d8cfee"/>
+    <rect x="618" y="432" width="484" height="184" rx="15" fill="none" stroke="#fff" stroke-opacity=".72"/>
+    <text x="638" y="465" font-size="12" font-weight="700" letter-spacing="2" fill="#7161a8">MEMORY FLASHCARD</text>
+    <text x="638" y="506" font-family="Georgia, Times New Roman, serif" font-size="29" font-weight="700" fill="#413d64">记忆卡片</text>
+    <text x="638" y="536" font-size="14" fill="#77718e">让每个小卡片都有一点</text><text x="638" y="556" font-size="14" fill="#77718e">轻微倾斜和可读的重点。</text>
+    <path d="M638 591h220" stroke="#a69ad2" stroke-width="2"/><circle cx="638" cy="591" r="3" fill="#7161a8"/>
+    <circle cx="1004" cy="522" r="72" fill="#c8c1eb" fill-opacity=".28"/><g transform="rotate(-7 1002 520)"><rect x="952" y="468" width="112" height="105" rx="12" fill="#fff" stroke="#8175bc" stroke-width="2"/><rect x="962" y="478" width="92" height="85" rx="8" fill="#f7f4ff"/><path d="M980 520 1000 501 1020 520 1039 500" fill="none" stroke="#8175bc" stroke-width="2"/><circle cx="980" cy="520" r="4" fill="#ee9eae"/><circle cx="1000" cy="501" r="4" fill="#79c7b0"/><circle cx="1020" cy="520" r="4" fill="#f0ad63"/><circle cx="1039" cy="500" r="4" fill="#8175bc"/><text x="1008" y="550" text-anchor="middle" font-size="9" font-weight="700" fill="#7161a8">CONCEPT / CHECK</text></g>
+  </g>
+</svg>

@@ -92,6 +92,18 @@ test('approved seasonal themes share one brand semantic system', () => {
   assert.match(pair, /共享 Logo、文案和信息结构/);
 });
 
+test('dreamy detail board encodes motifs and a measured type ladder', () => {
+  const board = read('assets/examples/dreamy-detail-board.svg');
+  const system = read('references/style-system.md');
+  assert.match(board, /KNOWLEDGE CONSTELLATION/);
+  assert.match(board, /DREAM STUDY FLOW/);
+  assert.match(board, /SUMMER REVIEW PATH/);
+  assert.match(board, /MEMORY FLASHCARD/);
+  assert.match(board, /Georgia, Times New Roman, serif/);
+  assert.match(system, /three-level text ladder/);
+  assert.match(system, /node constellations/);
+});
+
 test('preference guidance keeps learning local and structured', () => {
   const skill = read('SKILL.md');
   const readme = read('README.md');

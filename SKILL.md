@@ -50,6 +50,10 @@ or the user says the result is plain, generic, or unattractive. Read
 Each direction must reuse the same title, copy, logo meaning, and canvas so the
 comparison isolates design decisions rather than content changes. Show both a
 banner thumbnail and a small popup/UI crop; a color swatch alone is not enough.
+For dreamy or pastel directions, also vary the motif language deliberately
+(networks, waves, progress paths, or memory cards) and apply a measured eyebrow,
+display title, body, and baseline rhythm. Read the detail guidance in
+`references/style-system.md` before drawing decorative patterns.
 
 Use this delivery order:
 

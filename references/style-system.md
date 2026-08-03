@@ -47,3 +47,24 @@ Use the richest output the host supports:
 The chooser is a comparison surface, not the final deliverable. After a choice,
 generate the selected direction and run the same measurement, XML, logo, and
 pixel checks as any other SVG.
+
+## Dreamy detail language
+
+Soft gradients become intentional when the rest of the card has a quiet,
+repeatable system:
+
+- Use a pale base, a 1 px tinted border, a faint inner keyline, and one soft
+  motif field. Keep the motif on the visual side so the reading side stays calm.
+- Prefer motifs with meaning: node constellations for relationships, waveforms
+  for audio or flow, plotted paths for progress, and tilted cards for memory.
+  Build them from a few lines, nodes, arcs, and one accent mark instead of
+  decorative stickers or generic sparkles.
+- Use a three-level text ladder: uppercase eyebrow at 11–12 px with measured
+  tracking, display title at 28–34 px, and body at 13–15 px with a 1.35–1.5
+  line-height. Leave 20–28 px between title and body, then anchor the card with
+  a thin baseline or divider.
+- For Logo lockups, keep the semantic glyph unchanged while varying only the
+  container treatment. Use an outer halo, a quiet ring, a rounded tile, and a
+  single inner keyline; the halo must remain subordinate to the glyph.
+
+The reference implementation is `assets/examples/dreamy-detail-board.svg`.
