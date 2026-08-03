@@ -42,6 +42,7 @@ cp -r skills/svg-optimization ~/.agents/skills/
 skills/svg-optimization/
 ├── SKILL.md                        主流程：生成 → 测量 → 回填 → 验证 → 迭代
 ├── README.md                       本文件
+├── USER-FEEDBACK-HANDOFF.md        用户逐轮真实反馈 + 未解决问题清单（新承接者必读）
 ├── references/
 │   └── design-patterns.md          banner / UI 示意图 / 手绘图标 / 配色，可抄代码
 ├── scripts/
