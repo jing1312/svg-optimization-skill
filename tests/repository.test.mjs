@@ -83,6 +83,15 @@ test('style chooser uses complete directions and host-compatible fallbacks', () 
   assert.equal((options.match(/开卷助手/g) || []).length >= 3, true);
 });
 
+test('approved seasonal themes share one brand semantic system', () => {
+  const pair = read('assets/examples/brand-theme-pair.svg');
+  assert.match(pair, /J · 梦幻极光/);
+  assert.match(pair, /K · 夏日汽水/);
+  assert.match(pair, /data-role="logo"|book-open-check/);
+  assert.ok((pair.match(/开卷助手/g) || []).length >= 4);
+  assert.match(pair, /共享 Logo、文案和信息结构/);
+});
+
 test('preference guidance keeps learning local and structured', () => {
   const skill = read('SKILL.md');
   const readme = read('README.md');

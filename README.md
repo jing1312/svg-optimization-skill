@@ -92,6 +92,7 @@ On hosts without a writable profile, keep preferences in the current session.
 
 ```text
 assets/examples/             Browser-verified banner, mockup, logo, and style choices
+                            `brand-theme-pair.svg` shows the J/K seasonal suite
 evals/                       Structural and logo quality checks
 references/design-patterns.md
 references/logo-system.md
