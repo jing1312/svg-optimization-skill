@@ -11,10 +11,13 @@ that matches the subject and survives small rendering sizes.
 3. Choose a tone: precise, friendly, technical, editorial, or playful.
 4. Search a mature icon library by the noun and verb.
 5. Render two or three candidates at 48 px before choosing one.
-6. Assemble the selected path into the surrounding palette.
+6. Write a secondary-motif sentence when adding nodes, tabs, rings, or
+   progress marks. It must explain a real part of the product meaning.
+7. Assemble the selected path into the surrounding palette.
 
 Do not select the container style before the glyph. A polished tile cannot
-rescue a semantically unrelated symbol.
+rescue a semantically unrelated symbol, and unrelated micro-motifs cannot make
+a simple mark more meaningful.
 
 ## Source hierarchy
 

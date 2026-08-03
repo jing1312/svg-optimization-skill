@@ -59,6 +59,11 @@ repeatable system:
   for audio or flow, plotted paths for progress, and tilted cards for memory.
   Build them from a few lines, nodes, arcs, and one accent mark instead of
   decorative stickers or generic sparkles.
+- Write a motif brief before drawing: `message`, `visual nouns`, and
+  `relationship`. For example, “chapters connect to concepts, and the check
+  confirms the selected concept” becomes a node graph with a check node, not a
+  flower or an unrelated waveform. If a motif cannot be explained in one
+  sentence tied to the copy, remove it.
 - Use a three-level text ladder: uppercase eyebrow at 11–12 px with measured
   tracking, display title at 28–34 px, and body at 13–15 px with a 1.35–1.5
   line-height. Leave 20–28 px between title and body, then anchor the card with
