@@ -64,7 +64,8 @@ repeatable system:
   line-height. Leave 20–28 px between title and body, then anchor the card with
   a thin baseline or divider.
 - For Logo lockups, keep the semantic glyph unchanged while varying only the
-  container treatment. Use an outer halo, a quiet ring, a rounded tile, and a
-  single inner keyline; the halo must remain subordinate to the glyph.
+  container treatment. Use an outer halo, a quiet ring, a rounded tile, a
+  single inner keyline, and at most one clipped gloss or bloom; the halo must
+  remain subordinate to the glyph while the effects fade into the card.
 
 The reference implementation is `assets/examples/dreamy-detail-board.svg`.

@@ -35,8 +35,16 @@ Use for an app, browser extension, or compact product identity:
 - corner radius: 20-25% of tile size;
 - glyph bounds: 58-68% of tile size;
 - border: 1 px light inset at 15-25% opacity;
-- shadow: one soft shadow, vertical offset around 8-12% of tile size;
+- shadow: one colored soft shadow, vertical offset around 8-12% of tile size;
+- optional ambient bloom: a blurred radial field at 20-35% opacity;
+- optional quiet ring: one 1-2 px outline outside the tile;
+- optional gloss: one clipped linear highlight at 8-16% opacity;
 - optional halo radius: 55-72% of tile width.
+
+For dreamy or pastel marks, these layers may be combined in that order. Keep
+the glyph as the highest-contrast layer and make every effect fade before it
+reaches the reading area. A richer container is allowed; a generic glyph is
+not rescued by extra decoration.
 
 ### Bare mark
 

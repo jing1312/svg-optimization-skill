@@ -155,8 +155,12 @@ The container supports the glyph; it is not the concept.
   `0.72 * tile width`; a large opaque disk competes with the mark.
 - Keep glyph bounds around 58-68% of the tile. Adjust optical alignment after
   rendering rather than centering only by coordinates.
-- Use one shadow and one subtle border at most. Avoid glossy ellipses, stacked
-  effects, and decoration that reads louder than the glyph.
+- Use a bounded effect stack when the visual brief calls for a soft editorial
+  or dreamy finish: one colored shadow, one ambient bloom, one quiet ring, and
+  one inset highlight are acceptable when each layer has a distinct job. Avoid
+  unbounded blur, duplicate glows, or decoration that reads louder than the
+  glyph. The goal is controlled depth, not a flat tile and not a pile of
+  effects.
 - Record intent, source, icon name, and license in data attributes.
 
 ```svg
