@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>SVG 文字宽度测量工具</title>
+<style>
+  body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; max-width: 720px; margin: 32px auto; padding: 0 16px; color: #1c2733; }
+  h1 { font-size: 22px; }
+  p.hint { color: #8a94a6; font-size: 13px; }
+  .row { display: flex; gap: 10px; align-items: center; margin: 8px 0; flex-wrap: wrap; }
+  input[type=text] { flex: 1; min-width: 220px; padding: 7px 10px; border: 1px solid #dfe5ef; border-radius: 8px; font-size: 14px; }
+  input[type=number] { width: 90px; padding: 7px 10px; border: 1px solid #dfe5ef; border-radius: 8px; font-size: 14px; }
+  select { padding: 7px 10px; border: 1px solid #dfe5ef; border-radius: 8px; font-size: 14px; }
+  button { padding: 8px 18px; border: none; border-radius: 8px; background: #2f5fb8; color: #fff; font-size: 14px; cursor: pointer; }
+  button.ghost { background: #fff; color: #2f5fb8; border: 1px solid #2f5fb8; }
+  table { border-collapse: collapse; width: 100%; margin-top: 14px; font-size: 13px; }
+  th, td { border: 1px solid #e3e8f0; padding: 6px 10px; text-align: left; }
+  th { background: #f2f4f9; }
+  td.num { font-family: Consolas, monospace; }
+  .bad { color: #c0392b; font-weight: 600; }
+  .preview { margin-top: 16px; border: 1px solid #e3e8f0; border-radius: 12px; padding: 14px; }
+</style>
+</head>
+<body>
+<h1>SVG 文字宽度测量工具</h1>
+<p class="hint">
+  和最终渲染同一把尺：用相同 font-family / font-size / font-weight 测量文字实际宽度，
+  然后 <b>rect.width = 文字宽 + 2×内边距</b>（建议每侧 12–20px）。打开本文件即用，无需联网。
+</p>
+
+<div class="row">
+  <input type="text" id="txt" placeholder="输入要测量的文字，例如：浏览器扩展 · Edge / Chrome">
+  <input type="number" id="fs" value="18" min="6" max="96" title="font-size (px)">
+  <select id="weight">
+    <option value="400">normal</option>
+    <option value="700">bold</option>
+  </select>
+  <button id="btnAdd">加入列表</button>
+</div>
+<div class="row">
+  <select id="family" style="flex:1">
+    <option value='"PingFang SC", "Microsoft YaHei", sans-serif'>PingFang SC, Microsoft YaHei, sans-serif</option>
+    <option value='"Microsoft YaHei", sans-serif'>Microsoft YaHei, sans-serif</option>
+    <option value='Consolas, monospace'>Consolas, monospace</option>
+  </select>
+  <button class="ghost" id="btnClear">清空</button>
+</div>
+
+<table id="tbl">
+  <thead><tr><th>文字</th><th>字号</th><th>字重</th><th>文字宽 (px)</th><th>建议 rect 宽 (+24)</th><th>建议 rect 宽 (+40)</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<div class="preview" id="preview"><p class="hint">加入条目后，这里用同字体实时渲染一行，验证视觉上是否贴合测量值。</p></div>
+
+<script>
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  function measure(text, fs, weight, family) {
+    ctx.font = weight + ' ' + fs + 'px ' + family;
+    return ctx.measureText(text).width;
+  }
+
+  function addRow() {
+    const text = document.getElementById('txt').value;
+    const fs = +document.getElementById('fs').value;
+    const weight = document.getElementById('weight').value;
+    const family = document.getElementById('family').value;
+    if (!text) return;
+    const w = measure(text, fs, weight, family);
+    const tb = document.querySelector('#tbl tbody');
+    const tr = document.createElement('tr');
+    const weightLabel = weight === '700' ? 'bold' : 'normal';
+    tr.innerHTML = '<td>' + text.replace(/</g, '&lt;') + '</td>' +
+      '<td class="num">' + fs + '</td><td>' + weightLabel + '</td>' +
+      '<td class="num">' + w.toFixed(1) + '</td>' +
+      '<td class="num">' + (w + 24).toFixed(1) + '</td>' +
+      '<td class="num">' + (w + 40).toFixed(1) + '</td>';
+    tb.appendChild(tr);
+    renderPreview();
+  }
+
+  function renderPreview() {
+    const box = document.getElementById('preview');
+    const fs = +document.getElementById('fs').value;
+    const weight = document.getElementById('weight').value;
+    const family = document.getElementById('family').value;
+    let html = '<p class="hint">渲染预览（白底红框 = 文字宽，蓝框 = 加 20px 内边距后的 rect）：</p>';
+    document.querySelectorAll('#tbl tbody tr').forEach(tr => {
+      const t = tr.children[0].textContent;
+      const w = parseFloat(tr.children[3].textContent);
+      html += '<div style="position:relative;display:inline-block;margin:6px 12px 6px 0;">' +
+        '<span style="position:absolute;top:0;left:0;height:100%;border:1px solid #c0392b;width:' + w + 'px;pointer-events:none;"></span>' +
+        '<span style="position:absolute;top:0;left:0;height:100%;border:1px solid #2f5fb8;width:' + (w + 40) + 'px;pointer-events:none;"></span>' +
+        '<span style="font:' + weight + ' ' + fs + 'px ' + family + ';white-space:nowrap;">' + t + '</span></div>';
+    });
+    box.innerHTML = html;
+  }
+
+  document.getElementById('btnAdd').addEventListener('click', addRow);
+  document.getElementById('btnClear').addEventListener('click', () => {
+    document.querySelector('#tbl tbody').innerHTML = '';
+    document.getElementById('preview').innerHTML = '<p class="hint">已清空。</p>';
+  });
+  document.getElementById('txt').addEventListener('keydown', e => { if (e.key === 'Enter') addRow(); });
+</script>
+</body>
+</html>

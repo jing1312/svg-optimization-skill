@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12294f"/>
+      <stop offset="1" stop-color="#2f5fb8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1100" height="300" rx="24" fill="url(#bg)"/>
+  <circle cx="980" cy="40" r="140" fill="#ffffff" opacity="0.05"/>
+
+  <text x="70" y="118" font-size="72" font-weight="700" fill="#ffffff" letter-spacing="4">景图题库助手</text>
+  <text x="74" y="168" font-size="26" fill="#cfe0ff">一键导出课程练习题与隐藏答案 · 章节题库 &amp; 期末考试，支持全部章节</text>
+
+  <g font-size="19">
+    <rect x="72" y="196" width="130" height="46" rx="23" fill="#ffffff" opacity="0.12" stroke="#ffffff" stroke-opacity="0.3"/>
+    <text x="92" y="225" fill="#ffffff">浏览器扩展 · Edge / Chrome</text>
+    <rect x="210" y="196" width="130" height="46" rx="23" fill="#ffffff" opacity="0.12" stroke="#ffffff" stroke-opacity="0.3"/>
+    <text x="230" y="225" fill="#ffffff">JSON + Markdown</text>
+    <rect x="348" y="196" width="100" height="46" rx="23" fill="#ffffff" opacity="0.12" stroke="#ffffff" stroke-opacity="0.3"/>
+    <text x="368" y="225" fill="#ffffff">v1.0.0</text>
+  </g>
+</svg>

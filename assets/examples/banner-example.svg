@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12294f"/>
+      <stop offset="0.55" stop-color="#1e4277"/>
+      <stop offset="1" stop-color="#2f5fb8"/>
+    </linearGradient>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5b8def"/>
+      <stop offset="1" stop-color="#2f5fb8"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.35" r="0.8">
+      <stop offset="0" stop-color="#9cc0fa" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#9cc0fa" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#0b1d3a" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1100" height="300" rx="24" fill="url(#bg)"/>
+  <circle cx="980" cy="40" r="140" fill="#ffffff" opacity="0.05"/>
+  <circle cx="1060" cy="280" r="180" fill="#ffffff" opacity="0.04"/>
+  <circle cx="60" cy="300" r="130" fill="#ffffff" opacity="0.04"/>
+
+  <text x="70" y="118" font-size="72" font-weight="700" fill="#ffffff" letter-spacing="4">景图题库助手</text>
+  <text x="70" y="182" font-size="26" fill="#cfe0ff">一键导出课程练习题与隐藏答案 · 章节题库 &amp; 期末考试</text>
+
+  <g font-size="18">
+    <rect x="70" y="214" width="276" height="46" rx="23" fill="#ffffff" opacity="0.12" stroke="#ffffff" stroke-opacity="0.3"/>
+    <text x="92" y="243" fill="#ffffff">浏览器扩展 · Edge / Chrome</text>
+    <rect x="370" y="214" width="204" height="46" rx="23" fill="#ffffff" opacity="0.12" stroke="#ffffff" stroke-opacity="0.3"/>
+    <text x="390" y="243" fill="#ffffff">JSON + Markdown</text>
+    <rect x="598" y="214" width="96" height="46" rx="23" fill="url(#lg)"/>
+    <text x="618" y="243" fill="#ffffff" font-weight="600">v 1.0.0</text>
+  </g>
+
+  <g transform="translate(760 50)">
+    <circle cx="120" cy="100" r="78" fill="url(#halo)"/>
+    <rect x="56" y="56" width="128" height="128" rx="26" fill="url(#lg)" filter="url(#shadow)"/>
+    <ellipse cx="120" cy="76" rx="52" ry="13" fill="#ffffff" opacity="0.16"/>
+    <path d="M 142 72 L 98 118 h 16 L 100 162 L 156 116 H 130 Z" fill="#ffffff"/>
+  </g>
+</svg>
