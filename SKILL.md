@@ -55,8 +55,8 @@ Use this delivery order:
 
 1. Present named directions with one-line differences in composition, material,
    motion, and mood. Keep A/C when they are preferred, then add clearly
-   different editorial, instrument, paper, refractive, contour, or signal
-   directions as requested.
+   different editorial, instrument, paper, refractive, contour, signal,
+   dreamy, summer, or warm directions as requested.
 2. Let the user choose a direction before producing the final SVG. Then offer
    two or three palette/material variants within that selected direction.
 3. Adapt the presentation to the host agent. Use clickable cards when the

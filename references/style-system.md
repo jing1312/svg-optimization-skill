@@ -21,6 +21,9 @@ comparing directions. A useful first set is:
 | G · Refractive glass | overlapping panes and sliced highlights | refractive glass | light passing across planes | expressive, modern |
 | H · Contour field | contour lines framing a quiet center | ink on tinted stock | flowing paths | exploratory, intelligent |
 | I · Minimal signal | one strong mark and ample negative space | flat neutral surface | one directional cue | focused, efficient |
+| J · Dreamy aurora | soft asymmetry with luminous ribbons | lavender-peach glass | drifting light bands | dreamy, gentle |
+| K · Summer soda | sun disc, wave rail, and open sky | mint, aqua, lemon, coral | buoyant bubbles and a rising sweep | bright, playful |
+| L · Warm paper sun | layered sheets with an offset mark | apricot, terracotta, cream | slow folded depth | warm, human |
 
 When the user asks for more options, expand to four to six directions, keeping
 at least two dimensions different between neighboring options. Do not present
