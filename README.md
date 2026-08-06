@@ -12,7 +12,7 @@
 **banner · popup · Logo · 插画板**一套画完，全部零运行时依赖、本地可验证。
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-21%20passed-brightgreen.svg)](tests)
+[![Tests](https://img.shields.io/badge/tests-23%20passed-brightgreen.svg)](tests)
 [![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?logo=node.js&logoColor=white)](package.json)
 
 </div>
@@ -71,7 +71,19 @@
 <div align="center">
   <img src="assets/examples/style-options-example.svg" alt="风格选择器：J/K/L 三个方向，各含完整 banner 缩略图与 popup 局部" width="100%" />
   <br/>
-  <sub><strong>风格选择器</strong> —— 风格未定就先给完整方向：banner 缩略 + popup 局部一起看，选定再生成终稿。</sub>
+  <sub><strong>风格选择器 · 基础三方向（J/K/L）</strong> —— 风格未定就先给完整方向：banner 缩略 + popup 局部一起看，选定再生成终稿。</sub>
+</div>
+
+<div align="center">
+  <img src="assets/examples/theme-selections-season2.svg" alt="Season 2 风格选择器：M 海盐薄荷 / N 落日蜜桃 / O 深海月光 / P 樱花糖果" width="100%" />
+  <br/>
+  <sub><strong>风格选择器 · Season 2（M/N/O/P）</strong> —— 冷雾薄荷 / 落日蜜桃 / 深海月光（暗色夜间模式）/ 樱花糖果，同一文案与 Logo 语义只换色板。</sub>
+</div>
+
+<div align="center">
+  <img src="assets/examples/style-explorations.svg" alt="风格轴探索：Q 墨线手稿与 R 星夜霓虹两种非换色风格" width="100%" />
+  <br/>
+  <sub><strong>风格轴探索（Q/R）</strong> —— 不是换色而是换质感：纸面墨线单色手稿（朱红只给核验）与暗底霓虹受控辉光。</sub>
 </div>
 
 <table>
@@ -104,16 +116,30 @@
 
 ## 🎨 主题方向
 
+### 季节轴（同一文案与 Logo 语义，只换色板与材质）
+
 | 方向 | 气质 | 状态 |
 | --- | --- | --- |
 | **J · 梦幻极光** | 紫罗兰光晕 + 青色节点，空气感最强 | ✅ 默认主题，已应用正式 banner / popup |
 | **K · 夏日汽水** | 青柠气泡 + 珊瑚点核，清爽活力 | ✅ 季节切换主题 |
-| **L · 暖阳纸片** | 暖纸卡片 + 阳光高光，安静学习氛围 | 备选方向（见风格选择器） |
+| **L · 暖阳纸片** | 暖纸卡片 + 阳光高光，安静学习氛围 | 备选（见基础风格选择器） |
+| **M · 海盐薄荷** | 冷雾薄荷 + 冰蓝，干净冷调 | Season 2 |
+| **N · 落日蜜桃** | 蜜桃珊瑚晚霞，温暖治愈 | Season 2 |
+| **O · 深海月光** | 静谧深蓝 + 月光银蓝，夜间模式 | Season 2 |
+| **P · 樱花糖果** | 樱花粉 + 棉花糖高光，甜系运营 | Season 2 |
 | A · 深海气泡 | 原始深蓝版 | 冻结为回归基线 [`banner-deepsea-baseline.svg`](assets/examples/banner-deepsea-baseline.svg) |
 
-三套方向共享**同一标题、文案、Logo 语义与画布**，只换色板与材质
-（[`references/style-system.md`](references/style-system.md)）。
-风格未定或用户说"太简单/不好看"时，技能会先产出 2–3 个完整方向让用户选，再生成终稿。
+### 风格轴（不换色，换质感；与季节轴正交）
+
+| 方向 | 质感逻辑 | 约束 |
+| --- | --- | --- |
+| **Q · 墨线手稿** | 纸面 + 单色墨线插画，无渐变无光晕 | 唯一强调色朱红只留给核验标记 |
+| **R · 星夜霓虹** | 暗底 + 霓虹渐变描边，星点点缀 | 每元素单次受控辉光，星点 ≤ 2 px 且 ≤ 12 颗 |
+
+风格轴探索可放宽六层色板传统，但**不放宽**语义 brief、文字测量与结构门禁
+（[`references/style-system.md`](references/style-system.md) §2–3）。
+所有方向共享同一标题、文案、Logo 语义与画布；风格未定或用户说"太简单/不好看"
+时，技能先产出完整方向（见上面三块选择器）让用户选，再生成终稿。
 
 ## 🧭 你能这样用
 

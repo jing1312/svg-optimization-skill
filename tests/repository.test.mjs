@@ -141,6 +141,25 @@ test("style chooser offers J/K/L each with banner thumbnail and popup crop", () 
   assert.ok((src.match(/data-role="popup-crop"/g) ?? []).length >= 3);
 });
 
+test("season two chooser offers M/N/O/P each with banner thumbnail and popup crop", () => {
+  const src = read("assets/examples/theme-selections-season2.svg");
+  for (const id of ["M", "N", "O", "P"]) {
+    assert.ok(src.includes(`data-style-id="${id}"`), `missing option ${id}`);
+  }
+  assert.ok((src.match(/data-role="banner-thumb"/g) ?? []).length >= 4);
+  assert.ok((src.match(/data-role="popup-crop"/g) ?? []).length >= 4);
+});
+
+test("style explorations offer Q/R as distinct material directions", () => {
+  const src = read("assets/examples/style-explorations.svg");
+  for (const id of ["Q", "R"]) {
+    assert.ok(src.includes(`data-style-id="${id}"`), `missing option ${id}`);
+  }
+  assert.ok((src.match(/data-role="banner-thumb"/g) ?? []).length >= 2);
+  assert.ok((src.match(/data-role="popup-crop"/g) ?? []).length >= 2);
+  assert.ok(src.includes("data-motif="), "explorations keep semantic motifs");
+});
+
 test("brand theme pair contains both seasonal suites", () => {
   const src = read("assets/examples/brand-theme-pair.svg");
   assert.match(src, /data-theme-id="J"/);

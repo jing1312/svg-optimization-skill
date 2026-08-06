@@ -1,8 +1,9 @@
 # Style System
 
-Direction registry. Directions A/C/D–I are historical; J/K/L are the current
-seasonal set. All directions share identical copy (SKILL.md §2) and logo
-semantics — only palette, material and motif accents differ.
+Direction registry. Directions A/C/D–I are historical; J/K/L/M/N/O/P are the
+current seasonal set; Q/R are style-axis explorations. All directions share
+identical copy (SKILL.md §2) and logo semantics — only palette, material and
+motif accents differ.
 
 ## 1. Historical directions (frozen)
 
@@ -38,7 +39,66 @@ semantics — only palette, material and motif accents differ.
 - Material: cut paper with one folded corner per card.
 - Motif accents: chapter nodes as paper tabs.
 
-## 3. Shared rules
+### M · 海盐薄荷 (Sea Salt Mint)
+
+- Base: `#f0fbf8 → #e6f7f1`.
+- Accents: mint `#5eead4`, seafoam `#99f6e4`, ice blue `#7dd3fc`, salt white `#f8fffe`.
+- Ink `#23443d`; shadow teal-tinted at 16 %; halo is cold mist, opacity ≤ 0.4.
+- Material: frosted glass — highlight is a cold white sheen, never warm.
+- Motif accents: chapter nodes as ice beads; review path as a shoreline dotted line.
+
+### N · 落日蜜桃 (Sunset Peach)
+
+- Base: `#fff5ef → #ffe9dd`.
+- Accents: peach `#fb923c`, coral `#fb7185`, apricot `#fdba74`, blush `#fecdd3`.
+- Ink `#4a2f2a`; shadow coral-tinted at 18 %; halo is low-sun warmth fading to 0.
+- Material: dusk glow — one large sun halo at top, page gloss kept warm.
+- Motif accents: chapter nodes as sunlit beads; waveform bars in peach→coral.
+
+### O · 深海月光 (Deep Sea Moonlight)
+
+- Base: `#0d1b2e → #16324f` (dark direction).
+- Accents: moon silver `#cbd5e1`, moon blue `#93c5fd`, deep cyan `#22d3ee`.
+- Text ink `#e6edf7`; cards/tiles `#16233b` with silver keyline at 30 %.
+- Material: quiet water — halos are moon-blue at ≤ 0.3, bubbles silver-rimmed
+  and sparse; no warm color anywhere.
+- Motif accents: chapter nodes as moon phases; verification check in moon blue.
+- Contrast rule: all body text ≥ 70 % lightness on this base.
+
+### P · 樱花糖果 (Sakura Candy)
+
+- Base: `#fff5f9 → #ffe9f3`.
+- Accents: sakura `#f9a8d4`, candy pink `#f472b6`, cream `#fef3f7`, leaf mint `#86efac`.
+- Ink `#4d2b3a`; shadow pink-tinted at 20 %; halo candy-pink at ≤ 0.35.
+- Material: cotton-candy highlight; candy sprinkles allowed **only inside cards**,
+  radius ≤ 5 px, ≤ 8 per card, colors from the accent set (sprinkles, not scatter).
+- Motif accents: chapter nodes as candy beads; shield badge in candy pink.
+
+## 3. Style-axis explorations (not seasonal recolors)
+
+These explore a different look-and-feel axis while keeping semantic briefs,
+accessibility and structure gates. They may relax the six-layer palette
+tradition but never the motif-brief and measurement rules.
+
+### Q · 墨线手稿 (Ink Sketch)
+
+- Base: paper `#fdfcf8`; ink `#2f2a24`, single accent vermilion `#d94f30`.
+- Illustrations are stroke-only line art (fill none) at unified 2.4 px; no
+  gradient fills, no halo — the paper texture carries the airiness.
+- The single accent is reserved for verification marks (check/shield); never
+  decorative.
+- Logo: tile becomes paper with ink keyline; node ring drawn as ink dots.
+
+### R · 星夜霓虹 (Starry Neon)
+
+- Base: `#0a0a1a → #141432`; text ink `#e6e9ff`.
+- Neon strokes: `#22d3ee → #a855f7 → #f472b6` linear gradients on dark; glow via
+  feDropShadow at ≤ 10 stdDeviation (bounded, single pass).
+- Material: signage — one glow per element, no overlapping halos; star dots
+  ≤ 2 px radius, ≤ 12 per banner, always behind content.
+- Logo: tile becomes glass-black; glyph strokes neon gradient; shield neon cyan.
+
+## 4. Shared rules
 
 1. Effect stack exactly as `design-patterns.md` §5 — six layers, in order.
 2. Semantic motifs: each card’s `<g>` carries

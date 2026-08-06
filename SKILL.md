@@ -107,7 +107,7 @@ node scripts/preferences.mjs reset
 ## 7. Verification
 
 ```bash
-npm test        # unit + repository structure tests (21 tests)
+npm test        # unit + repository structure tests (23 tests)
 npm run check   # XML well-formedness + logo quality gates
 git diff --check
 ```
