@@ -83,7 +83,7 @@
   <g transform="translate(960 44)">
     <rect x="0" y="0" width="120" height="30" rx="15" fill="#ffffff" stroke="#8b7cf6" stroke-opacity="0.5" stroke-width="1.2"/>
     <circle cx="18" cy="15" r="5" fill="#8b7cf6"/>
-    <text x="30" y="20" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">默认 · J 梦幻极光</text>
+    <text x="30" y="20" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#454b73">默认 · J 梦幻极光</text>
   </g>
 
   <g data-motif="chapter-relations" data-motif-message="章节节点连成可核验的知识关系网" transform="translate(872 214)" stroke="#8b7cf6" fill="none" stroke-width="1.6">
