@@ -28,7 +28,7 @@ test("privacy boundary document exists with public-release rules", () => {
 });
 
 test("public files contain no private identifiers", () => {
-  const patterns = [/api[_-]?key/i, /Bearer\s+[A-Za-z0-9]/, /PRIVATE KEY/, /password\s*=/i, /\/home\/[a-z0-9]/i, /\/Users\/[a-z0-9]/i, /C:\\Users\\/i];
+  const patterns = [/api[_-]?key/i, /Bearer\s+[A-Za-z0-9]/, /PRIVATE KEY/, /password\s*=/i, /\/home\/[a-z0-9]/i, /(C:[/\\]|\/)Users\//i];
   const offenders = [];
   const walk = (dir) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
