@@ -65,11 +65,11 @@
     <text x="946" y="234" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#8a8fb8">21 测试 + 结构/Logo 质量门禁全部本地可跑</text>
   </g>
 
-  <g data-motif="chapter-relations" data-motif-message="章节节点连成可核验的知识关系网" transform="translate(560 246)" stroke="#8b7cf6" fill="none" stroke-width="1.6">
-    <path d="M0 22C40 -6 108 -6 148 22" stroke-opacity="0.5" stroke-dasharray="4 6"/>
-    <circle cx="0" cy="22" r="6" fill="#ffffff"/>
-    <circle cx="74" cy="3" r="7" fill="#ffffff"/>
-    <circle cx="148" cy="22" r="6" fill="#ffffff"/>
-    <path d="M71 3l2.4 2.4 5-5" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <g data-motif="chapter-relations" data-motif-message="章节节点连成可核验的知识关系网" transform="translate(52 268)" stroke="#8b7cf6" fill="none" stroke-width="1.4">
+    <path d="M0 14C20 2 52 2 72 14" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+    <circle cx="0" cy="14" r="4" fill="#ffffff"/>
+    <circle cx="36" cy="5" r="4.5" fill="#ffffff"/>
+    <circle cx="72" cy="14" r="4" fill="#ffffff"/>
+    <path d="M34 5l1.7 1.7 3.4-3.4" stroke="#38bdf8" stroke-width="1.6" stroke-linecap="round"/>
   </g>
 </svg>

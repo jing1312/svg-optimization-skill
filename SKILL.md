@@ -45,10 +45,14 @@ relationship graphs, review paths become checkable, notes become exported packs.
    (`references/style-system.md` §3). Do not stack unbounded blurs, repeated
    glows, or scattered decorative dots.
 4. Validate geometry: every `<text>` must fit its container; measure with
-   `scripts/measure_text.html` when fonts are ambiguous.
-5. Run `npm test` and `npm run check`; for SVG edits also XML-parse every file.
-   Passing structure tests does not prove the art is good — additionally open the
-   SVG in a real browser screenshot and state what was visually inspected.
+   `scripts/measure_text.html` when fonts are ambiguous. Layout red lines
+   G1–G4 (no canvas overflow, no container overflow, no motif occlusion, no
+   text-on-text overlap) are machine-enforced by `evals/grade.mjs` — see
+   `references/design-patterns.md` §7.
+5. Run `npm test` and `npm run check`; the check must report zero geometry
+   issues for every SVG. Passing structure tests does not prove the art is
+   good — additionally open the SVG in a real browser screenshot and state
+   what was visually inspected.
 
 ## 4. Style-choice flow
 
@@ -107,8 +111,8 @@ node scripts/preferences.mjs reset
 ## 7. Verification
 
 ```bash
-npm test        # unit + repository structure tests (23 tests)
-npm run check   # XML well-formedness + logo quality gates
+npm test        # unit + repository structure tests (26 tests)
+npm run check   # XML well-formedness + logo quality + geometry gates G1–G4
 git diff --check
 ```
 

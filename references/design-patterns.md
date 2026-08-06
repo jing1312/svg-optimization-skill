@@ -71,3 +71,21 @@ dot scatter, multiple unrelated primary motifs in one asset.
 Header (logo 40 px row) → feature rows (icon + label + one-line proof) →
 primary CTA. Feature rows reuse the same motif nouns as the banner so the popup
 reads as one product, not three stickers.
+
+## 7. 布局红线（geometry gate 自动强制，G1–G4）
+
+这些是最基本的布局规则，**永远不允许违反**。`npm run check` 会对所有
+`assets/**/*.svg` 执行几何门禁（文本宽度按 CJK=1em、Latin≈0.56em 估算）：
+
+- **G1 不越界**：所有文字必须完整落在画布内；唯一例外是显式 `clip-path`
+  组内的边缘裁切元素。
+- **G2 容器适配**：chip / pill / 按钮里的文字，左右各留 ≥5 px；先估算
+  再定容器宽度——`容器宽 ≥ 起点x + 估算文本宽 + 8`。文字永远不允许比
+  容器长而"等着被裁"。
+- **G3 不遮挡**：文字不得与任何 `data-motif` 图案包围盒、Logo 包围盒相交。
+  装饰图案要么让开文字行，要么删除——不用图案去救排版。
+- **G4 不互压**：两段文字的包围盒不得重叠。
+
+流程要求：每次改完 SVG，先跑 `npm run check`（几何门禁 0 issue），再上
+浏览器做最终目检；估算宽度只是预检，目检才是放行标准。回归测试
+`tests/fixtures/geometry-bad.svg` 保证门禁本身不会失效。

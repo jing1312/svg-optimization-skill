@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-labelledby="s2Title">
+  <title id="s2Title">排版轴 S2 · 高级广告感：深色底、金色点缀、居中衬线构图</title>
+  <desc>同一品牌文案的高级广告排版：居中 Logo、金色细分割线、衬线大标题、大量留白。</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1017"/>
+      <stop offset="0.6" stop-color="#0f141d"/>
+      <stop offset="1" stop-color="#0a0d13"/>
+    </linearGradient>
+    <radialGradient id="spotGlow" cx="0.5" cy="0.32" r="0.55">
+      <stop offset="0" stop-color="#d3b57a" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#d3b57a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="logoHalo" cx="0.5" cy="0.45" r="0.5">
+      <stop offset="0" stop-color="#d3b57a" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#d3b57a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d3b57a" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#d3b57a" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#d3b57a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="tileGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a212c"/>
+      <stop offset="1" stop-color="#131923"/>
+    </linearGradient>
+    <clipPath id="tileClip"><rect x="16" y="16" width="64" height="64" rx="20"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgGrad)"/>
+  <ellipse cx="600" cy="256" rx="520" ry="320" fill="url(#spotGlow)"/>
+
+  <!-- corner ticks -->
+  <g stroke="#d3b57a" stroke-opacity="0.55" stroke-width="1.4" fill="none">
+    <path d="M40 64V40h24"/>
+    <path d="M1136 40h24v24"/>
+    <path d="M40 736v24h24"/>
+    <path d="M1136 760h24v-24"/>
+  </g>
+
+  <text x="600" y="120" text-anchor="middle" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="13" fill="#c9a76a" letter-spacing="8">知了学习 · ZHILIAO STUDY</text>
+  <line x1="360" y1="146" x2="840" y2="146" stroke="url(#goldLine)" stroke-width="1"/>
+
+  <g data-layout-id="S2" data-role="logo" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC" transform="translate(552 180)">
+    <circle cx="48" cy="46" r="44" fill="url(#logoHalo)"/>
+    <rect x="16" y="16" width="64" height="64" rx="20" fill="url(#tileGold)" stroke="#d3b57a" stroke-opacity="0.7" stroke-width="1.2"/>
+    <rect x="21" y="21" width="54" height="54" rx="16" fill="none" stroke="#d3b57a" stroke-opacity="0.35" stroke-width="1.2"/>
+    <path d="M48 39.5c-2.5-2-5.4-2.7-9.2-2.7h-6.3v18.4h6.3c3.8 0 6.7.7 9.2 2.7z" fill="#131923" stroke="#e8ddc2" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M48 39.5c2.5-2 5.4-2.7 9.2-2.7h6.3v18.4H57c-3.8 0-6.7.7-9.2 2.7z" fill="#1a212c" stroke="#e8ddc2" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#131923" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#d3b57a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g clip-path="url(#tileClip)"><rect x="16" y="16" width="64" height="22" fill="#ffffff" opacity="0.07"/></g>
+  </g>
+
+  <text x="600" y="380" text-anchor="middle" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="56" font-weight="700" fill="#f2ead6" letter-spacing="8">把章节连成关系网</text>
+  <text x="600" y="442" text-anchor="middle" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="24" fill="#cbb285" letter-spacing="12">让每次复习都有据可查</text>
+
+  <line x1="470" y1="498" x2="730" y2="498" stroke="url(#goldLine)" stroke-width="1"/>
+
+  <text x="600" y="560" text-anchor="middle" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="16" fill="#8d94a3" letter-spacing="2">章节关系 · 复习路径 · 提纲生成 · 卡片核验 · 资料导出</text>
+
+  <g data-role="cta" transform="translate(450 618)">
+    <rect width="300" height="58" rx="29" fill="none" stroke="#d3b57a" stroke-width="1.4"/>
+    <rect x="4" y="4" width="292" height="50" rx="25" fill="#d3b57a" fill-opacity="0.08"/>
+    <text x="150" y="37" text-anchor="middle" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="19" font-weight="600" fill="#e8d7ac" letter-spacing="4">开始核验</text>
+  </g>
+
+  <text x="600" y="744" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#6c7482" letter-spacing="1">LAYOUT S2 · PREMIUM AD — 金色衬线 · 居中留白 · 深色高级感</text>
+</svg>

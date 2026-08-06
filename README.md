@@ -12,7 +12,7 @@
 **banner · popup · Logo · 插画板**一套画完，全部零运行时依赖、本地可验证。
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-23%20passed-brightgreen.svg)](tests)
+[![Tests](https://img.shields.io/badge/tests-26%20passed-brightgreen.svg)](tests)
 [![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?logo=node.js&logoColor=white)](package.json)
 
 </div>
@@ -88,6 +88,21 @@
 
 <table>
   <tr>
+    <td width="42%" valign="top">
+      <img src="assets/examples/layout-poster.svg" alt="排版轴 S1 编辑海报风：超大展示字与编号网格" width="100%" />
+      <br/>
+      <sub><strong>排版轴 S1 · 编辑海报</strong> —— 超大展示字、编号信息区、细线与留白。</sub>
+    </td>
+    <td width="58%" valign="top">
+      <img src="assets/examples/layout-premium.svg" alt="排版轴 S2 高级广告感：深色金线衬线居中构图" width="100%" />
+      <br/>
+      <sub><strong>排版轴 S2 · 高级广告</strong> —— 深色底、金色发丝线、衬线大字、严格中轴。</sub>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
     <td width="52%" valign="top">
       <img src="assets/examples/brand-theme-pair.svg" alt="J×K 双主题套系：同一语义两套季节皮肤" width="100%" />
       <br/>
@@ -141,6 +156,16 @@
 所有方向共享同一标题、文案、Logo 语义与画布；风格未定或用户说"太简单/不好看"
 时，技能先产出完整方向（见上面三块选择器）让用户选，再生成终稿。
 
+### 排版轴（改构图，不改文案；与上面两轴正交）
+
+| 方向 | 构图逻辑 | 关键约束 |
+| --- | --- | --- |
+| **S1 · 编辑海报** | 竖版、超大展示字、编号信息区、细线网格 | 展示字 ≤ 3 行、单幅只留一个语义 motif、ghost 元素 ≤ 0.12 透明度 |
+| **S2 · 高级广告** | 深色底 + 金色发丝线 + 衬线中轴 | 无光晕无气泡、留白 ≥ 40%、正文 ≥ 12px 灰阶 |
+
+排版轴规则见 [`references/style-system.md`](references/style-system.md) §5；
+所有排版资产同样必须通过几何门禁 G1–G4（见下文安装与验证）。
+
 ## 🧭 你能这样用
 
 | 场景 | 你可以这样问 |
@@ -173,7 +198,7 @@ cp -R svg-optimization-skill ~/.codex/skills/   # 或 ~/.claude/skills/、~/.age
 ### 本地验证（零依赖，Node ≥ 18）
 
 ```bash
-npm test        # 21 项：偏好 CLI + 隐私扫描 + SVG 结构 + Logo 门禁
+npm test        # 26 项：偏好 CLI + 隐私扫描 + SVG 结构 + Logo/几何门禁
 npm run check   # XML well-formedness + Logo 质量评估（8 个示例资产）
 node evals/grade.mjs path/to/any.svg   # 单独评估某个文件
 ```

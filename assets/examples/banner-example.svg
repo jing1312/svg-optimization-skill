@@ -80,8 +80,8 @@
   <text data-role="banner-title" x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#2b2f55" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
   <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#454b73">把章节连成关系网，让每次复习都有据可查</text>
 
-  <g transform="translate(960 44)">
-    <rect x="0" y="0" width="120" height="30" rx="15" fill="#ffffff" stroke="#8b7cf6" stroke-opacity="0.5" stroke-width="1.2"/>
+  <g transform="translate(920 44)">
+    <rect x="0" y="0" width="160" height="30" rx="15" fill="#ffffff" stroke="#8b7cf6" stroke-opacity="0.5" stroke-width="1.2"/>
     <circle cx="18" cy="15" r="5" fill="#8b7cf6"/>
     <text x="30" y="20" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#454b73">默认 · J 梦幻极光</text>
   </g>

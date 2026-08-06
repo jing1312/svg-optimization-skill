@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { wellFormedXml } from "../evals/grade.mjs";
+import { wellFormedXml, gradeSvg } from "../evals/grade.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (rel) => fs.readFileSync(path.join(repoRoot, rel), "utf8");
@@ -182,4 +182,42 @@ test("deep-sea baseline banner survives as the A regression file", () => {
   assert.match(src, /viewBox="0 0 1100 300"/);
   assert.match(src, /#0a2740/);
   assert.match(src, /data-role="edge-clipped-bubbles"/);
+});
+
+// --- geometry gate (overflow / occlusion are never allowed again) ----------
+
+test("geometry gate flags canvas overflow, container overflow and motif collision", () => {
+  const { issues } = gradeSvg(path.join(repoRoot, "tests", "fixtures", "geometry-bad.svg"));
+  const geo = issues.filter((i) => i.startsWith("geometry"));
+  assert.ok(geo.some((i) => i.includes("G1")), "must catch text escaping the canvas");
+  assert.ok(geo.some((i) => i.includes("G2")), "must catch text overflowing its container");
+  assert.ok(geo.some((i) => i.includes("G3")), "must catch motif occluding text");
+});
+
+test("every shipped asset is geometry-clean (no overflow, no occlusion)", () => {
+  const walk = (dir) => {
+    const out = [];
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, entry.name);
+      if (entry.isDirectory()) out.push(...walk(p));
+      else if (entry.name.endsWith(".svg")) out.push(p);
+    }
+    return out;
+  };
+  const offenders = [];
+  for (const f of walk(path.join(repoRoot, "assets"))) {
+    const geo = gradeSvg(f).issues.filter((i) => i.startsWith("geometry"));
+    if (geo.length) offenders.push(`${path.relative(repoRoot, f)}: ${geo.join("; ")}`);
+  }
+  assert.deepEqual(offenders, []);
+});
+
+test("layout axis boards S1 poster and S2 premium ad stay semantic", () => {
+  const poster = read("assets/examples/layout-poster.svg");
+  assert.match(poster, /data-layout-id="S1"/);
+  assert.match(poster, /data-motif="chapter-relations"/);
+  const premium = read("assets/examples/layout-premium.svg");
+  assert.match(premium, /data-layout-id="S2"/);
+  assert.match(premium, /data-role="cta"/);
+  assert.match(premium, /data-role="logo"/);
 });

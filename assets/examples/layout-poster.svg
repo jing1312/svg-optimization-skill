@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" width="900" height="1200" role="img" aria-labelledby="s1Title">
+  <title id="s1Title">排版轴 S1 · 编辑海报风：大号展示字、编号索引与细线的杂志构图</title>
+  <desc>同一品牌文案的海报式排版：超大中文展示字、章节关系星座、编号信息区、留白主导。</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8f7ff"/>
+      <stop offset="1" stop-color="#f3f1fb"/>
+    </linearGradient>
+    <radialGradient id="haloCorner" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#8b7cf6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="900" height="1200" fill="url(#bgGrad)"/>
+  <ellipse cx="760" cy="180" rx="340" ry="260" fill="url(#haloCorner)"/>
+  <rect x="24" y="24" width="852" height="1152" fill="none" stroke="#23263f" stroke-opacity="0.16" stroke-width="1"/>
+
+  <text x="72" y="76" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" font-weight="600" fill="#6b7086" letter-spacing="3">ZHILIAO STUDY · KNOWLEDGE VERIFICATION</text>
+  <text x="828" y="76" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#6b7086" letter-spacing="2">ISSUE 01 · SUMMER</text>
+  <line x1="72" y1="98" x2="828" y2="98" stroke="#23263f" stroke-opacity="0.2" stroke-width="1"/>
+
+  <text x="560" y="318" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="220" font-weight="700" fill="none" stroke="#23263f" stroke-opacity="0.12" stroke-width="1.5">01</text>
+
+  <g data-layout-id="S1" data-motif="display-typography" data-motif-message="超大展示字把品牌主张排成海报主视觉">
+    <text x="72" y="292" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="96" font-weight="700" fill="#23263f" letter-spacing="2">把章节</text>
+    <text x="72" y="420" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="96" font-weight="700" fill="#23263f" letter-spacing="2">连成</text>
+    <text x="72" y="548" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="96" font-weight="700" fill="#7c6ee0" letter-spacing="2">关系网</text>
+  </g>
+
+  <g data-motif="chapter-relations" data-motif-message="章节节点在海报右侧连成星座，呼应关系网主题" transform="translate(460 400)" fill="none" stroke-linecap="round">
+    <path d="M18 130C90 60 200 60 268 14" stroke="#7c6ee0" stroke-opacity="0.45" stroke-width="1.4" stroke-dasharray="3 6"/>
+    <path d="M18 130C100 150 190 120 268 14" stroke="#38bdf8" stroke-opacity="0.35" stroke-width="1.2" stroke-dasharray="2 7"/>
+    <circle cx="18" cy="130" r="7" fill="#ffffff" stroke="#23263f" stroke-width="1.8"/>
+    <circle cx="150" cy="84" r="8" fill="#ffffff" stroke="#7c6ee0" stroke-width="1.8"/>
+    <circle cx="268" cy="14" r="7" fill="#ffffff" stroke="#23263f" stroke-width="1.8"/>
+    <path d="M146 84l3 3 6.4-6.4" stroke="#7c6ee0" stroke-width="2"/>
+  </g>
+
+  <line x1="72" y1="640" x2="828" y2="640" stroke="#23263f" stroke-opacity="0.2" stroke-width="1"/>
+
+  <g font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">
+    <line x1="72" y1="684" x2="828" y2="684" stroke="#23263f" stroke-opacity="0.08" stroke-width="1"/>
+    <text x="72" y="722" font-size="13" font-weight="600" fill="#7c6ee0" letter-spacing="2">01</text>
+    <text x="150" y="722" font-size="20" font-weight="600" fill="#23263f">章节关系网</text>
+    <text x="150" y="750" font-size="13" fill="#6b7086">每章概念自动连成可核验的关系图</text>
+    <line x1="72" y1="782" x2="828" y2="782" stroke="#23263f" stroke-opacity="0.08" stroke-width="1"/>
+    <text x="72" y="820" font-size="13" font-weight="600" fill="#7c6ee0" letter-spacing="2">02</text>
+    <text x="150" y="820" font-size="20" font-weight="600" fill="#23263f">复习路径</text>
+    <text x="150" y="848" font-size="13" fill="#6b7086">按掌握度推进，每一步复习都可回溯</text>
+    <line x1="72" y1="880" x2="828" y2="880" stroke="#23263f" stroke-opacity="0.08" stroke-width="1"/>
+    <text x="72" y="918" font-size="13" font-weight="600" fill="#7c6ee0" letter-spacing="2">03</text>
+    <text x="150" y="918" font-size="20" font-weight="600" fill="#23263f">资料导出包</text>
+    <text x="150" y="946" font-size="13" fill="#6b7086">笔记、卡片与提纲一起打包，随时带走</text>
+    <line x1="72" y1="978" x2="828" y2="978" stroke="#23263f" stroke-opacity="0.08" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(72 1044)">
+    <rect width="44" height="44" rx="12" fill="#ffffff" stroke="#23263f" stroke-opacity="0.5" stroke-width="1.4"/>
+    <path d="M22 17c-2-1.6-4.3-2.2-7.4-2.2h-5v15h5c3.1 0 5.4.6 7.4 2.2z" fill="none" stroke="#23263f" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M22 17c2-1.6 4.3-2.2 7.4-2.2h5v15h-5c-3.1 0-5.4.6-7.4 2.2z" fill="none" stroke="#23263f" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M15 24.5l4 4 10-10" fill="none" stroke="#7c6ee0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="140" y="1066" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#23263f">知了学习</text>
+  <text x="140" y="1088" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#6b7086">知识组织与核验助手 · 每个图案都讲得出语义</text>
+  <text x="828" y="1078" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#6b7086" letter-spacing="2">LAYOUT S1 · EDITORIAL POSTER</text>
+</svg>

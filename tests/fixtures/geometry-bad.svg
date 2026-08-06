@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" role="img">
+  <title id="t">Intentionally broken fixture: exercises G1, G2 and G3 simultaneously</title>
+  <!-- G2: text wider than its pill container -->
+  <rect x="10" y="10" width="100" height="28" rx="14" fill="#ffffff"/>
+  <text x="22" y="29" font-size="13">这段文字明显超出容器宽</text>
+  <!-- G3: motif node placed directly on top of the subtitle line -->
+  <text x="20" y="80" font-size="16">这是一行会被图案节点遮挡的说明文字</text>
+  <g data-motif="chapter-relations" data-motif-message="fixture collision probe">
+    <circle cx="150" cy="74" r="9" fill="#8b7cf6"/>
+  </g>
+  <!-- G1: text runs past the right edge of the canvas -->
+  <text x="250" y="108" font-size="14">越界文字</text>
+</svg>

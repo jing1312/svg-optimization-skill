@@ -111,3 +111,31 @@ tradition but never the motif-brief and measurement rules.
 5. Seasonal switching: J and K remain swappable themes after a default is
    chosen; do not delete either asset set. Chosen default: **J 梦幻极光**,
    applied to `banner-example.svg` and `popup-mockup-example.svg`.
+
+## 5. Layout axis (排版轴)
+
+排版轴改变构图层级与信息编排，与季节色板、风格轴正交——任何色板都可以套用
+任一排版轴，但几何门禁 G1–G4 永远适用（`design-patterns.md` §7）。
+
+### S1 · 编辑海报 (Editorial Poster)
+
+- Canvas `900×1200` 竖版；24 px 边界框，正文网格从 72 px 起。
+- 超大展示字（96–120 px）承载主信息，至多三行，一行一个短语；第三行可用
+  单一主题强调色。
+- 编号信息区（01/02/03）沿细分线排列：标题 20 px + 说明 13 px。
+- 全幅只保留一个语义 motif（如节点星座），放在展示字对侧留白处；不重复装饰。
+- Ghost 数字 / ISSUE eyebrow 允许，但 opacity ≤ 0.12，且不得压住正文。
+
+### S2 · 高级广告 (Premium Ad)
+
+- Canvas `1200×800`；深底（≤ `#1a212c`）+ 金点缀（`#d3b57a`）；标题必须用
+  衬线字族（Songti SC / STSong / Noto Serif SC）。
+- 严格中轴对称：eyebrow → 金色发丝线 → logo → 主标题 → 副标题 → 能力线 → CTA。
+- 克制效果：无环境光晕层、无气泡；唯一 spot 光晕 ≤ 0.16；留白 ≥ 40%。
+- 分割线只用 1 px 两端淡出至 0 的渐变发丝线；四角角标 1.4 px。
+- eyebrow letter-spacing ≥ 8 px；正文灰阶不低于 `#8d94a3`、≥ 12 px。
+
+### 组合规则
+
+- 排版轴资产同样要过 `npm run check`（含几何门禁），并在浏览器实测后才算完成。
+- 新排版方向命名 S3、S4…；先出完整单页样板，再考虑换季套色。
