@@ -1,0 +1,15 @@
+{
+  "name": "svg-optimization-skill",
+  "version": "0.7.0",
+  "private": true,
+  "type": "module",
+  "description": "Dreamy summer-gradient SVG brand assets with semantic motifs, verified locally.",
+  "scripts": {
+    "test": "node --test",
+    "check": "node evals/grade.mjs",
+    "prefs": "node scripts/preferences.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

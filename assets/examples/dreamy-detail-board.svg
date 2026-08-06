@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 800" width="920" height="800" role="img" aria-labelledby="dbTitle">
+  <title id="dbTitle">基础插画语法：四张语义化细节卡</title>
+  <desc>梦幻极光主题下，章节关系网、复习路径、卡片核验、提纲生成四张卡片的统一插画语法示范。</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef4ff"/>
+      <stop offset="1" stop-color="#f6efff"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f7f5ff"/>
+    </linearGradient>
+    <linearGradient id="glossGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.65"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="haloV" cx="0.5" cy="0.35" r="0.6">
+      <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#8b7cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="haloC" cx="0.5" cy="0.35" r="0.6">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#7c6ee0"/>
+    </linearGradient>
+    <filter id="cardLift" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#7c74e8" flood-opacity="0.2"/>
+    </filter>
+    <clipPath id="clipD1"><rect x="50" y="116" width="380" height="300" rx="22"/></clipPath>
+    <clipPath id="clipD2"><rect x="490" y="116" width="380" height="300" rx="22"/></clipPath>
+    <clipPath id="clipD3"><rect x="50" y="436" width="380" height="300" rx="22"/></clipPath>
+    <clipPath id="clipD4"><rect x="490" y="436" width="380" height="300" rx="22"/></clipPath>
+  </defs>
+
+  <rect width="920" height="800" fill="url(#bgGrad)"/>
+  <text x="50" y="58" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="24" font-weight="600" fill="#2b2f55">基础插画语法 · 四张语义化细节卡</text>
+  <text x="50" y="86" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">统一线宽 2.4 · 每卡最多两个强调色 · 每个图案先写 brief 再动手</text>
+
+  <g data-motif="chapter-relations" data-motif-message="章节概念连成可核验的关系网">
+    <rect x="50" y="116" width="380" height="300" rx="22" fill="url(#cardGrad)" filter="url(#cardLift)"/>
+    <ellipse cx="240" cy="220" rx="190" ry="120" fill="url(#haloV)"/>
+    <rect x="56" y="122" width="368" height="288" rx="18" fill="none" stroke="#8b7cf6" stroke-opacity="0.28" stroke-width="1.4"/>
+    <g clip-path="url(#clipD1)"><rect x="50" y="116" width="380" height="72" fill="url(#glossGrad)"/></g>
+    <g transform="translate(240 250)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle r="58" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.6" stroke-dasharray="4 7"/>
+      <path d="M0 -4c-2.6-2.1-5.6-2.8-9.5-2.8H-16v19h6.5c3.9 0 6.9.7 9.5 2.8z" fill="#ffffff" stroke="#2b2f55" stroke-width="2.4"/>
+      <path d="M0 -4c2.6-2.1 5.6-2.8 9.5-2.8H16v19h-6.5c-3.9 0-6.9.7-9.5 2.8z" fill="#ffffff" stroke="#2b2f55" stroke-width="2.4"/>
+      <path d="M-3.5 4.5l2.6 2.6 5.6-5.6" stroke="#38bdf8" stroke-width="2.4"/>
+      <circle cx="0" cy="-58" r="9" fill="#38bdf8" stroke="#ffffff" stroke-width="2.4"/>
+      <circle cx="58" cy="0" r="9" fill="#8b7cf6" stroke="#ffffff" stroke-width="2.4"/>
+      <circle cx="0" cy="58" r="9" fill="#ffb3d9" stroke="#ffffff" stroke-width="2.4"/>
+      <circle cx="-58" cy="0" r="9" fill="#7ee8e0" stroke="#ffffff" stroke-width="2.4"/>
+    </g>
+    <text x="240" y="364" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="17" font-weight="600" fill="#2b2f55">章节关系网</text>
+    <text x="240" y="388" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">概念自动连成可核验的关系图</text>
+  </g>
+
+  <g data-motif="review-path" data-motif-message="复习路径按掌握度逐步推进">
+    <rect x="490" y="116" width="380" height="300" rx="22" fill="url(#cardGrad)" filter="url(#cardLift)"/>
+    <ellipse cx="680" cy="220" rx="190" ry="120" fill="url(#haloC)"/>
+    <rect x="496" y="122" width="368" height="288" rx="18" fill="none" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1.4"/>
+    <g clip-path="url(#clipD2)"><rect x="490" y="116" width="380" height="72" fill="url(#glossGrad)"/></g>
+    <g transform="translate(680 250)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-92 34C-50 6 -16 40 22 6C46 -16 66 -22 92 -30" stroke="#8b7cf6" stroke-opacity="0.55" stroke-width="2.4" stroke-dasharray="1 9"/>
+      <circle cx="-92" cy="34" r="9" fill="#eceafb" stroke="#8b7cf6" stroke-width="2.4"/>
+      <circle cx="22" cy="6" r="11" fill="#38bdf8" stroke="#ffffff" stroke-width="2.4"/>
+      <circle cx="22" cy="6" r="17" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.6"/>
+      <circle cx="92" cy="-30" r="12" fill="#8b7cf6" stroke="#ffffff" stroke-width="2.4"/>
+      <path d="M87 -30l3.4 3.4 6.4-6.4" stroke="#ffffff" stroke-width="2.6"/>
+      <text x="-92" y="62" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#8a8fb8" stroke="none">未开始</text>
+      <text x="22" y="42" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f" stroke="none">进行中</text>
+      <text x="92" y="-50" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f" stroke="none">已核验</text>
+    </g>
+    <text x="680" y="364" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="17" font-weight="600" fill="#2b2f55">复习路径</text>
+    <text x="680" y="388" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">按掌握度推进，每一步都可回溯</text>
+  </g>
+
+  <g data-motif="card-verification" data-motif-message="每张卡片核验通过才入库">
+    <rect x="50" y="436" width="380" height="300" rx="22" fill="url(#cardGrad)" filter="url(#cardLift)"/>
+    <ellipse cx="240" cy="540" rx="190" ry="120" fill="url(#haloC)"/>
+    <rect x="56" y="442" width="368" height="288" rx="18" fill="none" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1.4"/>
+    <g clip-path="url(#clipD3)"><rect x="50" y="436" width="380" height="72" fill="url(#glossGrad)"/></g>
+    <g transform="translate(240 570)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-62" y="-48" width="112" height="84" rx="12" fill="#ffffff" stroke="#2b2f55" stroke-width="2.4"/>
+      <path d="M-46 -26h56" stroke="#2b2f55" stroke-width="2.4"/>
+      <path d="M-46 -6h40" stroke="#2b2f55" stroke-width="2.4" stroke-opacity="0.7"/>
+      <path d="M-46 14h48" stroke="#2b2f55" stroke-width="2.4" stroke-opacity="0.45"/>
+      <path d="M42 6l16 5.7v11.2c0 9.4-6.8 15.8-16 18.7-9.2-2.9-16-9.3-16-18.7V11.7z" fill="url(#shieldGrad)" stroke="#ffffff" stroke-width="2.4"/>
+      <path d="M34.5 23l5.4 5.4 10-10" stroke="#ffffff" stroke-width="2.8"/>
+      <circle cx="78" cy="-30" r="3.5" fill="#ffb3d9" stroke="none"/>
+      <circle cx="70" cy="-44" r="2.5" fill="#7ee8e0" stroke="none"/>
+    </g>
+    <text x="240" y="684" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="17" font-weight="600" fill="#2b2f55">卡片核验</text>
+    <text x="240" y="708" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">卡片核验通过后才允许入库</text>
+  </g>
+
+  <g data-motif="outline-generation" data-motif-message="从原文自动生成层级提纲">
+    <rect x="490" y="436" width="380" height="300" rx="22" fill="url(#cardGrad)" filter="url(#cardLift)"/>
+    <ellipse cx="680" cy="540" rx="190" ry="120" fill="url(#haloV)"/>
+    <rect x="496" y="442" width="368" height="288" rx="18" fill="none" stroke="#8b7cf6" stroke-opacity="0.28" stroke-width="1.4"/>
+    <g clip-path="url(#clipD4)"><rect x="490" y="436" width="380" height="72" fill="url(#glossGrad)"/></g>
+    <g transform="translate(680 570)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-50" y="-56" width="100" height="108" rx="12" fill="#ffffff" stroke="#2b2f55" stroke-width="2.4"/>
+      <circle cx="-32" cy="-38" r="5" fill="#8b7cf6" stroke="none"/>
+      <path d="M-22 -38h54" stroke="#2b2f55" stroke-width="2.4"/>
+      <path d="M-22 -18h44" stroke="#2b2f55" stroke-width="2.4" stroke-opacity="0.75"/>
+      <path d="M-14 2h44" stroke="#2b2f55" stroke-width="2.4" stroke-opacity="0.5"/>
+      <path d="M-6 22h40" stroke="#2b2f55" stroke-width="2.4" stroke-opacity="0.28" stroke-dasharray="5 6"/>
+      <path d="M-36 -18v40" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="2 6"/>
+      <circle cx="-14" cy="2" r="3.2" fill="#38bdf8" stroke="none"/>
+      <circle cx="-6" cy="22" r="3.2" fill="#38bdf8" stroke-opacity="0.6" stroke="none"/>
+    </g>
+    <text x="680" y="684" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="17" font-weight="600" fill="#2b2f55">提纲生成</text>
+    <text x="680" y="708" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">原文一键生成层级提纲</text>
+  </g>
+</svg>

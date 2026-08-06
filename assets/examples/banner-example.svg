@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 300" width="1100" height="300" role="img" aria-labelledby="bannerTitle">
+  <title id="bannerTitle">知了学习 banner：知识组织与核验助手，默认主题 J 梦幻极光</title>
+  <desc>梦幻极光渐变 banner：左侧为语义化 Logo（翻开的知识材料 + 核验盾牌 + 章节节点环），右侧文案说明把章节连成关系网。</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef4ff"/>
+      <stop offset="0.55" stop-color="#f3f0ff"/>
+      <stop offset="1" stop-color="#f6efff"/>
+    </linearGradient>
+    <radialGradient id="haloViolet" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#8b7cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="haloCyan" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bubbleGrad" cx="0.4" cy="0.35" r="0.72">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.7"/>
+      <stop offset="0.65" stop-color="#c4b5fd" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#a5b4fc" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="logoHaloJ" cx="0.5" cy="0.45" r="0.5">
+      <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#8b7cf6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tileJ" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eceffb"/>
+    </linearGradient>
+    <linearGradient id="shieldJ" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#7c6ee0"/>
+    </linearGradient>
+    <filter id="liftJ" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#8b7cf6" flood-opacity="0.28"/>
+    </filter>
+    <clipPath id="edgeClip"><rect x="0" y="0" width="1100" height="300"/></clipPath>
+    <clipPath id="tileClipJ"><rect x="16" y="16" width="64" height="64" rx="20"/></clipPath>
+    <!-- Logo glyph adapted from Lucide book-open-check, ISC license (see THIRD_PARTY_NOTICES.md) -->
+    <symbol id="logoJ" viewBox="0 0 96 96">
+      <circle cx="48" cy="46" r="44" fill="url(#logoHaloJ)"/>
+      <circle cx="48" cy="48" r="40" fill="none" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5" stroke-dasharray="3 7"/>
+      <circle cx="48" cy="8" r="4.5" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="88" cy="48" r="4.5" fill="#8b7cf6" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="48" cy="88" r="4.5" fill="#ffb3d9" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="8" cy="48" r="4.5" fill="#7ee8e0" stroke="#ffffff" stroke-width="1.5"/>
+      <rect x="16" y="16" width="64" height="64" rx="20" fill="url(#tileJ)" filter="url(#liftJ)"/>
+      <rect x="21" y="21" width="54" height="54" rx="16" fill="none" stroke="#8b7cf6" stroke-opacity="0.4" stroke-width="1.4"/>
+      <path d="M48 39.5c-2.5-2-5.4-2.7-9.2-2.7h-6.3v18.4h6.3c3.8 0 6.7.7 9.2 2.7z" fill="#f6f4ff" stroke="#2b2f55" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M48 39.5c2.5-2 5.4-2.7 9.2-2.7h6.3v18.4H57c-3.8 0-6.7.7-9.2 2.7z" fill="#ffffff" stroke="#2b2f55" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#38bdf8" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g clip-path="url(#tileClipJ)"><rect x="16" y="16" width="64" height="24" fill="#ffffff" opacity="0.55"/></g>
+      <path d="M66 55l9 3.2v6.3c0 5.3-3.8 8.9-9 10.5-5.2-1.6-9-5.2-9-10.5v-6.3z" fill="url(#shieldJ)" stroke="#ffffff" stroke-width="1.4"/>
+      <path d="M61.6 64.6l3 3 5.8-5.8" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+
+  <rect width="1100" height="300" fill="url(#bgGrad)"/>
+  <ellipse cx="180" cy="30" rx="400" ry="220" fill="url(#haloViolet)"/>
+  <ellipse cx="980" cy="300" rx="460" ry="240" fill="url(#haloCyan)"/>
+
+  <g data-role="edge-clipped-bubbles" clip-path="url(#edgeClip)">
+    <circle cx="52" cy="306" r="98" fill="url(#bubbleGrad)"/>
+    <circle cx="1104" cy="218" r="122" fill="url(#bubbleGrad)"/>
+    <circle cx="1048" cy="20" r="74" fill="url(#bubbleGrad)"/>
+    <circle cx="222" cy="-46" r="86" fill="url(#bubbleGrad)"/>
+    <circle cx="636" cy="320" r="72" fill="url(#bubbleGrad)"/>
+    <circle cx="898" cy="92" r="9" fill="none" stroke="#8b7cf6" stroke-opacity="0.45" stroke-width="1.4"/>
+    <circle cx="950" cy="54" r="5" fill="none" stroke="#8b7cf6" stroke-opacity="0.38" stroke-width="1.2"/>
+    <circle cx="336" cy="254" r="7" fill="none" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.3"/>
+    <circle cx="64" cy="60" r="6" fill="none" stroke="#38bdf8" stroke-opacity="0.36" stroke-width="1.2"/>
+  </g>
+
+  <g data-role="logo" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC" data-logo-secondary-motif="chapter relationship + verification shield">
+    <use href="#logoJ" x="64" y="88" width="120" height="120"/>
+  </g>
+
+  <text data-role="banner-title" x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#2b2f55" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
+  <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#454b73">把章节连成关系网，让每次复习都有据可查</text>
+
+  <g transform="translate(960 44)">
+    <rect x="0" y="0" width="120" height="30" rx="15" fill="#ffffff" stroke="#8b7cf6" stroke-opacity="0.5" stroke-width="1.2"/>
+    <circle cx="18" cy="15" r="5" fill="#8b7cf6"/>
+    <text x="30" y="20" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">默认 · J 梦幻极光</text>
+  </g>
+
+  <g data-motif="chapter-relations" data-motif-message="章节节点连成可核验的知识关系网" transform="translate(872 214)" stroke="#8b7cf6" fill="none" stroke-width="1.6">
+    <path d="M8 26C36 6 78 6 106 26" stroke-opacity="0.5" stroke-dasharray="4 6"/>
+    <circle cx="8" cy="26" r="6" fill="#ffffff"/>
+    <circle cx="57" cy="11" r="7" fill="#ffffff"/>
+    <circle cx="106" cy="26" r="6" fill="#ffffff"/>
+    <path d="M54 11l2.4 2.4 5-5" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

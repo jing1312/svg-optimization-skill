@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 660" width="1240" height="660" role="img" aria-labelledby="lcTitle">
+  <title id="lcTitle">Logo 精修对比：J 梦幻极光与 K 夏日汽水两套主题</title>
+  <desc>左右两栏对比同一语义 Logo（翻开的知识材料 + 核验）在 J、K 主题下的效果层次与 48 像素缩小表现。</desc>
+  <defs>
+    <linearGradient id="pageGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f6ff"/>
+      <stop offset="1" stop-color="#eef7f4"/>
+    </linearGradient>
+    <radialGradient id="logoHaloJ" cx="0.5" cy="0.45" r="0.5">
+      <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#8b7cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="logoHaloK" cx="0.5" cy="0.45" r="0.5">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tileJ" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eceffb"/>
+    </linearGradient>
+    <linearGradient id="tileK" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#effef7"/>
+    </linearGradient>
+    <linearGradient id="shieldJ" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#7c6ee0"/>
+    </linearGradient>
+    <linearGradient id="shieldK" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#0d9488"/>
+    </linearGradient>
+    <linearGradient id="panelJ" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef4ff"/>
+      <stop offset="1" stop-color="#f6efff"/>
+    </linearGradient>
+    <linearGradient id="panelK" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eafaf3"/>
+      <stop offset="1" stop-color="#fff7e6"/>
+    </linearGradient>
+    <filter id="liftJ" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#8b7cf6" flood-opacity="0.25"/>
+    </filter>
+    <filter id="liftK" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#14b8a6" flood-opacity="0.22"/>
+    </filter>
+    <clipPath id="tileClipJ"><rect x="16" y="16" width="64" height="64" rx="20"/></clipPath>
+    <clipPath id="tileClipK"><rect x="16" y="16" width="64" height="64" rx="20"/></clipPath>
+    <symbol id="logoJ" viewBox="0 0 96 96">
+      <circle cx="48" cy="46" r="44" fill="url(#logoHaloJ)"/>
+      <circle cx="48" cy="48" r="40" fill="none" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5" stroke-dasharray="3 7"/>
+      <circle cx="48" cy="8" r="4.5" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="88" cy="48" r="4.5" fill="#8b7cf6" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="48" cy="88" r="4.5" fill="#ffb3d9" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="8" cy="48" r="4.5" fill="#7ee8e0" stroke="#ffffff" stroke-width="1.5"/>
+      <rect x="16" y="16" width="64" height="64" rx="20" fill="url(#tileJ)" filter="url(#liftJ)"/>
+      <rect x="21" y="21" width="54" height="54" rx="16" fill="none" stroke="#8b7cf6" stroke-opacity="0.4" stroke-width="1.4"/>
+      <path d="M48 39.5c-2.5-2-5.4-2.7-9.2-2.7h-6.3v18.4h6.3c3.8 0 6.7.7 9.2 2.7z" fill="#f6f4ff" stroke="#2b2f55" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M48 39.5c2.5-2 5.4-2.7 9.2-2.7h6.3v18.4H57c-3.8 0-6.7.7-9.2 2.7z" fill="#ffffff" stroke="#2b2f55" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#38bdf8" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g clip-path="url(#tileClipJ)"><rect x="16" y="16" width="64" height="24" fill="#ffffff" opacity="0.55"/></g>
+      <path d="M66 55l9 3.2v6.3c0 5.3-3.8 8.9-9 10.5-5.2-1.6-9-5.2-9-10.5v-6.3z" fill="url(#shieldJ)" stroke="#ffffff" stroke-width="1.4"/>
+      <path d="M61.6 64.6l3 3 5.8-5.8" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="logoK" viewBox="0 0 96 96">
+      <circle cx="48" cy="46" r="44" fill="url(#logoHaloK)"/>
+      <circle cx="48" cy="48" r="40" fill="none" stroke="#06b6d4" stroke-opacity="0.4" stroke-width="1.5" stroke-dasharray="3 7"/>
+      <circle cx="48" cy="8" r="4.5" fill="#a3e635" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="88" cy="48" r="4.5" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="48" cy="88" r="4.5" fill="#fb7185" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="8" cy="48" r="4.5" fill="#22d3ee" stroke="#ffffff" stroke-width="1.5"/>
+      <rect x="16" y="16" width="64" height="64" rx="20" fill="url(#tileK)" filter="url(#liftK)"/>
+      <rect x="21" y="21" width="54" height="54" rx="16" fill="none" stroke="#14b8a6" stroke-opacity="0.4" stroke-width="1.4"/>
+      <path d="M48 39.5c-2.5-2-5.4-2.7-9.2-2.7h-6.3v18.4h6.3c3.8 0 6.7.7 9.2 2.7z" fill="#f4fef9" stroke="#1f3d3a" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M48 39.5c2.5-2 5.4-2.7 9.2-2.7h6.3v18.4H57c-3.8 0-6.7.7-9.2 2.7z" fill="#ffffff" stroke="#1f3d3a" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#fb7185" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g clip-path="url(#tileClipK)"><rect x="16" y="16" width="64" height="24" fill="#ffffff" opacity="0.55"/></g>
+      <path d="M66 55l9 3.2v6.3c0 5.3-3.8 8.9-9 10.5-5.2-1.6-9-5.2-9-10.5v-6.3z" fill="url(#shieldK)" stroke="#ffffff" stroke-width="1.4"/>
+      <path d="M61.6 64.6l3 3 5.8-5.8" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+
+  <rect width="1240" height="660" fill="url(#pageGrad)"/>
+  <text x="620" y="52" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="28" font-weight="600" fill="#2b2f55">Logo 精修对比 · 同一语义，两种季节</text>
+  <text x="620" y="80" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="14" fill="#5a608f">打开的知识材料 + 核验动作 · 外环为章节关系节点 · 右下角为核验盾牌</text>
+
+  <g data-theme-id="J">
+    <rect x="60" y="104" width="520" height="500" rx="24" fill="url(#panelJ)" stroke="#8b7cf6" stroke-opacity="0.2" stroke-width="1.4"/>
+    <text x="92" y="148" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600" fill="#2b2f55">J · 梦幻极光</text>
+    <text x="92" y="172" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">紫罗兰光晕 + 青色节点，空气感来自大面积淡出</text>
+    <g data-role="logo" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC" data-logo-secondary-motif="chapter relationship + verification shield">
+      <use href="#logoJ" x="92" y="196" width="200" height="200"/>
+    </g>
+    <g data-role="logo-preview" data-size="48">
+      <rect x="336" y="196" width="112" height="112" rx="16" fill="#ffffff" stroke="#8b7cf6" stroke-opacity="0.3" stroke-width="1.4"/>
+      <use href="#logoJ" x="368" y="228" width="48" height="48"/>
+    </g>
+    <text x="392" y="330" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">48 px 缩小预览</text>
+    <g font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#3d4270">
+      <circle cx="100" cy="428" r="4" fill="#8b7cf6"/><text x="112" y="432">环境光晕：stop-opacity 淡出至 0，比 glyph 更安静</text>
+      <circle cx="100" cy="452" r="4" fill="#8b7cf6"/><text x="112" y="456">有色柔和阴影：紫调 feDropShadow，stdDeviation 8</text>
+      <circle cx="100" cy="476" r="4" fill="#8b7cf6"/><text x="112" y="480">内衬 keyline：1.4px 半透明描边，负责边界</text>
+      <circle cx="100" cy="500" r="4" fill="#8b7cf6"/><text x="112" y="504">核心 glyph：Lucide book-open-check（ISC）</text>
+      <circle cx="100" cy="524" r="4" fill="#8b7cf6"/><text x="112" y="528">章节关系节点环：四节点 + 虚线轨道</text>
+      <circle cx="100" cy="548" r="4" fill="#8b7cf6"/><text x="112" y="552">一条 clipped 高光；核验盾牌落在右下角</text>
+    </g>
+  </g>
+
+  <g data-theme-id="K">
+    <rect x="660" y="104" width="520" height="500" rx="24" fill="url(#panelK)" stroke="#14b8a6" stroke-opacity="0.25" stroke-width="1.4"/>
+    <text x="692" y="148" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600" fill="#1f3d3a">K · 夏日汽水</text>
+    <text x="692" y="172" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#52706c">汽水青 + 珊瑚核，节点像汽水气泡一样点缀</text>
+    <g data-role="logo" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC" data-logo-secondary-motif="chapter relationship + verification shield">
+      <use href="#logoK" x="692" y="196" width="200" height="200"/>
+    </g>
+    <g data-role="logo-preview" data-size="48">
+      <rect x="936" y="196" width="112" height="112" rx="16" fill="#ffffff" stroke="#14b8a6" stroke-opacity="0.35" stroke-width="1.4"/>
+      <use href="#logoK" x="968" y="228" width="48" height="48"/>
+    </g>
+    <text x="992" y="330" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#52706c">48 px 缩小预览</text>
+    <g font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#2e4a46">
+      <circle cx="700" cy="428" r="4" fill="#14b8a6"/><text x="712" y="432">环境光晕：青色淡出，保持汽水感而不发雾</text>
+      <circle cx="700" cy="452" r="4" fill="#14b8a6"/><text x="712" y="456">有色柔和阴影：青绿调，比 J 更轻（0.22）</text>
+      <circle cx="700" cy="476" r="4" fill="#14b8a6"/><text x="712" y="480">内衬 keyline：同宽度规范，边界一致</text>
+      <circle cx="700" cy="500" r="4" fill="#14b8a6"/><text x="712" y="504">核心 glyph：同一语义，仅主题色变化</text>
+      <circle cx="700" cy="524" r="4" fill="#14b8a6"/><text x="712" y="528">节点环：青柠 / 柑橘 / 珊瑚 / 汽水青</text>
+      <circle cx="700" cy="548" r="4" fill="#14b8a6"/><text x="712" y="552">盾牌用深青，核验色比装饰色更稳重</text>
+    </g>
+  </g>
+</svg>
