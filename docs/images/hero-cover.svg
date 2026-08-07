@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-labelledby="hcTitle hcDesc">
+  <title id="hcTitle">svg-optimization-skill：跨 agent 的 SVG 设计与质量门禁技能</title>
+  <desc id="hcDesc">语义化图案、六层效果预算、机器门禁与渲染实测；支持多种可推导的风格原型。</desc>
+  <defs>
+    <linearGradient id="hcBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f3fb"/>
+      <stop offset="1" stop-color="#edeafb"/>
+    </linearGradient>
+    <linearGradient id="hcRibbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7ee8e0" stop-opacity="0"/>
+      <stop offset="0.3" stop-color="#7ee8e0" stop-opacity="0.5"/>
+      <stop offset="0.55" stop-color="#9b8cff" stop-opacity="0.5"/>
+      <stop offset="0.8" stop-color="#ffb3d9" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#ffb3d9" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="hcBlur" x="-20%" y="-300%" width="140%" height="700%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="420" rx="0" fill="url(#hcBase)"/>
+  <rect x="0" y="150" width="1200" height="90" fill="url(#hcRibbon)" filter="url(#hcBlur)" transform="rotate(-3 600 195)"/>
+
+  <text x="600" y="96" text-anchor="middle" font-family="System-ui, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" font-size="13" font-weight="600" fill="#4f4b78" letter-spacing="8">AGENT SKILL · ZERO RUNTIME DEPS</text>
+  <text x="600" y="168" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="44" font-weight="700" fill="#26243a">把 SVG 画得好看，且查得出 bug</text>
+  <text x="600" y="216" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="18" fill="#4f4b78">语义化图案 · 六层效果预算 · 几何与对比度门禁 · 渲染实测闭环</text>
+
+  <g font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13.5" font-weight="600">
+    <rect x="270" y="268" width="188" height="40" rx="20" fill="#ffffff" stroke="#9b8cff" stroke-opacity="0.5" stroke-width="1.2"/>
+    <text x="364" y="293" text-anchor="middle" fill="#4f4b78">G1–G4 几何门禁</text>
+    <rect x="478" y="268" width="244" height="40" rx="20" fill="#ffffff" stroke="#9b8cff" stroke-opacity="0.5" stroke-width="1.2"/>
+    <text x="600" y="293" text-anchor="middle" fill="#4f4b78">R1/R2 引用完整性</text>
+    <rect x="742" y="268" width="188" height="40" rx="20" fill="#ffffff" stroke="#9b8cff" stroke-opacity="0.5" stroke-width="1.2"/>
+    <text x="836" y="293" text-anchor="middle" fill="#4f4b78">C1 对比度检查</text>
+  </g>
+
+  <g>
+    <circle cx="438" cy="360" r="8" fill="#6d5bd0"/>
+    <circle cx="468" cy="360" r="8" fill="#0f766e"/>
+    <circle cx="498" cy="360" r="8" fill="#b45309"/>
+    <circle cx="528" cy="360" r="8" fill="#c2410c"/>
+    <circle cx="558" cy="360" r="8" fill="#db2777"/>
+    <circle cx="588" cy="360" r="8" fill="#3457d5"/>
+    <text x="620" y="365" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#55517a">flat · aurora · glass · neon · ink · editorial —— 风格可推导，不是摇骰子</text>
+  </g>
+</svg>

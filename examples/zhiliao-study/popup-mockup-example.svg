@@ -19,8 +19,8 @@
       <stop offset="1" stop-color="#f0ebff"/>
     </linearGradient>
     <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#38bdf8"/>
-      <stop offset="1" stop-color="#8b7cf6"/>
+      <stop offset="0" stop-color="#4c6ef5"/>
+      <stop offset="1" stop-color="#3b5bdb"/>
     </linearGradient>
     <radialGradient id="logoHaloJ" cx="0.5" cy="0.45" r="0.5">
       <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.45"/>
@@ -76,7 +76,7 @@
     <circle cx="114" cy="50" r="6" fill="#34d399"/>
     <rect x="140" y="38" width="380" height="24" rx="12" fill="#0b1020" stroke="#22305a" stroke-width="1"/>
     <circle cx="158" cy="50" r="5" fill="none" stroke="#5eead4" stroke-width="1.5"/>
-    <text x="172" y="55" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5c6b96">扩展弹窗 · 实时预览</text>
+    <text x="172" y="55" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#9aa7c7">扩展弹窗 · 实时预览</text>
   </g>
 
   <rect x="120" y="100" width="620" height="560" rx="28" fill="url(#cardGrad)" filter="url(#cardLift)"/>
@@ -126,7 +126,7 @@
     <text x="268" y="525" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="18" font-weight="600" fill="#ffffff" letter-spacing="2">开始核验</text>
   </g>
   <text x="704" y="518" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">本学期已核验卡片 128 张</text>
-  <text x="704" y="540" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#38bdf8">核验通过率 96%</text>
+  <text x="704" y="540" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#0369a1">核验通过率 96%</text>
 
-  <text x="430" y="628" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#8a8fb8">本季主题 · J 梦幻极光（可切换 K 夏日汽水）</text>
+  <text x="430" y="628" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#4f4b78">本季主题 · J 梦幻极光（可切换 K 夏日汽水）</text>
 </svg>

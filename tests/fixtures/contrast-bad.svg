@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img">
+  <title id="t">Intentionally broken fixture: body text fails WCAG contrast on its background</title>
+  <rect width="400" height="200" fill="#ffffff"/>
+  <!-- 3.0:1 gray on white fails the 4.5:1 body-text requirement -->
+  <text x="40" y="90" font-size="14" fill="#949494">低对比度正文，白底上读不清</text>
+  <!-- large text gets the 3:1 threshold: this passes to keep the gate honest -->
+  <text x="40" y="160" font-size="28" font-weight="700" fill="#767676">大字只需要 3 比 1</text>
+</svg>

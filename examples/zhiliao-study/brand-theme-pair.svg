@@ -95,7 +95,7 @@
 
   <rect width="1200" height="760" fill="url(#pageGrad)"/>
   <text x="60" y="56" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="26" font-weight="600" fill="#2b2f55">季节主题套系 · J 梦幻极光 / K 夏日汽水</text>
-  <text x="60" y="84" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="14" fill="#5a608f">两套主题共享同一标题、文案与 Logo 语义；选定默认后另一套仍可随时切换</text>
+  <text x="60" y="84" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="14" fill="#474c7d">两套主题共享同一标题、文案与 Logo 语义；选定默认后另一套仍可随时切换</text>
   <g data-theme-id="J">
     <rect x="40" y="110" width="1120" height="290" rx="24" fill="url(#bgJ)" stroke="#8b7cf6" stroke-opacity="0.3" stroke-width="1.6"/>
     <g clip-path="url(#clipBJ)">
@@ -120,7 +120,7 @@
           <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#38bdf8" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <text x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#2b2f55" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
-        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#5a608f">把章节连成关系网，让每次复习都有据可查</text>
+        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#474c7d">把章节连成关系网，让每次复习都有据可查</text>
       </g>
     </g>
     <rect x="72" y="140" width="600" height="164" rx="16" fill="none" stroke="#8b7cf6" stroke-opacity="0.3" stroke-width="1.2"/>
@@ -128,7 +128,7 @@
       <use href="#logoJ" x="700" y="140" width="120" height="120"/>
     </g>
     <text x="700" y="292" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600" fill="#2b2f55">J · 梦幻极光</text>
-    <text x="700" y="318" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">默认候选方向 · 节点环像极光珠串，高光一次淡出</text>
+    <text x="700" y="318" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#474c7d">默认候选方向 · 节点环像极光珠串，高光一次淡出</text>
     <circle cx="708" cy="352" r="9" fill="#8b7cf6"/>
     <circle cx="734" cy="352" r="9" fill="#38bdf8"/>
     <circle cx="760" cy="352" r="9" fill="#7ee8e0"/>
@@ -159,7 +159,7 @@
           <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#fb7185" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <text x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#1f3d3a" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
-        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#52706c">把章节连成关系网，让每次复习都有据可查</text>
+        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#3d5955">把章节连成关系网，让每次复习都有据可查</text>
       </g>
     </g>
     <rect x="72" y="460" width="600" height="164" rx="16" fill="none" stroke="#14b8a6" stroke-opacity="0.3" stroke-width="1.2"/>
@@ -167,7 +167,7 @@
       <use href="#logoK" x="700" y="460" width="120" height="120"/>
     </g>
     <text x="700" y="612" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600" fill="#1f3d3a">K · 夏日汽水</text>
-    <text x="700" y="638" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#52706c">季节切换方向 · 气泡只在卡内做 fizz，盾牌用深青</text>
+    <text x="700" y="638" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#3d5955">季节切换方向 · 气泡只在卡内做 fizz，盾牌用深青</text>
     <circle cx="708" cy="672" r="9" fill="#a3e635"/>
     <circle cx="734" cy="672" r="9" fill="#22d3ee"/>
     <circle cx="760" cy="672" r="9" fill="#fbbf24"/>

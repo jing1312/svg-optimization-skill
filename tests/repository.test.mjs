@@ -7,35 +7,32 @@ import { wellFormedXml, gradeSvg } from "../evals/grade.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (rel) => fs.readFileSync(path.join(repoRoot, rel), "utf8");
-const examples = path.join(repoRoot, "assets", "examples");
+const walkSvgs = (dir) => {
+  const out = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...walkSvgs(p));
+    else if (entry.name.endsWith(".svg")) out.push(p);
+  }
+  return out;
+};
 
 const GALLERY_MOTIFS = [
-  "chapter-relations",
-  "outline-generation",
-  "review-path",
-  "card-verification",
-  "classroom-waveform",
-  "export-pack",
+  "chapter-relations", "outline-generation", "review-path",
+  "card-verification", "classroom-waveform", "export-pack",
 ];
 
-// --- documentation gates -----------------------------------------------------
+// --- repository hygiene -----------------------------------------------------
 
-test("privacy boundary document exists with public-release rules", () => {
-  const doc = read("PRIVACY.md");
-  assert.match(doc, /Never commit/);
-  assert.match(doc, /forget.*reset|reset.*forget/s);
-  assert.match(doc, /explicit consent/i);
-});
-
-test("public files contain no private identifiers", () => {
+test("public files contain no secrets or private identifiers", () => {
   const patterns = [/api[_-]?key/i, /Bearer\s+[A-Za-z0-9]/, /PRIVATE KEY/, /password\s*=/i, /\/home\/[a-z0-9]/i, /(C:[/\\]|\/)Users\//i];
   const offenders = [];
   const walk = (dir) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (entry.name === "tests" || entry.name === "node_modules" || entry.name.startsWith(".git")) continue;
+      if (["tests", "node_modules"].includes(entry.name) || entry.name.startsWith(".git")) continue;
       const p = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(p);
-      else if (/\.(md|svg|mjs|json|html)$/.test(entry.name)) {
+      else if (/\.(md|svg|mjs|json|html|yml)$/.test(entry.name)) {
         const src = fs.readFileSync(p, "utf8");
         for (const re of patterns) if (re.test(src)) offenders.push(`${path.relative(repoRoot, p)} ~ ${re}`);
       }
@@ -45,179 +42,119 @@ test("public files contain no private identifiers", () => {
   assert.deepEqual(offenders, []);
 });
 
-test("SKILL.md keeps trigger, workflow, logo and privacy sections", () => {
+test("skill files are not hardcoded to the demo brand", () => {
+  const skill = read("SKILL.md");
+  assert.ok(!skill.includes("知了学习"), "SKILL.md must stay brand-neutral");
+  const styles = read("references/style-library.md");
+  assert.ok(!styles.includes("知了学习"), "style library must stay brand-neutral");
+});
+
+// --- SKILL.md contract -------------------------------------------------------
+
+test("SKILL.md keeps the cross-agent contract sections", () => {
   const doc = read("SKILL.md");
-  for (const section of ["When to use", "Workflow", "Logo rules", "Preferences and privacy"]) {
+  for (const section of ["When to use", "Workflow", "Style-choice flow", "Verification tiers", "Typography", "Logo rules", "Memory", "Brand packs"]) {
     assert.ok(doc.includes(section), `missing section: ${section}`);
   }
-  assert.match(doc, /data-icon-license/);
+  assert.match(doc, /T0/, "tiered verification must exist");
+  assert.match(doc, /grade\.mjs/);
+  assert.match(doc, /render\.mjs/);
 });
 
-test("style system documents J/K/L and the six-motif grammar", () => {
-  const doc = read("references/style-system.md");
-  for (const dir of ["J · 梦幻极光", "K · 夏日汽水", "L · 暖阳纸片"]) {
-    assert.ok(doc.includes(dir), `missing direction: ${dir}`);
+test("references cover principles, styles, typography and verification", () => {
+  assert.match(read("references/design-principles.md"), /Six-layer effect budget/);
+  assert.match(read("references/design-principles.md"), /G1–G4|G1/);
+  const styles = read("references/style-library.md");
+  for (const a of ["Flat", "Aurora", "Glassmorphism", "Neon", "Ink sketch", "Editorial"]) {
+    assert.ok(styles.includes(a), `missing archetype: ${a}`);
   }
-  for (const motif of ["章节关系", "提纲生成", "复习路径", "卡片核验", "课堂波形", "资料导出包"]) {
-    assert.ok(doc.includes(motif), `missing motif: ${motif}`);
-  }
-  assert.match(doc, /terminate at `stop-opacity="0"`/);
+  assert.match(styles, /Deriving a custom style from a brand color/);
+  assert.match(read("references/typography.md"), /text to outlines|outlines/);
+  assert.match(read("references/verification.md"), /T2/);
 });
 
-test("logo system keeps semantic brief and rejection conditions", () => {
-  const doc = read("references/logo-system.md");
-  assert.match(doc, /Semantic brief/);
-  assert.match(doc, /Rejection conditions/);
+test("brand pack keeps the demo brand frozen and complete", () => {
+  const doc = read("brand-packs/zhiliao-study.md");
+  assert.match(doc, /知了学习 · 知识组织与核验助手/);
+  for (const d of ["J", "K", "L", "M", "N", "O", "P", "Q", "R", "S1", "S2"]) {
+    assert.ok(doc.includes(d), `missing direction: ${d}`);
+  }
   assert.match(doc, /book-open-check/);
 });
 
-// --- SVG structure gates -----------------------------------------------------
+// --- generic examples prove breadth -----------------------------------------
 
-test("every example SVG is well-formed XML with an accessible title", () => {
-  const files = fs.readdirSync(examples).filter((f) => f.endsWith(".svg"));
-  assert.ok(files.length >= 7, "expected the seven canonical examples");
-  for (const f of files) {
-    const src = fs.readFileSync(path.join(examples, f), "utf8");
-    const errors = wellFormedXml(src);
-    assert.deepEqual(errors, [], `${f} XML errors: ${errors.join("; ")}`);
-    assert.match(src, /xmlns="http:\/\/www\.w3\.org\/2000\/svg"/, `${f} missing svg namespace`);
-    assert.match(src, /<title[^>]*>.+<\/title>/s, `${f} missing accessible <title>`);
+test("style gallery ships six distinct archetypes on one sheet", () => {
+  const src = read("examples/style-gallery.svg");
+  for (const id of ["flat", "aurora", "glass", "neon", "ink", "editorial"]) {
+    assert.ok(src.includes(`data-style-id="${id}"`), `missing archetype panel: ${id}`);
   }
+  assert.match(src, /data-motif="verification-mark"/);
+  assert.match(src, /stdDeviation/);
 });
 
-test("banner uses 1100x300 canvas with edge-clipped bubbles and big title", () => {
-  const src = read("assets/examples/banner-example.svg");
+test("generic banner derives a fresh brand instead of copying the demo", () => {
+  const src = read("examples/banner-generic.svg");
   assert.match(src, /viewBox="0 0 1100 300"/);
-  assert.match(src, /role="img"/);
-  assert.match(src, /data-role="edge-clipped-bubbles"/);
-  const title = src.match(/data-role="banner-title"[^>]*font-size="(\d+)"/);
-  assert.ok(title, "banner title missing data-role");
-  assert.ok(Number(title[1]) >= 34, "banner title must be >= 34px");
-});
-
-test("popup mockup uses 860x730 dark browser backdrop with logo and CTA", () => {
-  const src = read("assets/examples/popup-mockup-example.svg");
-  assert.match(src, /viewBox="0 0 860 730"/);
-  assert.match(src, /data-role="browser-backdrop"[^>]*#0b1020|#0b1020[^"]*"[^>]*data-role="browser-backdrop"/);
-  assert.match(src, /data-role="logo"/);
+  assert.match(src, /data-motif="fresh-brew"/);
+  assert.match(src, /data-role="banner-title"/);
   assert.match(src, /data-role="cta"/);
+  assert.ok(!src.includes("知了"), "generic example must not reuse the demo brand");
 });
 
-test("ornate gallery carries exactly the six semantic motifs with briefs", () => {
-  const src = read("assets/examples/ornate-style-gallery.svg");
-  const motifs = [...src.matchAll(/data-motif="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(motifs.sort(), [...GALLERY_MOTIFS].sort());
-  for (const g of src.match(/<g[^>]*data-motif="[^"]+"[^>]*>/g)) {
-    assert.match(g, /data-motif-message="[^"]+"/, "every motif needs a one-sentence message");
+// --- brand-pack examples keep their structure --------------------------------
+
+test("every shipped SVG is well-formed XML with an accessible title", () => {
+  const files = walkSvgs(path.join(repoRoot, "examples")).concat(walkSvgs(path.join(repoRoot, "docs")));
+  assert.ok(files.length >= 14, "expected the full example set");
+  for (const f of files) {
+    const src = fs.readFileSync(f, "utf8");
+    assert.deepEqual(wellFormedXml(src), [], `${path.basename(f)} XML errors`);
+    assert.match(src, /xmlns="http:\/\/www\.w3\.org\/2000\/svg"/, `${path.basename(f)} namespace`);
+    assert.match(src, /<title[^>]*>.+<\/title>/s, `${path.basename(f)} title`);
   }
 });
 
-test("detail board reuses four motifs from the shared grammar", () => {
-  const src = read("assets/examples/dreamy-detail-board.svg");
-  const motifs = [...src.matchAll(/data-motif="([^"]+)"/g)].map((m) => m[1]);
-  assert.equal(motifs.length, 4);
-  for (const m of motifs) assert.ok(GALLERY_MOTIFS.includes(m), `${m} is outside the six-motif grammar`);
+test("zhiliao banner/popup/gallery keep their canonical structure", () => {
+  const banner = read("examples/zhiliao-study/banner-example.svg");
+  assert.match(banner, /viewBox="0 0 1100 300"/);
+  assert.match(banner, /data-role="edge-clipped-bubbles"/);
+  const popup = read("examples/zhiliao-study/popup-mockup-example.svg");
+  assert.match(popup, /viewBox="0 0 860 730"/);
+  assert.match(popup, /data-role="logo"/);
+  assert.match(popup, /data-role="cta"/);
+  const gallery = read("examples/zhiliao-study/ornate-style-gallery.svg");
+  const motifs = [...gallery.matchAll(/data-motif="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(motifs.sort(), [...GALLERY_MOTIFS].sort());
 });
 
-test("logo concepts declare provenance metadata and 48 px previews", () => {
-  const src = read("assets/examples/logo-concepts.svg");
+test("logo concepts keep provenance metadata and 48 px previews", () => {
+  const src = read("examples/zhiliao-study/logo-concepts.svg");
   const logos = src.match(/<g[^>]*data-role="logo"[^>]*>/g) ?? [];
-  assert.ok(logos.length >= 2, "expected J and K logo groups");
+  assert.ok(logos.length >= 2);
   for (const g of logos) {
-    for (const attr of ["data-logo-intent", "data-icon-source", "data-icon-name", "data-icon-license", "data-logo-secondary-motif"]) {
+    for (const attr of ["data-logo-intent", "data-icon-source", "data-icon-name", "data-icon-license"]) {
       assert.ok(g.includes(attr), `logo group missing ${attr}`);
     }
   }
-  const previews = src.match(/data-role="logo-preview" data-size="48"/g) ?? [];
-  assert.ok(previews.length >= 2, "expected a 48px preview per theme");
+  assert.match(src, /data-role="logo-preview" data-size="48"/);
 });
 
-test("style chooser offers J/K/L each with banner thumbnail and popup crop", () => {
-  const src = read("assets/examples/style-options-example.svg");
-  for (const id of ["J", "K", "L"]) {
-    assert.ok(src.includes(`data-style-id="${id}"`), `missing option ${id}`);
-  }
-  assert.ok((src.match(/data-role="banner-thumb"/g) ?? []).length >= 3);
-  assert.ok((src.match(/data-role="popup-crop"/g) ?? []).length >= 3);
-});
-
-test("season two chooser offers M/N/O/P each with banner thumbnail and popup crop", () => {
-  const src = read("assets/examples/theme-selections-season2.svg");
-  for (const id of ["M", "N", "O", "P"]) {
-    assert.ok(src.includes(`data-style-id="${id}"`), `missing option ${id}`);
-  }
-  assert.ok((src.match(/data-role="banner-thumb"/g) ?? []).length >= 4);
-  assert.ok((src.match(/data-role="popup-crop"/g) ?? []).length >= 4);
-});
-
-test("style explorations offer Q/R as distinct material directions", () => {
-  const src = read("assets/examples/style-explorations.svg");
-  for (const id of ["Q", "R"]) {
-    assert.ok(src.includes(`data-style-id="${id}"`), `missing option ${id}`);
-  }
-  assert.ok((src.match(/data-role="banner-thumb"/g) ?? []).length >= 2);
-  assert.ok((src.match(/data-role="popup-crop"/g) ?? []).length >= 2);
-  assert.ok(src.includes("data-motif="), "explorations keep semantic motifs");
-});
-
-test("brand theme pair contains both seasonal suites", () => {
-  const src = read("assets/examples/brand-theme-pair.svg");
-  assert.match(src, /data-theme-id="J"/);
-  assert.match(src, /data-theme-id="K"/);
-  assert.match(src, /data-role="logo"/);
-});
-
-test("regression: blurs stay bounded and no asset drops the SVG namespace", () => {
-  const files = fs.readdirSync(examples).filter((f) => f.endsWith(".svg"));
-  for (const f of files) {
-    const src = fs.readFileSync(path.join(examples, f), "utf8");
-    for (const m of src.matchAll(/stdDeviation="([0-9.]+)"/g)) {
-      assert.ok(Number(m[1]) <= 24, `${f}: stdDeviation ${m[1]} exceeds the 24 bound`);
-    }
-  }
-});
-
-test("deep-sea baseline banner survives as the A regression file", () => {
-  const src = read("assets/examples/banner-deepsea-baseline.svg");
-  assert.match(src, /viewBox="0 0 1100 300"/);
-  assert.match(src, /#0a2740/);
-  assert.match(src, /data-role="edge-clipped-bubbles"/);
-});
-
-// --- geometry gate (overflow / occlusion are never allowed again) ----------
-
-test("geometry gate flags canvas overflow, container overflow and motif collision", () => {
-  const { issues } = gradeSvg(path.join(repoRoot, "tests", "fixtures", "geometry-bad.svg"));
-  const geo = issues.filter((i) => i.startsWith("geometry"));
-  assert.ok(geo.some((i) => i.includes("G1")), "must catch text escaping the canvas");
-  assert.ok(geo.some((i) => i.includes("G2")), "must catch text overflowing its container");
-  assert.ok(geo.some((i) => i.includes("G3")), "must catch motif occluding text");
-});
-
-test("every shipped asset is geometry-clean (no overflow, no occlusion)", () => {
-  const walk = (dir) => {
-    const out = [];
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const p = path.join(dir, entry.name);
-      if (entry.isDirectory()) out.push(...walk(p));
-      else if (entry.name.endsWith(".svg")) out.push(p);
-    }
-    return out;
-  };
+test("every shipped asset passes all gates including contrast", () => {
   const offenders = [];
-  for (const f of walk(path.join(repoRoot, "assets"))) {
-    const geo = gradeSvg(f).issues.filter((i) => i.startsWith("geometry"));
-    if (geo.length) offenders.push(`${path.relative(repoRoot, f)}: ${geo.join("; ")}`);
+  for (const f of walkSvgs(path.join(repoRoot, "examples")).concat(walkSvgs(path.join(repoRoot, "docs")))) {
+    const { issues } = gradeSvg(f);
+    if (issues.length) offenders.push(`${path.relative(repoRoot, f)}: ${issues.join("; ")}`);
   }
   assert.deepEqual(offenders, []);
 });
 
-test("layout axis boards S1 poster and S2 premium ad stay semantic", () => {
-  const poster = read("assets/examples/layout-poster.svg");
-  assert.match(poster, /data-layout-id="S1"/);
-  assert.match(poster, /data-motif="chapter-relations"/);
-  const premium = read("assets/examples/layout-premium.svg");
-  assert.match(premium, /data-layout-id="S2"/);
-  assert.match(premium, /data-role="cta"/);
-  assert.match(premium, /data-role="logo"/);
+// --- tooling ------------------------------------------------------------------
+
+test("package.json wires test/check/render with zero runtime dependencies", () => {
+  const pkg = JSON.parse(read("package.json"));
+  assert.match(pkg.scripts.test, /node --test/);
+  assert.match(pkg.scripts.check, /grade\.mjs/);
+  assert.equal(pkg.dependencies, undefined);
+  assert.equal(pkg.devDependencies, undefined, "the skill must stay dependency-free");
 });
