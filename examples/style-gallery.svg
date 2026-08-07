@@ -99,7 +99,8 @@
       <path d="M 20 660 C 180 620 260 480 400 470 S 560 400 604 330" fill="none" stroke="url(#sgRibbonWarm)" stroke-width="64" stroke-linecap="round" opacity="0.5" filter="url(#sgBlurA)"/>
       <path d="M 20 640 C 180 602 268 462 406 452 S 566 386 604 314" fill="none" stroke="url(#sgSheen)" stroke-width="2.6" stroke-linecap="round" opacity="0.9"/>
       <circle cx="40" cy="700" r="150" fill="url(#sgOrbWarm)" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.1"/>
-      <g data-motif="dawn-orbs" data-motif-message="暖域浮球服从右上的晨光">
+      <g data-motif="dawn-orbs" data-motif-message="暖域浮球服从右上的晨光，彼此以细线相连">
+        <path d="M 500 378 Q 470 470 442 540" fill="none" stroke="#8a5f74" stroke-opacity="0.35" stroke-width="1"/>
         <ellipse cx="430" cy="618" rx="34" ry="7.5" fill="url(#sgOrbShadow)"/>
         <circle cx="430" cy="560" r="48" fill="url(#sgOrbWarm)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
         <circle cx="414" cy="540" r="5.5" fill="#ffffff" fill-opacity="0.92"/>
@@ -121,7 +122,8 @@
       <path d="M 1180 640 C 1020 610 940 480 800 470 S 640 410 596 340" fill="none" stroke="url(#sgRibbonCool)" stroke-width="64" stroke-linecap="round" opacity="0.5" filter="url(#sgBlurB)"/>
       <path d="M 1180 622 C 1024 594 946 464 806 454 S 646 396 596 326" fill="none" stroke="url(#sgSheen)" stroke-width="2.6" stroke-linecap="round" opacity="0.9"/>
       <circle cx="1180" cy="680" r="150" fill="url(#sgOrbCool)" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.1"/>
-      <g data-motif="moonrise-glow" data-motif-message="月亮与冷域浮球服从同一个月光源">
+      <g data-motif="moonrise-glow" data-motif-message="月亮与冷域浮球服从同一个月光源，彼此以细线相连">
+        <path d="M 922 446 Q 850 512 776 556" fill="none" stroke="#6b64a8" stroke-opacity="0.35" stroke-width="1"/>
         <circle cx="1035" cy="320" r="28" fill="url(#sgMoonDisc)" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1"/>
         <ellipse cx="760" cy="628" rx="34" ry="7.5" fill="url(#sgOrbShadow)"/>
         <circle cx="760" cy="570" r="48" fill="url(#sgOrbCool)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>

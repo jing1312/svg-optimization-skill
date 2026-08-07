@@ -93,7 +93,27 @@ delete it.
 - Max three text elements: title / one line / one whisper of metadata. Light
   scenes drown in copy.
 
-## 7. Anti-patterns — both burned template faces
+## 7. Meaning before ornament
+
+Atmosphere is not an excuse for decoration without a story. Every primary
+element in a Dreamlight piece must state, in one sentence, what product action
+or idea it carries — exactly like the motif brief in
+`design-principles.md` §1, but applied to scenery:
+
+- The **ribbon gesture** is the act of drawing itself — one confident stroke.
+- **Orbs** are nodes of a relationship; fine hairline chords between them make
+  the relationship readable. At least one node may carry the **check mark**:
+  verification lives inside the light, not outside it.
+- Ambient details take product meaning where the subject allows (star trails as
+  fragrance notes, mist as morning, mountains as origin).
+- One faint **construction trace** (a radius circle, a centerline, two ticks)
+  may be inscribed around the verified node — the gates made visible, quiet,
+  gold at ≤ 0.35 opacity. Geometry as ornament, never as chrome.
+
+If an element cannot say what it means, delete it. Collage is a removal
+problem, in atmosphere as much as in layout.
+
+## 8. Anti-patterns — both burned template faces
 
 Pastel-SaaS face (auto-reject): pill chips, aurora fog with no composition,
 rows of colored dots, centered eyebrow-title-subtitle-button triads, 2-stop
@@ -107,7 +127,7 @@ worth looking at. Chrome is not craft.
 And forever: gradient blobs for wallpaper, glow on text, > 1 accent hue,
 anything that exists to fill space rather than to carry light.
 
-## 8. Self-check (after gates pass)
+## 9. Self-check (after gates pass)
 
 1. Does the scene have ONE believable light source, and does everything obey it?
 2. Can you name the gesture in one sentence, and does the title sit in its
