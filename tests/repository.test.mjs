@@ -70,8 +70,9 @@ test("references cover principles, styles, typography and verification", () => {
   }
   assert.match(styles, /Deriving a custom style from a brand color/);
   const premium = read("references/premium-craft.md");
-  assert.match(premium, /Anti-pattern blacklist/);
-  assert.match(premium, /ink register/i);
+  assert.match(premium, /Anti-pattern/);
+  assert.match(premium, /Dreamlight/);
+  assert.match(premium, /spectral drift|Luminous base/);
   assert.match(read("references/typography.md"), /text to outlines|outlines/);
   assert.match(read("references/verification.md"), /T2/);
 });
@@ -87,19 +88,22 @@ test("brand pack keeps the demo brand frozen and complete", () => {
 
 // --- generic examples prove breadth -----------------------------------------
 
-test("style gallery ships six distinct archetypes on one sheet", () => {
+test("style sheet shows one system in two climates (dawn / moonrise)", () => {
   const src = read("examples/style-gallery.svg");
-  for (const id of ["flat", "aurora", "glass", "neon", "ink", "editorial"]) {
-    assert.ok(src.includes(`data-style-id="${id}"`), `missing archetype panel: ${id}`);
+  for (const id of ["dawn", "moonrise"]) {
+    assert.ok(src.includes(`data-style-id="${id}"`), `missing climate: ${id}`);
   }
-  assert.match(src, /data-motif="verification-mark"/);
+  assert.match(src, /data-mood="warm"/);
+  assert.match(src, /data-mood="cool"/);
+  assert.match(src, /data-motif="dawn-orbs"/);
+  assert.match(src, /data-motif="moonrise-glow"/);
   assert.match(src, /stdDeviation/);
 });
 
-test("generic banner derives a fresh brand instead of copying the demo", () => {
+test("generic banner builds a fictional brand inside the house style", () => {
   const src = read("examples/banner-generic.svg");
   assert.match(src, /viewBox="0 0 1100 300"/);
-  assert.match(src, /data-motif="fresh-brew"/);
+  assert.match(src, /data-motif="moonrise"/);
   assert.match(src, /data-role="banner-title"/);
   assert.match(src, /data-role="cta"/);
   assert.ok(!src.includes("知了"), "generic example must not reuse the demo brand");

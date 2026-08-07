@@ -417,7 +417,6 @@ export function collectGeometry(src) {
         }
       }
       groupStack.push({ M, motifIndex, logo: inLogo, clipped, clipBox });
-      if (attrs["data-motif"] != null) motifs.push(null);
       continue;
     }
 
@@ -437,7 +436,7 @@ export function collectGeometry(src) {
           painted.push({ box, kind: urlM ? "url" : "solid", fill, urlId: urlM ? urlM[1] : null, opacity: Number.isFinite(alpha) ? alpha : 1 });
         }
         if (name === "rect" && hasFill && box.h <= 120 && box.w <= 520) containers.push(box);
-        if (motifIndex !== null) motifs[motifIndex] = unionBox(motifs[motifIndex], box);
+        if (motifIndex !== null) motifs.push({ box, motifIndex });
         if (inLogo) logos.push(box);
       }
     }
@@ -482,7 +481,7 @@ export function collectGeometry(src) {
       }
     }
   }
-  return { texts, containers, motifs: motifs.filter(Boolean), logos, painted };
+  return { texts, containers, motifs, logos, painted };
 }
 
 function unionBox(a, b) {
@@ -609,7 +608,7 @@ export function checkGeometry(src) {
         }
       }
     }
-    const zones = motifs.map((zb, i) => ({ b: zb, hit: t.motifIndex === i, tag: `motif ${i} (${motifLabel(src, i)})` }))
+    const zones = motifs.map((mo) => ({ b: mo.box, hit: t.motifIndex === mo.motifIndex, tag: `motif ${mo.motifIndex} (${motifLabel(src, mo.motifIndex)})` }))
       .concat(logos.map((zb) => ({ b: zb, hit: false, tag: "logo box" })));
     for (const z of zones) {
       if (z.hit) continue;

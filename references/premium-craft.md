@@ -1,76 +1,120 @@
-# Premium Craft
+# Style Mastery · the Dreamlight System
 
-Gates prove an asset is **not broken**; they cannot prove it is **worth looking
-at**. This file is the second half of the promise: the concrete rules that
-separate premium work from AI-template paste. Apply it whenever the deliverable
-should feel 高档 / editorial / flagship — which, for hero images, banners and
-specimen sheets, means always.
+This skill's house style. It exists because of a hard lesson: six styles done
+averagely read as templated, and two different "template faces" were burned
+getting there (the pastel-SaaS face and the dark-gold-luxury face). The fix is
+not another face — it is doing **one** style so well that it stops looking
+generated. Dreamlight draws with light itself: luminous atmospheres, one
+flowing gesture, glass depth, and typography that floats inside the scene.
 
-## 1. Where premium actually comes from
+## 1. Why one style mastered
 
-1. **Typographic tension.** Display vs metadata must differ by ≥ 6× in size
-   (e.g. 88 px display vs 11 px eyebrow). Mix a display serif (CJK:
-   `Songti SC / STSong / SimSun / Noto Serif SC`; Latin: `Georgia`) with a
-   tracked-out sans for metadata. One sans at three sizes is a template.
-2. **Weight in the palette.** Floaty pastels read cheap because nothing
-   anchors them. Premium work usually has either (a) a deep ground — ink
-   `#101318`, espresso `#171310` — with ivory text and ONE metallic accent, or
-   (b) warm paper `#f7f5f0` with near-black ink and one muted accent. Choose
-   one; never mix pastel gradients with dark editorial chrome.
-3. **Traces of order.** Hairlines (1 px, ≤ 0.16 alpha), index numerals (01/02,
-   N°), corner ticks, baseline rules, letter-spaced eyebrows, right-aligned
-   folios. These say "a grid existed here". Rounded rectangles with glow say
-   "a prompt existed here".
-4. **Restraint as identity.** ≤ 2 chromatic colors + neutrals. ≤ 1 accent
-   (metallic family: `#c9a86a` gold / `#b08968` bronze / `#9aa2af` steel).
-   Every element must earn its place; if it merely fills space, delete it.
-5. **Asymmetry.** Centered eyebrow + centered title + centered subtitle +
-   centered button is the single most recognizable AI layout. Put the display
-   block on one side, a specimen/annotation on the other, metadata in a footer
-   band. Let whitespace be uneven on purpose.
+- A style is a *vocabulary*: it only reads as intentional when every element
+  speaks it. Mixing vocabularies (pill chips in an editorial, hairline folios
+  in a dreamscape) is what makes work look templated.
+- Mastery is visible in the second decimal: how a gradient terminates, where
+  the highlight sits on a sphere, the exact saturation of a shadow. Those are
+  per-style problems; you can only solve them deeply for one style at a time.
+- Range comes later, *inside* the style: climates (dawn / noon / dusk /
+  moonrise), not new styles. Same physics, different weather.
 
-## 2. Anti-pattern blacklist (auto-reject)
+## 2. Color: recipes, not vibes
 
-- Pill chips and capsule buttons (rx = height/2) as the default control shape —
-  use hairline-outlined rectangles (rx ≤ 4), underlined text links, or plain
-  tracked text with an arrow.
-- Gradient halo blobs / aurora fog as decoration for its own sake. If a
-  gradient appears, it must be a *material* (one ribbon, one spot, fading to 0),
-  not wallpaper.
-- Rows of small colored dots / swatch confetti pretending to be design.
-- More than one rounded-corner radius per asset; rx > 16 on editorial work.
-- Drop-shadow glows on text, neon text-stroke tricks, emoji-grade iconography.
-- Three centered text blocks stacked with a button underneath.
-- Pastel base + pastel accent + pastel text (no dark anchor → no weight).
-- Decoration without semantics: every mark answers "what does this explain?"
-  or it goes.
-
-## 3. The ink register (reusable tokens)
-
-The flagship register used by this repo's own specimens:
+**Luminous base (cool, canonical).** Vertical 5–6-stop spectral drift, every
+stop within ~2 % lightness of its neighbor — the base must read as light, not
+as stripes:
 
 ```text
-ground     #101318 → #151923      (2-stop vertical, barely perceptible)
-frame      #efe9dc @ 0.12–0.16, 1 px, inset ≥ 20 px from canvas edge
-ivory      #efe9dc                 display / primary text
-paper      #c9cdd6                 body text
-muted      #8b93a1                 metadata, ≥ 11 px only
-gold       #c9a86a                 the single accent; numerals, ticks, key lines
-hairline   #efe9dc @ 0.12          rules, separators, annotation lines
+#f5f7ff → #eef0ff → #ece6fb → #f2e4f6 → #f9e9ee → #fdf0ea
 ```
 
-Typographic scale: eyebrow 11 px / ls 5–6 · body 13–15 px · display 56–92 px.
-Index numerals: Georgia italic 13–15 px in gold. Corner ticks: 10 px L-marks,
-gold @ 0.6, aligned to the frame corners.
+**Dusk base (warm climate for the same style).** Horizon glow upward:
 
-## 4. Premium self-check (after gates pass)
+```text
+#252b55 → #37407c → #6a5e9e → #c98ba0 → #f4c39a
+```
 
-1. Squint: do you see 2–3 value masses, or confetti?
-2. Is there exactly one accent color, used ≤ 4 times?
-3. Does the largest text vs smallest text differ by ≥ 6×?
-4. Are there visible hairlines / numerals / rules proving a grid existed?
-5. Is anything centered out of habit rather than intent?
-6. Remove your favorite element: is the piece still complete? (If yes, it was
-   decoration — keep it out.)
-7. Would this survive printed at A2 on a wall? Premium survives scale;
-   templates only survive at thumbnail size.
+Rules:
+
+- Palette = one analogous family (aqua→sky→violet→rose, or rose→peach→gold→
+  lilac) + **one** surprise hue used once. Never a rainbow.
+- Shadows are tinted with the dominant hue family (violet shadow in a cool
+  scene, peach shadow in a warm one). Gray shadows kill luminosity.
+- The light source itself is layered radials (white core → tinted mid → 0),
+  never a flat white circle.
+- No pure black, no pure white content — ivory `#fdf6ec` and deep violet ink
+  `#37326e` are the extremes.
+
+## 3. Light rules
+
+1. **One primary bloom.** Every scene has exactly one light source that
+   everything else answers to (consistent highlight direction on all orbs).
+2. **Atmospheric depth, three planes:** far = blurred + low opacity + desaturated;
+   mid = the gesture; near = sharp + full saturation + specular. If everything
+   is equally sharp, nothing is luminous.
+3. **Gradients terminate.** Every halo/ribbon/bloom ends at `stop-opacity="0"`;
+   airiness dies the moment a gradient ends hard.
+4. **Bounded blur:** `stdDeviation ≤ 24`, and blur is used at most twice per
+   composition (one halo/atmosphere pass, one depth-of-field pass).
+
+## 4. The gesture (composition spine)
+
+One ribbon family crosses the scene and leads the eye to the title:
+
+- **Band A** — wide (60–90 px), blurred (`stdDeviation 14–18`), opacity ~0.5,
+  the atmosphere of the move.
+- **Band B** — sharp core (2.5–4 px), opacity ~0.9, a luminous gradient or
+  white-sheen — the edge of the same move.
+- **Band C** — thin echo, offset, opacity ~0.3 — the memory of the move.
+
+All three are variations of **one** bezier gesture: large radii, no kinks,
+entering and leaving through the canvas edges. The gesture divides the canvas
+into one quiet zone (for text) and one active zone (for orbs/sparkles). If the
+ribbon is decoration around the text instead of the spine of the composition,
+delete it.
+
+## 5. Orbs (glass depth)
+
+- ≥ 3 per scene, three sizes deliberately: one **large and edge-cropped**
+  (anchoring), one **medium and sharp** (character), one **small** (accent).
+- Each orb: radial fill with the highlight offset toward the light source, a
+  0.8–1 px rim-light stroke on the lit side, a white specular dot, and a
+  tinted soft shadow below. A flat circle is a dot, not an orb.
+- Small lens sparkles (four-point, hand-drawn path, NOT circles) at ≤ 4 energy
+  points: ribbon crossings, orb rims, near the bloom. Sparkle is punctuation,
+  never confetti.
+
+## 6. Typography in light fields
+
+- Deep desaturated ink (`#37326e` family in cool scenes, `#4a2f3f` in warm),
+  serif display with letter-spacing 3–6 px. Display vs meta ≥ 5× size.
+- A single soft **tinted** drop-shadow (`flood-color` = dominant hue @ ≤ 0.35)
+  lifts the title out of the atmosphere — never a gray/black shadow.
+- Max three text elements: title / one line / one whisper of metadata. Light
+  scenes drown in copy.
+
+## 7. Anti-patterns — both burned template faces
+
+Pastel-SaaS face (auto-reject): pill chips, aurora fog with no composition,
+rows of colored dots, centered eyebrow-title-subtitle-button triads, 2-stop
+flat pastel bases, decoration without a gesture.
+
+Dark-gold-luxury face (also auto-reject): near-black + gold hairlines + index
+numerals + serif small caps + drafting annotations as a substitute for beauty.
+That face described premium mechanically and produced spec sheets, not images
+worth looking at. Chrome is not craft.
+
+And forever: gradient blobs for wallpaper, glow on text, > 1 accent hue,
+anything that exists to fill space rather than to carry light.
+
+## 8. Self-check (after gates pass)
+
+1. Does the scene have ONE believable light source, and does everything obey it?
+2. Can you name the gesture in one sentence, and does the title sit in its
+   quiet zone?
+3. Three depth planes present — blurred far, gestural mid, sharp near?
+4. Remove the sparkles and the smallest orb: is it still alive? (Then they
+   were punctuation.) Add them back only if the scene got worse.
+5. Print it in your head at poster size: does the color hold, or does it read
+   as stripes and stickers?
+6. Does it beat the seasonal series it descends from? If not, iterate.
