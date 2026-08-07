@@ -84,21 +84,21 @@ test("brand pack keeps the demo brand frozen and complete", () => {
   for (const d of ["J", "K", "L", "M", "N", "O", "P", "Q", "R", "S1", "S2"]) {
     assert.ok(doc.includes(d), `missing direction: ${d}`);
   }
-  assert.match(doc, /book-open-check/);
+  assert.match(doc, /single fused mark|单一符号/i);
+  assert.match(doc, /page becomes the check/);
 });
 
 // --- generic examples prove breadth -----------------------------------------
 
-test("style sheet shows one system in two climates (dawn / moonrise)", () => {
+test("style sheet shows three different grammars, not three recolors", () => {
   const src = read("examples/style-gallery.svg");
-  for (const id of ["dawn", "moonrise"]) {
-    assert.ok(src.includes(`data-style-id="${id}"`), `missing climate: ${id}`);
+  for (const id of ["dreamlight", "paper", "glass"]) {
+    assert.ok(src.includes(`data-style-id="${id}"`), `missing grammar: ${id}`);
   }
-  assert.match(src, /data-mood="warm"/);
-  assert.match(src, /data-mood="cool"/);
-  assert.match(src, /data-motif="dawn-orbs"/);
-  assert.match(src, /data-motif="moonrise-glow"/);
-  assert.match(src, /stdDeviation/);
+  // each grammar must carry its own construction language
+  assert.match(src, /绸带|ribbon/i, "dreamlight needs the silk gesture");
+  assert.match(src, /stroke-dasharray="5 7"/, "paper needs the stitched frame");
+  assert.match(src, /fill-opacity="0\.07"/, "glass needs the translucent vessel");
 });
 
 test("generic banner builds a fictional brand inside the house style", () => {
@@ -116,7 +116,8 @@ test("hero carries the skill's meaning: verify-nodes motif + atelier mark", () =
     const src = read(f);
     assert.match(src, /data-motif="verify-nodes"/, `${f} must keep the semantic motif`);
     assert.match(src, /data-role="atelier-mark"/, `${f} must keep the atelier mark`);
-    assert.match(src, /R 86/, `${f} must keep the quiet construction trace`);
+    assert.match(src, /RibbonCore/i, `${f} ribbon must be a layered filled band`);
+    assert.ok(!/R 86|drafting|刻度/.test(src), `${f} must not carry drafting chrome`);
   }
   // the summer variant is the same composition in a warm climate
   assert.match(read("examples/hero-summer.svg"), /#fff6f0/);
@@ -140,6 +141,8 @@ test("zhiliao banner/popup/gallery keep their canonical structure", () => {
   const banner = read("examples/zhiliao-study/banner-example.svg");
   assert.match(banner, /viewBox="0 0 1100 300"/);
   assert.match(banner, /data-role="edge-clipped-bubbles"/);
+  assert.match(banner, /data-motif="review-path"/, "banner must tell the review-path story visually");
+  assert.ok(!banner.includes("rx=\"15\""), "no pill tags on the banner");
   const popup = read("examples/zhiliao-study/popup-mockup-example.svg");
   assert.match(popup, /viewBox="0 0 860 730"/);
   assert.match(popup, /data-role="logo"/);
@@ -149,16 +152,29 @@ test("zhiliao banner/popup/gallery keep their canonical structure", () => {
   assert.deepEqual(motifs.sort(), [...GALLERY_MOTIFS].sort());
 });
 
-test("logo concepts keep provenance metadata and 48 px previews", () => {
+test("logo is a single fused mark, not an icon assembly", () => {
   const src = read("examples/zhiliao-study/logo-concepts.svg");
   const logos = src.match(/<g[^>]*data-role="logo"[^>]*>/g) ?? [];
   assert.ok(logos.length >= 2);
   for (const g of logos) {
-    for (const attr of ["data-logo-intent", "data-icon-source", "data-icon-name", "data-icon-license"]) {
-      assert.ok(g.includes(attr), `logo group missing ${attr}`);
-    }
+    assert.ok(g.includes("data-logo-intent"), "logo group missing intent");
+    assert.ok(g.includes("page becomes the check"), "logo must declare the fused semantics");
+    assert.ok(!g.includes("data-icon-source"), "the mark is original, not icon-derived");
+  }
+  // the current mark's geometry must carry no shield — prose may describe the retired one
+  const symbols = [...src.matchAll(/<symbol[\s\S]*?<\/symbol>/g)].map((m) => m[0]).join("\n");
+  assert.ok(!/ shield|shield /i.test(symbols), "mark geometry contains a shield");
+  for (const sym of [...src.matchAll(/<symbol[\s\S]*?<\/symbol>/g)].map((m) => m[0])) {
+    const checks = sym.match(/l ?\d+ \d+ l ?\d+ -\d+|l\d+ \d+ l\d+ -\d+/g) ?? [];
+    assert.ok(checks.length <= 1, `symbol carries ${checks.length} checks — one gesture only`);
   }
   assert.match(src, /data-role="logo-preview" data-size="48"/);
+});
+
+test("brand pack declares the single-mark logo", () => {
+  const doc = read("brand-packs/zhiliao-study.md");
+  assert.match(doc, /单一符号|single mark|一笔/);
+  assert.ok(!/节点环|shield badge|盾牌/.test(doc), "brand pack must not describe ring or shield");
 });
 
 test("every shipped asset passes all gates including contrast", () => {

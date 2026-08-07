@@ -682,7 +682,7 @@ function motifLabel(src, i) {
 
 /* ----------------------------------------------------------- full grading -- */
 
-const LOGO_REQUIRED = ["data-logo-intent", "data-icon-source", "data-icon-name", "data-icon-license"];
+const LOGO_ICON_ATTRS = ["data-icon-source", "data-icon-name", "data-icon-license"];
 const MAX_BLUR = 24;
 
 export function gradeSvg(filePath) {
@@ -710,9 +710,14 @@ export function gradeSvg(filePath) {
     warnings.push(`portability W1: external raster embed ${m[1].slice(0, 60)} breaks offline/portable rendering`);
   }
 
-  // Logo metadata gate
+  // Logo metadata gate: intent always required; icon provenance only when derived
   for (const g of src.match(/<g[^>]*data-role="logo"[^>]*>/g) ?? []) {
-    for (const attr of LOGO_REQUIRED) if (!g.includes(attr)) issues.push(`logo group missing ${attr}`);
+    if (!g.includes("data-logo-intent")) issues.push("logo group missing data-logo-intent");
+    if (g.includes("data-icon-source")) {
+      for (const attr of LOGO_ICON_ATTRS) {
+        if (!g.includes(attr)) issues.push(`derived logo group missing ${attr}`);
+      }
+    }
   }
 
   // Blur bound (no unbounded glow)

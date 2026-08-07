@@ -20,11 +20,23 @@
       <stop offset="0" stop-color="#ffd9c8" stop-opacity="0.3"/>
       <stop offset="1" stop-color="#ffd9c8" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="hcRibbon" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#f472a0"/>
-      <stop offset="0.35" stop-color="#fb9d6c"/>
-      <stop offset="0.68" stop-color="#f5c86e"/>
-      <stop offset="1" stop-color="#c9a2f0"/>
+        <linearGradient id="hcEchoGrad" gradientUnits="userSpaceOnUse" x1="-80" y1="470" x2="1300" y2="84">
+      <stop offset="0" stop-color="#f8d3dc"/>
+      <stop offset="0.35" stop-color="#f8ddc9"/>
+      <stop offset="0.68" stop-color="#f6e3bd"/>
+      <stop offset="1" stop-color="#e8d6f6"/>
+    </linearGradient>
+    <linearGradient id="hcRibbonCore" gradientUnits="userSpaceOnUse" x1="-80" y1="470" x2="1300" y2="84">
+      <stop offset="0" stop-color="#ffe4ec"/>
+      <stop offset="0.35" stop-color="#ffe6d9"/>
+      <stop offset="0.68" stop-color="#ffedc9"/>
+      <stop offset="1" stop-color="#efe2fb"/>
+    </linearGradient>
+    <linearGradient id="hcRibbon" gradientUnits="userSpaceOnUse" x1="-80" y1="470" x2="1300" y2="84">
+      <stop offset="0" stop-color="#ec5f92"/>
+      <stop offset="0.35" stop-color="#f68d55"/>
+      <stop offset="0.68" stop-color="#efb854"/>
+      <stop offset="1" stop-color="#b98ce8"/>
     </linearGradient>
     <linearGradient id="hcSheen" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
@@ -39,8 +51,8 @@
     </radialGradient>
     <radialGradient id="hcOrbB" cx="0.64" cy="0.3" r="0.8">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0.98"/>
-      <stop offset="0.5" stop-color="#f9e2d2" stop-opacity="0.6"/>
-      <stop offset="1" stop-color="#efb4a0" stop-opacity="0.2"/>
+      <stop offset="0.5" stop-color="#f6d3ba" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#d8896f" stop-opacity="0.2"/>
     </radialGradient>
     <radialGradient id="hcOrbShadow" cx="0.5" cy="0.5" r="0.5">
       <stop offset="0" stop-color="#d78a6a" stop-opacity="0.3"/>
@@ -55,6 +67,12 @@
       <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.24"/>
       <stop offset="1" stop-color="#ffffff" stop-opacity="0.06"/>
     </linearGradient>
+    <filter id="hcSilkBlur" x="-30%" y="-120%" width="160%" height="340%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="hcEchoBlur" x="-30%" y="-200%" width="160%" height="500%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
     <filter id="hcRibbonBlur" x="-30%" y="-220%" width="160%" height="540%">
       <feGaussianBlur stdDeviation="16"/>
     </filter>
@@ -71,11 +89,14 @@
   <circle cx="880" cy="130" r="480" fill="url(#hcBloom)"/>
   <circle cx="120" cy="520" r="380" fill="url(#hcWarmWash)"/>
 
-  <!-- 手势：一条丝带的三层（雾带 / 锐锋 / 回声） -->
-  <path d="M -60 470 C 260 470 380 250 660 260 S 1120 190 1290 80" fill="none" stroke="url(#hcRibbon)" stroke-width="70" stroke-linecap="round" opacity="0.5" filter="url(#hcRibbonBlur)"/>
-  <path d="M -60 430 C 260 428 400 210 680 218 S 1120 150 1290 40" fill="none" stroke="url(#hcRibbon)" stroke-width="5" stroke-linecap="round" opacity="0.3"/>
-  <path d="M -40 150 C 300 130 500 92 900 72 S 1150 44 1240 22" fill="none" stroke="url(#hcRibbon)" stroke-width="2.5" stroke-linecap="round" opacity="0.22"/>
-  <path d="M -60 456 C 260 456 380 236 660 246 S 1120 176 1290 66" fill="none" stroke="url(#hcSheen)" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+  <!-- 手势：一匹绸（闭合填充带，两端收尖中段丰盈，双层 + 褶皱 + 远处回声） -->
+  <path d="M -80 470 C 200 452 380 300 620 258 C 830 224 1050 190 1300 78 L 1300 90 C 1060 200 840 320 640 348 C 400 380 210 470 -80 486 Z" fill="url(#hcRibbon)" opacity="0.62" filter="url(#hcSilkBlur)"/>
+  <path d="M -80 464 C 200 448 380 302 620 262 C 830 230 1050 198 1300 88 L 1300 92 C 1064 202 848 310 648 336 C 412 364 214 460 -80 478 Z" fill="url(#hcRibbonCore)" opacity="0.92"/>
+  <path d="M -80 470 C 200 452 380 300 620 258 C 830 224 1050 190 1300 78" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.5"/>
+  <path d="M 470 300 C 530 285 600 278 660 280" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 880 250 C 940 238 1010 214 1080 186" fill="none" stroke="#ffffff" stroke-opacity="0.28" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M -60 492 C 240 462 430 340 650 306 C 890 272 1050 208 1270 96" fill="none" stroke="#7a6cc8" stroke-opacity="0.18" stroke-width="3" stroke-linecap="round"/>
+  <path d="M -40 150 C 300 132 560 96 920 76 C 1090 66 1200 48 1268 34 L 1268 40 C 1200 54 1092 72 924 88 C 566 108 306 144 -40 162 Z" fill="url(#hcEchoGrad)" opacity="0.5" filter="url(#hcEchoBlur)"/>
 
   <rect x="0" y="300" width="1200" height="260" fill="url(#hcFog)"/>
 
@@ -92,19 +113,12 @@
       <path d="M 1080 220 Q 1046 288 966 336"/>
       <path d="M 582 106 Q 770 220 934 336"/>
     </g>
-    <ellipse cx="952" cy="436" rx="42" ry="9" fill="url(#hcOrbShadow)"/>
+    <ellipse cx="952" cy="438" rx="48" ry="10" fill="url(#hcOrbShadow)" fill-opacity="1"/>
     <circle cx="952" cy="352" r="62" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
-    <circle cx="932" cy="326" r="7" fill="#ffffff" fill-opacity="0.9"/>
+    <circle cx="930" cy="324" r="8" fill="#ffffff" fill-opacity="0.92"/>
+    <path d="M 898 321 A 62 62 0 0 1 983 298" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="2.2" stroke-linecap="round"/>
     <!-- 核验勾：秩序内在于光 -->
-    <path d="M 934 356 l 13 13 l 26 -26" fill="none" stroke="#8a4a62" stroke-opacity="0.9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- 极克制的构造几何：门禁的痕迹 -->
-    <circle cx="952" cy="352" r="86" fill="none" stroke="#c9a86a" stroke-opacity="0.3" stroke-width="1"/>
-    <g stroke="#c9a86a" stroke-opacity="0.45" stroke-width="1.2">
-      <line x1="952" y1="264" x2="952" y2="252"/>
-      <line x1="1040" y1="352" x2="1052" y2="352"/>
-      <line x1="952" y1="440" x2="952" y2="452"/>
-    </g>
-    <text x="1030" y="300" font-family="Georgia, Times New Roman, serif" font-size="10" font-style="italic" fill="#6b4a5c">R 86</text>
+    <path d="M 934 356 l 13 13 l 26 -26" fill="none" stroke="#7d3f58" stroke-opacity="0.95" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
     <circle cx="566" cy="88" r="22" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
     <circle cx="558" cy="80" r="3" fill="#ffffff" fill-opacity="0.95"/>
     <circle cx="1088" cy="208" r="13" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.7" stroke-width="1"/>
@@ -113,8 +127,6 @@
       <path d="M760 166 C 762.2 177.8 762.2 177.8 774 180 C 762.2 182.2 762.2 182.2 760 194 C 757.8 182.2 757.8 182.2 746 180 C 757.8 177.8 757.8 177.8 760 166 Z"/>
       <circle cx="1016" cy="116" r="14" fill="url(#hcSparkGlow)"/>
       <path d="M1016 107 C 1017.5 114.5 1017.5 114.5 1025 116 C 1017.5 117.5 1017.5 117.5 1016 125 C 1014.5 117.5 1014.5 117.5 1007 116 C 1014.5 114.5 1014.5 114.5 1016 107 Z" fill-opacity="0.95"/>
-      <circle cx="560" cy="142" r="10" fill="url(#hcSparkGlow)"/>
-      <path d="M560 136 C 561 141 561 141 566 142 C 561 143 561 143 560 148 C 559 143 559 143 554 142 C 559 141 559 141 560 136 Z" fill-opacity="0.9"/>
     </g>
   </g>
 
@@ -124,7 +136,7 @@
   <text x="84" y="296" font-family="Georgia, Times New Roman, serif" font-size="20" font-style="italic" fill="#7a5268">Where light is drawn, order follows.</text>
   <g data-role="atelier-mark">
     <circle cx="1064" cy="512" r="9" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.7" stroke-width="0.8"/>
-    <path d="M 1059 512 l 4 4 l 9 -9" fill="none" stroke="#8a4a62" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 1059 512 l 4 4 l 9 -9" fill="none" stroke="#7d3f58" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     <text x="1046" y="516" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="10.5" font-weight="600" fill="#6b4a5c" letter-spacing="3">SVG ATELIER</text>
   </g>
   <text x="96" y="506" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#6b4a5c">机器门禁 G1–G4 · 引用完整性 R1·R2 · 渲染实测 T0 / T1 / T2</text>

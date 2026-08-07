@@ -47,42 +47,67 @@ Rules:
 
 ## 3. Light rules
 
-1. **One primary bloom.** Every scene has exactly one light source that
-   everything else answers to (consistent highlight direction on all orbs).
-2. **Atmospheric depth, three planes:** far = blurred + low opacity + desaturated;
-   mid = the gesture; near = sharp + full saturation + specular. If everything
-   is equally sharp, nothing is luminous.
+1. **One light source, many tints.** Every scene answers to exactly one light
+   source — all speculars and orb highlights must agree on its direction.
+   Drift fields, fog and colored washes are **not** light sources; they are
+   tinted air. Keep them low-contrast and clearly subordinate, or the scene
+   reads as "several lamps" instead of "one sun."
+2. **Three value steps, not one flat whisper.** Premium is built from clear
+   foreground/midground/background **values**, not from making everything
+   translucent. Far = desaturated, low contrast, no detail; mid = the gesture
+   or structure, medium saturation; near = one subject at full saturation with
+   a crisp specular and edge reflection. If background, ribbon, orbs and text
+   all sit at the same lightness/opacity, the result is pale wallpaper with no
+   hierarchy. Push at least one element to full density so the others can stay
+   airy *by contrast*.
 3. **Gradients terminate.** Every halo/ribbon/bloom ends at `stop-opacity="0"`;
    airiness dies the moment a gradient ends hard.
 4. **Bounded blur:** `stdDeviation ≤ 24`, and blur is used at most twice per
    composition (one halo/atmosphere pass, one depth-of-field pass).
 
-## 4. The gesture (composition spine)
+## 4. The gesture: silk, never neon tubes
 
-One ribbon family crosses the scene and leads the eye to the title:
+A ribbon drawn as three constant-width strokes reads as glowing wire — that is
+the #1 reason dreamy scenes turn tacky. A ribbon is **silk**, so build it as a
+filled shape, not a stroke:
 
-- **Band A** — wide (60–90 px), blurred (`stdDeviation 14–18`), opacity ~0.5,
-  the atmosphere of the move.
-- **Band B** — sharp core (2.5–4 px), opacity ~0.9, a luminous gradient or
-  white-sheen — the edge of the same move.
-- **Band C** — thin echo, offset, opacity ~0.3 — the memory of the move.
+- **Closed band, two edges**: the top and bottom edges are two separate curves
+  enclosing a fill. Never parallel glowing lines.
+- **Tapered ends, full belly**: pinch the band to a point at both ends and let
+  the middle swell. An even-width band has no tension.
+- **Two translucent layers**: an outer wide layer (blurred, `stdDeviation`
+  8–14, opacity ~0.55) as the soft move, plus a narrower sharp core (opacity
+  ~0.9) as the lit edge — offset them slightly for thickness. Add one white
+  edge-light stroke along the top edge, and 1–2 short highlight folds on the
+  belly.
+- **Deepen the value**: the gesture is the mid-ground, so give it real
+  saturation and opacity (~0.7). A ribbon at 0.4 opacity on a pale base is
+  wallpaper, not a gesture.
+- One distant thin echo of the same gesture, opacity ~0.2, may sit higher up.
 
-All three are variations of **one** bezier gesture: large radii, no kinks,
-entering and leaving through the canvas edges. The gesture divides the canvas
-into one quiet zone (for text) and one active zone (for orbs/sparkles). If the
-ribbon is decoration around the text instead of the spine of the composition,
-delete it.
+The gesture still divides the canvas into a quiet zone (text) and an active
+zone (orbs/sparkles). If it decorates around the text instead of carrying the
+composition, delete it.
 
-## 5. Orbs (glass depth)
+## 5. Orbs (glass depth) + floating background
 
-- ≥ 3 per scene, three sizes deliberately: one **large and edge-cropped**
+Orbs:
+- ≥ 3 per scene, three sizes on purpose: one **large and edge-cropped**
   (anchoring), one **medium and sharp** (character), one **small** (accent).
 - Each orb: radial fill with the highlight offset toward the light source, a
-  0.8–1 px rim-light stroke on the lit side, a white specular dot, and a
-  tinted soft shadow below. A flat circle is a dot, not an orb.
-- Small lens sparkles (four-point, hand-drawn path, NOT circles) at ≤ 4 energy
-  points: ribbon crossings, orb rims, near the bloom. Sparkle is punctuation,
-  never confetti.
+  rim-light arc on the lit side, a white specular dot, and a tinted soft shadow
+  below. Give the near orb a real edge reflection so it reads as glass, not a
+  flat decal.
+- The near subject orb is the only element at full density — deepen its radial
+  and shadow so the airy layers around it have something to be airy *against*.
+
+Background:
+- The base gradient alone is a wall. Add 2–3 large drift fields (tinted air,
+  not light) plus a handful of floating motes at varied opacity/size so the
+  scene breathes. Motes are sparse and scattered, never a grid or a confetti
+  burst; at most one or two get a soft glow, the rest are bare dots.
+- One bloom sits slightly off-center as the sun; keep halo opacity honest but
+  never so even that foreground and background flatten into the same value.
 
 ## 6. Typography in light fields
 
@@ -90,8 +115,14 @@ delete it.
   serif display with letter-spacing 3–6 px. Display vs meta ≥ 5× size.
 - A single soft **tinted** drop-shadow (`flood-color` = dominant hue @ ≤ 0.35)
   lifts the title out of the atmosphere — never a gray/black shadow.
-- Max three text elements: title / one line / one whisper of metadata. Light
-  scenes drown in copy.
+- **Hierarchy floors, counted honestly.** Product assets (banners, cards)
+  carry at most three text levels: title / one line / one whisper. One
+  functional control (a CTA) may exist in addition — but *functional*, never a
+  decorative pill. Covers and README heroes may add a kicker above the title
+  and a brand folio below — but a folio is a *mark* (symbol + wordmark), not a
+  paragraph, and spec lines (gate lists, version notes) belong in the README,
+  never on the artwork. Count every `<text>` you ship; if you can't name the
+  job of each one, cut it.
 
 ## 7. Meaning before ornament
 
@@ -116,8 +147,10 @@ problem, in atmosphere as much as in layout.
 ## 8. Anti-patterns — both burned template faces
 
 Pastel-SaaS face (auto-reject): pill chips, aurora fog with no composition,
-rows of colored dots, centered eyebrow-title-subtitle-button triads, 2-stop
-flat pastel bases, decoration without a gesture.
+**aligned rows of dots / confetti bursts** (sparse floating motes per §5 are
+required and are *not* this — the test is alignment and uniformity), centered
+eyebrow-title-subtitle-button triads, 2-stop flat pastel bases, decoration
+without a gesture, ribbons drawn as constant-width glowing strokes.
 
 Dark-gold-luxury face (also auto-reject): near-black + gold hairlines + index
 numerals + serif small caps + drafting annotations as a substitute for beauty.
