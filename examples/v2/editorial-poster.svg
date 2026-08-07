@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600">
+  <title>V2 Editorial Poster</title>
+  <g data-style-id="editorial" data-palette="light" data-layout="poster">
+    <rect width="1200" height="1600" fill="#F6F1E8"/>
+    <text x="100" y="360" fill="#111" font-size="96" font-family="serif" font-weight="700">SVG</text>
+    <text x="100" y="500" fill="#111" font-size="48" font-family="serif">is a visual language</text>
+    <line x1="100" y1="600" x2="1000" y2="600" stroke="#111"/>
+    <text x="100" y="720" fill="#555" font-size="24" font-family="sans-serif">Typography • Grid • Restraint</text>
+  </g>
+</svg>
