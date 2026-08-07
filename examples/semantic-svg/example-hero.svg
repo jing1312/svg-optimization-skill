@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" data-style-id="dreamlight" data-palette="night" data-layout="hero">
+  <g data-role="atmosphere" data-purpose="ambient-light">
+    <rect width="1200" height="630" fill="#080b18"/>
+  </g>
+
+  <g data-role="visual-focus" data-purpose="hero-object" data-material="glass" data-light-source="top-left">
+    <circle cx="600" cy="300" r="120" fill="#8aa8ff" opacity="0.18"/>
+  </g>
+
+  <g data-role="information" data-purpose="headline" data-typography="display">
+    <text x="600" y="540" text-anchor="middle" fill="white" font-size="72">Visual System</text>
+  </g>
+</svg>
