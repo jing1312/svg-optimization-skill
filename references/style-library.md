@@ -115,13 +115,12 @@ iteration doesn't re-derive them from scratch.
 ## 4. Registers: how an archetype is dressed
 
 An archetype fixes material discipline; a **register** fixes the level of
-formality on top of it. The **premium register** (deep ground or warm paper,
-ivory ink, one metallic accent, hairlines, index numerals, serif display,
-asymmetric editorial layout) can ride any archetype — see
-`references/premium-craft.md` for the full token set and anti-pattern
-blacklist. Hero images and flagship banners default to the premium register;
-the repo's own specimen assets (`docs/images/hero-cover.svg`,
-`examples/style-gallery.svg`, `examples/banner-generic.svg`) demonstrate it.
+formality on top of it. This skill's house register is the **Dreamlight
+system** — see `references/premium-craft.md` for the full color recipes, light
+rules, gesture discipline and the double anti-pattern blacklist. Hero images
+and flagship banners default to Dreamlight; the repo's own specimen assets
+(`docs/images/hero-cover.svg`, `examples/style-gallery.svg`,
+`examples/banner-generic.svg`) demonstrate it.
 
 ## 5. Anti-collage rule
 

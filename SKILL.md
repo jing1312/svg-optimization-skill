@@ -45,9 +45,10 @@ animated/interactive SVG beyond static design.
    colors, derive the palette with the derivation rules (style-library §3)
    instead of picking a preset blindly. For hero images, banners, specimen
    sheets, or any ask for 高级感/premium feel, apply
-   `references/premium-craft.md` — its anti-pattern blacklist overrides
-   default habits (no pills, no gradient blobs, no dot rows, no centered
-   triads).
+   `references/premium-craft.md`: the house style is the **Dreamlight system**
+   (luminous atmosphere, one ribbon gesture, glass depth), and its anti-pattern
+   list overrides default habits (no pills, no gradient blobs, no dot rows, no
+   centered triads, and no dark-gold-hairline "fake luxury" chrome either).
 3. **Build with the six-layer effect budget** (`design-principles.md` §4):
    layers in fixed order, capped count, bounded blur. No unbounded blurs, no
    repeated glow passes, no scattered decorative dots.

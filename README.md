@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/images/hero-cover.svg" alt="svg-optimization-skill：跨 agent 的 SVG 设计与质量门禁技能" width="100%" />
+  <img src="docs/images/hero-cover.svg" alt="svg-optimization-skill · 流光体系：光是画出来的" width="100%" />
 </div>
 
 <div align="center">
@@ -48,15 +48,15 @@ T1 通过 ≠ 完成；有 T2 可用却跳过，就不算完成。没有任何�
 ## 效果一览（仓库内 SVG 直出）
 
 <div align="center">
-  <img src="examples/style-gallery.svg" alt="六个风格原型：Flat / Aurora / Glass / Neon / Ink / Editorial" width="100%" />
+  <img src="examples/style-gallery.svg" alt="流光体系双联画：晨光与月色，一种光两种气候" width="100%" />
   <br/>
-  <sub><strong>风格原型画廊</strong> —— Flat / Aurora / Glass / Neon / Ink / Editorial，同一套门禁下的六种材质纪律。</sub>
+  <sub><strong>流光体系（Dreamlight）</strong> —— 本技能的家传风格：一种光，两种气候。同一套光规则、手势与景深，换个色温就是新的天气。</sub>
 </div>
 
 <div align="center">
-  <img src="examples/banner-generic.svg" alt="非内置品牌示例：从主色推导的晨山咖啡 banner" width="100%" />
+  <img src="examples/banner-generic.svg" alt="虚构品牌示例：山月香氛暮色 banner（流光体系）" width="100%" />
   <br/>
-  <sub><strong>通用示例 banner（1100×300）</strong> —— 从品牌主色 <code>#c2410c</code> 推导整套色板，与任何内置品牌无关。</sub>
+  <sub><strong>通用示例 banner（1100×300）</strong> —— 虚构香氛品牌的暮色气候：天光渐变、三层山谷、月亮主光晕，与任何内置品牌无关。</sub>
 </div>
 
 <table>
@@ -132,9 +132,11 @@ tests/                  # 24 项测试；fixtures 为每个门禁各备一个“
 
 - **门禁查结构，人眼管审美。** 门禁能保证资产“没坏”，不能保证“好看”；
   所以 SKILL.md 强制要求：有渲染条件就必须渲染目检，并如实说明检查了什么。
-- **示例必须过自己的门禁，也必须拿得出手。** 仓库里的示例资产不仅全绿，还按
-  `references/premium-craft.md` 的高级感纪律制作：深墨底、衬线大字、金线细部、
-  编号秩序 —— 拒绝胶囊按钮、渐变光斑和彩色圆点那套 AI 模板脸。
+- **与其六种风格平庸，不如一种风格做到极致。** 本技能的家传风格是流光体系
+  （Dreamlight）：光谱底色、单一光源、一条贯穿全画面的丝带手势、三层景深的
+  玻璃浮球。完整的色彩配方、光规则与反模式黑名单见
+  `references/premium-craft.md` —— 拒绝胶囊按钮、渐变光斑、彩色圆点那套
+  AI 模板脸，也拒绝深黑金线编号那套"假装高级"的规格书脸。
 - **风格可推导。** 给一个品牌主色，按 `style-library.md §3` 推出整套 token，
   而不是从预制色板里碰运气。
 - **用户偏好属于会话记忆。** 本技能不持久化任何用户数据；跨会话保留口味需用户

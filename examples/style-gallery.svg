@@ -1,185 +1,145 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1560" width="1200" height="1560" role="img" aria-labelledby="sgT sgD">
-  <title id="sgT">风格原型样张册：Flat / Aurora / Glass / Neon / Ink / Editorial</title>
-  <desc id="sgD">深墨样张册：六种风格原型装裱入框，编号与细线秩序统一，展示同一门禁下的材质纪律。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="1200" height="820" role="img" aria-labelledby="sgT sgD">
+  <title id="sgT">流光体系双联画：晨光与月色，一种光两种气候</title>
+  <desc id="sgD">同一流光体系的两种气候 —— 暖域晨光与冷域月色，共享同一套光规则、手势与浮球景深。</desc>
   <defs>
     <linearGradient id="sgGround" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0f1216"/>
-      <stop offset="1" stop-color="#141821"/>
+      <stop offset="0" stop-color="#f7f6fc"/>
+      <stop offset="1" stop-color="#f1f0fa"/>
     </linearGradient>
-    <linearGradient id="sgAuroraBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#eef4ff"/>
-      <stop offset="1" stop-color="#f6efff"/>
+    <!-- 晨光气候 -->
+    <linearGradient id="sgDawnBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ece4f8"/>
+      <stop offset="0.28" stop-color="#f6e0ec"/>
+      <stop offset="0.55" stop-color="#fbe2dc"/>
+      <stop offset="0.8" stop-color="#fdeedd"/>
+      <stop offset="1" stop-color="#fff6e8"/>
     </linearGradient>
-    <linearGradient id="sgAuroraRibbon" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#7ee8e0" stop-opacity="0"/>
-      <stop offset="0.35" stop-color="#7ee8e0" stop-opacity="0.55"/>
-      <stop offset="0.65" stop-color="#9b8cff" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#ffb3d9" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="sgNeonBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0a0a1a"/>
-      <stop offset="1" stop-color="#141432"/>
-    </linearGradient>
-    <linearGradient id="sgNeonStroke" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#22d3ee"/>
-      <stop offset="0.5" stop-color="#a855f7"/>
-      <stop offset="1" stop-color="#f472b6"/>
-    </linearGradient>
-    <radialGradient id="sgNeonSpot" cx="0.5" cy="0.45" r="0.55">
-      <stop offset="0" stop-color="#a855f7" stop-opacity="0.2"/>
-      <stop offset="1" stop-color="#a855f7" stop-opacity="0"/>
+    <radialGradient id="sgDawnBloom" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff3dd" stop-opacity="0.85"/>
+      <stop offset="0.4" stop-color="#ffe4cf" stop-opacity="0.4"/>
+      <stop offset="0.72" stop-color="#ffd9d0" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#ffd9d0" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="sgGlassGlow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.5"/>
-      <stop offset="1" stop-color="#8b7cf6" stop-opacity="0"/>
+    <linearGradient id="sgRibbonWarm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f6a9c4"/>
+      <stop offset="0.35" stop-color="#f8bd8f"/>
+      <stop offset="0.7" stop-color="#f5d78e"/>
+      <stop offset="1" stop-color="#c9b2ee"/>
+    </linearGradient>
+    <!-- 月色气候 -->
+    <linearGradient id="sgMoonBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8e9fb"/>
+      <stop offset="0.3" stop-color="#e3e2f8"/>
+      <stop offset="0.58" stop-color="#ded9f5"/>
+      <stop offset="0.82" stop-color="#e8dcf4"/>
+      <stop offset="1" stop-color="#f0e4f2"/>
+    </linearGradient>
+    <radialGradient id="sgMoonBloom" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="0.42" stop-color="#f0ecff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#f0ecff" stop-opacity="0"/>
     </radialGradient>
-    <filter id="sgRibbonBlur" x="-40%" y="-200%" width="180%" height="500%">
-      <feGaussianBlur stdDeviation="16"/>
+    <radialGradient id="sgMoonDisc" cx="0.4" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#fffdf6"/>
+      <stop offset="0.8" stop-color="#f7f0e2"/>
+      <stop offset="1" stop-color="#eee2cc"/>
+    </radialGradient>
+    <linearGradient id="sgRibbonCool" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6ee3d4"/>
+      <stop offset="0.35" stop-color="#86a8f0"/>
+      <stop offset="0.7" stop-color="#a58cf2"/>
+      <stop offset="1" stop-color="#e8a8c8"/>
+    </linearGradient>
+    <!-- 共用 -->
+    <linearGradient id="sgSheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.3" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="0.72" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="sgOrbWarm" cx="0.62" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#fbe4da" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#edb0a8" stop-opacity="0.16"/>
+    </radialGradient>
+    <radialGradient id="sgOrbCool" cx="0.62" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"/>
+      <stop offset="0.45" stop-color="#e4e0fa" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#ab9dee" stop-opacity="0.18"/>
+    </radialGradient>
+    <radialGradient id="sgOrbShadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8f7fd8" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#8f7fd8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sgSparkGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sgBlurA" x="-30%" y="-220%" width="160%" height="540%">
+      <feGaussianBlur stdDeviation="14"/>
     </filter>
-    <filter id="sgGlassBlur" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="16"/>
+    <filter id="sgBlurB" x="-30%" y="-220%" width="160%" height="540%">
+      <feGaussianBlur stdDeviation="14"/>
     </filter>
-    <filter id="sgNeonGlow" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#a855f7" flood-opacity="0.8"/>
-    </filter>
-    <clipPath id="sgp2"><rect x="614" y="300" width="538" height="280" rx="4"/></clipPath>
-    <clipPath id="sgp4"><rect x="614" y="692" width="538" height="280" rx="4"/></clipPath>
+    <clipPath id="sgClipA"><rect x="60" y="240" width="520" height="460" rx="18"/></clipPath>
+    <clipPath id="sgClipB"><rect x="620" y="240" width="520" height="460" rx="18"/></clipPath>
   </defs>
 
-  <!-- 底、框、角标 -->
-  <rect width="1200" height="1560" fill="url(#sgGround)"/>
-  <rect x="24" y="24" width="1152" height="1512" fill="none" stroke="#efe9dc" stroke-opacity="0.12" stroke-width="1"/>
-  <g stroke="#c9a86a" stroke-opacity="0.6" stroke-width="1.5" fill="none">
-    <path d="M28 46 V28 H46"/>
-    <path d="M1154 28 H1172 V46"/>
-    <path d="M28 1514 V1532 H46"/>
-    <path d="M1172 1514 V1532 H1154"/>
-  </g>
+  <!-- 册底与册首 -->
+  <rect width="1200" height="820" fill="url(#sgGround)"/>
+  <text x="60" y="84" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#5c569c" letter-spacing="6">STYLE MASTERY · ONE SYSTEM, TWO CLIMATES</text>
+  <text x="60" y="150" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="44" font-weight="700" fill="#37326e" letter-spacing="2">一种光，两种气候</text>
+  <text x="60" y="192" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" fill="#6b64a8">同一套流光体系 —— 换一个光源与色温，就是一次新的天气</text>
 
-  <!-- 册首 -->
-  <text x="48" y="100" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#c9a86a" letter-spacing="6">SPECIMEN SHEET — SIX ARCHETYPES, ONE DISCIPLINE</text>
-  <text x="1152" y="100" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" fill="#8b93a1" letter-spacing="4">SVG DESIGN SKILL · STYLE LIBRARY §1</text>
-  <text x="48" y="196" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="56" font-weight="700" fill="#efe9dc">六个原型，一套纪律</text>
-  <text x="48" y="240" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" fill="#c9cdd6">材质可以推导，秩序不可协商 —— 每种原型都过同一组门禁</text>
-  <line x1="48" y1="268" x2="1152" y2="268" stroke="#efe9dc" stroke-opacity="0.1" stroke-width="1"/>
-
-  <!-- PLATE-01 · FLAT -->
-  <g data-style-id="flat">
-    <text x="48" y="284" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#c9a86a">01</text>
-    <text x="82" y="284" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="21" font-weight="700" fill="#efe9dc">Flat · 平面几何</text>
-    <text x="586" y="284" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" fill="#8b93a1">SOLID PANELS · NO GRADIENT</text>
-    <rect x="48" y="300" width="538" height="280" rx="4" fill="#f2efe9" stroke="#efe9dc" stroke-opacity="0.12" stroke-width="1"/>
-    <rect x="94" y="364" width="216" height="132" rx="6" fill="#c2410c"/>
-    <rect x="86" y="356" width="216" height="132" rx="6" fill="#26243a"/>
-    <text x="106" y="394" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="18" font-weight="600" fill="#efe9dc">晨间快报</text>
-    <text x="106" y="420" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#b9b4d9">三件事，两分钟</text>
-    <rect x="106" y="440" width="104" height="28" rx="4" fill="none" stroke="#e8b653" stroke-width="1.2"/>
-    <text x="158" y="458" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#e8b653" letter-spacing="2">ACTION</text>
-    <circle cx="398" cy="414" r="44" fill="#e8b653"/>
-    <rect x="462" y="370" width="88" height="88" rx="10" fill="#5b8c7f"/>
-    <line x1="48" y1="602" x2="586" y2="602" stroke="#efe9dc" stroke-opacity="0.1" stroke-width="1"/>
-    <text x="48" y="622" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#8b93a1">平面几何 —— 无渐变 · 无光晕 · 每个颜色都有职位</text>
-    <text x="586" y="622" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11.5" font-style="italic" fill="#c9a86a">ARCHETYPE 01</text>
-  </g>
-
-  <!-- PLATE-02 · AURORA -->
-  <g data-style-id="aurora">
-    <text x="614" y="284" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#c9a86a">02</text>
-    <text x="648" y="284" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="21" font-weight="700" fill="#efe9dc">Aurora · 梦幻渐变</text>
-    <text x="1152" y="284" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" fill="#8b93a1">BASE + ONE RIBBON</text>
-    <rect x="614" y="300" width="538" height="280" rx="4" fill="url(#sgAuroraBase)" stroke="#efe9dc" stroke-opacity="0.12" stroke-width="1"/>
-    <g clip-path="url(#sgp2)">
-      <rect x="594" y="430" width="578" height="64" fill="url(#sgAuroraRibbon)" filter="url(#sgRibbonBlur)" transform="rotate(-6 883 462)"/>
-    </g>
-    <text x="650" y="392" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="24" font-weight="700" fill="#2b2f55">空气感是预算出来的</text>
-    <line x1="650" y1="412" x2="934" y2="412" stroke="#2b2f55" stroke-opacity="0.25" stroke-width="1"/>
-    <text x="650" y="522" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13.5" fill="#4f4b78">一条光带，两端淡出到 0，高光只来一次</text>
-    <line x1="614" y1="602" x2="1152" y2="602" stroke="#efe9dc" stroke-opacity="0.1" stroke-width="1"/>
-    <text x="614" y="622" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#8b93a1">梦幻渐变 —— 低饱和双色底 · 适合亲和型与学习型产品</text>
-    <text x="1152" y="622" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11.5" font-style="italic" fill="#c9a86a">ARCHETYPE 02</text>
-  </g>
-
-  <!-- PLATE-03 · GLASS -->
-  <g data-style-id="glass">
-    <text x="48" y="676" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#c9a86a">03</text>
-    <text x="82" y="676" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="21" font-weight="700" fill="#efe9dc">Glass · 玻璃材质</text>
-    <text x="586" y="676" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" fill="#8b93a1">TRANSLUCENT ON DARK</text>
-    <rect x="48" y="692" width="538" height="280" rx="4" fill="#101423" stroke="#efe9dc" stroke-opacity="0.12" stroke-width="1"/>
-    <circle cx="348" cy="836" r="100" fill="url(#sgGlassGlow)" filter="url(#sgGlassBlur)"/>
-    <rect x="118" y="756" width="300" height="152" rx="12" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1"/>
-    <text x="142" y="796" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="18" font-weight="600" fill="#eef1ff">夜间仪表盘</text>
-    <text x="142" y="824" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#cdd4ea">半透明卡片 · 内描边 · 深底</text>
-    <rect x="142" y="848" width="128" height="30" rx="4" fill="none" stroke="#9aa2ff" stroke-opacity="0.55" stroke-width="1.2"/>
-    <text x="206" y="867" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" font-weight="600" fill="#dfe4ff">进入面板</text>
-    <line x1="48" y1="994" x2="586" y2="994" stroke="#efe9dc" stroke-opacity="0.1" stroke-width="1"/>
-    <text x="48" y="1014" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#8b93a1">玻璃材质 —— 模糊只在卡片背后 · 正文永不模糊</text>
-    <text x="586" y="1014" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11.5" font-style="italic" fill="#c9a86a">ARCHETYPE 03</text>
-  </g>
-
-  <!-- PLATE-04 · NEON -->
-  <g data-style-id="neon">
-    <text x="614" y="676" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#c9a86a">04</text>
-    <text x="648" y="676" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="21" font-weight="700" fill="#efe9dc">Neon · 星夜霓虹</text>
-    <text x="1152" y="676" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" fill="#8b93a1">GRADIENT-STROKE GLOW</text>
-    <rect x="614" y="692" width="538" height="280" rx="4" fill="url(#sgNeonBg)" stroke="#efe9dc" stroke-opacity="0.12" stroke-width="1"/>
-    <g clip-path="url(#sgp4)">
-      <ellipse cx="883" cy="750" rx="240" ry="110" fill="url(#sgNeonSpot)"/>
-      <g fill="#9aa2c9" fill-opacity="0.5">
-        <circle cx="702" cy="732" r="1.6"/>
-        <circle cx="1118" cy="762" r="1.4"/>
-        <circle cx="952" cy="716" r="1.8"/>
-        <circle cx="784" cy="948" r="1.5"/>
-        <circle cx="1098" cy="928" r="1.3"/>
+  <!-- ================= 晨光（暖域） ================= -->
+  <g data-style-id="dawn" data-mood="warm">
+    <rect x="60" y="240" width="520" height="460" rx="18" fill="url(#sgDawnBase)" stroke="#37326e" stroke-opacity="0.08" stroke-width="1"/>
+    <g clip-path="url(#sgClipA)">
+      <circle cx="450" cy="300" r="280" fill="url(#sgDawnBloom)"/>
+      <path d="M 20 660 C 180 620 260 480 400 470 S 560 400 604 330" fill="none" stroke="url(#sgRibbonWarm)" stroke-width="64" stroke-linecap="round" opacity="0.5" filter="url(#sgBlurA)"/>
+      <path d="M 20 640 C 180 602 268 462 406 452 S 566 386 604 314" fill="none" stroke="url(#sgSheen)" stroke-width="2.6" stroke-linecap="round" opacity="0.9"/>
+      <circle cx="40" cy="700" r="150" fill="url(#sgOrbWarm)" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.1"/>
+      <g data-motif="dawn-orbs" data-motif-message="暖域浮球服从右上的晨光">
+        <ellipse cx="430" cy="618" rx="34" ry="7.5" fill="url(#sgOrbShadow)"/>
+        <circle cx="430" cy="560" r="48" fill="url(#sgOrbWarm)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
+        <circle cx="414" cy="540" r="5.5" fill="#ffffff" fill-opacity="0.92"/>
+        <circle cx="508" cy="360" r="18" fill="url(#sgOrbWarm)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
+        <circle cx="502" cy="354" r="2.6" fill="#ffffff" fill-opacity="0.95"/>
+        <circle cx="400" cy="468" r="14" fill="url(#sgSparkGlow)"/>
+        <path d="M400 459 C 401.5 466.5 401.5 466.5 409 468 C 401.5 469.5 401.5 469.5 400 477 C 398.5 469.5 398.5 469.5 391 468 C 398.5 466.5 398.5 466.5 400 459 Z" fill="#ffffff"/>
       </g>
     </g>
-    <text x="650" y="768" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="700" fill="#e6e9ff">受控辉光，单次通过</text>
-    <path d="M680 900 C 740 806, 830 806, 872 862 S 1010 918, 1064 838" fill="none" stroke="url(#sgNeonStroke)" stroke-width="3" stroke-linecap="round" filter="url(#sgNeonGlow)"/>
-    <text x="650" y="952" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#9aa2c9">星点 ≤ 2px · 永远在内容之后</text>
-    <line x1="614" y1="994" x2="1152" y2="994" stroke="#efe9dc" stroke-opacity="0.1" stroke-width="1"/>
-    <text x="614" y="1014" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#8b93a1">星夜霓虹 —— 每元素单次辉光 · 星点 ≤ 2px</text>
-    <text x="1152" y="1014" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11.5" font-style="italic" fill="#c9a86a">ARCHETYPE 04</text>
+    <text x="150" y="460" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="120" font-weight="700" fill="#5e3a54">晨</text>
+    <text x="152" y="512" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#6b4a5c" letter-spacing="4">DAWN · 暖域</text>
   </g>
 
-  <!-- PLATE-05 · INK -->
-  <g data-style-id="ink">
-    <text x="48" y="1068" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#c9a86a">05</text>
-    <text x="82" y="1068" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="21" font-weight="700" fill="#efe9dc">Ink · 墨线手稿</text>
-    <text x="586" y="1068" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" fill="#8b93a1">PAPER AND INK LINES</text>
-    <rect x="48" y="1084" width="538" height="280" rx="4" fill="#fdfcf8" stroke="#efe9dc" stroke-opacity="0.12" stroke-width="1"/>
-    <g fill="none" stroke="#2f2a24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" transform="translate(120 1160)">
-      <path d="M0 12 c -16 -12 -34 -16 -52 -16 v 72 c 18 0 36 4 52 16 z"/>
-      <path d="M0 12 c 16 -12 34 -16 52 -16 v 72 c -18 0 -36 4 -52 16 z"/>
-      <path d="M78 8 v 60 M100 8 v 60 M122 20 v 48"/>
+  <!-- ================= 月色（冷域） ================= -->
+  <g data-style-id="moonrise" data-mood="cool">
+    <rect x="620" y="240" width="520" height="460" rx="18" fill="url(#sgMoonBase)" stroke="#37326e" stroke-opacity="0.08" stroke-width="1"/>
+    <g clip-path="url(#sgClipB)">
+      <circle cx="1060" cy="300" r="260" fill="url(#sgMoonBloom)"/>
+      <path d="M 1180 640 C 1020 610 940 480 800 470 S 640 410 596 340" fill="none" stroke="url(#sgRibbonCool)" stroke-width="64" stroke-linecap="round" opacity="0.5" filter="url(#sgBlurB)"/>
+      <path d="M 1180 622 C 1024 594 946 464 806 454 S 646 396 596 326" fill="none" stroke="url(#sgSheen)" stroke-width="2.6" stroke-linecap="round" opacity="0.9"/>
+      <circle cx="1180" cy="680" r="150" fill="url(#sgOrbCool)" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.1"/>
+      <g data-motif="moonrise-glow" data-motif-message="月亮与冷域浮球服从同一个月光源">
+        <circle cx="1035" cy="320" r="28" fill="url(#sgMoonDisc)" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1"/>
+        <ellipse cx="760" cy="628" rx="34" ry="7.5" fill="url(#sgOrbShadow)"/>
+        <circle cx="760" cy="570" r="48" fill="url(#sgOrbCool)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
+        <circle cx="744" cy="550" r="5.5" fill="#ffffff" fill-opacity="0.92"/>
+        <circle cx="930" cy="430" r="18" fill="url(#sgOrbCool)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
+        <circle cx="924" cy="424" r="2.6" fill="#ffffff" fill-opacity="0.95"/>
+        <circle cx="806" cy="468" r="14" fill="url(#sgSparkGlow)"/>
+        <path d="M806 459 C 807.5 466.5 807.5 466.5 815 468 C 807.5 469.5 807.5 469.5 806 477 C 804.5 469.5 804.5 469.5 797 468 C 804.5 466.5 804.5 466.5 806 459 Z" fill="#ffffff"/>
+      </g>
     </g>
-    <g data-motif="verification-mark" data-motif-message="唯一的朱红强调色只留给核验标记">
-      <circle cx="420" cy="1224" r="26" fill="none" stroke="#d94f30" stroke-width="2.4"/>
-      <path d="M409 1224 l 8 8 l 16 -16" fill="none" stroke="#d94f30" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    </g>
-    <text x="470" y="1216" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="22" font-weight="700" fill="#2f2a24">墨线</text>
-    <text x="470" y="1246" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#4d4636">朱红只留给核验</text>
-    <line x1="48" y1="1386" x2="586" y2="1386" stroke="#efe9dc" stroke-opacity="0.1" stroke-width="1"/>
-    <text x="48" y="1406" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#8b93a1">墨线手稿 —— 纸面单色线稿 · 唯一强调色只给核验</text>
-    <text x="586" y="1406" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11.5" font-style="italic" fill="#c9a86a">ARCHETYPE 05</text>
+    <text x="950" y="460" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="120" font-weight="700" fill="#3d3a6e">月</text>
+    <text x="1070" y="512" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#4d4880" letter-spacing="4">MOONRISE · 冷域</text>
   </g>
 
-  <!-- PLATE-06 · EDITORIAL -->
-  <g data-style-id="editorial">
-    <text x="614" y="1068" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#c9a86a">06</text>
-    <text x="648" y="1068" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="21" font-weight="700" fill="#efe9dc">Editorial · 编辑海报</text>
-    <text x="1152" y="1068" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" fill="#8b93a1">SERIF DISPLAY RULES</text>
-    <rect x="614" y="1084" width="538" height="280" rx="4" fill="#f7f6f2" stroke="#efe9dc" stroke-opacity="0.12" stroke-width="1"/>
-    <text x="650" y="1136" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#4b4e63" letter-spacing="8">EDITORIAL POSTER</text>
-    <text x="650" y="1230" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="66" font-weight="700" fill="#1f2333">留白即奢侈</text>
-    <line x1="650" y1="1266" x2="1116" y2="1266" stroke="#1f2333" stroke-opacity="0.3" stroke-width="1"/>
-    <text x="650" y="1300" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" font-weight="600" fill="#1f2333" letter-spacing="2">01 / 3</text>
-    <text x="650" y="1330" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#4b4e63">展示字 ≤ 3 行 · 编号信息区 · 全幅只留一个 motif</text>
-    <line x1="614" y1="1386" x2="1152" y2="1386" stroke="#efe9dc" stroke-opacity="0.1" stroke-width="1"/>
-    <text x="614" y="1406" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#8b93a1">编辑海报 —— 超大展示字 · 细线与编号 · 留白即信息</text>
-    <text x="1152" y="1406" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11.5" font-style="italic" fill="#c9a86a">ARCHETYPE 06</text>
-  </g>
-
-  <!-- 册尾 -->
-  <line x1="48" y1="1470" x2="1152" y2="1470" stroke="#efe9dc" stroke-opacity="0.12" stroke-width="1"/>
-  <text x="48" y="1494" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#8b93a1">风格不是摇骰子 —— 从品牌主色推导整套 token，见 style-library §3</text>
-  <text x="1152" y="1494" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="10.5" fill="#8b93a1" letter-spacing="3">SPECIMEN N°01 — 06 ARCHETYPES</text>
+  <!-- 题注与册尾 -->
+  <text x="60" y="740" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#5c569c">晨光 —— 日光从玫瑰金里升起，丝带是暖域的</text>
+  <text x="1140" y="740" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#5c569c">月色 —— 月光在紫罗兰里沉降，丝带是冷域的</text>
+  <line x1="60" y1="768" x2="1140" y2="768" stroke="#37326e" stroke-opacity="0.1" stroke-width="1"/>
+  <text x="60" y="796" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#5c569c">色彩配方、光规则与手势纪律：references/premium-craft.md</text>
+  <text x="1140" y="796" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11" font-style="italic" fill="#5c569c" letter-spacing="3">DREAMLIGHT SYSTEM</text>
 </svg>

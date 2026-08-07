@@ -1,51 +1,72 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 300" width="1100" height="300" role="img" aria-labelledby="gbT gbD">
-  <title id="gbT">晨山咖啡推广 banner：深烘暗调、铜版线刻与衬线大字的克制版式</title>
-  <desc id="gbD">示例：非内置品牌如何走同一套流程 —— 推导色板、语义 motif、细线秩序、门禁验证。</desc>
+  <title id="gbT">山月香氛 · 仲夏夜之梦：暮色天光下的月光山谷</title>
+  <desc id="gbD">示例：流光体系的暮色气候 —— 天光渐变、远中近三层山谷、月亮主光晕与雾带，文案居于左侧安静区。</desc>
   <defs>
-    <linearGradient id="gbGround" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#171310"/>
-      <stop offset="1" stop-color="#1d1812"/>
+    <linearGradient id="gbDusk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#252b55"/>
+      <stop offset="0.3" stop-color="#37407c"/>
+      <stop offset="0.55" stop-color="#6a5e9e"/>
+      <stop offset="0.78" stop-color="#c98ba0"/>
+      <stop offset="1" stop-color="#f4c39a"/>
     </linearGradient>
+    <radialGradient id="gbMoonBloom" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff6e8" stop-opacity="0.55"/>
+      <stop offset="0.4" stop-color="#ffe9d2" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffe9d2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gbMoonDisc" cx="0.4" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#fffdf4"/>
+      <stop offset="0.75" stop-color="#fbeed4"/>
+      <stop offset="1" stop-color="#f3ddb8"/>
+    </radialGradient>
+    <radialGradient id="gbCornerDeep" cx="0.3" cy="0.2" r="0.85">
+      <stop offset="0" stop-color="#1d2246" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#1d2246" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#1d2246" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gbSparkGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff6e8" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#fff6e8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="gbMist" x="-30%" y="-260%" width="160%" height="620%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
   </defs>
 
-  <!-- 底、框、角标 -->
-  <rect width="1100" height="300" fill="url(#gbGround)"/>
-  <rect x="16" y="16" width="1068" height="268" fill="none" stroke="#e9dcc3" stroke-opacity="0.16" stroke-width="1"/>
-  <g stroke="#c9a86a" stroke-opacity="0.55" stroke-width="1.4" fill="none">
-    <path d="M20 34 V20 H34"/>
-    <path d="M1066 20 H1080 V34"/>
-    <path d="M20 266 V280 H34"/>
-    <path d="M1080 266 V280 H1066"/>
+  <!-- 暮色天光 + 左角压深（文字的安静区） -->
+  <rect width="1100" height="300" fill="url(#gbDusk)"/>
+  <rect width="1100" height="300" fill="url(#gbCornerDeep)"/>
+
+  <!-- motif：月亮是这支香的序章 -->
+  <g data-motif="moonrise" data-motif-message="月光是这支香的序章，山谷是它的产地记忆">
+    <circle cx="880" cy="86" r="44" fill="url(#gbMoonDisc)"/>
+    <circle cx="880" cy="86" r="44" fill="none" stroke="#fff6e8" stroke-opacity="0.5" stroke-width="1"/>
+    <g fill="#fff6e8">
+      <circle cx="700" cy="54" r="16" fill="url(#gbSparkGlow)"/>
+      <path d="M700 45 C 701.5 52.5 701.5 52.5 709 54 C 701.5 55.5 701.5 55.5 700 63 C 698.5 55.5 698.5 55.5 691 54 C 698.5 52.5 698.5 52.5 700 45 Z"/>
+      <circle cx="1032" cy="150" r="12" fill="url(#gbSparkGlow)"/>
+      <path d="M1032 143.5 C 1033 149 1033 149 1038.5 150 C 1033 151 1033 151 1032 156.5 C 1031 151 1031 151 1025.5 150 C 1031 149 1031 149 1032 143.5 Z" fill-opacity="0.9"/>
+      <circle cx="784" cy="158" r="9" fill="url(#gbSparkGlow)"/>
+      <path d="M784 153 C 784.8 157.2 784.8 157.2 789 158 C 784.8 158.8 784.8 158.8 784 163 C 783.2 158.8 783.2 158.8 779 158 C 783.2 157.2 783.2 157.2 784 153 Z" fill-opacity="0.85"/>
+    </g>
   </g>
 
-  <!-- motif：铜版线刻咖啡杯，杯内藏晨山日出 -->
-  <g data-motif="fresh-brew" data-motif-message="杯内的山形与初升日点，指清晨山场现萃" transform="translate(56 78)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M46 30 C 42 20, 50 16, 46 6" stroke="#c9a86a" stroke-opacity="0.7" stroke-width="1.4"/>
-    <path d="M74 32 C 70 22, 78 18, 74 8" stroke="#c9a86a" stroke-opacity="0.7" stroke-width="1.4"/>
-    <path d="M16 44 H 120 C 127 44, 131 49, 131 55 C 131 97, 101 126, 68 126 C 35 126, 5 97, 5 55 C 5 49, 9 44, 16 44 Z" stroke="#c9a86a" stroke-width="1.8"/>
-    <path d="M131 58 C 154 58, 154 94, 131 94" stroke="#c9a86a" stroke-width="1.6"/>
-    <path d="M36 102 L 58 74 L 73 89 L 89 69 L 103 102" stroke="#e9dcc3" stroke-opacity="0.85" stroke-width="1.5"/>
-    <circle cx="47" cy="63" r="6.5" stroke="#c9a86a" stroke-width="1.4"/>
-    <path d="M-2 136 H 138" stroke="#c9a86a" stroke-opacity="0.8" stroke-width="1.4"/>
-    <path d="M12 144 H 124" stroke="#c9a86a" stroke-opacity="0.4" stroke-width="1"/>
-  </g>
+  <!-- 山谷三层 + 雾带（远虚近实） -->
+  <path d="M0 232 C 180 190 320 208 480 196 C 640 184 760 210 920 196 C 1020 188 1080 200 1100 194 L 1100 300 L 0 300 Z" fill="#5d5a99" fill-opacity="0.7"/>
+  <path d="M0 258 C 160 224 340 244 520 230 C 700 216 820 244 1100 226 L 1100 300 L 0 300 Z" fill="#413f77" fill-opacity="0.85"/>
+  <ellipse cx="550" cy="262" rx="520" ry="24" fill="#f6e3d2" fill-opacity="0.18" filter="url(#gbMist)"/>
+  <path d="M0 284 C 220 260 420 278 640 266 C 840 256 980 276 1100 268 L 1100 300 L 0 300 Z" fill="#34346a" fill-opacity="0.92"/>
 
-  <!-- 文本区 -->
-  <text x="300" y="92" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#c9a86a" letter-spacing="5">ALTITUDE 1900 M · SLOW-ROASTED DAILY</text>
-  <text x="300" y="158" data-role="banner-title" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="46" font-weight="700" fill="#efe7d8">晨山咖啡 · 每日新鲜烘焙</text>
-  <text x="300" y="198" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" fill="#c4b49a">海拔一千九百米日晒豆 · 四十八小时内送达杯中</text>
+  <!-- 安静区：排印 -->
+  <text x="64" y="72" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#f5cf9f" letter-spacing="5">SANYUE PARFUM · MIDNIGHT EDITION</text>
+  <text x="64" y="132" data-role="banner-title" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="40" font-weight="700" fill="#fdf3e3" letter-spacing="3">山月香氛 · 仲夏夜之梦</text>
+  <text x="64" y="170" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" fill="#f4ead9">月光、山谷与晚风，封进一支香</text>
 
-  <!-- CTA：文字链接 + 细线箭头，不用胶囊按钮 -->
   <g data-role="cta">
-    <text x="300" y="244" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="17" font-weight="600" fill="#efe7d8">立即订购</text>
-    <line x1="300" y1="254" x2="368" y2="254" stroke="#c9a86a" stroke-opacity="0.4" stroke-width="1"/>
-    <line x1="388" y1="238" x2="452" y2="238" stroke="#c9a86a" stroke-width="1.2"/>
-    <path d="M446 233 l 8 5 l -8 5" fill="none" stroke="#c9a86a" stroke-width="1.2"/>
+    <text x="64" y="240" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="17" font-weight="600" fill="#fdf6ec">预约品鉴</text>
+    <line x1="152" y1="234" x2="212" y2="234" stroke="#f5cf9f" stroke-width="1.2"/>
+    <path d="M206 229 l 8 5 l -8 5" fill="none" stroke="#f5cf9f" stroke-width="1.2"/>
   </g>
 
-  <!-- 右侧竖排铭牌 -->
-  <text transform="translate(1046 44) rotate(90)" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="10.5" fill="#948a70" letter-spacing="4">MORNING MOUNTAIN COFFEE</text>
-
-  <!-- 页脚铭线 -->
-  <text x="1016" y="266" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11" font-style="italic" fill="#948a70">示例品牌 · 由 style-library §3 从主色推导</text>
+  <text x="1036" y="278" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="10.5" font-style="italic" fill="#e8d9c6">EAU DE PARFUM · 50 ML</text>
 </svg>
