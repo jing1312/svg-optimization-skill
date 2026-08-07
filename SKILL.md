@@ -1,162 +1,186 @@
 ---
 name: svg-optimization-skill
 description: >
-  Design, generate, restyle and fix SVG assets — banners, posters, logos,
-  illustration boards, cards, simple infographics — that are visually clean and
-  bug-free, in many styles (flat, aurora gradient, glass, dark neon, ink sketch,
-  editorial print, and brand-derived custom styles), with zero runtime
-  dependencies. Use when asked to create or beautify SVG graphics, fix SVG text
-  overflow / element overlap / broken rendering, choose between visual
-  directions, or verify SVG layout quality. Ships machine-enforced layout gates
-  (overflow, occlusion, overlap, dangling references, duplicate ids, contrast),
-  a style library, and a tiered verification loop that degrades gracefully from
-  "Node + browser" to "no tools at all".
+  Design, generate, restyle and validate SVG assets with a complete visual
+  system. Produces clean, premium, consistent SVGs with design tokens,
+  typography rules, material logic, motion principles and verification gates.
 ---
 
-# SVG Design & Optimization Skill
+# SVG Visual System Engine V2
 
-Produce SVG assets that are (1) genuinely good-looking, (2) free of layout and
-rendering bugs, (3) stylistically controllable, (4) usable in any agent
-environment. All guidance lives in `references/`; this file is the contract.
+Create SVG assets that are:
 
-## 1. When to use
+1. visually authored, not randomly generated
+2. structurally correct and render-safe
+3. consistent through reusable design rules
+4. adaptable across brands and styles
 
-Trigger this skill when the user wants to:
+This skill follows a design-system-first workflow.
 
-- create or restyle an SVG asset (banner, poster, logo, illustration board,
-  feature grid, style-exploration sheet),
-- fix SVG defects: text overflow, element occlusion/overlap, broken gradients,
-  invisible elements, font-fallback breakage,
-- choose between several visual directions before committing,
-- audit an existing SVG for layout or rendering bugs.
+## Core Principle
 
-Do not trigger for raster image editing, chart-library code (ECharts/D3), or
-animated/interactive SVG beyond static design.
+SVG is not markup. SVG is a visual system.
 
-## 2. Workflow (five steps, none skippable)
+Never begin with effects. Begin with:
 
-1. **Write a motif brief before drawing** (`references/design-principles.md` §1).
-   Every primary motif must state message / visual nouns / relationship in three
-   lines. If a motif cannot be tied to the content in one sentence, delete it —
-   never add decoration to rescue an unclear motif.
-2. **Pick a style** from `references/style-library.md`. If the direction is
-   unclear, the user asks for a redesign, or says "太简单 / 不好看 / too plain",
-   run the style-choice flow (§4) before finalizing. If the user supplies brand
-   colors, derive the palette with the derivation rules (style-library §3)
-   instead of picking a preset blindly. For hero images, banners, specimen
-   sheets, or any ask for 高级感/premium feel, apply
-   `references/premium-craft.md`: the house style is the **Dreamlight system**
-   (luminous atmosphere, one ribbon gesture, glass depth), and its anti-pattern
-   list overrides default habits (no pills, no gradient blobs, no dot rows, no
-   centered triads, and no dark-gold-hairline "fake luxury" chrome either).
-3. **Build with the six-layer effect budget** (`design-principles.md` §4):
-   layers in fixed order, capped count, bounded blur. No unbounded blurs, no
-   repeated glow passes, no scattered decorative dots.
-4. **Verify with the highest tier you can run** (§5). Never declare "done" on
-   gate output alone when a render tier was available and skipped.
-5. **State what you verified.** List the gates that ran and the tier reached;
-   if you inspected a render, state what you checked (overflow, overlap,
-   alignment, contrast, hierarchy) using `references/verification.md` §3.
+1. message
+2. motif
+3. composition
+4. material
+5. tokens
+6. rendering
 
-## 3. Canvas defaults
+## V2 Workflow
 
-| Asset | viewBox | Notes |
-|---|---|---|
-| promo/banner | `0 0 1100 300` | Title ≥ 34 px, subtitle ≥ 17 px, edge-clipped decor allowed |
-| poster (portrait) | `0 0 900 1200` | One primary motif, generous margins |
-| wide ad / hero | `0 0 1200 800` | Centered or strict-grid compositions |
-| popup/UI mockup | `0 0 860 730` | Dark backdrop card, ≥ 24 px radii |
-| feature grid | free | Unified card size, ≤ 2 emphasis colors per card |
-| style chooser | free | One panel per direction, same copy across panels |
+Every asset follows these steps:
 
-Other sizes are fine; the geometry gates (G1–G4) apply at every size.
+### 1. Create a Motif Brief
 
-## 4. Style-choice flow
+Before drawing define:
 
-When direction is ambiguous:
+- message: what the image communicates
+- visual nouns: what objects/materials represent it
+- relationship: why elements belong together
 
-1. Produce 2–4 complete directions using the **same copy and canvas** so the
-   comparison isolates style.
-2. Show each direction as a real miniature of the final asset (not swatches).
-3. One SVG sheet with panels is the most portable output; a Markdown table is
-   the fallback for text-only channels. Never depend on editor-specific features.
-4. Only after the user picks, produce the final asset. Skip this flow for
-   simple overflow/bug fixes.
+Delete any element without a clear role.
 
-## 5. Verification tiers (use the highest available)
+### 2. Apply Design Tokens
 
-- **T0 — static self-check (always available, zero tools):** walk
-  `references/verification.md` §2 checklist by reasoning over the SVG source.
-- **T1 — machine gates (needs Node ≥ 18):**
-  ```bash
-  node evals/grade.mjs path/to/asset.svg   # or npm run check for whole repo
-  ```
-  Enforces: XML well-formedness, viewBox, accessible `<title>`, dangling
-  `url(#ref)` references (R1), duplicate ids (R2), external raster embeds (W1),
-  geometry G1–G4 (canvas overflow, container overflow, motif/logo occlusion,
-  text-on-text overlap), and contrast C1. Must report zero errors.
-- **T2 — render verification (needs a rasterizer):**
-  ```bash
-  node scripts/render.mjs path/to/asset.svg   # playwright → chromium → rsvg
-  ```
-  Then inspect the PNG against `verification.md` §3 and say what was checked.
-  T0's width estimates are font-independent guesses; a render is the only proof
-  text actually fits under real fonts. If the render shows a font-fallback
-  problem, apply `references/typography.md` §4 (safe stacks or text-to-path).
+Use:
 
-Rules: T1-pass does not replace T2 when T2 was available. T0 is mandatory even
-when T1/T2 ran — gates cannot judge beauty. Passing structure gates proves the
-asset is *not broken*; the visual checklist is what proves it is *good*.
+`references/design-tokens.md`
 
-## 6. Typography and font portability (hard rules)
+Before choosing colors, typography or motion.
 
-- Reserve width with CJK ≈ `font-size × 1.0`, Latin ≈ `font-size × 0.56`,
-  plus `0.12 × font-size` safety per side (measured estimates, see
-  `references/typography.md` §2).
-- Always end font stacks on a generic family (`sans-serif`, `serif`,
-  `monospace`) and prefer cross-platform names (typography §1).
-- For assets that must survive any renderer (emails, third-party embeds,
-  systems without CJK fonts), deliver text as outlines when tooling allows, or
-  warn the user about fallback risk (typography §4).
+The asset must define:
 
-## 7. Logo rules (generic)
+- color roles
+- type hierarchy
+- spacing rhythm
+- material behavior
+- motion intent
 
-A logo must state a semantic brief (message / visual nouns / relationship),
-survive a 48 px render (include one in every logo deliverable), keep ≤ 6
-layers in fixed order, and carry provenance metadata when derived from an icon
-set:
+### 3. Select Style System
 
-```xml
-data-role="logo" data-logo-intent="..." data-icon-source="..."
-data-icon-name="..." data-icon-license="..."
+Use:
+
+`references/style-library.md`
+
+Styles are systems, not filters.
+
+A style defines:
+
+- composition rules
+- material rules
+- color behavior
+- forbidden patterns
+
+### 4. Avoid Generic AI Aesthetics
+
+Always check:
+
+`references/anti-ai.md`
+
+Avoid:
+
+- random gradient blobs
+- meaningless glow objects
+- sticker collections
+- excessive glass effects
+- decorative elements without purpose
+
+Luxury comes from removal.
+
+### 5. Add Motion Only With Purpose
+
+Use:
+
+`references/motion-library.md`
+
+Motion must explain:
+
+- atmosphere
+- material response
+- interaction
+
+Never animate because SVG supports animation.
+
+## Visual Quality Rules
+
+### Composition
+
+Prefer:
+
+- one dominant motif
+- one supporting gesture
+- one controlled detail
+
+Do not create collections of unrelated objects.
+
+### Color
+
+Rules:
+
+- maximum four chromatic colors
+- every color needs a role
+- shadows follow material temperature
+- glow requires a light source
+
+### Typography
+
+Default scale:
+
+```
+display 72
+ title 48
+section 32
+heading 24
+ body 18
+caption 13
 ```
 
-Never let halos outshout the glyph, never add filler motifs, never use strokes
-thinner than ~1.5 px at 48 px. Full rules and auto-fail list:
-`references/design-principles.md` §6. Brand-specific logo instances (e.g. the
-bundled demo brand) live in `brand-packs/`.
+Typography hierarchy is more important than decoration.
 
-## 8. Memory and preferences
+## Verification
 
-Learned taste ("用户更喜欢玻璃质感") belongs in session memory or the host
-agent's memory facility. Rules: session-only by default; persist across
-sessions only with explicit consent; store derived one-line notes, never raw
-conversation; let the user retract ("忘记这个偏好") at any time. Never write
-user-specific preferences into this skill's files — this is a public artifact.
+Run the highest available verification tier:
 
-## 9. Brand packs (demo included)
+T0:
+- visual reasoning check
 
-`brand-packs/zhiliao-study.md` is a complete worked example: one fictional
-product with fixed copy, a seasonal/theme registry and a logo instance. Use it
-as a reference for how to structure a brand pack; when the user has their own
-brand, derive (don't copy) from it. Nothing in this skill hardcodes that brand
-into new assets.
+T1:
+```bash
+node evals/grade.mjs asset.svg
+```
 
-## 10. Commands
+Checks:
+- XML validity
+- references
+- duplicate IDs
+- overflow
+- overlap
+- contrast
+
+T2:
+```bash
+node scripts/render.mjs asset.svg
+```
+
+Inspect rendered output for:
+
+- hierarchy
+- typography
+- spacing
+- material consistency
+- visual balance
+
+Passing technical gates does not prove beauty.
+
+## Commands
 
 ```bash
-npm test        # gate behavior tests + repository structure tests
-npm run check   # grade every SVG under examples/ and docs/
-node evals/grade.mjs file.svg   # grade single file(s), errors exit non-zero
-node scripts/render.mjs file.svg  # best-effort render to PNG for T2
+npm test
+npm run check
+node evals/grade.mjs file.svg
+node scripts/render.mjs file.svg
 ```
