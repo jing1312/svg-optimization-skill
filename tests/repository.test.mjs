@@ -73,6 +73,7 @@ test("references cover principles, styles, typography and verification", () => {
   assert.match(premium, /Anti-pattern/);
   assert.match(premium, /Dreamlight/);
   assert.match(premium, /spectral drift|Luminous base/);
+  assert.match(premium, /Meaning before ornament/);
   assert.match(read("references/typography.md"), /text to outlines|outlines/);
   assert.match(read("references/verification.md"), /T2/);
 });
@@ -104,9 +105,22 @@ test("generic banner builds a fictional brand inside the house style", () => {
   const src = read("examples/banner-generic.svg");
   assert.match(src, /viewBox="0 0 1100 300"/);
   assert.match(src, /data-motif="moonrise"/);
+  assert.match(src, /data-motif="scent-notes"/);
   assert.match(src, /data-role="banner-title"/);
   assert.match(src, /data-role="cta"/);
   assert.ok(!src.includes("知了"), "generic example must not reuse the demo brand");
+});
+
+test("hero carries the skill's meaning: verify-nodes motif + atelier mark", () => {
+  for (const f of ["docs/images/hero-cover.svg", "examples/hero-summer.svg"]) {
+    const src = read(f);
+    assert.match(src, /data-motif="verify-nodes"/, `${f} must keep the semantic motif`);
+    assert.match(src, /data-role="atelier-mark"/, `${f} must keep the atelier mark`);
+    assert.match(src, /R 86/, `${f} must keep the quiet construction trace`);
+  }
+  // the summer variant is the same composition in a warm climate
+  assert.match(read("examples/hero-summer.svg"), /#fff6f0/);
+  assert.ok(!read("docs/images/hero-cover.svg").includes("#fff6f0"), "cool hero must not drift into the warm recipe");
 });
 
 // --- brand-pack examples keep their structure --------------------------------

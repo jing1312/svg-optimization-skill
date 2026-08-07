@@ -51,12 +51,25 @@
     </g>
   </g>
 
+  <!-- motif：前中后调化作三段星轨，汇入月亮 -->
+  <g data-motif="scent-notes" data-motif-message="前中后调化作三段星轨，汇入月亮">
+    <g fill="none" stroke="#fdf3e3" stroke-linecap="round">
+      <path d="M 520 150 Q 700 92 856 70" stroke-width="2.2" stroke-opacity="0.4" stroke-dasharray="0.1 9"/>
+      <path d="M 560 192 Q 736 142 872 106" stroke-width="2" stroke-opacity="0.32" stroke-dasharray="0.1 10"/>
+      <path d="M 600 226 Q 764 186 884 148" stroke-width="1.8" stroke-opacity="0.26" stroke-dasharray="0.1 11"/>
+    </g>
+  </g>
+
   <!-- 山谷三层 + 雾带（远虚近实） -->
   <path d="M0 232 C 180 190 320 208 480 196 C 640 184 760 210 920 196 C 1020 188 1080 200 1100 194 L 1100 300 L 0 300 Z" fill="#5d5a99" fill-opacity="0.7"/>
   <path d="M0 258 C 160 224 340 244 520 230 C 700 216 820 244 1100 226 L 1100 300 L 0 300 Z" fill="#413f77" fill-opacity="0.85"/>
   <ellipse cx="550" cy="262" rx="520" ry="24" fill="#f6e3d2" fill-opacity="0.18" filter="url(#gbMist)"/>
   <path d="M0 284 C 220 260 420 278 640 266 C 840 256 980 276 1100 268 L 1100 300 L 0 300 Z" fill="#34346a" fill-opacity="0.92"/>
 
+
+  <!-- 山脊上一枚流萤 -->
+  <circle cx="430" cy="258" r="8" fill="url(#gbSparkGlow)"/>
+  <path d="M430 253 C 430.8 257.2 430.8 257.2 435 258 C 430.8 258.8 430.8 258.8 430 263 C 429.2 258.8 429.2 258.8 425 258 C 429.2 257.2 429.2 257.2 430 253 Z" fill="#f5cf9f" fill-opacity="0.95"/>
   <!-- 安静区：排印 -->
   <text x="64" y="72" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#f5cf9f" letter-spacing="5">SANYUE PARFUM · MIDNIGHT EDITION</text>
   <text x="64" y="132" data-role="banner-title" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="40" font-weight="700" fill="#fdf3e3" letter-spacing="3">山月香氛 · 仲夏夜之梦</text>

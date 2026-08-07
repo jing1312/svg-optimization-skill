@@ -1,30 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-labelledby="hcT hcD">
-  <title id="hcT">svg-optimization-skill · 流光体系：光是画出来的</title>
-  <desc id="hcD">梦幻流光主视觉：光谱底色、单一光晕、一条丝带手势贯穿画面，玻璃浮球分三个景深，衬线大字居于手势的安静区。</desc>
+  <title id="hcT">svg-optimization-skill · 流光体系（夏日暖域变体）：光是画出来的</title>
+  <desc id="hcD">梦幻流光主视觉 · 夏日暖域变体：光谱底色、单一光晕、一条丝带手势贯穿画面，玻璃浮球分三个景深，衬线大字居于手势的安静区。</desc>
   <defs>
     <linearGradient id="hcBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f5f7ff"/>
-      <stop offset="0.22" stop-color="#eef0ff"/>
-      <stop offset="0.45" stop-color="#ece6fb"/>
-      <stop offset="0.68" stop-color="#f2e4f6"/>
-      <stop offset="0.85" stop-color="#f9e9ee"/>
-      <stop offset="1" stop-color="#fdf0ea"/>
+      <stop offset="0" stop-color="#fff6f0"/>
+      <stop offset="0.22" stop-color="#fdefe6"/>
+      <stop offset="0.45" stop-color="#fbe2da"/>
+      <stop offset="0.68" stop-color="#f7dbe2"/>
+      <stop offset="0.85" stop-color="#f0d6ea"/>
+      <stop offset="1" stop-color="#e9d4f0"/>
     </linearGradient>
     <radialGradient id="hcBloom" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#fff7ec" stop-opacity="0.9"/>
-      <stop offset="0.32" stop-color="#ffe9d9" stop-opacity="0.45"/>
-      <stop offset="0.65" stop-color="#f4dded" stop-opacity="0.18"/>
-      <stop offset="1" stop-color="#f4dded" stop-opacity="0"/>
+      <stop offset="0" stop-color="#fff2d9" stop-opacity="0.9"/>
+      <stop offset="0.32" stop-color="#ffe6c4" stop-opacity="0.45"/>
+      <stop offset="0.65" stop-color="#ffd9c8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ffd9c8" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="hcCoolWash" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#c8d2ff" stop-opacity="0.3"/>
-      <stop offset="1" stop-color="#c8d2ff" stop-opacity="0"/>
+    <radialGradient id="hcWarmWash" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffd9c8" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#ffd9c8" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="hcRibbon" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#6ee3d4"/>
-      <stop offset="0.35" stop-color="#82b0f2"/>
-      <stop offset="0.68" stop-color="#a48df0"/>
-      <stop offset="1" stop-color="#f4aac6"/>
+      <stop offset="0" stop-color="#f472a0"/>
+      <stop offset="0.35" stop-color="#fb9d6c"/>
+      <stop offset="0.68" stop-color="#f5c86e"/>
+      <stop offset="1" stop-color="#c9a2f0"/>
     </linearGradient>
     <linearGradient id="hcSheen" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
@@ -34,17 +34,17 @@
     </linearGradient>
     <radialGradient id="hcOrbA" cx="0.62" cy="0.3" r="0.8">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="0.45" stop-color="#e6e0fb" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#bcaef2" stop-opacity="0.14"/>
+      <stop offset="0.45" stop-color="#fbe7d9" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#f0b9a2" stop-opacity="0.14"/>
     </radialGradient>
     <radialGradient id="hcOrbB" cx="0.64" cy="0.3" r="0.8">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0.98"/>
-      <stop offset="0.5" stop-color="#ddd3f8" stop-opacity="0.6"/>
-      <stop offset="1" stop-color="#a99aef" stop-opacity="0.2"/>
+      <stop offset="0.5" stop-color="#f9e2d2" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#efb4a0" stop-opacity="0.2"/>
     </radialGradient>
     <radialGradient id="hcOrbShadow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#8f7fd8" stop-opacity="0.3"/>
-      <stop offset="1" stop-color="#8f7fd8" stop-opacity="0"/>
+      <stop offset="0" stop-color="#d78a6a" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#d78a6a" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="hcSparkGlow" cx="0.5" cy="0.5" r="0.5">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
@@ -62,14 +62,14 @@
       <feGaussianBlur stdDeviation="4"/>
     </filter>
     <filter id="hcInkLift" x="-30%" y="-60%" width="160%" height="240%">
-      <feDropShadow dx="0" dy="5" stdDeviation="10" flood-color="#8f7fe8" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="5" stdDeviation="10" flood-color="#d89a7a" flood-opacity="0.35"/>
     </filter>
   </defs>
 
   <!-- 光场：光谱底 + 主光晕 + 冷色补光 -->
   <rect width="1200" height="560" fill="url(#hcBase)"/>
   <circle cx="880" cy="130" r="480" fill="url(#hcBloom)"/>
-  <circle cx="120" cy="520" r="380" fill="url(#hcCoolWash)"/>
+  <circle cx="120" cy="520" r="380" fill="url(#hcWarmWash)"/>
 
   <!-- 手势：一条丝带的三层（雾带 / 锐锋 / 回声） -->
   <path d="M -60 470 C 260 470 380 250 660 260 S 1120 190 1290 80" fill="none" stroke="url(#hcRibbon)" stroke-width="70" stroke-linecap="round" opacity="0.5" filter="url(#hcRibbonBlur)"/>
@@ -87,7 +87,7 @@
     <circle cx="952" cy="352" r="92" fill="url(#hcSparkGlow)"/>
     <circle cx="566" cy="88" r="40" fill="url(#hcSparkGlow)"/>
     <!-- 关系连线 -->
-    <g fill="none" stroke="#6b64a8" stroke-opacity="0.35" stroke-width="1">
+    <g fill="none" stroke="#8a5f74" stroke-opacity="0.35" stroke-width="1">
       <path d="M 586 94 Q 830 120 1076 202"/>
       <path d="M 1080 220 Q 1046 288 966 336"/>
       <path d="M 582 106 Q 770 220 934 336"/>
@@ -96,7 +96,7 @@
     <circle cx="952" cy="352" r="62" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
     <circle cx="932" cy="326" r="7" fill="#ffffff" fill-opacity="0.9"/>
     <!-- 核验勾：秩序内在于光 -->
-    <path d="M 934 356 l 13 13 l 26 -26" fill="none" stroke="#4f4794" stroke-opacity="0.9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 934 356 l 13 13 l 26 -26" fill="none" stroke="#8a4a62" stroke-opacity="0.9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     <!-- 极克制的构造几何：门禁的痕迹 -->
     <circle cx="952" cy="352" r="86" fill="none" stroke="#c9a86a" stroke-opacity="0.3" stroke-width="1"/>
     <g stroke="#c9a86a" stroke-opacity="0.45" stroke-width="1.2">
@@ -104,7 +104,7 @@
       <line x1="1040" y1="352" x2="1052" y2="352"/>
       <line x1="952" y1="440" x2="952" y2="452"/>
     </g>
-    <text x="1030" y="300" font-family="Georgia, Times New Roman, serif" font-size="10" font-style="italic" fill="#5c569c">R 86</text>
+    <text x="1030" y="300" font-family="Georgia, Times New Roman, serif" font-size="10" font-style="italic" fill="#6b4a5c">R 86</text>
     <circle cx="566" cy="88" r="22" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
     <circle cx="558" cy="80" r="3" fill="#ffffff" fill-opacity="0.95"/>
     <circle cx="1088" cy="208" r="13" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.7" stroke-width="1"/>
@@ -119,13 +119,13 @@
   </g>
 
   <!-- 安静区：排印 -->
-  <text x="84" y="118" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#5c569c" letter-spacing="6">SVG ATELIER · DREAMLIGHT N°01</text>
-  <text x="84" y="246" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="68" font-weight="700" fill="#37326e" letter-spacing="4" filter="url(#hcInkLift)">光是画出来的</text>
-  <text x="84" y="296" font-family="Georgia, Times New Roman, serif" font-size="20" font-style="italic" fill="#6b64a8">Where light is drawn, order follows.</text>
+  <text x="84" y="118" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#7a5a6a" letter-spacing="6">SVG ATELIER · DREAMLIGHT N°01</text>
+  <text x="84" y="246" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="68" font-weight="700" fill="#5e3a54" letter-spacing="4" filter="url(#hcInkLift)">光是画出来的</text>
+  <text x="84" y="296" font-family="Georgia, Times New Roman, serif" font-size="20" font-style="italic" fill="#7a5268">Where light is drawn, order follows.</text>
   <g data-role="atelier-mark">
     <circle cx="1064" cy="512" r="9" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.7" stroke-width="0.8"/>
-    <path d="M 1059 512 l 4 4 l 9 -9" fill="none" stroke="#4f4794" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="1046" y="516" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="10.5" font-weight="600" fill="#5c569c" letter-spacing="3">SVG ATELIER</text>
+    <path d="M 1059 512 l 4 4 l 9 -9" fill="none" stroke="#8a4a62" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1046" y="516" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="10.5" font-weight="600" fill="#6b4a5c" letter-spacing="3">SVG ATELIER</text>
   </g>
-  <text x="96" y="506" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#5c569c">机器门禁 G1–G4 · 引用完整性 R1·R2 · 渲染实测 T0 / T1 / T2</text>
+  <text x="96" y="506" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#6b4a5c">机器门禁 G1–G4 · 引用完整性 R1·R2 · 渲染实测 T0 / T1 / T2</text>
 </svg>
