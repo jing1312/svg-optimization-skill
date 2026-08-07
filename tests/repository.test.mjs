@@ -111,12 +111,13 @@ test("generic banner builds a fictional brand inside the house style", () => {
   assert.ok(!src.includes("知了"), "generic example must not reuse the demo brand");
 });
 
-test("hero carries the skill's meaning: verify-nodes motif + atelier mark", () => {
+test("hero carries the skill's meaning: verify-nodes motif + atelier mark + silk ribbon", () => {
   for (const f of ["docs/images/hero-cover.svg", "examples/hero-summer.svg"]) {
     const src = read(f);
     assert.match(src, /data-motif="verify-nodes"/, `${f} must keep the semantic motif`);
     assert.match(src, /data-role="atelier-mark"/, `${f} must keep the atelier mark`);
-    assert.match(src, /R 86/, `${f} must keep the quiet construction trace`);
+    assert.match(src, /RibbonCore|sgCore/i, `${f} ribbon must be a layered filled band, not stroke tubes`);
+    assert.match(src, /漂移光场|drift/i, `${f} background must float`);
   }
   // the summer variant is the same composition in a warm climate
   assert.match(read("examples/hero-summer.svg"), /#fff6f0/);
