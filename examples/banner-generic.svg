@@ -1,48 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 300" width="1100" height="300" role="img" aria-labelledby="gbTitle gbDesc">
-  <title id="gbTitle">晨山咖啡推广 banner：从品牌主色推导的暖调梦幻渐变，语义化热气 motif</title>
-  <desc id="gbDesc">示例：非内置品牌如何走同一套流程 —— 推导色板、写 motif brief、六层预算、门禁验证。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 300" width="1100" height="300" role="img" aria-labelledby="gbT gbD">
+  <title id="gbT">晨山咖啡推广 banner：深烘暗调、铜版线刻与衬线大字的克制版式</title>
+  <desc id="gbD">示例：非内置品牌如何走同一套流程 —— 推导色板、语义 motif、细线秩序、门禁验证。</desc>
   <defs>
-    <linearGradient id="gbBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fdf6ee"/>
-      <stop offset="1" stop-color="#f9ead9"/>
+    <linearGradient id="gbGround" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#171310"/>
+      <stop offset="1" stop-color="#1d1812"/>
     </linearGradient>
-    <radialGradient id="gbHalo" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#d97706" stop-opacity="0.18"/>
-      <stop offset="1" stop-color="#d97706" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="gbCta" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#b34700"/>
-      <stop offset="1" stop-color="#8f3a06"/>
-    </linearGradient>
-    <clipPath id="gbEdge"><rect x="0" y="0" width="1100" height="300"/></clipPath>
   </defs>
 
-  <!-- 1 base · 2 halo -->
-  <rect width="1100" height="300" fill="url(#gbBase)"/>
-  <ellipse cx="180" cy="90" rx="300" ry="160" fill="url(#gbHalo)"/>
-
-  <!-- 边缘裁切装饰（唯一允许的出界元素） -->
-  <g clip-path="url(#gbEdge)" data-role="edge-clipped-bubbles">
-    <circle cx="1096" cy="18" r="96" fill="#c2410c" fill-opacity="0.08"/>
-    <circle cx="1058" cy="286" r="70" fill="#d97706" fill-opacity="0.1"/>
+  <!-- 底、框、角标 -->
+  <rect width="1100" height="300" fill="url(#gbGround)"/>
+  <rect x="16" y="16" width="1068" height="268" fill="none" stroke="#e9dcc3" stroke-opacity="0.16" stroke-width="1"/>
+  <g stroke="#c9a86a" stroke-opacity="0.55" stroke-width="1.4" fill="none">
+    <path d="M20 34 V20 H34"/>
+    <path d="M1066 20 H1080 V34"/>
+    <path d="M20 266 V280 H34"/>
+    <path d="M1080 266 V280 H1066"/>
   </g>
 
-  <!-- motif: 现磨现萃 —— 杯身 + 上升热气 -->
-  <g data-motif="fresh-brew" data-motif-message="热气代表每日早晨现磨现萃" transform="translate(96 74)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 58 h 96 a 8 8 0 0 1 8 8 c 0 34 -23 54 -56 54 s -56 -20 -56 -54 a 8 8 0 0 1 8 -8 z" fill="#43301f" stroke="none"/>
-    <path d="M122 70 c 24 0 24 34 0 34" stroke="#43301f" stroke-width="7"/>
-    <path d="M44 34 c 0 -10 10 -10 10 -20 M66 34 c 0 -12 10 -12 10 -22 M88 34 c 0 -10 10 -10 10 -20" stroke="#c2410c" stroke-width="6"/>
+  <!-- motif：铜版线刻咖啡杯，杯内藏晨山日出 -->
+  <g data-motif="fresh-brew" data-motif-message="杯内的山形与初升日点，指清晨山场现萃" transform="translate(56 78)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M46 30 C 42 20, 50 16, 46 6" stroke="#c9a86a" stroke-opacity="0.7" stroke-width="1.4"/>
+    <path d="M74 32 C 70 22, 78 18, 74 8" stroke="#c9a86a" stroke-opacity="0.7" stroke-width="1.4"/>
+    <path d="M16 44 H 120 C 127 44, 131 49, 131 55 C 131 97, 101 126, 68 126 C 35 126, 5 97, 5 55 C 5 49, 9 44, 16 44 Z" stroke="#c9a86a" stroke-width="1.8"/>
+    <path d="M131 58 C 154 58, 154 94, 131 94" stroke="#c9a86a" stroke-width="1.6"/>
+    <path d="M36 102 L 58 74 L 73 89 L 89 69 L 103 102" stroke="#e9dcc3" stroke-opacity="0.85" stroke-width="1.5"/>
+    <circle cx="47" cy="63" r="6.5" stroke="#c9a86a" stroke-width="1.4"/>
+    <path d="M-2 136 H 138" stroke="#c9a86a" stroke-opacity="0.8" stroke-width="1.4"/>
+    <path d="M12 144 H 124" stroke="#c9a86a" stroke-opacity="0.4" stroke-width="1"/>
   </g>
 
-  <!-- 3 shadow · 4 liner · 5 gloss 略（横幅场景只保留必要层） -->
+  <!-- 文本区 -->
+  <text x="300" y="92" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#c9a86a" letter-spacing="5">ALTITUDE 1900 M · SLOW-ROASTED DAILY</text>
+  <text x="300" y="158" data-role="banner-title" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="46" font-weight="700" fill="#efe7d8">晨山咖啡 · 每日新鲜烘焙</text>
+  <text x="300" y="198" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" fill="#c4b49a">海拔一千九百米日晒豆 · 四十八小时内送达杯中</text>
 
-  <text x="316" y="130" data-role="banner-title" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="36" font-weight="700" fill="#3a2a18">晨山咖啡 · 每日新鲜烘焙</text>
-  <text x="316" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="18" fill="#6b5136">海拔一千九百米日晒豆 · 四十八小时内送达杯中</text>
-
+  <!-- CTA：文字链接 + 细线箭头，不用胶囊按钮 -->
   <g data-role="cta">
-    <rect x="316" y="208" width="190" height="48" rx="24" fill="url(#gbCta)"/>
-    <text x="411" y="238" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="18" font-weight="600" fill="#ffffff">立即订购</text>
+    <text x="300" y="244" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="17" font-weight="600" fill="#efe7d8">立即订购</text>
+    <line x1="300" y1="254" x2="368" y2="254" stroke="#c9a86a" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="388" y1="238" x2="452" y2="238" stroke="#c9a86a" stroke-width="1.2"/>
+    <path d="M446 233 l 8 5 l -8 5" fill="none" stroke="#c9a86a" stroke-width="1.2"/>
   </g>
 
-  <text x="1076" y="282" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#75563a">示例品牌 · 由 style-library.md §3 从主色 #c2410c 推导</text>
+  <!-- 右侧竖排铭牌 -->
+  <text transform="translate(1046 44) rotate(90)" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="10.5" fill="#948a70" letter-spacing="4">MORNING MOUNTAIN COFFEE</text>
+
+  <!-- 页脚铭线 -->
+  <text x="1016" y="266" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11" font-style="italic" fill="#948a70">示例品牌 · 由 style-library §3 从主色推导</text>
 </svg>
