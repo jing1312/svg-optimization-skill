@@ -43,7 +43,11 @@ animated/interactive SVG beyond static design.
    unclear, the user asks for a redesign, or says "太简单 / 不好看 / too plain",
    run the style-choice flow (§4) before finalizing. If the user supplies brand
    colors, derive the palette with the derivation rules (style-library §3)
-   instead of picking a preset blindly.
+   instead of picking a preset blindly. For hero images, banners, specimen
+   sheets, or any ask for 高级感/premium feel, apply
+   `references/premium-craft.md` — its anti-pattern blacklist overrides
+   default habits (no pills, no gradient blobs, no dot rows, no centered
+   triads).
 3. **Build with the six-layer effect budget** (`design-principles.md` §4):
    layers in fixed order, capped count, bounded blur. No unbounded blurs, no
    repeated glow passes, no scattered decorative dots.

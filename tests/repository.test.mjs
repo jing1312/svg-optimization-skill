@@ -69,6 +69,9 @@ test("references cover principles, styles, typography and verification", () => {
     assert.ok(styles.includes(a), `missing archetype: ${a}`);
   }
   assert.match(styles, /Deriving a custom style from a brand color/);
+  const premium = read("references/premium-craft.md");
+  assert.match(premium, /Anti-pattern blacklist/);
+  assert.match(premium, /ink register/i);
   assert.match(read("references/typography.md"), /text to outlines|outlines/);
   assert.match(read("references/verification.md"), /T2/);
 });

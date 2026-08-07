@@ -112,7 +112,18 @@ Given a brand primary `B` (and optionally secondary):
 Write the derived tokens into the motif brief header comment so the next
 iteration doesn't re-derive them from scratch.
 
-## 4. Anti-collage rule
+## 4. Registers: how an archetype is dressed
+
+An archetype fixes material discipline; a **register** fixes the level of
+formality on top of it. The **premium register** (deep ground or warm paper,
+ivory ink, one metallic accent, hairlines, index numerals, serif display,
+asymmetric editorial layout) can ride any archetype — see
+`references/premium-craft.md` for the full token set and anti-pattern
+blacklist. Hero images and flagship banners default to the premium register;
+the repo's own specimen assets (`docs/images/hero-cover.svg`,
+`examples/style-gallery.svg`, `examples/banner-generic.svg`) demonstrate it.
+
+## 5. Anti-collage rule
 
 If an asset reads as "stickers on a background" — elements without a shared
 grid, stroke width, light direction or color family — stop adding. Pick the
