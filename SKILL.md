@@ -1,113 +1,126 @@
 ---
 name: svg-optimization-skill
 description: >
-  Design, generate, restyle and validate SVG assets with a complete visual
-  system. Produces clean, premium, consistent SVGs with design tokens,
-  typography rules, material logic, motion principles and verification gates.
+  Design, generate, restyle and validate SVG assets through a complete visual
+  direction system. Creates premium SVG assets using design tokens, style
+  archetypes, composition logic, material behavior, motion principles and
+  multi-layer quality review.
 ---
 
-# SVG Visual System Engine V2
-
-Create SVG assets that are:
-
-1. visually authored, not randomly generated
-2. structurally correct and render-safe
-3. consistent through reusable design rules
-4. adaptable across brands and styles
-
-This skill follows a design-system-first workflow.
-
-## Core Principle
+# SVG Visual Direction Engine V2
 
 SVG is not markup. SVG is a visual system.
 
-Never begin with effects. Begin with:
+This skill does not generate decorative graphics. It directs AI to create
+repeatable visual assets with a coherent design language.
 
-1. message
-2. motif
-3. composition
-4. material
-5. tokens
-6. rendering
+## Design Philosophy
 
-## V2 Workflow
+A high quality SVG is built in this order:
 
-Every asset follows these steps:
+```
+Intent
+  ↓
+Visual Concept
+  ↓
+Composition
+  ↓
+Style System
+  ↓
+Design Tokens
+  ↓
+Material
+  ↓
+Motion
+  ↓
+Verification
+```
 
-### 1. Create a Motif Brief
+Never start from effects.
 
-Before drawing define:
+Blur, gradients, shadows and particles are implementation details, not design.
 
-- message: what the image communicates
-- visual nouns: what objects/materials represent it
-- relationship: why elements belong together
+---
 
-Delete any element without a clear role.
+# V2 Creation Workflow
 
-### 2. Apply Design Tokens
+## Step 1 — Understand Intent
 
-Use:
+Before drawing, identify:
+
+- purpose: why this asset exists
+- audience: who sees it
+- emotion: what should it feel like
+- message: what must be remembered
+
+If the purpose is unclear, ask before generating.
+
+---
+
+## Step 2 — Create Visual Direction
+
+Write a short design brief:
+
+```
+Message:
+Visual nouns:
+Main motif:
+Supporting gesture:
+Material:
+Atmosphere:
+```
+
+Every element must have a reason to exist.
+
+Remove anything that only makes the image busier.
+
+---
+
+## Step 3 — Select Visual System
+
+Choose:
+
+```
+Archetype × Palette × Layout
+```
+
+Read:
+
+`references/style-library.md`
+
+Examples:
+
+```
+Dreamlight × Night × Hero
+Editorial × Light × Poster
+Glass Intelligence × Night × Object Showcase
+```
+
+Never mix styles randomly.
+
+---
+
+## Step 4 — Apply Design Tokens
+
+Read:
 
 `references/design-tokens.md`
 
-Before choosing colors, typography or motion.
-
-The asset must define:
+Define:
 
 - color roles
-- type hierarchy
+- typography scale
 - spacing rhythm
 - material behavior
 - motion intent
 
-### 3. Select Style System
+Do not select isolated colors or effects.
 
-Use:
+---
 
-`references/style-library.md`
+## Step 5 — Build Composition
 
-Styles are systems, not filters.
-
-A style defines:
-
-- composition rules
-- material rules
-- color behavior
-- forbidden patterns
-
-### 4. Avoid Generic AI Aesthetics
-
-Always check:
-
-`references/anti-ai.md`
-
-Avoid:
-
-- random gradient blobs
-- meaningless glow objects
-- sticker collections
-- excessive glass effects
-- decorative elements without purpose
-
-Luxury comes from removal.
-
-### 5. Add Motion Only With Purpose
-
-Use:
-
-`references/motion-library.md`
-
-Motion must explain:
-
-- atmosphere
-- material response
-- interaction
-
-Never animate because SVG supports animation.
-
-## Visual Quality Rules
-
-### Composition
+Composition rules:
 
 Prefer:
 
@@ -115,20 +128,80 @@ Prefer:
 - one supporting gesture
 - one controlled detail
 
-Do not create collections of unrelated objects.
+Avoid:
 
-### Color
+- unrelated objects
+- equal visual weights everywhere
+- template card layouts unless the content requires them
 
-Rules:
+Negative space is a design element.
 
-- maximum four chromatic colors
-- every color needs a role
-- shadows follow material temperature
-- glow requires a light source
+---
 
-### Typography
+## Step 6 — Apply Material Logic
 
-Default scale:
+Materials must behave physically.
+
+Glass:
+- transparency
+- reflection
+- depth
+
+Paper:
+- grain
+- edge
+- warm shadow
+
+Light:
+- direction
+- source
+- falloff
+
+Never use material effects as decoration.
+
+---
+
+## Step 7 — Add Motion Carefully
+
+Read:
+
+`references/motion-library.md`
+
+Motion categories:
+
+- atmosphere
+- material response
+- interaction
+
+Animation must answer:
+
+"What becomes clearer because this moves?"
+
+If no answer exists, remove the animation.
+
+---
+
+# Anti AI Aesthetic Rules
+
+Always check:
+
+`references/anti-ai.md`
+
+Reject:
+
+- random gradient blobs
+- meaningless glow spheres
+- excessive glass layers
+- decorative particle fields
+- icon-title-subtitle templates
+
+Premium design comes from editing, not accumulation.
+
+---
+
+# Typography System
+
+Default hierarchy:
 
 ```
 display 72
@@ -139,21 +212,40 @@ heading 24
 caption 13
 ```
 
-Typography hierarchy is more important than decoration.
+Typography has priority over decoration.
 
-## Verification
+Check:
 
-Run the highest available verification tier:
+- scale
+- spacing
+- readability
+- alignment
 
-T0:
-- visual reasoning check
+---
 
-T1:
+# Quality Review
+
+Technical correctness is necessary but not sufficient.
+
+Run:
+
+## T0 Visual Reasoning
+
+Check:
+
+- concept clarity
+- hierarchy
+- composition
+- style consistency
+
+## T1 Machine Validation
+
 ```bash
 node evals/grade.mjs asset.svg
 ```
 
 Checks:
+
 - XML validity
 - references
 - duplicate IDs
@@ -161,26 +253,37 @@ Checks:
 - overlap
 - contrast
 
-T2:
+## T2 Render Review
+
 ```bash
 node scripts/render.mjs asset.svg
 ```
 
-Inspect rendered output for:
+Inspect:
 
-- hierarchy
+- visual balance
 - typography
 - spacing
-- material consistency
-- visual balance
+- material realism
+- aesthetic quality
 
-Passing technical gates does not prove beauty.
+A green technical check does not mean the design is good.
 
-## Commands
+---
 
-```bash
-npm test
-npm run check
-node evals/grade.mjs file.svg
-node scripts/render.mjs file.svg
-```
+# Final Delivery Checklist
+
+Before delivering any SVG:
+
+- Does it communicate one clear idea?
+- Does every element have a purpose?
+- Is the style system identifiable?
+- Are colors token-based?
+- Is typography hierarchical?
+- Are materials believable?
+- Is motion meaningful?
+- Has the rendered output been reviewed?
+
+The goal is not more SVG.
+
+The goal is better visual intelligence.
