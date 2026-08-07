@@ -1,230 +1,145 @@
 <div align="center">
-  <img src="assets/readme/hero-cover.svg" alt="svg-optimization-skill：梦幻夏日渐变，每个图案都讲得出语义" width="100%" />
+  <img src="docs/images/hero-cover.svg" alt="svg-optimization-skill：跨 agent 的 SVG 设计与质量门禁技能" width="100%" />
 </div>
 
 <div align="center">
 
-# ✨ svg-optimization-skill
+# svg-optimization-skill
 
-### 梦幻、夏日、有空气感的 SVG 品牌资产技能。
+### 把 SVG 画得好看，且**查得出 bug**。
 
-一句 brief → 语义化图案 → 六层效果预算 → 浏览器实测，
-**banner · popup · Logo · 插画板**一套画完，全部零运行时依赖、本地可验证。
+跨 agent 通用 · 多风格可推导 · 零运行时依赖 · 机器门禁 + 渲染实测。
 
+[![ci](https://github.com/jing1312/svg-optimization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/jing1312/svg-optimization-skill/actions/workflows/ci.yml)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-26%20passed-brightgreen.svg)](tests)
 [![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?logo=node.js&logoColor=white)](package.json)
 
 </div>
 
-> [!IMPORTANT]
-> 示例里的「知了学习」是演示品牌（知识组织与核验的学习工具）。所有资产都是手写 SVG：
-> 没有运行时依赖、没有字体包、没有位图素材。偏好学习只写本地白名单数字权重，
-> 原始反馈永不落盘——见 [`PRIVACY.md`](PRIVACY.md)。
+这是一个 **Agent Skill**：告诉 AI agent 怎么设计 SVG（语义化图案、六层效果预算、
+风格推导），并配一套零依赖的机器门禁与渲染验证闭环，把「文字溢出、图案遮挡、
+断引用、低对比度」这些经典翻车变成**可被自动拦截的错误**，而不是靠运气。
 
-**目录**
+## 它解决什么
 
-- 🎯 [它解决什么](#-它解决什么) · ✨ [效果一览](#-效果一览真机渲染) · 🧱 [六层效果预算](#-六层效果预算) · 🎨 [主题方向](#-主题方向)
-- 🧭 [你能这样用](#-你能这样用) · 🚀 [安装与验证](#-安装与验证) · 🔒 [隐私边界](#-隐私边界) · 📄 [许可](#-许可)
+品牌 SVG 资产最常见的五种翻车，这里都有硬规则 + 机器检查：
 
-## 🎯 它解决什么
+| 翻车 | 这个技能怎么做 | 谁来执行 |
+|---|---|---|
+| 装饰靠随机，拼贴感 | 每个主图案先写三行 brief（message / nouns / relationship），讲不清就删 | `design-principles.md` §1 |
+| 文字溢出容器/画布 | 几何门禁 G1–G4：完整仿射变换、path 包围盒、容器适配 | `evals/grade.mjs` |
+| 渐变断引用、重复 id | 引用门禁 R1/R2：每个 `url(#x)` 必须有且仅有一个目标 | `evals/grade.mjs` |
+| 风格每次重摇 | 六个风格**原型** + 从品牌主色的推导规则，而不是背色板 | `style-library.md` |
+| “看着挺好”其实看不清 | 对比度门禁 C1（按绘制顺序解析背景、支持渐变/半透明合成） | `evals/grade.mjs` |
 
-做品牌 SVG 资产最常见的五种翻车，这个技能都写成了硬规则：
+## 验证是分层降级的（关键设计）
 
-- **装饰靠随机**：光晕、圆点、花朵随手堆，不好看也说不清哪里不对 → 每个主图案先写一句 brief（message / visual nouns / relationship），讲不清就删，不许加装饰救场。
-- **文字溢出**：SVG 的 `<text>` 不会撑开容器，标题总被裁掉一截 → 先离线测量（`scripts/measure_text.html`），再回填坐标，浏览器里迭代验证。
-- **Logo = 图标 + 色块**：没有语义层次，48 px 一缩就糊 → 固定语义 brief（翻开的知识材料 + 核验），外环节点、盾牌、内衬、高光各就各位，缩略预览随产随验。
-- **风格每次重摇**：每张图各画各的渐变 → J/K/L 三套季节主题共享同一文案与 Logo 语义，只换色板与材质。
-- **偏好不留存**：用户说过的口味第二天就忘 → 本地白名单偏好 CLI，`record / forget / reset` 可控可遗忘，永不上传。
+不同 agent 环境能力不同，验证分三层，用能用的最高层：
 
-## ✨ 效果一览（真机渲染）
+```text
+T0  静态自查（任何环境，零工具）—— 对照 references/verification.md §2 走查源文件
+T1  机器门禁（需要 Node ≥ 18）—— node evals/grade.mjs：XML/引用/几何/对比度
+T2  渲染实测（需要任一光栅化器）—— node scripts/render.mjs：Playwright → Chromium → rsvg-convert
+```
 
-下面全部是仓库内的 **SVG 源文件**直接引用，点进去就是可复制的资产。
+T1 通过 ≠ 完成；有 T2 可用却跳过，就不算完成。没有任何光栅化器时，脚本会明确
+提示降级到 T0 并如实声明——**门禁不会骗你说“都检查过了”**。
+
+## 效果一览（仓库内 SVG 直出）
 
 <div align="center">
-  <img src="assets/examples/banner-example.svg" alt="正式 banner：默认 J 梦幻极光主题，1100×300，边缘裁切气泡" width="100%" />
+  <img src="examples/style-gallery.svg" alt="六个风格原型：Flat / Aurora / Glass / Neon / Ink / Editorial" width="100%" />
   <br/>
-  <sub><strong>正式 banner（1100×300）</strong> —— 默认 J 梦幻极光：环境光晕 + 边缘裁切气泡 + 语义 Logo。</sub>
+  <sub><strong>风格原型画廊</strong> —— Flat / Aurora / Glass / Neon / Ink / Editorial，同一套门禁下的六种材质纪律。</sub>
+</div>
+
+<div align="center">
+  <img src="examples/banner-generic.svg" alt="非内置品牌示例：从主色推导的晨山咖啡 banner" width="100%" />
+  <br/>
+  <sub><strong>通用示例 banner（1100×300）</strong> —— 从品牌主色 <code>#c2410c</code> 推导整套色板，与任何内置品牌无关。</sub>
 </div>
 
 <table>
   <tr>
-    <td width="46%" valign="top">
-      <img src="assets/examples/popup-mockup-example.svg" alt="扩展弹窗 mockup：深色浏览器背景上的 J 主题弹窗" width="100%" />
-      <br/>
-      <sub><strong>弹窗 mockup（860×730）</strong> —— 深色浏览器背景，三个语义功能行 + 主 CTA。</sub>
-    </td>
-    <td width="54%" valign="top">
-      <img src="assets/examples/logo-concepts.svg" alt="Logo 精修对比：J/K 两套主题与 48 像素缩小预览" width="100%" />
-      <br/>
-      <sub><strong>Logo 精修对比</strong> —— 外环节点 / 内衬 / 高光 / 盾牌全解，含 48 px 缩小预览。</sub>
-    </td>
-  </tr>
-</table>
-
-<div align="center">
-  <img src="assets/examples/ornate-style-gallery.svg" alt="六卡语义插画：章节关系、提纲生成、复习路径、卡片核验、课堂波形、资料导出包" width="100%" />
-  <br/>
-  <sub><strong>六卡语义插画</strong> —— 章节关系 / 提纲生成 / 复习路径 / 卡片核验 / 课堂波形 / 资料导出包，每张一句话讲清。</sub>
-</div>
-
-<div align="center">
-  <img src="assets/examples/style-options-example.svg" alt="风格选择器：J/K/L 三个方向，各含完整 banner 缩略图与 popup 局部" width="100%" />
-  <br/>
-  <sub><strong>风格选择器 · 基础三方向（J/K/L）</strong> —— 风格未定就先给完整方向：banner 缩略 + popup 局部一起看，选定再生成终稿。</sub>
-</div>
-
-<div align="center">
-  <img src="assets/examples/theme-selections-season2.svg" alt="Season 2 风格选择器：M 海盐薄荷 / N 落日蜜桃 / O 深海月光 / P 樱花糖果" width="100%" />
-  <br/>
-  <sub><strong>风格选择器 · Season 2（M/N/O/P）</strong> —— 冷雾薄荷 / 落日蜜桃 / 深海月光（暗色夜间模式）/ 樱花糖果，同一文案与 Logo 语义只换色板。</sub>
-</div>
-
-<div align="center">
-  <img src="assets/examples/style-explorations.svg" alt="风格轴探索：Q 墨线手稿与 R 星夜霓虹两种非换色风格" width="100%" />
-  <br/>
-  <sub><strong>风格轴探索（Q/R）</strong> —— 不是换色而是换质感：纸面墨线单色手稿（朱红只给核验）与暗底霓虹受控辉光。</sub>
-</div>
-
-<table>
-  <tr>
-    <td width="42%" valign="top">
-      <img src="assets/examples/layout-poster.svg" alt="排版轴 S1 编辑海报风：超大展示字与编号网格" width="100%" />
-      <br/>
-      <sub><strong>排版轴 S1 · 编辑海报</strong> —— 超大展示字、编号信息区、细线与留白。</sub>
-    </td>
     <td width="58%" valign="top">
-      <img src="assets/examples/layout-premium.svg" alt="排版轴 S2 高级广告感：深色金线衬线居中构图" width="100%" />
+      <img src="examples/zhiliao-study/banner-example.svg" alt="演示品牌包：知了学习 banner" width="100%" />
       <br/>
-      <sub><strong>排版轴 S2 · 高级广告</strong> —— 深色底、金色发丝线、衬线大字、严格中轴。</sub>
+      <sub><strong>品牌包示例</strong> —— 内置演示品牌「知了学习」，展示固定文案下的季节换色与语义 Logo。</sub>
+    </td>
+    <td width="42%" valign="top">
+      <img src="docs/images/effect-stack.svg" alt="六层效果预算" width="100%" />
+      <br/>
+      <sub><strong>六层效果预算</strong> —— 顺序不能乱，层数不能加；空气感靠预算，不靠堆叠。</sub>
     </td>
   </tr>
 </table>
 
-<table>
-  <tr>
-    <td width="52%" valign="top">
-      <img src="assets/examples/brand-theme-pair.svg" alt="J×K 双主题套系：同一语义两套季节皮肤" width="100%" />
-      <br/>
-      <sub><strong>J×K 双主题套系</strong> —— 默认一个，另一个随季节切换。</sub>
-    </td>
-    <td width="48%" valign="top">
-      <img src="assets/examples/dreamy-detail-board.svg" alt="四卡基础插画语法：统一线宽与强调色预算" width="100%" />
-      <br/>
-      <sub><strong>四卡基础插画语法</strong> —— 统一线宽、每卡最多两个强调色。</sub>
-    </td>
-  </tr>
-</table>
+## 快速开始
 
-## 🧱 六层效果预算
-
-空气感不是堆出来的，是按预算叠出来的：
-
-<div align="center">
-  <img src="assets/readme/effect-stack.svg" alt="六层效果预算：渐变底、环境光晕、有色阴影、内衬、高光、主插画按顺序叠加" width="100%" />
-</div>
-
-规则只有一句话：**顺序不能乱，层数不能加**。模糊 `stdDeviation ≤ 24`，高光只来一次，
-主图案只有一个；无界 blur、重复 glow、随机小圆点堆叠一律判定不合格
-（[`references/design-patterns.md`](references/design-patterns.md) §5，
-[`evals/grade.mjs`](evals/grade.mjs) 会自动检查）。
-
-## 🎨 主题方向
-
-### 季节轴（同一文案与 Logo 语义，只换色板与材质）
-
-| 方向 | 气质 | 状态 |
-| --- | --- | --- |
-| **J · 梦幻极光** | 紫罗兰光晕 + 青色节点，空气感最强 | ✅ 默认主题，已应用正式 banner / popup |
-| **K · 夏日汽水** | 青柠气泡 + 珊瑚点核，清爽活力 | ✅ 季节切换主题 |
-| **L · 暖阳纸片** | 暖纸卡片 + 阳光高光，安静学习氛围 | 备选（见基础风格选择器） |
-| **M · 海盐薄荷** | 冷雾薄荷 + 冰蓝，干净冷调 | Season 2 |
-| **N · 落日蜜桃** | 蜜桃珊瑚晚霞，温暖治愈 | Season 2 |
-| **O · 深海月光** | 静谧深蓝 + 月光银蓝，夜间模式 | Season 2 |
-| **P · 樱花糖果** | 樱花粉 + 棉花糖高光，甜系运营 | Season 2 |
-| A · 深海气泡 | 原始深蓝版 | 冻结为回归基线 [`banner-deepsea-baseline.svg`](assets/examples/banner-deepsea-baseline.svg) |
-
-### 风格轴（不换色，换质感；与季节轴正交）
-
-| 方向 | 质感逻辑 | 约束 |
-| --- | --- | --- |
-| **Q · 墨线手稿** | 纸面 + 单色墨线插画，无渐变无光晕 | 唯一强调色朱红只留给核验标记 |
-| **R · 星夜霓虹** | 暗底 + 霓虹渐变描边，星点点缀 | 每元素单次受控辉光，星点 ≤ 2 px 且 ≤ 12 颗 |
-
-风格轴探索可放宽六层色板传统，但**不放宽**语义 brief、文字测量与结构门禁
-（[`references/style-system.md`](references/style-system.md) §2–3）。
-所有方向共享同一标题、文案、Logo 语义与画布；风格未定或用户说"太简单/不好看"
-时，技能先产出完整方向（见上面三块选择器）让用户选，再生成终稿。
-
-### 排版轴（改构图，不改文案；与上面两轴正交）
-
-| 方向 | 构图逻辑 | 关键约束 |
-| --- | --- | --- |
-| **S1 · 编辑海报** | 竖版、超大展示字、编号信息区、细线网格 | 展示字 ≤ 3 行、单幅只留一个语义 motif、ghost 元素 ≤ 0.12 透明度 |
-| **S2 · 高级广告** | 深色底 + 金色发丝线 + 衬线中轴 | 无光晕无气泡、留白 ≥ 40%、正文 ≥ 12px 灰阶 |
-
-排版轴规则见 [`references/style-system.md`](references/style-system.md) §5；
-所有排版资产同样必须通过几何门禁 G1–G4（见下文安装与验证）。
-
-## 🧭 你能这样用
-
-| 场景 | 你可以这样问 |
-|---|---|
-| 新建资产 | "给产品做 1100×300 推广 banner，J 主题。" |
-| 风格未定 | "banner 重新设计，给我几个方向选。" |
-| 修溢出 | "副标题溢出了，先测量再修。" |
-| Logo 精修 | "Logo 要经得起 48px 缩小，把层次补齐。" |
-| 图案审查 | "这张卡太像拼贴了，删掉无关元素。" |
-| 记忆口味 | "记住我更喜欢玻璃质感。"（走白名单 CLI，可随时 `forget`） |
-
-标准工作顺序：写 brief → 选方向 → 六层预算绘制 → 测量回填 → `npm test` + `npm run check` → 浏览器实测。
-
-## 🚀 安装与验证
-
-### 方式一：交给 Agent（推荐）
+### 交给 Agent（推荐）
 
 ```text
 请安装这个 Agent Skill：https://github.com/jing1312/svg-optimization-skill
 先审查 SKILL.md 与 references/，再整目录安装到你的 skills 目录。
 ```
 
-### 方式二：手动安装
+### 手动安装
 
 ```bash
 git clone https://github.com/jing1312/svg-optimization-skill.git
-cp -R svg-optimization-skill ~/.codex/skills/   # 或 ~/.claude/skills/、~/.agents/skills/
+# Claude Code / Codex 等支持 skill 目录的 agent：
+cp -R svg-optimization-skill ~/.claude/skills/
+# 其他 agent：把 SKILL.md 作为系统提示引入即可，references/ 按需读取。
 ```
 
 ### 本地验证（零依赖，Node ≥ 18）
 
 ```bash
-npm test        # 26 项：偏好 CLI + 隐私扫描 + SVG 结构 + Logo/几何门禁
-npm run check   # XML well-formedness + Logo 质量评估（8 个示例资产）
-node evals/grade.mjs path/to/any.svg   # 单独评估某个文件
+npm test        # 24 项：门禁行为 + 仓库结构 + 隐私扫描
+npm run check   # 门禁跑过 examples/ 与 docs/ 下全部 16 个 SVG
+node evals/grade.mjs path/to/any.svg   # 单独评估任意文件，出错退出码非零
+node scripts/render.mjs path/to/any.svg  # T2 渲染（自动探测 playwright/chromium/rsvg）
 ```
 
-### 本地偏好 CLI
+### 常用问法
 
-```bash
-node scripts/preferences.mjs show
-node scripts/preferences.mjs record --key material.glass --delta 1
-node scripts/preferences.mjs forget --key material.glass
-node scripts/preferences.mjs reset
+| 场景 | 你可以这样问 |
+|---|---|
+| 新建资产 | “给产品做 1100×300 推广 banner，品牌色 #1f6feb。” |
+| 风格未定 | “重新设计，先给我几个方向选。” |
+| 修 bug | “帮我查一下这张 SVG 有没有溢出或断引用。” |
+| 品牌推导 | “我们的主色是 #d94f30，帮我推一套浅色主题。” |
+| Logo | “Logo 要经得起 48px 缩小，把层次补齐。” |
+
+## 目录结构
+
+```text
+SKILL.md                # 技能契约：触发条件、五步工作流、三层验证
+references/
+  design-principles.md  # 图案 brief、六层预算、G1–G4、Logo 规则
+  style-library.md      # 六原型 + 品牌色推导规则（风格不是摇骰子）
+  typography.md         # 字体栈、宽度估算、fallback 与描边交付策略
+  verification.md       # T0 自查清单 + T2 渲染目检清单
+brand-packs/
+  zhiliao-study.md      # 内置演示品牌（固定文案 + 季节主题注册表 + Logo 实例）
+evals/grade.mjs         # 零依赖门禁引擎（XML/R1/R2/G1–G4/C1/W1）
+scripts/render.mjs      # T2 渲染脚本（playwright → chromium → rsvg-convert 降级）
+examples/               # 通用示例与演示品牌资产（全部门禁绿灯）
+tests/                  # 24 项测试；fixtures 为每个门禁各备一个“必定失败”的坏样本
 ```
 
-文字测量用 [`scripts/measure_text.html`](scripts/measure_text.html)：
-浏览器双击打开，粘贴文案即可得到预留宽度，尺子全局一致。
+## 设计立场
 
-## 🔒 隐私边界
+- **门禁查结构，人眼管审美。** 门禁能保证资产“没坏”，不能保证“好看”；
+  所以 SKILL.md 强制要求：有渲染条件就必须渲染目检，并如实说明检查了什么。
+- **示例必须过自己的门禁。** 仓库里 16 个 SVG 全部在 CI 里跑过 G1–G4、R1/R2、C1。
+- **风格可推导。** 给一个品牌主色，按 `style-library.md §3` 推出整套 token，
+  而不是从预制色板里碰运气。
+- **用户偏好属于会话记忆。** 本技能不持久化任何用户数据；跨会话保留口味需用户
+  明确同意，且随时可撤销。
 
-- 公开仓库永不收录：原始聊天 / 原始反馈 / 内部交接、私有 prompt、项目路径、用户名、任何凭证。
-- 偏好持久化只允许白名单数字权重（`material.glass`、`palette.dark_cyan` 等），
-  `forget` / `reset` 是物理删除，不是打标记。
-- 偏好只改变推荐顺序，不替用户自动选择，也不改写公开 `SKILL.md`。
-- 完整条款见 [`PRIVACY.md`](PRIVACY.md)；仓库测试里有一条隐私扫描用例会在 CI 之外替你守门。
+## 许可
 
-## 📄 许可
-
-项目本体 [ISC](LICENSE)；Logo 核心 glyph 改编自 Lucide `book-open-check`（同为 ISC），
-归属见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
-欢迎提 Issue / PR：新主题、新图案语法或更严的质量门都可以。
+项目本体 [ISC](LICENSE)；演示品牌 Logo glyph 改编自 Lucide `book-open-check`
+（同为 ISC），归属见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
+欢迎 Issue / PR：新风格原型、更强的门禁、新品牌包示例都可以。

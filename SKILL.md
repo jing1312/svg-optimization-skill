@@ -1,119 +1,157 @@
 ---
 name: svg-optimization-skill
 description: >
-  Optimize brand SVG banners, popup mockups, logos and illustration boards for a
-  study/knowledge-verification product. Use when asked to design, restyle, fix
-  overflow in, or enrich 1100x300 banners, 860x730 popup mockups, or logo tiles
-  with the dreamy summer gradient system (directions J/K/L). Enforces semantic
-  motif briefs, a layered effect budget, Lucide book-open-check logo metadata,
-  and privacy-first local preference learning.
+  Design, generate, restyle and fix SVG assets — banners, posters, logos,
+  illustration boards, cards, simple infographics — that are visually clean and
+  bug-free, in many styles (flat, aurora gradient, glass, dark neon, ink sketch,
+  editorial print, and brand-derived custom styles), with zero runtime
+  dependencies. Use when asked to create or beautify SVG graphics, fix SVG text
+  overflow / element overlap / broken rendering, choose between visual
+  directions, or verify SVG layout quality. Ships machine-enforced layout gates
+  (overflow, occlusion, overlap, dangling references, duplicate ids, contrast),
+  a style library, and a tiered verification loop that degrades gracefully from
+  "Node + browser" to "no tools at all".
 ---
 
-# SVG Optimization Skill
+# SVG Design & Optimization Skill
+
+Produce SVG assets that are (1) genuinely good-looking, (2) free of layout and
+rendering bugs, (3) stylistically controllable, (4) usable in any agent
+environment. All guidance lives in `references/`; this file is the contract.
 
 ## 1. When to use
 
 Trigger this skill when the user wants to:
 
-- create or restyle a promo banner (default canvas `1100 300`),
-- create or restyle a browser-extension popup mockup (default canvas `860 730`),
-- refine the product logo (core glyph: Lucide `book-open-check`),
-- build illustration boards or style-choice cards for this brand,
-- diagnose overflow, tiny text, or "too bland / too collage-like" SVG assets.
+- create or restyle an SVG asset (banner, poster, logo, illustration board,
+  feature grid, style-exploration sheet),
+- fix SVG defects: text overflow, element occlusion/overlap, broken gradients,
+  invisible elements, font-fallback breakage,
+- choose between several visual directions before committing,
+- audit an existing SVG for layout or rendering bugs.
 
-Do not trigger for generic icons, screenshots, or non-SVG deliverables.
+Do not trigger for raster image editing, chart-library code (ECharts/D3), or
+animated/interactive SVG beyond static design.
 
-## 2. Canonical brand copy
+## 2. Workflow (five steps, none skippable)
 
-Keep wording identical across all directions unless the user explicitly rewrites it:
+1. **Write a motif brief before drawing** (`references/design-principles.md` §1).
+   Every primary motif must state message / visual nouns / relationship in three
+   lines. If a motif cannot be tied to the content in one sentence, delete it —
+   never add decoration to rescue an unclear motif.
+2. **Pick a style** from `references/style-library.md`. If the direction is
+   unclear, the user asks for a redesign, or says "太简单 / 不好看 / too plain",
+   run the style-choice flow (§4) before finalizing. If the user supplies brand
+   colors, derive the palette with the derivation rules (style-library §3)
+   instead of picking a preset blindly.
+3. **Build with the six-layer effect budget** (`design-principles.md` §4):
+   layers in fixed order, capped count, bounded blur. No unbounded blurs, no
+   repeated glow passes, no scattered decorative dots.
+4. **Verify with the highest tier you can run** (§5). Never declare "done" on
+   gate output alone when a render tier was available and skipped.
+5. **State what you verified.** List the gates that ran and the tier reached;
+   if you inspected a render, state what you checked (overflow, overlap,
+   alignment, contrast, hierarchy) using `references/verification.md` §3.
 
-- Product: 知了学习
-- Title: 知了学习 · 知识组织与核验助手
-- Subtitle: 把章节连成关系网，让每次复习都有据可查
-- Popup CTA: 开始核验
+## 3. Canvas defaults
 
-The product story is **knowledge organization + verification**: chapters become
-relationship graphs, review paths become checkable, notes become exported packs.
+| Asset | viewBox | Notes |
+|---|---|---|
+| promo/banner | `0 0 1100 300` | Title ≥ 34 px, subtitle ≥ 17 px, edge-clipped decor allowed |
+| poster (portrait) | `0 0 900 1200` | One primary motif, generous margins |
+| wide ad / hero | `0 0 1200 800` | Centered or strict-grid compositions |
+| popup/UI mockup | `0 0 860 730` | Dark backdrop card, ≥ 24 px radii |
+| feature grid | free | Unified card size, ≤ 2 emphasis colors per card |
+| style chooser | free | One panel per direction, same copy across panels |
 
-## 3. Workflow
-
-1. Write a motif brief before drawing (see `references/design-patterns.md` §1).
-   If a motif cannot be explained in one sentence tied to the copy, delete it.
-2. Pick the direction. If style is unclear, the user asks for a redesign, or the
-   user says "太简单/不好看", follow the style-choice flow (§4) before finalizing.
-3. Build the asset using the six-layer effect stack
-   (`references/style-system.md` §3). Do not stack unbounded blurs, repeated
-   glows, or scattered decorative dots.
-4. Validate geometry: every `<text>` must fit its container; measure with
-   `scripts/measure_text.html` when fonts are ambiguous. Layout red lines
-   G1–G4 (no canvas overflow, no container overflow, no motif occlusion, no
-   text-on-text overlap) are machine-enforced by `evals/grade.mjs` — see
-   `references/design-patterns.md` §7.
-5. Run `npm test` and `npm run check`; the check must report zero geometry
-   issues for every SVG. Passing structure tests does not prove the art is
-   good — additionally open the SVG in a real browser screenshot and state
-   what was visually inspected.
+Other sizes are fine; the geometry gates (G1–G4) apply at every size.
 
 ## 4. Style-choice flow
 
 When direction is ambiguous:
 
-1. Read `references/style-system.md`.
-2. Produce 2-3 complete directions using the same title, copy, logo semantics
-   and canvas.
-3. Each direction must show both a full banner thumbnail and a popup/UI crop.
-4. Prefer clickable cards; otherwise generate `style-options.svg`; with text-only
-   channels use a Markdown table. Never depend on editor-specific features.
-5. Only after the user picks, produce the final themed assets.
+1. Produce 2–4 complete directions using the **same copy and canvas** so the
+   comparison isolates style.
+2. Show each direction as a real miniature of the final asset (not swatches).
+3. One SVG sheet with panels is the most portable output; a Markdown table is
+   the fallback for text-only channels. Never depend on editor-specific features.
+4. Only after the user picks, produce the final asset. Skip this flow for
+   simple overflow/bug fixes.
 
-Do not force the chooser for simple overflow or measurement fixes.
+## 5. Verification tiers (use the highest available)
 
-## 5. Logo rules
+- **T0 — static self-check (always available, zero tools):** walk
+  `references/verification.md` §2 checklist by reasoning over the SVG source.
+- **T1 — machine gates (needs Node ≥ 18):**
+  ```bash
+  node evals/grade.mjs path/to/asset.svg   # or npm run check for whole repo
+  ```
+  Enforces: XML well-formedness, viewBox, accessible `<title>`, dangling
+  `url(#ref)` references (R1), duplicate ids (R2), external raster embeds (W1),
+  geometry G1–G4 (canvas overflow, container overflow, motif/logo occlusion,
+  text-on-text overlap), and contrast C1. Must report zero errors.
+- **T2 — render verification (needs a rasterizer):**
+  ```bash
+  node scripts/render.mjs path/to/asset.svg   # playwright → chromium → rsvg
+  ```
+  Then inspect the PNG against `verification.md` §3 and say what was checked.
+  T0's width estimates are font-independent guesses; a render is the only proof
+  text actually fits under real fonts. If the render shows a font-fallback
+  problem, apply `references/typography.md` §4 (safe stacks or text-to-path).
 
-Core glyph is Lucide `book-open-check` (ISC), expressing "opened learning
-material + verification action". Allowed additions: chapter-relationship node
-ring, verification shield outline, page highlight/liner/theme-tinted shadow, and
-at most one semantically justified secondary structure. Forbidden: gratuitous
-bolts/sparkles/magic wands, filler flowers/waveforms/molecules, halos louder than
-the glyph, strokes so thin they collapse at 48 px.
+Rules: T1-pass does not replace T2 when T2 was available. T0 is mandatory even
+when T1/T2 ran — gates cannot judge beauty. Passing structure gates proves the
+asset is *not broken*; the visual checklist is what proves it is *good*.
 
-Every formal logo group must carry:
+## 6. Typography and font portability (hard rules)
+
+- Reserve width with CJK ≈ `font-size × 1.0`, Latin ≈ `font-size × 0.56`,
+  plus `0.12 × font-size` safety per side (measured estimates, see
+  `references/typography.md` §2).
+- Always end font stacks on a generic family (`sans-serif`, `serif`,
+  `monospace`) and prefer cross-platform names (typography §1).
+- For assets that must survive any renderer (emails, third-party embeds,
+  systems without CJK fonts), deliver text as outlines when tooling allows, or
+  warn the user about fallback risk (typography §4).
+
+## 7. Logo rules (generic)
+
+A logo must state a semantic brief (message / visual nouns / relationship),
+survive a 48 px render (include one in every logo deliverable), keep ≤ 6
+layers in fixed order, and carry provenance metadata when derived from an icon
+set:
 
 ```xml
-data-role="logo"
-data-logo-intent="knowledge verification"
-data-icon-source="lucide"
-data-icon-name="book-open-check"
-data-icon-license="ISC"
+data-role="logo" data-logo-intent="..." data-icon-source="..."
+data-icon-name="..." data-icon-license="..."
 ```
 
-Secondary motifs are declared via
-`data-logo-secondary-motif="chapter relationship + verification shield"`.
-Full brief: `references/logo-system.md`.
+Never let halos outshout the glyph, never add filler motifs, never use strokes
+thinner than ~1.5 px at 48 px. Full rules and auto-fail list:
+`references/design-principles.md` §6. Brand-specific logo instances (e.g. the
+bundled demo brand) live in `brand-packs/`.
 
-## 6. Preferences and privacy (hard boundary)
+## 8. Memory and preferences
 
-- Preference learning is **local, structured, forgettable**. Never upload raw
-  feedback; never encode user-specific preferences into this public SKILL.md.
-- Persist only whitelisted numeric weights through `scripts/preferences.mjs`:
+Learned taste ("用户更喜欢玻璃质感") belongs in session memory or the host
+agent's memory facility. Rules: session-only by default; persist across
+sessions only with explicit consent; store derived one-line notes, never raw
+conversation; let the user retract ("忘记这个偏好") at any time. Never write
+user-specific preferences into this skill's files — this is a public artifact.
+
+## 9. Brand packs (demo included)
+
+`brand-packs/zhiliao-study.md` is a complete worked example: one fictional
+product with fixed copy, a seasonal/theme registry and a logo instance. Use it
+as a reference for how to structure a brand pack; when the user has their own
+brand, derive (don't copy) from it. Nothing in this skill hardcodes that brand
+into new assets.
+
+## 10. Commands
 
 ```bash
-node scripts/preferences.mjs show
-node scripts/preferences.mjs record --key material.glass --delta 1
-node scripts/preferences.mjs forget --key material.glass
-node scripts/preferences.mjs reset
+npm test        # gate behavior tests + repository structure tests
+npm run check   # grade every SVG under examples/ and docs/
+node evals/grade.mjs file.svg   # grade single file(s), errors exit non-zero
+node scripts/render.mjs file.svg  # best-effort render to PNG for T2
 ```
-
-- Preferences only re-rank recommendations; they never auto-select for the user
-  and never rewrite this skill.
-- See `PRIVACY.md` for the full public-release boundary.
-
-## 7. Verification
-
-```bash
-npm test        # unit + repository structure tests (26 tests)
-npm run check   # XML well-formedness + logo quality + geometry gates G1–G4
-git diff --check
-```
-
-Declare "done" only after fresh command output plus real-browser visual evidence.

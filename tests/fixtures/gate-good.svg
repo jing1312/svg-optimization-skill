@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" role="img" aria-labelledby="goodTitle">
+  <title id="goodTitle">Minimal asset that must pass every gate (positive control)</title>
+  <defs>
+    <linearGradient id="goodBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5f4fb"/>
+      <stop offset="1" stop-color="#eceafb"/>
+    </linearGradient>
+    <clipPath id="goodEdge"><rect x="0" y="0" width="420" height="220"/></clipPath>
+  </defs>
+  <rect width="420" height="220" fill="url(#goodBase)"/>
+  <!-- edge-clipped decor must not trigger G1 and must not occlude text -->
+  <g clip-path="url(#goodEdge)">
+    <circle cx="420" cy="220" r="60" fill="#6d5bd0" fill-opacity="0.12"/>
+  </g>
+  <g data-motif="orbit" data-motif-message="nodes orbit the tile">
+    <rect x="28" y="60" width="64" height="64" rx="14" fill="#26243a"/>
+    <circle cx="60" cy="46" r="5" fill="#6d5bd0"/>
+    <circle cx="104" cy="92" r="5" fill="#38bdf8"/>
+  </g>
+  <text x="120" y="86" font-size="18" font-weight="700" fill="#26243a">门禁友好资产</text>
+  <text x="120" y="114" font-size="13" fill="#4f4b78">布局留足边距，装饰让开文字</text>
+  <rect x="120" y="140" width="150" height="34" rx="17" fill="#5f4fd6"/>
+  <text x="195" y="162" text-anchor="middle" font-size="13.5" font-weight="600" fill="#ffffff">全部通过</text>
+</svg>

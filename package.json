@@ -1,13 +1,13 @@
 {
   "name": "svg-optimization-skill",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
-  "description": "Dreamy summer-gradient SVG brand assets with semantic motifs, verified locally.",
+  "description": "Cross-agent SVG design skill: semantic motifs, layered effect budget, machine geometry/reference/contrast gates and a render-verified loop. Zero runtime dependencies.",
   "scripts": {
     "test": "node --test",
     "check": "node evals/grade.mjs",
-    "prefs": "node scripts/preferences.mjs"
+    "render": "node scripts/render.mjs"
   },
   "engines": {
     "node": ">=18"

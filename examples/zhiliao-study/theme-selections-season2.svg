@@ -63,20 +63,20 @@
       <stop offset="1" stop-color="#e2e8f0" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ctaM" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#2dd4bf"/>
-      <stop offset="1" stop-color="#38bdf8"/>
+      <stop offset="0" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#0e7490"/>
     </linearGradient>
     <linearGradient id="ctaN" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#fb923c"/>
-      <stop offset="1" stop-color="#fb7185"/>
+      <stop offset="0" stop-color="#9a3412"/>
+      <stop offset="1" stop-color="#c2410c"/>
     </linearGradient>
     <linearGradient id="ctaO" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#22d3ee"/>
       <stop offset="1" stop-color="#93c5fd"/>
     </linearGradient>
     <linearGradient id="ctaP" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#f9a8d4"/>
-      <stop offset="1" stop-color="#f472b6"/>
+      <stop offset="0" stop-color="#be185d"/>
+      <stop offset="1" stop-color="#db2777"/>
     </linearGradient>
     <filter id="liftM" x="-40%" y="-40%" width="180%" height="180%">
       <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#14b8a6" flood-opacity="0.22"/>
@@ -127,10 +127,10 @@
 
   <g data-style-id="M">
     <rect x="50" y="110" width="960" height="300" rx="24" fill="#ffffff" stroke="#14b8a6" stroke-opacity="0.4" stroke-width="1.6" filter="url(#panelLift)"/>
-    <circle cx="96" cy="150" r="16" fill="#14b8a6"/>
+    <circle cx="96" cy="150" r="16" fill="#0f766e"/>
     <text x="96" y="156" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="16" font-weight="600" fill="#ffffff">M</text>
     <text x="124" y="156" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600" fill="#23443d">海盐薄荷</text>
-    <text x="240" y="156" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#587a72">冷雾薄荷 + 冰蓝光晕，清爽干净的夏日冷调</text>
+    <text x="240" y="156" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#3f635b">冷雾薄荷 + 冰蓝光晕，清爽干净的夏日冷调</text>
     <g data-role="banner-thumb" clip-path="url(#clipTM)">
       <g transform="translate(80 174) scale(0.5818)">
         <rect width="1100" height="300" fill="url(#bgM)"/>
@@ -153,7 +153,7 @@
           <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#14b8a6" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <text x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#23443d" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
-        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#587a72">把章节连成关系网，让每次复习都有据可查</text>
+        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#3f635b">把章节连成关系网，让每次复习都有据可查</text>
       </g>
     </g>
     <rect x="80" y="174" width="640" height="176" rx="18" fill="none" stroke="#14b8a6" stroke-opacity="0.25" stroke-width="1.2"/>
@@ -177,16 +177,16 @@
       <circle cx="114" cy="382" r="9" fill="#7dd3fc"/>
       <circle cx="140" cy="382" r="9" fill="#99f6e4"/>
       <circle cx="166" cy="382" r="9" fill="#f8fffe" stroke="#5eead4" stroke-opacity="0.6" stroke-width="1"/>
-      <text x="188" y="387" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#587a72">palette · 冷雾光晕主导，阴影青调 16%</text>
+      <text x="188" y="387" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#3f635b">palette · 冷雾光晕主导，阴影青调 16%</text>
     </g>
   </g>
 
   <g data-style-id="N">
     <rect x="50" y="430" width="960" height="300" rx="24" fill="#ffffff" stroke="#fb923c" stroke-opacity="0.45" stroke-width="1.6" filter="url(#panelLift)"/>
-    <circle cx="96" cy="470" r="16" fill="#fb923c"/>
+    <circle cx="96" cy="470" r="16" fill="#c2410c"/>
     <text x="96" y="476" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="16" font-weight="600" fill="#ffffff">N</text>
     <text x="124" y="476" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600" fill="#4a2f2a">落日蜜桃</text>
-    <text x="240" y="476" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#7a5a52">蜜桃 + 珊瑚晚霞，温暖治愈的黄昏光</text>
+    <text x="240" y="476" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#6a4a42">蜜桃 + 珊瑚晚霞，温暖治愈的黄昏光</text>
     <g data-role="banner-thumb" clip-path="url(#clipTN)">
       <g transform="translate(80 494) scale(0.5818)">
         <rect width="1100" height="300" fill="url(#bgN)"/>
@@ -209,7 +209,7 @@
           <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#fb923c" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <text x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#4a2f2a" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
-        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#7a5a52">把章节连成关系网，让每次复习都有据可查</text>
+        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#6a4a42">把章节连成关系网，让每次复习都有据可查</text>
       </g>
     </g>
     <rect x="80" y="494" width="640" height="176" rx="18" fill="none" stroke="#fb923c" stroke-opacity="0.25" stroke-width="1.2"/>
@@ -233,7 +233,7 @@
       <circle cx="114" cy="702" r="9" fill="#fb7185"/>
       <circle cx="140" cy="702" r="9" fill="#fdba74"/>
       <circle cx="166" cy="702" r="9" fill="#fecdd3"/>
-      <text x="188" y="707" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#7a5a52">palette · 一次低角度夕阳高光，阴影珊瑚调 18%</text>
+      <text x="188" y="707" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#6a4a42">palette · 一次低角度夕阳高光，阴影珊瑚调 18%</text>
     </g>
   </g>
 
@@ -265,7 +265,7 @@
           <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#93c5fd" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <text x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#e6edf7" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
-        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#9fb6d6">把章节连成关系网，让每次复习都有据可查</text>
+        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#ceddf0">把章节连成关系网，让每次复习都有据可查</text>
       </g>
     </g>
     <rect x="80" y="814" width="640" height="176" rx="18" fill="none" stroke="#93c5fd" stroke-opacity="0.4" stroke-width="1.2"/>
@@ -295,10 +295,10 @@
 
   <g data-style-id="P">
     <rect x="50" y="1070" width="960" height="300" rx="24" fill="#ffffff" stroke="#f472b6" stroke-opacity="0.45" stroke-width="1.6" filter="url(#panelLift)"/>
-    <circle cx="96" cy="1110" r="16" fill="#f472b6"/>
+    <circle cx="96" cy="1110" r="16" fill="#db2777"/>
     <text x="96" y="1116" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="16" font-weight="600" fill="#ffffff">P</text>
     <text x="124" y="1116" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600" fill="#4d2b3a">樱花糖果</text>
-    <text x="240" y="1116" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#7d5a6a">樱花粉 + 棉花糖高光，年轻化的甜系运营</text>
+    <text x="240" y="1116" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#6b4a59">樱花粉 + 棉花糖高光，年轻化的甜系运营</text>
     <g data-role="banner-thumb" clip-path="url(#clipTP)">
       <g transform="translate(80 1134) scale(0.5818)">
         <rect width="1100" height="300" fill="url(#bgP)"/>
@@ -321,7 +321,7 @@
           <path d="M39.5 48.5l5 5 12-12" fill="none" stroke="#f472b6" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <text x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#4d2b3a" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
-        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#7d5a6a">把章节连成关系网，让每次复习都有据可查</text>
+        <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#6b4a59">把章节连成关系网，让每次复习都有据可查</text>
       </g>
     </g>
     <rect x="80" y="1134" width="640" height="176" rx="18" fill="none" stroke="#f472b6" stroke-opacity="0.25" stroke-width="1.2"/>
@@ -345,7 +345,7 @@
       <circle cx="114" cy="1342" r="9" fill="#f472b6"/>
       <circle cx="140" cy="1342" r="9" fill="#86efac"/>
       <circle cx="166" cy="1342" r="9" fill="#fef3f7" stroke="#f472b6" stroke-opacity="0.6" stroke-width="1"/>
-      <text x="188" y="1347" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#7d5a6a">palette · 棉花糖高光，糖屑只在卡内（≤5px，≤8 颗）</text>
+      <text x="188" y="1347" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#6b4a59">palette · 棉花糖高光，糖屑只在卡内（≤5px，≤8 颗）</text>
     </g>
   </g>
 </svg>

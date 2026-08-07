@@ -114,7 +114,7 @@
       <circle cx="24" cy="8" r="19" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.6"/>
       <circle cx="104" cy="-36" r="13" fill="#8b7cf6" stroke="#ffffff" stroke-width="2.4"/>
       <path d="M98.5 -36l3.8 3.8 7-7" stroke="#ffffff" stroke-width="2.6"/>
-      <text x="-104" y="68" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#8a8fb8" stroke="none">第一章 · 未开始</text>
+      <text x="-104" y="68" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#4f4b78" stroke="none">第一章 · 未开始</text>
       <text x="24" y="46" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f" stroke="none">第三章 · 复习中</text>
       <text x="104" y="-58" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f" stroke="none">整章核验通过</text>
     </g>
@@ -191,5 +191,5 @@
     <text x="1080" y="830" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5a608f">笔记、卡片和提纲一起打包，随时带走</text>
   </g>
 
-  <text x="660" y="934" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#8a8fb8">效果层次：浅色渐变底 → 环境光晕 → 有色柔和阴影 → 半透明内衬 → clipped 高光 → 单一主插画</text>
+  <text x="660" y="934" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" fill="#4f4b78">效果层次：浅色渐变底 → 环境光晕 → 有色柔和阴影 → 半透明内衬 → clipped 高光 → 单一主插画</text>
 </svg>

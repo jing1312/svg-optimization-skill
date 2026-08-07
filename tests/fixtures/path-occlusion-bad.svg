@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img">
+  <title id="t">Intentionally broken fixture: a path-based motif occludes text (old gate only saw rect/circle/use)</title>
+  <text x="20" y="120" font-size="16">这行文字被一个 path 图案完全盖住了</text>
+  <g data-motif="cover" data-motif-message="path occlusion probe">
+    <path d="M10 100 H390 V140 H10 Z" fill="#111827"/>
+  </g>
+</svg>
