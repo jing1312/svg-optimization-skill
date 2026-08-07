@@ -67,31 +67,43 @@ Rules:
 
 ## 4. The gesture: silk, never neon tubes
 
-A ribbon drawn as three constant-width strokes reads as glowing wire — that is
-the #1 reason dreamy scenes turn tacky. A ribbon is **silk**, so build it as a
-filled shape, not a stroke:
-
-- **Closed band, two edges**: the top and bottom edges are two separate curves
-  enclosing a fill. Never parallel glowing lines.
-- **Tapered ends, full belly**: pinch the band to a point at both ends and let
-  the middle swell. An even-width band has no tension.
-- **Two translucent layers**: an outer wide layer (blurred, `stdDeviation`
-  8–14, opacity ~0.55) as the soft move, plus a narrower sharp core (opacity
-  ~0.9) as the lit edge — offset them slightly for thickness. Add one white
-  edge-light stroke along the top edge, and 1–2 short highlight folds on the
-  belly.
+- **Built as a filled band**: a closed path whose top and bottom edges are two
+  separate curves. Never three parallel strokes.
+- **Tapered ends, full belly**: end width ≤ 20 px, belly 60–90 px on hero
+  scale. Tension comes from the taper.
+- **Two translucent layers**: outer layer wide, blurred (`stdDeviation` 10–14),
+  opacity ~0.55 — the shadow of the silk in the air; inner layer narrower,
+  sharp, opacity ~0.9 — the lit face; plus one white edge-light (1–1.5 px @
+  0.5) along the top edge, and 1–2 short highlight folds on the belly.
 - **Deepen the value**: the gesture is the mid-ground, so give it real
   saturation and opacity (~0.7). A ribbon at 0.4 opacity on a pale base is
   wallpaper, not a gesture.
-- One distant thin echo of the same gesture, opacity ~0.2, may sit higher up.
+- **One distant echo**: a shrunken band of the same shape high up, opacity
+  ~0.2 — silk comes in bolts, not single threads. Give the echo its own paler
+  gradient so its sweep never stains the text zones.
+- The gradient runs **along the sweep** (`userSpaceOnUse`), colors travel with
+  the band instead of banding across it.
 
-The gesture still divides the canvas into a quiet zone (text) and an active
-zone (orbs/sparkles). If it decorates around the text instead of carrying the
-composition, delete it.
+The gesture divides the canvas into a quiet zone (typography) and an active
+zone (orbs, sparkles). If the ribbon decorates around the text instead of
+carrying the composition, delete it.
 
-## 5. Orbs (glass depth) + floating background
+## 5. The background must float
 
-Orbs:
+A flat vertical gradient is a wall, not an atmosphere. Every scene carries:
+
+- **2–3 large drift fields**: asymmetric radial fades at different heights and
+  scales, some spilling off the canvas, tints from the palette family, opacity
+  0.2–0.4. They are tinted air, not light sources — weather, not decoration.
+  Place them off-axis from the bloom.
+- **Floating motes**: 8–14 particles, r 1.5–5 px, opacity 0.2–0.6, scattered
+  along the gesture's flow and around the orbs — varied sizes, one or two
+  clustered pairs, never aligned rows, never confetti bursts. They are what
+  makes the air visible; one or two may get a soft glow, the rest stay bare.
+- The bloom itself sits slightly off-center; centered blooms pin the scene.
+
+## 6. Orbs (glass depth)
+
 - ≥ 3 per scene, three sizes on purpose: one **large and edge-cropped**
   (anchoring), one **medium and sharp** (character), one **small** (accent).
 - Each orb: radial fill with the highlight offset toward the light source, a
@@ -101,15 +113,7 @@ Orbs:
 - The near subject orb is the only element at full density — deepen its radial
   and shadow so the airy layers around it have something to be airy *against*.
 
-Background:
-- The base gradient alone is a wall. Add 2–3 large drift fields (tinted air,
-  not light) plus a handful of floating motes at varied opacity/size so the
-  scene breathes. Motes are sparse and scattered, never a grid or a confetti
-  burst; at most one or two get a soft glow, the rest are bare dots.
-- One bloom sits slightly off-center as the sun; keep halo opacity honest but
-  never so even that foreground and background flatten into the same value.
-
-## 6. Typography in light fields
+## 7. Typography in light fields
 
 - Deep desaturated ink (`#37326e` family in cool scenes, `#4a2f3f` in warm),
   serif display with letter-spacing 3–6 px. Display vs meta ≥ 5× size.
@@ -123,8 +127,11 @@ Background:
   paragraph, and spec lines (gate lists, version notes) belong in the README,
   never on the artwork. Count every `<text>` you ship; if you can't name the
   job of each one, cut it.
+- **Size floors** on hero-scale canvases (≥ 1200 px wide): eyebrow/meta ≥ 13 px,
+  body ≥ 14 px. Text under 13 px reads as noise in real rendering, not as
+  refinement; tracking 4–6 px gives the meta room to breathe.
 
-## 7. Meaning before ornament
+## 8. Meaning before ornament
 
 Atmosphere is not an excuse for decoration without a story. Every primary
 element in a Dreamlight piece must state, in one sentence, what product action
@@ -137,19 +144,17 @@ or idea it carries — exactly like the motif brief in
   verification lives inside the light, not outside it.
 - Ambient details take product meaning where the subject allows (star trails as
   fragrance notes, mist as morning, mountains as origin).
-- One faint **construction trace** (a radius circle, a centerline, two ticks)
-  may be inscribed around the verified node — the gates made visible, quiet,
-  gold at ≤ 0.35 opacity. Geometry as ornament, never as chrome.
+- No drafting chrome: construction traces (radius callouts, tick marks, grid
+  numerals) read as mechanical and belong to spec sheets, not to dream scenes.
 
 If an element cannot say what it means, delete it. Collage is a removal
 problem, in atmosphere as much as in layout.
 
-## 8. Anti-patterns — both burned template faces
+## 9. Anti-patterns — both burned template faces
 
 Pastel-SaaS face (auto-reject): pill chips, aurora fog with no composition,
 **aligned rows of dots / confetti bursts** (sparse floating motes per §5 are
 required and are *not* this — the test is alignment and uniformity), centered
-eyebrow-title-subtitle-button triads, 2-stop flat pastel bases, decoration
 without a gesture, ribbons drawn as constant-width glowing strokes.
 
 Dark-gold-luxury face (also auto-reject): near-black + gold hairlines + index
@@ -157,10 +162,11 @@ numerals + serif small caps + drafting annotations as a substitute for beauty.
 That face described premium mechanically and produced spec sheets, not images
 worth looking at. Chrome is not craft.
 
-And forever: gradient blobs for wallpaper, glow on text, > 1 accent hue,
-anything that exists to fill space rather than to carry light.
+And forever: flat gradient wallpaper (backgrounds must float, §5), glow on
+text, > 1 accent hue, anything that exists to fill space rather than to carry
+light, and drafting chrome (radius callouts, tick marks) used as decoration.
 
-## 9. Self-check (after gates pass)
+## 10. Self-check (after gates pass)
 
 1. Does the scene have ONE believable light source, and does everything obey it?
 2. Can you name the gesture in one sentence, and does the title sit in its
