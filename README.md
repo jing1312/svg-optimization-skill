@@ -1,149 +1,191 @@
 <div align="center">
-  <img src="docs/images/hero-cover.svg" alt="svg-optimization-skill · 流光体系：光是画出来的" width="100%" />
+  <img src="docs/images/hero-cover.svg" alt="SVG Visual System Engine" width="100%" />
 </div>
 
 <div align="center">
 
 # svg-optimization-skill
 
-### 把 SVG 画得好看，且**查得出 bug**。
+## SVG Visual System Engine
 
-跨 agent 通用 · 多风格可推导 · 零运行时依赖 · 机器门禁 + 渲染实测。
+**SVG 不是代码片段，而是一套视觉语言。**
+
+让 AI Agent 生成具有设计规则、材质逻辑、排版体系和质量审查能力的 SVG 资产。
 
 [![ci](https://github.com/jing1312/svg-optimization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/jing1312/svg-optimization-skill/actions/workflows/ci.yml)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
-[![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?logo=node.js&logoColor=white)](package.json)
 
 </div>
 
-这是一个 **Agent Skill**：告诉 AI agent 怎么设计 SVG（语义化图案、六层效果预算、
-风格推导），并配一套零依赖的机器门禁与渲染验证闭环，把「文字溢出、图案遮挡、
-断引用、低对比度」这些经典翻车变成**可被自动拦截的错误**，而不是靠运气。
+---
 
-## 它解决什么
+## 为什么需要它
 
-品牌 SVG 资产最常见的五种翻车，这里都有硬规则 + 机器检查：
+大多数 AI 生成 SVG 的问题不是“不会画”，而是：
 
-| 翻车 | 这个技能怎么做 | 谁来执行 |
-|---|---|---|
-| 装饰靠随机，拼贴感 | 每个主图案先写三行 brief（message / nouns / relationship），讲不清就删 | `design-principles.md` §1 |
-| 文字溢出容器/画布 | 几何门禁 G1–G4：完整仿射变换、path 包围盒、容器适配 | `evals/grade.mjs` |
-| 渐变断引用、重复 id | 引用门禁 R1/R2：每个 `url(#x)` 必须有且仅有一个目标 | `evals/grade.mjs` |
-| 风格每次重摇 | 六个风格**原型** + 从品牌主色的推导规则，而不是背色板 | `style-library.md` |
-| “看着挺好”其实看不清 | 对比度门禁 C1（按绘制顺序解析背景、支持渐变/半透明合成） | `evals/grade.mjs` |
+- 元素堆叠，没有视觉中心
+- 渐变和玻璃效果滥用
+- 字体层级混乱
+- 配色没有系统
+- 动效只是装饰
+- 每次生成都是随机风格
 
-## 验证是分层降级的（关键设计）
+这个 Skill 把 SVG 设计从“效果生成”升级为“视觉系统生成”。
 
-不同 agent 环境能力不同，验证分三层，用能用的最高层：
+---
 
-```text
-T0  静态自查（任何环境，零工具）—— 对照 references/verification.md §2 走查源文件
-T1  机器门禁（需要 Node ≥ 18）—— node evals/grade.mjs：XML/引用/几何/对比度
-T2  渲染实测（需要任一光栅化器）—— node scripts/render.mjs：Playwright → Chromium → rsvg-convert
+# Design System
+
+V2 使用三层视觉决策模型：
+
+```
+Archetype
+    ↓
+Palette
+    ↓
+Layout
 ```
 
-T1 通过 ≠ 完成；有 T2 可用却跳过，就不算完成。没有任何光栅化器时，脚本会明确
-提示降级到 T0 并如实声明——**门禁不会骗你说“都检查过了”**。
+## Archetype
 
-## 效果一览（仓库内 SVG 直出）
+五种核心视觉语言：
 
-<div align="center">
-  <img src="examples/style-gallery.svg" alt="三种方向，三种语法：流光 / 暖纸压印 / 玻璃器物" width="100%" />
-  <br/>
-  <sub><strong>三种方向，三种语法</strong> —— 流光（漂动的场）/ 暖纸压印（对称硬阴影）/ 玻璃器物（中轴深色玻璃）。换方向就是换构图、材质与图形语言，不只是换色温。</sub>
-</div>
+| 系统 | 定位 |
+|---|---|
+| Dreamlight | 高级未来、情绪科技 |
+| Editorial | 杂志、文化、权威 |
+| Material Craft | 工艺、纸张、自然材质 |
+| Glass Intelligence | AI、界面、未来产品 |
+| Mono System | 专业工具、企业系统 |
 
-<div align="center">
-  <img src="examples/banner-generic.svg" alt="虚构品牌示例：山月香氛暮色 banner（流光体系）" width="100%" />
-  <br/>
-  <sub><strong>通用示例 banner（1100×300）</strong> —— 虚构香氛品牌的暮色气候：天光渐变、三层山谷、月亮主光晕，与任何内置品牌无关。</sub>
-</div>
+---
 
-<table>
-  <tr>
-    <td width="58%" valign="top">
-      <img src="examples/zhiliao-study/banner-example.svg" alt="演示品牌包：知了学习 banner" width="100%" />
-      <br/>
-      <sub><strong>品牌包示例</strong> —— 内置演示品牌「知了学习」，展示固定文案下的季节换色与语义 Logo。</sub>
-    </td>
-    <td width="42%" valign="top">
-      <img src="docs/images/effect-stack.svg" alt="六层效果预算" width="100%" />
-      <br/>
-      <sub><strong>六层效果预算</strong> —— 顺序不能乱，层数不能加；空气感靠预算，不靠堆叠。</sub>
-    </td>
-  </tr>
-</table>
+## Palette
 
-## 快速开始
+颜色不是装饰，而是角色：
 
-### 交给 Agent（推荐）
+- surface
+- ink
+- accent
+- material
+- shadow
+- glow
 
-```text
-请安装这个 Agent Skill：https://github.com/jing1312/svg-optimization-skill
-先审查 SKILL.md 与 references/，再整目录安装到你的 skills 目录。
+所有资产遵循 token 系统，而不是随机选色。
+
+---
+
+## Layout
+
+布局决定信息关系：
+
+- Hero
+- Grid
+- Poster
+- Object Showcase
+
+一个优秀 SVG：
+
+> 一个主题，一个主视觉，一个清晰层级。
+
+---
+
+# AI Design Rules
+
+生成前必须回答：
+
+1. 这个 SVG 要传达什么？
+2. 核心视觉元素是什么？
+3. 每个材质为什么存在？
+
+禁止：
+
+- 随机光球
+- 无意义渐变
+- 玻璃效果堆叠
+- 元素拼贴
+- 模板化卡片布局
+
+高级感来自控制，而不是增加。
+
+---
+
+# Quality Pipeline
+
+SVG 输出经过三层检查：
+
+```
+Design Intent
+      ↓
+Structural Validation
+      ↓
+Aesthetic Review
+      ↓
+Release
 ```
 
-### 手动安装
+包含：
+
+- XML 检查
+- 引用完整性
+- 几何验证
+- 对比度检查
+- 排版审查
+- 材质审查
+- 动效审查
+
+---
+
+# Examples
+
+当前 V2 示例：
+
+```
+examples/v2/
+
+├── dreamlight-hero.svg
+├── editorial-poster.svg
+└── glass-intelligence.svg
+```
+
+这些不是效果展示，而是 AI 的视觉参考标准。
+
+---
+
+# Installation
 
 ```bash
 git clone https://github.com/jing1312/svg-optimization-skill.git
-# Claude Code / Codex 等支持 skill 目录的 agent：
-cp -R svg-optimization-skill ~/.claude/skills/
-# 其他 agent：把 SKILL.md 作为系统提示引入即可，references/ 按需读取。
 ```
 
-### 本地验证（零依赖，Node ≥ 18）
+将 `SKILL.md` 和 `references/` 提供给支持 Agent Skill 的 AI Agent。
 
-```bash
-npm test        # 24 项：门禁行为 + 仓库结构 + 隐私扫描
-npm run check   # 门禁跑过 examples/ 与 docs/ 下全部 16 个 SVG
-node evals/grade.mjs path/to/any.svg   # 单独评估任意文件，出错退出码非零
-node scripts/render.mjs path/to/any.svg  # T2 渲染（自动探测 playwright/chromium/rsvg）
+---
+
+# Project Structure
+
 ```
+SKILL.md
 
-### 常用问法
-
-| 场景 | 你可以这样问 |
-|---|---|
-| 新建资产 | “给产品做 1100×300 推广 banner，品牌色 #1f6feb。” |
-| 风格未定 | “重新设计，先给我几个方向选。” |
-| 修 bug | “帮我查一下这张 SVG 有没有溢出或断引用。” |
-| 品牌推导 | “我们的主色是 #d94f30，帮我推一套浅色主题。” |
-| Logo | “Logo 要经得起 48px 缩小，把层次补齐。” |
-
-## 目录结构
-
-```text
-SKILL.md                # 技能契约：触发条件、五步工作流、三层验证
 references/
-  design-principles.md  # 图案 brief、六层预算、G1–G4、Logo 规则
-  style-library.md      # 六原型 + 品牌色推导规则（风格不是摇骰子）
-  typography.md         # 字体栈、宽度估算、fallback 与描边交付策略
-  verification.md       # T0 自查清单 + T2 渲染目检清单
-brand-packs/
-  zhiliao-study.md      # 内置演示品牌（固定文案 + 季节主题注册表 + Logo 实例）
-evals/grade.mjs         # 零依赖门禁引擎（XML/R1/R2/G1–G4/C1/W1）
-scripts/render.mjs      # T2 渲染脚本（playwright → chromium → rsvg-convert 降级）
-examples/               # 通用示例与演示品牌资产（全部门禁绿灯）
-tests/                  # 24 项测试；fixtures 为每个门禁各备一个“必定失败”的坏样本
+ ├── design-tokens.md
+ ├── style-library.md
+ ├── aesthetic-score.md
+ ├── motion-library.md
+ └── anti-ai.md
+
+examples/
+ └── v2/
 ```
 
-## 设计立场
+---
 
-- **门禁查结构，人眼管审美。** 门禁能保证资产“没坏”，不能保证“好看”；
-  所以 SKILL.md 强制要求：有渲染条件就必须渲染目检，并如实说明检查了什么。
-- **与其六种风格平庸，不如一种风格做到极致。** 本技能的家传风格是流光体系
-  （Dreamlight）：光谱底色、单一光源、一条贯穿全画面的丝带手势、三层景深的
-  玻璃浮球。完整的色彩配方、光规则与反模式黑名单见
-  `references/premium-craft.md` —— 拒绝胶囊按钮、渐变光斑、彩色圆点那套
-  AI 模板脸，也拒绝深黑金线编号那套"假装高级"的规格书脸。
-- **风格可推导。** 给一个品牌主色，按 `style-library.md §3` 推出整套 token，
-  而不是从预制色板里碰运气。
-- **用户偏好属于会话记忆。** 本技能不持久化任何用户数据；跨会话保留口味需用户
-  明确同意，且随时可撤销。
+# Philosophy
 
-## 许可
+> 门禁保证 SVG 不坏。
+>
+> 设计系统保证 SVG 不普通。
 
-项目本体 [ISC](LICENSE)；演示品牌 Logo glyph 改编自 Lucide `book-open-check`
-（同为 ISC），归属见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
-欢迎 Issue / PR：新风格原型、更强的门禁、新品牌包示例都可以。
+这个项目不是 SVG 模板库。
+
+它是一套让 AI 理解视觉设计的方法。
+
