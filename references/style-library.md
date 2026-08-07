@@ -1,130 +1,244 @@
-# Style Library
+# V2 Style Library
 
-Two halves: **archetypes** (structural looks, style-agnostic) and **derivation
-rules** (how to build a custom style from a user's brand color). Pick an
-archetype first, then instantiate it with a palette — preset or derived.
-Directions in one project share identical copy and canvas; only palette and
-material differ, so comparison is honest.
+The style system is no longer a list of visual effects. It is a composition of
+three independent dimensions:
 
-## 1. Archetypes
+```
+Archetype (material language)
+        ×
+Palette (color season)
+        ×
+Layout (composition grammar)
+```
 
-### F · Flat & geometric
-- Solid panels, crisp shapes, zero gradients or only 2-stop subtle ones; no
-  halos, no gloss.
-- One ink color for text; ≤ 3 accent colors, each with a job (action, data,
-  decoration in that order).
-- Shadows: none, or a single hard offset shape at ≤ 0.12 opacity.
-- Use for: tech/editorial brands, dense feature grids, print-adjacent assets.
+Choose one from each axis. Never randomly mix decorative effects.
 
-### A · Aurora gradient (soft dreamy)
-- Base: 2-stop vertical gradient between two low-saturation tints
-  (e.g. `#eef4ff → #f6efff`).
-- Aurora ribbons: 2–3 color gradient strokes/blobs, opacity ≤ 0.55, blur
-  `stdDeviation` 12–24, always fading to 0.
-- Ink: deep desaturated blue/violet instead of black; shadow tinted with the
-  dominant accent at 14–20 % opacity.
-- Airy glass material: one gloss pass max; edge-clipped bubbles ≤ 2 edges.
-- Use for: consumer/friendliness, learning & lifestyle products, "light air"
-  moods.
+---
 
-### G · Glassmorphism
-- Dark or image-like backdrop; cards = translucent white `0.06–0.14` fill +
-  1 px inside keyline at `0.25` white + soft shadow.
-- Blur behind cards only (`feGaussianBlur` ≤ 24); never blur text.
-- Text white ≥ 90 % lightness on dark backdrops; body at ≥ 70 %.
-- Use for: dashboards, AI/crypto product surfaces, dark-mode heroes.
+# 1. Archetypes (Material Language)
 
-### N · Dark neon
-- Base: near-black with hue bias (`#0a0a1a → #141432`).
-- Neon via gradient *strokes* (2–3 hues); glow = one `feDropShadow` or blur
-  pass per element at `stdDeviation ≤ 10` — never overlapping halos.
-- Star/speck dots ≤ 2 px radius, ≤ 12 per canvas, behind content.
-- Text ink ≥ `#e6e9ff`; no warm colors unless they are THE accent.
-- Use for: gaming, events, nightlife, launch posters.
+Archetypes define how the world feels.
 
-### I · Ink sketch (line art)
-- Paper base (`#fdfcf8`), single ink color, unified stroke width (~2.4 px);
-  no gradients, no halos — the paper carries the airiness.
-- Exactly one accent color (vermilion-family), reserved for the check/verify/
-  focus mark; never decorative.
-- Use for: editorial, humanist brands, "quiet confidence" direction.
+## Dreamlight
 
-### E · Editorial poster
-- Portrait canvas; 24 px outer frame, content grid starting ≥ 72 px in.
-- One oversized display headline (96–120 px), ≤ 3 lines, one phrase per line;
-  third line may take the single accent color.
-- Numbered info sections (01/02/03) on thin rules: heading ~20 px + note ~13 px.
-- One semantic motif total, placed opposite the headline; ghost numerals ≤ 0.12
-  opacity and never over body text. Whitespace is the luxury signal.
+**Position:** premium future / emotional technology
 
-### P · Premium serif ad
-- Dark ground (≤ `#1a212c`) + one metallic accent (gold family `#d3b57a`).
-- Serif display type on strict center axis: eyebrow → hairline → logo → title
-  → subtitle → capability line → CTA. Whitespace ≥ 40 %.
-- Restraint rules: no halo layer, no bubbles, at most one spot glow ≤ 0.16;
-  hairlines 1 px fading to 0 at both ends; eyebrow `letter-spacing ≥ 8 px`;
-  body gray no darker than ~`#8d94a3` at ≥ 12 px.
-- Use for: luxury, hospitality, flagship announcements.
+Use:
+- soft atmospheric light
+- one dominant gesture
+- controlled glass depth
+- generous whitespace
 
-### S · Paper / craft
-- Warm paper base with cut-paper cards, one folded corner per card; shadows
-  warm-brown ≤ 16 %; highlight is a sunbeam fade.
-- Tangible but quiet: no gloss, minimal radius, stitched/dashed keylines.
-- Use for: education, kids, cozy community products.
+Rules:
+- one main light source
+- one ribbon or energy gesture maximum
+- glow explains depth, never decoration
+- avoid floating bubbles and random particles
 
-Register each chosen direction in markup:
-`<g data-style-id="aurora" data-style-family="A">` — one line of provenance per
-asset, so future iterations change style deliberately.
+Good for:
+- AI products
+- flagship banners
+- premium launches
 
-## 2. Orthogonal axes
+---
 
-Archetype (material) × palette (season) × layout (composition) are
-independent: any palette can ride any archetype; any layout can host either.
-When a user says "换个风格":
+## Editorial
 
-- same structure, new colors → new palette (season axis);
-- same colors, new texture → new archetype (material axis);
-- same content, new arrangement → new layout (poster/ad/grid axis).
+**Position:** intelligence / culture / authority
 
-Ask or infer which axis they mean; produce directions that differ on exactly
-that axis.
+Rules:
+- strict grid
+- strong typography hierarchy
+- oversized headline
+- limited color
+- whitespace is the luxury element
 
-## 3. Deriving a custom style from a brand color
+Good for:
+- reports
+- posters
+- brand stories
 
-Given a brand primary `B` (and optionally secondary):
+---
 
-1. **Decide temperature** from the brand: warm primaries keep warm lights and
-   shadows; cool primaries keep cool ones. Never mix a warm halo with a cool
-   base.
-2. **Base:** mix `B` toward white at 92–96 % lightness for light archetypes,
-   toward near-black at 8–14 % lightness for dark ones. Keep the base hue
-   within ±10° of `B`.
-3. **Ink:** same hue family as `B`, lightness ≤ 30 % (light themes) or ≥ 88 %
-   (dark themes). Never pure black/white next to a tinted base.
-4. **Accents:** `B` itself + one analogous hue (±30°) + one sparing highlight.
-   Total ≤ 4 chromatic colors; more reads as collage.
-5. **Contrast gate:** every text/accent pairing must clear C1 (4.5:1 normal,
-   3:1 large). If the brand color fails on the base, shift lightness until it
-   passes — record the adjusted token, not the raw brand hex, in the asset.
-6. **Shadow tint:** dominant accent at 14–20 % opacity, never gray-on-white
-   mud (`#000` shadows at > 0.1 over tinted bases).
+## Material Craft
 
-Write the derived tokens into the motif brief header comment so the next
-iteration doesn't re-derive them from scratch.
+**Position:** human / tactile / crafted
 
-## 4. Registers: how an archetype is dressed
+Materials:
+- paper
+- ceramic
+- fabric
+- natural surfaces
 
-An archetype fixes material discipline; a **register** fixes the level of
-formality on top of it. This skill's house register is the **Dreamlight
-system** — see `references/premium-craft.md` for the full color recipes, light
-rules, gesture discipline and the double anti-pattern blacklist. Hero images
-and flagship banners default to Dreamlight; the repo's own specimen assets
-(`docs/images/hero-cover.svg`, `examples/style-gallery.svg`,
-`examples/banner-generic.svg`) demonstrate it.
+Rules:
+- texture must imply a physical process
+- shadows are warm and subtle
+- no artificial glass effects
 
-## 5. Anti-collage rule
+Good for:
+- education
+- lifestyle
+- handmade brands
 
-If an asset reads as "stickers on a background" — elements without a shared
-grid, stroke width, light direction or color family — stop adding. Pick the
-one motif that matters (brief §1), rebuild around it, and re-add layers within
-the budget. Collage is a removal problem, never an addition problem.
+---
+
+## Glass Intelligence
+
+**Position:** advanced technology / interface
+
+Rules:
+- transparency creates hierarchy
+- blur only behind surfaces
+- never blur text
+- reflections must have a light source
+
+Limits:
+- opacity: 0.06–0.14
+- keyline: 1px maximum
+- one reflection pass
+
+Good for:
+- AI interfaces
+- dashboards
+- futuristic products
+
+---
+
+## Mono System
+
+**Position:** precision / enterprise / tools
+
+Rules:
+- monochrome foundation
+- one accent color
+- geometry over decoration
+- no gradients unless semantic
+
+Good for:
+- developer tools
+- documentation
+- professional products
+
+---
+
+# 2. Palette Axis
+
+Palette is independent from material.
+
+## Light Season
+
+Airy, calm, optimistic.
+
+Base:
+- high lightness surfaces
+- tinted whites
+- soft shadows
+
+## Night Season
+
+Deep, cinematic, technical.
+
+Base:
+- near-black with hue bias
+- bright controlled accents
+
+## Earth Season
+
+Warm, organic, crafted.
+
+Base:
+- sand
+- clay
+- paper
+
+## Brand Season
+
+Derived from user brand colors.
+
+Rules:
+- maximum four chromatic colors
+- preserve temperature
+- record tokens, not raw colors
+
+---
+
+# 3. Layout Axis
+
+## Hero
+
+One statement.
+One motif.
+One atmosphere.
+
+## Grid
+
+Repeated information blocks.
+
+Rules:
+- same geometry
+- same spacing
+- controlled emphasis
+
+## Poster
+
+Editorial composition.
+
+Rules:
+- oversized typography
+- intentional asymmetry
+- strong negative space
+
+## Object Showcase
+
+Product-first composition.
+
+Rules:
+- object owns attention
+- background supports material
+
+---
+
+# 4. Style Selection Rule
+
+When the user asks for a style change, identify the axis:
+
+"Change feeling" → Archetype
+
+"Change colors" → Palette
+
+"Change arrangement" → Layout
+
+Never change all three at once unless the user requests a complete redesign.
+
+---
+
+# 5. Anti-Collage Rule
+
+Reject assets that look like:
+
+- stickers placed on backgrounds
+- unrelated gradients
+- multiple competing light sources
+- random decorative particles
+- icon + title + subtitle template cards
+
+Before adding an element ask:
+
+"What information or material behavior does this element communicate?"
+
+If the answer is unclear, remove it.
+
+---
+
+# 6. Provenance Metadata
+
+Every generated SVG should register its design decisions:
+
+```xml
+<g
+ data-style-id="dreamlight"
+ data-palette="night"
+ data-layout="hero">
+```
+
+The goal is repeatable visual intelligence, not one-time decoration.
