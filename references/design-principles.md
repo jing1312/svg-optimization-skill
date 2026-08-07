@@ -89,22 +89,35 @@ Estimates are just that — estimates (CJK = 1 em, Latin ≈ 0.56 em, transforms
 composed as full affine matrices, paths included). A clean gate is necessary,
 not sufficient: the render check is the release standard.
 
-## 6. Logo rules
+## 6. Logo rules — a single fused mark, not an assembly
 
-Semantic brief first (§1), then construction:
+A logo is a brand mark, so it obeys one law: **one gesture carries all the
+meaning.** Start from the semantic brief (§1), then design a single fused form
+where the brand's action lives inside the shape itself — e.g. the page of an
+open book continuing directly into a verification check, with one accent node
+at the stroke tip. If the reader needs a legend to decode the logo, the logo
+has failed.
 
-1. ≤ 6 layers, in order: halo (optional) → tile/ground → liner → core glyph →
-   one semantic secondary structure → one gloss pass.
-2. The glyph must survive 48 px: include a 48 px preview beside every logo
-   deliverable. In the preview the primary mark stays legible, thin strokes
-   stay ≥ ~1.5 px, secondary detail merges into the silhouette without mud.
-3. Halos never outshout the glyph (opacity ≤ 0.5, always fading to 0).
-4. Icon-set provenance is metadata, not folklore:
-   `data-role="logo"`, `data-logo-intent`, and when derived from an icon set
-   `data-icon-source` / `data-icon-name` / `data-icon-license`.
-5. Auto-fail: gratuitous bolts/sparkles/magic wands; filler flowers/waveforms/
-   molecules placed to fill space; a second competing glyph; strokes thinner
-   than ~1.2 px at 24 px scale; more than six layers.
+Construction rules:
+
+1. **One mark, one silhouette.** Tile/ground + liner + the fused glyph + one
+   accent node is the ceiling. No node rings, no shields, no second check, no
+   halo louder than the mark. Every added element must *merge* into the
+   silhouette, not sit beside it.
+2. **The gesture survives 48 px.** Ship a 48 px preview beside every logo. In
+   it, the primary gesture stays legible, thin strokes stay ≥ ~1.5 px, and the
+   accent node stays visible. If two meanings fight at 48 px, one of them is
+   decoration — cut it.
+3. **Meaning by shape, not by count.** Two checks do not mean "more
+   verification" — they mean "the designer wasn't sure." One confident gesture
+   beats three anxious ones.
+4. Provenance is metadata, not folklore: `data-role="logo"` and
+   `data-logo-intent` always; `data-icon-source` / `data-icon-name` /
+   `data-icon-license` only when genuinely derived from an icon set. An
+   original mark declares `data-logo-secondary-motif` in one sentence instead.
+5. Auto-fail: a second competing glyph; icon + ring + shield assembly; filler
+   flowers/waveforms/molecules; strokes thinner than ~1.2 px at 24 px scale;
+   any element that reads as "added to fill the corner."
 
 ## 7. Accessibility minimums
 

@@ -1,181 +1,154 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="1200" height="820" role="img" aria-labelledby="sgT sgD">
-  <title id="sgT">流光体系双联画：晨光与月色，一种光两种气候</title>
-  <desc id="sgD">同一流光体系的两种气候 —— 暖域晨光与冷域月色，共享同一套光规则、手势与浮球景深。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" width="1200" height="860" role="img" aria-labelledby="sgT sgD">
+  <title id="sgT">三种方向，三种语法：流光 / 暖纸压印 / 玻璃器物</title>
+  <desc id="sgD">方向的区别在构图、材质与图形语法，不只是色温：漂动的场、对称的纸、居中的器，同一套门禁。</desc>
   <defs>
-    <linearGradient id="sgGround" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f7f6fc"/>
-      <stop offset="1" stop-color="#f1f0fa"/>
+    <!-- 流光 -->
+    <linearGradient id="p1Base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5f7ff"/>
+      <stop offset="0.4" stop-color="#ece6fb"/>
+      <stop offset="0.75" stop-color="#f6e8ee"/>
+      <stop offset="1" stop-color="#fdf0ea"/>
     </linearGradient>
-    <!-- 晨光气候 -->
-    <linearGradient id="sgDawnBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ece4f8"/>
-      <stop offset="0.28" stop-color="#f6e0ec"/>
-      <stop offset="0.55" stop-color="#fbe2dc"/>
-      <stop offset="0.8" stop-color="#fdeedd"/>
-      <stop offset="1" stop-color="#fff6e8"/>
+    <linearGradient id="p1Ribbon" gradientUnits="userSpaceOnUse" x1="30" y1="676" x2="408" y2="352">
+      <stop offset="0" stop-color="#49cdbd"/>
+      <stop offset="0.4" stop-color="#5d95ee"/>
+      <stop offset="0.75" stop-color="#8f77ec"/>
+      <stop offset="1" stop-color="#ee92b6"/>
     </linearGradient>
-    <radialGradient id="sgDawnBloom" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#fff3dd" stop-opacity="0.85"/>
-      <stop offset="0.4" stop-color="#ffe4cf" stop-opacity="0.4"/>
-      <stop offset="0.72" stop-color="#ffd9d0" stop-opacity="0.15"/>
-      <stop offset="1" stop-color="#ffd9d0" stop-opacity="0"/>
+    <linearGradient id="p1Core" gradientUnits="userSpaceOnUse" x1="30" y1="676" x2="408" y2="352">
+      <stop offset="0" stop-color="#eafffb"/>
+      <stop offset="0.5" stop-color="#e7efff"/>
+      <stop offset="1" stop-color="#ffeaf2"/>
+    </linearGradient>
+    <radialGradient id="p1Orb" cx="0.64" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.98"/>
+      <stop offset="0.5" stop-color="#cfc0f8" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#8a76e0" stop-opacity="0.34"/>
     </radialGradient>
-    <linearGradient id="sgRibbonWarm" gradientUnits="userSpaceOnUse" x1="16" y1="640" x2="612" y2="368">
-      <stop offset="0" stop-color="#f6a9c4"/>
-      <stop offset="0.35" stop-color="#f8bd8f"/>
-      <stop offset="0.7" stop-color="#f5d78e"/>
-      <stop offset="1" stop-color="#c9b2ee"/>
-    </linearGradient>
-    <!-- 月色气候 -->
-    <linearGradient id="sgMoonBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#e8e9fb"/>
-      <stop offset="0.3" stop-color="#e3e2f8"/>
-      <stop offset="0.58" stop-color="#ded9f5"/>
-      <stop offset="0.82" stop-color="#e8dcf4"/>
-      <stop offset="1" stop-color="#f0e4f2"/>
-    </linearGradient>
-    <radialGradient id="sgMoonBloom" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.8"/>
-      <stop offset="0.42" stop-color="#f0ecff" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#f0ecff" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="sgMoonDisc" cx="0.4" cy="0.35" r="0.75">
-      <stop offset="0" stop-color="#fffdf6"/>
-      <stop offset="0.8" stop-color="#f7f0e2"/>
-      <stop offset="1" stop-color="#eee2cc"/>
-    </radialGradient>
-    <linearGradient id="sgRibbonCool" gradientUnits="userSpaceOnUse" x1="1180" y1="640" x2="548" y2="368">
-      <stop offset="0" stop-color="#6ee3d4"/>
-      <stop offset="0.35" stop-color="#86a8f0"/>
-      <stop offset="0.7" stop-color="#a58cf2"/>
-      <stop offset="1" stop-color="#e8a8c8"/>
-    </linearGradient>
-    <!-- 共用 -->
-    <linearGradient id="sgSheen" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="0.3" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="0.72" stop-color="#ffffff" stop-opacity="0.9"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="sgCoreWarm" gradientUnits="userSpaceOnUse" x1="16" y1="640" x2="612" y2="368">
-      <stop offset="0" stop-color="#fff4ea"/>
-      <stop offset="0.4" stop-color="#ffeee2"/>
-      <stop offset="0.7" stop-color="#fff0e8"/>
-      <stop offset="1" stop-color="#f8ecf6"/>
-    </linearGradient>
-    <linearGradient id="sgCoreCool" gradientUnits="userSpaceOnUse" x1="1180" y1="640" x2="548" y2="368">
-      <stop offset="0" stop-color="#eefcf8"/>
-      <stop offset="0.4" stop-color="#e9efff"/>
-      <stop offset="0.7" stop-color="#eeeaff"/>
-      <stop offset="1" stop-color="#fbeffa"/>
-    </linearGradient>
-    <radialGradient id="sgOrbWarm" cx="0.62" cy="0.3" r="0.8">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="0.45" stop-color="#fbe4da" stop-opacity="0.6"/>
-      <stop offset="1" stop-color="#edb0a8" stop-opacity="0.16"/>
-    </radialGradient>
-    <radialGradient id="sgOrbCool" cx="0.62" cy="0.3" r="0.8">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"/>
-      <stop offset="0.45" stop-color="#e4e0fa" stop-opacity="0.6"/>
-      <stop offset="1" stop-color="#ab9dee" stop-opacity="0.18"/>
-    </radialGradient>
-    <radialGradient id="sgOrbShadow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#8f7fd8" stop-opacity="0.28"/>
-      <stop offset="1" stop-color="#8f7fd8" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="sgSparkGlow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
+    <radialGradient id="p1Bloom" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.4"/>
       <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
-    <filter id="sgBlurA" x="-30%" y="-220%" width="160%" height="540%">
-      <feGaussianBlur stdDeviation="14"/>
+    <radialGradient id="p1Drift" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#cdd4ff" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#cdd4ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="p1Blur8" x="-30%" y="-120%" width="160%" height="340%">
+      <feGaussianBlur stdDeviation="8"/>
     </filter>
-    <filter id="sgBlurB" x="-30%" y="-220%" width="160%" height="540%">
-      <feGaussianBlur stdDeviation="14"/>
+    <filter id="p1Blur4" x="-30%" y="-200%" width="160%" height="500%">
+      <feGaussianBlur stdDeviation="4"/>
     </filter>
-    <clipPath id="sgClipA"><rect x="60" y="240" width="520" height="460" rx="18"/></clipPath>
-    <clipPath id="sgClipB"><rect x="620" y="240" width="520" height="460" rx="18"/></clipPath>
+    <!-- 玻璃器 -->
+    <linearGradient id="p3Base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14171f"/>
+      <stop offset="1" stop-color="#191d29"/>
+    </linearGradient>
+    <radialGradient id="p3Glow" cx="0.5" cy="0.42" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="p3Shadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#06070b" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#06070b" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="sgClipA"><rect x="48" y="236" width="352" height="500" rx="18"/></clipPath>
+    <clipPath id="sgClipB"><rect x="424" y="236" width="352" height="500" rx="18"/></clipPath>
+    <clipPath id="sgClipC"><rect x="800" y="236" width="352" height="500" rx="18"/></clipPath>
   </defs>
 
-  <!-- 册底与册首 -->
-  <rect width="1200" height="820" fill="url(#sgGround)"/>
-  <text x="60" y="84" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" font-weight="600" fill="#5c569c" letter-spacing="5">STYLE MASTERY · ONE SYSTEM, TWO CLIMATES</text>
-  <text x="60" y="150" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="44" font-weight="700" fill="#37326e" letter-spacing="2">一种光，两种气候</text>
-  <text x="60" y="192" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="16" fill="#6b64a8">同一套流光体系 —— 换一个光源与色温，就是一次新的天气</text>
+  <rect width="1200" height="860" fill="#f4f3fb"/>
 
-  <!-- ================= 晨光（暖域） ================= -->
-  <g data-style-id="dawn" data-mood="warm">
-    <rect x="60" y="240" width="520" height="460" rx="18" fill="url(#sgDawnBase)" stroke="#37326e" stroke-opacity="0.08" stroke-width="1"/>
+  <!-- 册首 -->
+  <text x="60" y="76" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" font-weight="600" fill="#5c569c" letter-spacing="5">STYLE MASTERY · THREE GRAMMARS, NOT THREE FILTERS</text>
+  <text x="60" y="128" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="40" font-weight="700" fill="#26243a">三种方向，三种语法</text>
+  <text x="60" y="164" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" fill="#6b64a8">区别在构图、材质与图形语法，不只是色温 —— 每个面板都过同一组门禁</text>
+
+  <!-- ============ 01 流光：漂动的场 ============ -->
+  <text x="48" y="216" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#5c4bc0">01</text>
+  <text x="84" y="217" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="20" font-weight="700" fill="#26243a">流光 · 漂动的场</text>
+  <text x="400" y="216" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#5c569c">非对称 · 绸带手势 · 玻璃浮球</text>
+  <g data-style-id="dreamlight">
+    <rect x="48" y="236" width="352" height="500" rx="18" fill="url(#p1Base)"/>
     <g clip-path="url(#sgClipA)">
-      <circle cx="450" cy="300" r="280" fill="url(#sgDawnBloom)"/>
-      <path d="M 16 640 C 150 606 240 470 396 452 C 480 442 546 416 612 368 L 612 380 C 532 446 458 480 388 488 C 266 502 166 618 16 662 Z" fill="url(#sgRibbonWarm)" opacity="0.55" filter="url(#sgBlurA)"/>
-      <path d="M 16 644 C 152 610 244 478 398 462 C 478 452 542 426 610 374 L 610 380 C 534 440 462 474 394 482 C 270 496 170 612 16 656 Z" fill="url(#sgCoreWarm)" opacity="0.9"/>
-      <path d="M 16 640 C 150 606 240 470 396 452 C 480 442 546 416 612 368" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.2"/>
-      <path d="M 300 468 C 360 456 420 450 470 452" fill="none" stroke="#ffffff" stroke-opacity="0.32" stroke-width="1.6" stroke-linecap="round"/>
-      <circle cx="40" cy="700" r="150" fill="url(#sgOrbWarm)" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.1"/>
-      <g data-motif="dawn-orbs" data-motif-message="暖域浮球服从右上的晨光，彼此以细线相连">
-        <path d="M 500 378 Q 470 470 442 540" fill="none" stroke="#8a5f74" stroke-opacity="0.35" stroke-width="1"/>
-        <ellipse cx="430" cy="618" rx="34" ry="7.5" fill="url(#sgOrbShadow)"/>
-        <circle cx="430" cy="560" r="48" fill="url(#sgOrbWarm)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
-        <circle cx="414" cy="540" r="5.5" fill="#ffffff" fill-opacity="0.92"/>
-        <circle cx="508" cy="360" r="18" fill="url(#sgOrbWarm)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
-        <circle cx="502" cy="354" r="2.6" fill="#ffffff" fill-opacity="0.95"/>
-        <circle cx="400" cy="468" r="14" fill="url(#sgSparkGlow)"/>
-        <path d="M400 459 C 401.5 466.5 401.5 466.5 409 468 C 401.5 469.5 401.5 469.5 400 477 C 398.5 469.5 398.5 469.5 391 468 C 398.5 466.5 398.5 466.5 400 459 Z" fill="#ffffff"/>
+      <ellipse cx="140" cy="340" rx="180" ry="120" fill="url(#p1Drift)"/>
+      <circle cx="330" cy="270" r="96" fill="url(#p1Bloom)"/>
+      <path d="M 30 676 C 130 616 180 476 268 440 C 320 420 360 384 408 352 L 408 366 C 362 402 322 432 276 450 C 190 484 140 616 30 704 Z" fill="url(#p1Ribbon)" opacity="0.62" filter="url(#p1Blur8)"/>
+      <path d="M 60 330 C 160 318 260 296 400 272 L 400 278 C 262 302 164 324 60 338 Z" fill="url(#p1Ribbon)" opacity="0.2" filter="url(#p1Blur4)"/>
+      <path d="M 30 682 C 132 622 184 484 270 450 C 320 432 358 398 406 358 L 406 364 C 360 400 322 428 274 444 C 192 476 142 620 30 698 Z" fill="url(#p1Core)" opacity="0.9"/>
+      <path d="M 30 676 C 130 616 180 476 268 440 C 320 420 360 384 408 352" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.2"/>
+      <path d="M 132 340 Q 220 330 294 356" fill="none" stroke="#6b64a8" stroke-opacity="0.35" stroke-width="1"/>
+      <circle cx="318" cy="366" r="30" fill="url(#p1Orb)" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1"/>
+      <circle cx="308" cy="354" r="4" fill="#ffffff" fill-opacity="0.92"/>
+      <path d="M 310 368 l 6 6 l 12 -12" fill="none" stroke="#43398f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="120" cy="336" r="12" fill="url(#p1Orb)" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1"/>
+      <g fill="#ffffff">
+        <circle cx="90" cy="420" r="2" fill-opacity="0.4"/>
+        <circle cx="368" cy="470" r="2.4" fill-opacity="0.35"/>
+        <circle cx="150" cy="600" r="2" fill-opacity="0.3"/>
+        <circle cx="252" cy="306" r="2.2" fill-opacity="0.45"/>
       </g>
+      <circle cx="250" cy="300" r="12" fill="url(#p1Bloom)"/>
+      <path d="M250 292 C 251.2 298.8 251.2 298.8 258 300 C 251.2 301.2 251.2 301.2 250 308 C 248.8 301.2 248.8 301.2 242 300 C 248.8 298.8 248.8 298.8 250 292 Z" fill="#ffffff" fill-opacity="0.95"/>
     </g>
-    <g fill="#ffffff">
-      <circle cx="306" cy="306" r="2.5" fill-opacity="0.4"/>
-      <circle cx="420" cy="384" r="3" fill-opacity="0.35"/>
-      <circle cx="246" cy="560" r="2" fill-opacity="0.4"/>
-      <circle cx="476" cy="300" r="2" fill-opacity="0.48"/>
-      <circle cx="352" cy="472" r="2.2" fill-opacity="0.35"/>
-      <circle cx="196" cy="286" r="12" fill="url(#sgSparkGlow)" fill-opacity="0.5"/>
-      <circle cx="520" cy="560" r="14" fill="url(#sgSparkGlow)" fill-opacity="0.45"/>
-    </g>
-    <text x="150" y="460" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="120" font-weight="700" fill="#5e3a54">晨</text>
-    <text x="152" y="516" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" font-weight="600" fill="#6b4a5c" letter-spacing="4">DAWN · 暖域</text>
   </g>
 
-  <!-- ================= 月色（冷域） ================= -->
-  <g data-style-id="moonrise" data-mood="cool">
-    <rect x="620" y="240" width="520" height="460" rx="18" fill="url(#sgMoonBase)" stroke="#37326e" stroke-opacity="0.08" stroke-width="1"/>
+  <!-- ============ 02 暖纸：压印的静 ============ -->
+  <text x="424" y="216" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#5c4bc0">02</text>
+  <text x="460" y="217" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="20" font-weight="700" fill="#26243a">暖纸 · 压印的静</text>
+  <text x="776" y="216" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#5c569c">对称 · 硬阴影 · 缝线边框</text>
+  <g data-style-id="paper">
+    <rect x="424" y="236" width="352" height="500" rx="18" fill="#f8f1e4"/>
     <g clip-path="url(#sgClipB)">
-      <circle cx="1060" cy="300" r="260" fill="url(#sgMoonBloom)"/>
-      <path d="M 1144 640 C 1010 606 920 470 764 452 C 680 442 614 416 548 368 L 548 380 C 628 446 702 480 772 488 C 894 502 994 618 1144 662 Z" fill="url(#sgRibbonCool)" opacity="0.55" filter="url(#sgBlurB)"/>
-      <path d="M 1144 644 C 1008 610 916 478 762 462 C 682 452 618 426 550 374 L 550 380 C 626 440 698 474 766 482 C 890 496 990 612 1144 656 Z" fill="url(#sgCoreCool)" opacity="0.9"/>
-      <path d="M 1144 640 C 1010 606 920 470 764 452 C 680 442 614 416 548 368" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.2"/>
-      <path d="M 860 468 C 800 456 740 450 690 452" fill="none" stroke="#ffffff" stroke-opacity="0.32" stroke-width="1.6" stroke-linecap="round"/>
-      <circle cx="1180" cy="680" r="150" fill="url(#sgOrbCool)" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.1"/>
-      <g data-motif="moonrise-glow" data-motif-message="月亮与冷域浮球服从同一个月光源，彼此以细线相连">
-        <path d="M 922 446 Q 850 512 776 556" fill="none" stroke="#6b64a8" stroke-opacity="0.35" stroke-width="1"/>
-        <circle cx="1035" cy="320" r="28" fill="url(#sgMoonDisc)" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1"/>
-        <ellipse cx="760" cy="628" rx="34" ry="7.5" fill="url(#sgOrbShadow)"/>
-        <circle cx="760" cy="570" r="48" fill="url(#sgOrbCool)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
-        <circle cx="744" cy="550" r="5.5" fill="#ffffff" fill-opacity="0.92"/>
-        <circle cx="930" cy="430" r="18" fill="url(#sgOrbCool)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1"/>
-        <circle cx="924" cy="424" r="2.6" fill="#ffffff" fill-opacity="0.95"/>
-        <circle cx="806" cy="468" r="14" fill="url(#sgSparkGlow)"/>
-        <path d="M806 459 C 807.5 466.5 807.5 466.5 815 468 C 807.5 469.5 807.5 469.5 806 477 C 804.5 469.5 804.5 469.5 797 468 C 804.5 466.5 804.5 466.5 806 459 Z" fill="#ffffff"/>
+      <rect x="438" y="250" width="324" height="472" fill="none" stroke="#b08a5a" stroke-opacity="0.25" stroke-width="1"/>
+      <rect x="452" y="264" width="296" height="444" fill="none" stroke="#b08a5a" stroke-opacity="0.5" stroke-width="1.2" stroke-dasharray="5 7"/>
+      <g stroke="#b08a5a" stroke-opacity="0.6" stroke-width="1.2" stroke-linecap="round">
+        <path d="M448 260 l 8 8 M456 260 l -8 8"/>
+        <path d="M744 260 l 8 8 M752 260 l -8 8"/>
+        <path d="M448 704 l 8 8 M456 704 l -8 8"/>
+        <path d="M744 704 l 8 8 M752 704 l -8 8"/>
       </g>
+      <!-- 太阳：纸片 + 硬阴影 -->
+      <circle cx="601" cy="393" r="34" fill="#8a5a2a" fill-opacity="0.22"/>
+      <circle cx="598" cy="390" r="34" fill="#e8a84c" stroke="#c07a3a" stroke-opacity="0.6" stroke-width="1.5"/>
+      <!-- 远山与近山：剪纸 + 错位硬阴影 -->
+      <path d="M 470 600 L 552 452 L 610 544 L 660 456 L 744 600 Z" transform="translate(4 4)" fill="#8a5a2a" fill-opacity="0.2"/>
+      <path d="M 470 600 L 552 452 L 610 544 L 660 456 L 744 600 Z" fill="#e3b878"/>
+      <path d="M 494 624 L 582 496 L 644 582 L 680 532 L 730 624 Z" transform="translate(4 4)" fill="#7a4c22" fill-opacity="0.22"/>
+      <path d="M 494 624 L 582 496 L 644 582 L 680 532 L 730 624 Z" fill="#c07a3a"/>
+      <path d="M 452 624 H 748" stroke="#b08a5a" stroke-opacity="0.4" stroke-width="1.2"/>
     </g>
-    <g fill="#ffffff">
-      <circle cx="866" cy="326" r="2.5" fill-opacity="0.4"/>
-      <circle cx="1006" cy="522" r="3" fill-opacity="0.35"/>
-      <circle cx="706" cy="384" r="2" fill-opacity="0.42"/>
-      <circle cx="1080" cy="428" r="2.2" fill-opacity="0.48"/>
-      <circle cx="836" cy="606" r="2.4" fill-opacity="0.35"/>
-      <circle cx="700" cy="300" r="12" fill="url(#sgSparkGlow)" fill-opacity="0.5"/>
-      <circle cx="1100" cy="560" r="14" fill="url(#sgSparkGlow)" fill-opacity="0.45"/>
-    </g>
-    <text x="950" y="460" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="120" font-weight="700" fill="#3d3a6e">月</text>
-    <text x="1070" y="516" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" font-weight="600" fill="#4d4880" letter-spacing="4">MOONRISE · 冷域</text>
   </g>
 
-  <!-- 题注与册尾 -->
-  <text x="60" y="740"  font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="14" fill="#5c569c">晨光 —— 日光从玫瑰金里升起，丝带是暖域的</text>
-  <text x="1140" y="740" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="14" fill="#5c569c">月色 —— 月光在紫罗兰里沉降，丝带是冷域的</text>
-  <line x1="60" y1="768" x2="1140" y2="768" stroke="#37326e" stroke-opacity="0.1" stroke-width="1"/>
-  <text x="60" y="796" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13.5" fill="#5c569c">色彩配方、光规则与手势纪律：references/premium-craft.md</text>
-  <text x="1140" y="796" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="13" font-style="italic" fill="#5c569c" letter-spacing="3">DREAMLIGHT SYSTEM</text>
+  <!-- ============ 03 玻璃：器物的轴 ============ -->
+  <text x="800" y="216" font-family="Georgia, Times New Roman, serif" font-size="15" font-style="italic" fill="#5c4bc0">03</text>
+  <text x="836" y="217" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="20" font-weight="700" fill="#26243a">玻璃 · 器物的轴</text>
+  <text x="1152" y="216" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11.5" fill="#5c569c">中轴 · 发丝线 · 深色玻璃</text>
+  <g data-style-id="glass">
+    <rect x="800" y="236" width="352" height="500" rx="18" fill="url(#p3Base)"/>
+    <g clip-path="url(#sgClipC)">
+      <rect x="814" y="250" width="324" height="472" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="1"/>
+      <ellipse cx="976" cy="430" rx="150" ry="190" fill="url(#p3Glow)"/>
+      <line x1="830" y1="430" x2="900" y2="430" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+      <line x1="1052" y1="430" x2="1122" y2="430" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+      <ellipse cx="976" cy="560" rx="56" ry="11" fill="url(#p3Shadow)"/>
+      <rect x="936" y="344" width="80" height="196" rx="40" fill="#ffffff" fill-opacity="0.07" stroke="#ffffff" stroke-opacity="0.32" stroke-width="1.2"/>
+      <ellipse cx="976" cy="378" rx="28" ry="20" fill="#ffffff" fill-opacity="0.16"/>
+      <line x1="956" y1="380" x2="956" y2="506" stroke="#ffffff" stroke-opacity="0.28" stroke-width="1.2"/>
+      <circle cx="860" cy="320" r="2" fill="#ffffff" fill-opacity="0.4"/>
+      <circle cx="1090" cy="480" r="2.4" fill="#ffffff" fill-opacity="0.35"/>
+      <text x="976" y="300" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="11" font-weight="600" fill="#9aa2b1" letter-spacing="5">GLASS VESSEL</text>
+      <line x1="920" y1="668" x2="1032" y2="668" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1"/>
+      <text x="976" y="694" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="13" font-style="italic" fill="#8b93a1">N° 03</text>
+    </g>
+  </g>
+
+  <!-- 题注 -->
+  <text x="48" y="764" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5c569c">同一个光源，手势决定画面的流向</text>
+  <text x="424" y="764" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5c569c">纸的语法：剪影、错位阴影与缝线</text>
+  <text x="800" y="764" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#5c569c">器的语法：一根轴撑起所有留白</text>
+
+  <line x1="60" y1="800" x2="1140" y2="800" stroke="#37326e" stroke-opacity="0.1" stroke-width="1"/>
+  <text x="60" y="826" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#5c569c">风格不是滤镜，是语法 —— 换方向就要换构图、材质与图形语言</text>
+  <text x="1140" y="826" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="11.5" font-style="italic" fill="#5c569c" letter-spacing="3">DREAMLIGHT · PAPER · GLASS</text>
 </svg>

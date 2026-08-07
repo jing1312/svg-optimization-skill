@@ -52,30 +52,41 @@ folded corner per card; seasonal switching keeps J and K both shippable.
 Axes relax palette traditions but never the motif brief, measurement or
 geometry gates.
 
-## 4. Logo instance
+## 4. Logo instance — single fused mark
 
-Core glyph: Lucide `book-open-check` (ISC — see THIRD_PARTY_NOTICES.md),
-rendered `fill="none"`, round caps/joins, stroke ≥ 1.8 at 24 px scale.
-Semantic brief: opened learning material + verification action; nodes orbit as
-a chapter ring; shield liners the tile so verification reads as protection,
-not decoration. Allowed layers (six, in order): theme halo (≤ 0.5, fading to
-0) → rounded tile with tinted shadow → translucent liner (6–10 % inset) →
-glyph → node ring (≥ 3 nodes, r ≥ 6 % tile) → one top-half gloss. Shield badge
-≤ 30 % tile width, may overlap tile corner, must never cover the check.
+The logo is an **original single mark**, not an icon assembly. Its brief:
+
+```text
+message:      knowledge organization and verification happen in one stroke
+visual nouns: open-book page, the check's long arm, one chapter node
+relationship: the right page's edge continues directly into the check's long
+              arm; the chapter node hangs at the arm's tip as the result
+```
+
+Geometry (the only allowed structure): two page curves meeting at the spine,
+whose outer edge flows into the check stroke, plus one accent node circle at
+the stroke tip. **Forbidden**: node rings, halos louder than the stroke, a
+shield, a second check, or any second competing glyph. The previous "icon +
+node ring + shield + double-check" version is retired — it read as assembled
+icons and collapsed into mud at 48 px.
+
+The mark carries meaning by shape alone; at 48 px the page-and-check gesture
+must stay legible and the tip node remain visible.
 
 Required metadata on every formal logo group:
 
 ```xml
 data-role="logo"
 data-logo-intent="knowledge verification"
-data-icon-source="lucide"
-data-icon-name="book-open-check"
-data-icon-license="ISC"
-data-logo-secondary-motif="chapter relationship + verification shield"
+data-logo-secondary-motif="page becomes the check; node is the result"
 ```
+
+(No `data-icon-*` keys — the mark is original, not icon-derived. See
+`THIRD_PARTY_NOTICES.md` for the Lucide note on the retired predecessor.)
 
 ## 5. Historical directions (frozen, do not extend)
 
 A 深海气泡 (regression baseline), C 玻璃卡片, D 柑橘平面, E 薄荷网格, F 暮色霓虹,
 G 纸胶带, H 粉笔涂鸦, I 雾面渐变 — retired after season testing. New seasonal
-directions continue from P (next letters), new layouts from S2.
+directions continue from P (next letters), new layouts from S2. The old
+multi-icon logo above is likewise frozen and must not reappear.

@@ -47,20 +47,25 @@ Rules:
 
 ## 3. Light rules
 
-1. **One primary bloom.** Every scene has exactly one light source that
-   everything else answers to (consistent highlight direction on all orbs).
-2. **Atmospheric depth, three planes:** far = blurred + low opacity + desaturated;
-   mid = the gesture; near = sharp + full saturation + specular. If everything
-   is equally sharp, nothing is luminous.
+1. **One light source, many tints.** Every scene answers to exactly one light
+   source — all speculars and orb highlights must agree on its direction.
+   Drift fields, fog and colored washes are **not** light sources; they are
+   tinted air. Keep them low-contrast and clearly subordinate, or the scene
+   reads as "several lamps" instead of "one sun."
+2. **Three value steps, not one flat whisper.** Premium is built from clear
+   foreground/midground/background **values**, not from making everything
+   translucent. Far = desaturated, low contrast, no detail; mid = the gesture
+   or structure, medium saturation; near = one subject at full saturation with
+   a crisp specular and edge reflection. If background, ribbon, orbs and text
+   all sit at the same lightness/opacity, the result is pale wallpaper with no
+   hierarchy. Push at least one element to full density so the others can stay
+   airy *by contrast*.
 3. **Gradients terminate.** Every halo/ribbon/bloom ends at `stop-opacity="0"`;
    airiness dies the moment a gradient ends hard.
 4. **Bounded blur:** `stdDeviation ≤ 24`, and blur is used at most twice per
    composition (one halo/atmosphere pass, one depth-of-field pass).
 
 ## 4. The gesture: silk, never neon tubes
-
-A ribbon drawn as constant-width strokes reads as glowing wire / chart line —
-the #1 reason dreamy scenes turn tacky. A ribbon is **silk**:
 
 - **Built as a filled band**: a closed path whose top and bottom edges are two
   separate curves. Never three parallel strokes.
@@ -69,9 +74,13 @@ the #1 reason dreamy scenes turn tacky. A ribbon is **silk**:
 - **Two translucent layers**: outer layer wide, blurred (`stdDeviation` 10–14),
   opacity ~0.55 — the shadow of the silk in the air; inner layer narrower,
   sharp, opacity ~0.9 — the lit face; plus one white edge-light (1–1.5 px @
-  0.5) along the top edge.
+  0.5) along the top edge, and 1–2 short highlight folds on the belly.
+- **Deepen the value**: the gesture is the mid-ground, so give it real
+  saturation and opacity (~0.7). A ribbon at 0.4 opacity on a pale base is
+  wallpaper, not a gesture.
 - **One distant echo**: a shrunken band of the same shape high up, opacity
-  ~0.2 — silk comes in bolts, not single threads.
+  ~0.2 — silk comes in bolts, not single threads. Give the echo its own paler
+  gradient so its sweep never stains the text zones.
 - The gradient runs **along the sweep** (`userSpaceOnUse`), colors travel with
   the band instead of banding across it.
 
@@ -83,25 +92,26 @@ carrying the composition, delete it.
 
 A flat vertical gradient is a wall, not an atmosphere. Every scene carries:
 
-- ≥ 3 large **drift fields**: asymmetric radial fades at different heights and
+- **2–3 large drift fields**: asymmetric radial fades at different heights and
   scales, some spilling off the canvas, tints from the palette family, opacity
-  0.2–0.4. They are weather, not decoration — place them off-axis from the
-  bloom.
+  0.2–0.4. They are tinted air, not light sources — weather, not decoration.
+  Place them off-axis from the bloom.
 - **Floating motes**: 8–14 particles, r 1.5–5 px, opacity 0.2–0.6, scattered
-  along the gesture's flow and around the orbs — varied sizes, never aligned
-  rows, never confetti clusters. They are what makes the air visible.
+  along the gesture's flow and around the orbs — varied sizes, one or two
+  clustered pairs, never aligned rows, never confetti bursts. They are what
+  makes the air visible; one or two may get a soft glow, the rest stay bare.
 - The bloom itself sits slightly off-center; centered blooms pin the scene.
 
 ## 6. Orbs (glass depth)
 
-- ≥ 3 per scene, three sizes deliberately: one **large and edge-cropped**
+- ≥ 3 per scene, three sizes on purpose: one **large and edge-cropped**
   (anchoring), one **medium and sharp** (character), one **small** (accent).
 - Each orb: radial fill with the highlight offset toward the light source, a
-  0.8–1 px rim-light stroke on the lit side, a white specular dot, and a
-  tinted soft shadow below. A flat circle is a dot, not an orb.
-- Small lens sparkles (four-point, hand-drawn path, NOT circles) at ≤ 4 energy
-  points: ribbon crossings, orb rims, near the bloom. Sparkle is punctuation,
-  never confetti.
+  rim-light arc on the lit side, a white specular dot, and a tinted soft shadow
+  below. Give the near orb a real edge reflection so it reads as glass, not a
+  flat decal.
+- The near subject orb is the only element at full density — deepen its radial
+  and shadow so the airy layers around it have something to be airy *against*.
 
 ## 7. Typography in light fields
 
@@ -109,8 +119,14 @@ A flat vertical gradient is a wall, not an atmosphere. Every scene carries:
   serif display with letter-spacing 3–6 px. Display vs meta ≥ 5× size.
 - A single soft **tinted** drop-shadow (`flood-color` = dominant hue @ ≤ 0.35)
   lifts the title out of the atmosphere — never a gray/black shadow.
-- Max three text elements: title / one line / one whisper of metadata. Light
-  scenes drown in copy.
+- **Hierarchy floors, counted honestly.** Product assets (banners, cards)
+  carry at most three text levels: title / one line / one whisper. One
+  functional control (a CTA) may exist in addition — but *functional*, never a
+  decorative pill. Covers and README heroes may add a kicker above the title
+  and a brand folio below — but a folio is a *mark* (symbol + wordmark), not a
+  paragraph, and spec lines (gate lists, version notes) belong in the README,
+  never on the artwork. Count every `<text>` you ship; if you can't name the
+  job of each one, cut it.
 - **Size floors** on hero-scale canvases (≥ 1200 px wide): eyebrow/meta ≥ 13 px,
   body ≥ 14 px. Text under 13 px reads as noise in real rendering, not as
   refinement; tracking 4–6 px gives the meta room to breathe.
@@ -128,9 +144,8 @@ or idea it carries — exactly like the motif brief in
   verification lives inside the light, not outside it.
 - Ambient details take product meaning where the subject allows (star trails as
   fragrance notes, mist as morning, mountains as origin).
-- One faint **construction trace** (a radius circle, a centerline, two ticks)
-  may be inscribed around the verified node — the gates made visible, quiet,
-  gold at ≤ 0.35 opacity. Geometry as ornament, never as chrome.
+- No drafting chrome: construction traces (radius callouts, tick marks, grid
+  numerals) read as mechanical and belong to spec sheets, not to dream scenes.
 
 If an element cannot say what it means, delete it. Collage is a removal
 problem, in atmosphere as much as in layout.
@@ -138,9 +153,8 @@ problem, in atmosphere as much as in layout.
 ## 9. Anti-patterns — both burned template faces
 
 Pastel-SaaS face (auto-reject): pill chips, aurora fog with no composition,
-**aligned dot rows / confetti clusters** (note: sparse floating motes of varied
-size per §5 are required, and are not this), centered
-eyebrow-title-subtitle-button triads, 2-stop flat pastel bases, decoration
+**aligned rows of dots / confetti bursts** (sparse floating motes per §5 are
+required and are *not* this — the test is alignment and uniformity), centered
 without a gesture, ribbons drawn as constant-width glowing strokes.
 
 Dark-gold-luxury face (also auto-reject): near-black + gold hairlines + index

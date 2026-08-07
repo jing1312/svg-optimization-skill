@@ -48,9 +48,9 @@ T1 通过 ≠ 完成；有 T2 可用却跳过，就不算完成。没有任何�
 ## 效果一览（仓库内 SVG 直出）
 
 <div align="center">
-  <img src="examples/style-gallery.svg" alt="流光体系双联画：晨光与月色，一种光两种气候" width="100%" />
+  <img src="examples/style-gallery.svg" alt="三种方向，三种语法：流光 / 暖纸压印 / 玻璃器物" width="100%" />
   <br/>
-  <sub><strong>流光体系（Dreamlight）</strong> —— 本技能的家传风格：一种光，两种气候。同一套光规则、手势与景深，换个色温就是新的天气。</sub>
+  <sub><strong>三种方向，三种语法</strong> —— 流光（漂动的场）/ 暖纸压印（对称硬阴影）/ 玻璃器物（中轴深色玻璃）。换方向就是换构图、材质与图形语言，不只是换色温。</sub>
 </div>
 
 <div align="center">

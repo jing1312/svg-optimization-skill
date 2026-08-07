@@ -1,9 +1,14 @@
 # Third-Party Notices
 
-## Lucide — book-open-check
+## Logo
 
-The product logo glyph is adapted from the [Lucide](https://lucide.dev) icon
-`book-open-check`.
+The current logo is an **original single mark** designed for this skill and
+bundles no third-party asset.
+
+The retired predecessor logo (a multi-icon assembly of an open book, node ring
+and shield, frozen in the deep-sea baseline) adapted the
+[Lucide](https://lucide.dev) icon `book-open-check`. Its license is reproduced
+for that historical reference only:
 
 ```text
 ISC License
