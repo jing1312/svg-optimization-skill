@@ -1,10 +1,10 @@
 /**
  * scripts/motifs.js — SVG illustration motifs for cards.
- * Each motif(cx, cy, p, sw) draws a meaningful icon at (cx,cy)
- * using palette p and stroke width sw. No <svg> wrapper — just inner elements.
+ * Each motif(cx, cy, p, sw) draws a meaningful icon at (cx,cy).
+ * Uses palette p (with .a, .a2, .i, .m, .d) and stroke width sw.
  */
 
-// 1. Network: central node + 4 satellites connected by lines
+// 1. Network: central node + 4 satellites
 export function motifNetwork(cx, cy, p, sw = 2) {
   const a = p.a, a2 = p.a2 || p.a, ink = p.i, m = p.m;
   return `<g transform="translate(${cx} ${cy})" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -22,7 +22,7 @@ export function motifNetwork(cx, cy, p, sw = 2) {
   </g>`;
 }
 
-// 2. Path flow: curved dashed path with 3 stage nodes
+// 2. Path flow: curved path with 3 stage nodes
 export function motifPath(cx, cy, p, sw = 2) {
   const a = p.a, a2 = p.a2 || p.a, ink = p.i, m = p.m;
   const lbl = p.d ? "#aaa" : "#666";
@@ -39,7 +39,7 @@ export function motifPath(cx, cy, p, sw = 2) {
   </g>`;
 }
 
-// 3. Shield: document with text lines + shield checkmark
+// 3. Shield: document + shield checkmark
 export function motifShield(cx, cy, p, sw = 2) {
   const a = p.a, a2 = p.a2 || p.a, ink = p.i, m = p.m;
   const cardBg = p.d ? "#1a1a2e" : "#fff";
@@ -55,7 +55,7 @@ export function motifShield(cx, cy, p, sw = 2) {
   </g>`;
 }
 
-// 4. Outline: document with hierarchical lines + dots
+// 4. Outline: hierarchical lines + dots
 export function motifOutline(cx, cy, p, sw = 2) {
   const a = p.a, a2 = p.a2 || p.a, ink = p.i, m = p.m;
   const cardBg = p.d ? "#1a1a2e" : "#fff";
@@ -72,27 +72,19 @@ export function motifOutline(cx, cy, p, sw = 2) {
   </g>`;
 }
 
-// 5. Chart: growing bar chart
+// 5. Chart: growing bars
 export function motifChart(cx, cy, p, sw = 2) {
   const a = p.a, a2 = p.a2 || p.a, ink = p.i, m = p.m;
-  const bars = [
-    {x:-48, h:20, c:a2, op:0.4},
-    {x:-24, h:36, c:a2, op:0.6},
-    {x:0,   h:28, c:a,  op:0.7},
-    {x:24,  h:48, c:a,  op:0.85},
-    {x:48,  h:38, c:a,  op:1},
-  ];
+  const bars = [{x:-48,h:20,c:a2,op:0.4},{x:-24,h:36,c:a2,op:0.6},{x:0,h:28,c:a,op:0.7},{x:24,h:48,c:a,op:0.85},{x:48,h:38,c:a,op:1}];
   let s = `<g transform="translate(${cx} ${cy})" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
   s += `<line x1="-60" y1="32" x2="60" y2="32" stroke="${ink}" stroke-width="${sw}" stroke-opacity="0.3"/>`;
-  for (const b of bars) {
-    s += `<rect x="${b.x-8}" y="${32-b.h}" width="16" height="${b.h}" rx="3" fill="${b.c}" opacity="${b.op}"/>`;
-  }
+  for (const b of bars) s += `<rect x="${b.x-8}" y="${32-b.h}" width="16" height="${b.h}" rx="3" fill="${b.c}" opacity="${b.op}"/>`;
   s += `<path d="M-48 12 Q0 -8 48 -6" stroke="${a}" stroke-width="${sw}" stroke-dasharray="3 5" stroke-opacity="0.5"/>`;
   s += `</g>`;
   return s;
 }
 
-// 6. Layers: stacked hexagon/diamond layers
+// 6. Layers: nested hexagons
 export function motifLayers(cx, cy, p, sw = 2) {
   const a = p.a, a2 = p.a2 || p.a, ink = p.i, m = p.m;
   const cardBg = p.d ? "#1a1a2e" : "#fff";
@@ -104,5 +96,37 @@ export function motifLayers(cx, cy, p, sw = 2) {
   </g>`;
 }
 
-export const MOTIFS = [motifNetwork, motifPath, motifShield, motifOutline, motifChart, motifLayers];
-export const MOTIF_NAMES = ["network", "path", "shield", "outline", "chart", "layers"];
+// 7. Spark: branching nodes (like a mind map)
+export function motifSpark(cx, cy, p, sw = 2) {
+  const a = p.a, a2 = p.a2 || p.a, ink = p.i, m = p.m;
+  return `<g transform="translate(${cx} ${cy})" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="10" fill="${a}" stroke="none"/>
+    <path d="M0 -10 C-10 -25 -30 -30 -40 -38" stroke="${a2}" stroke-width="${sw}" stroke-opacity="0.6"/>
+    <path d="M0 -10 C10 -25 30 -30 40 -38" stroke="${a}" stroke-width="${sw}" stroke-opacity="0.6"/>
+    <path d="M10 0 C25 -5 40 -5 48 -8" stroke="${a2}" stroke-width="${sw}" stroke-opacity="0.5"/>
+    <path d="M-10 0 C-25 5 -40 5 -48 8" stroke="${a}" stroke-width="${sw}" stroke-opacity="0.5"/>
+    <path d="M0 10 C-8 25 -20 35 -30 42" stroke="${a2}" stroke-width="${sw}" stroke-opacity="0.4"/>
+    <path d="M0 10 C8 25 20 35 30 42" stroke="${a}" stroke-width="${sw}" stroke-opacity="0.4"/>
+    <circle cx="-40" cy="-38" r="6" fill="${a2}" stroke="#fff" stroke-width="${sw}"/>
+    <circle cx="40" cy="-38" r="6" fill="${a}" stroke="#fff" stroke-width="${sw}"/>
+    <circle cx="48" cy="-8" r="5" fill="${a2}" stroke="#fff" stroke-width="${sw}"/>
+    <circle cx="-48" cy="8" r="5" fill="${a}" stroke="#fff" stroke-width="${sw}"/>
+    <circle cx="-30" cy="42" r="5" fill="${a2}" stroke="#fff" stroke-width="${sw}" opacity="0.7"/>
+    <circle cx="30" cy="42" r="5" fill="${a}" stroke="#fff" stroke-width="${sw}" opacity="0.7"/>
+  </g>`;
+}
+
+// 8. Target: concentric rings with center dot
+export function motifTarget(cx, cy, p, sw = 2) {
+  const a = p.a, a2 = p.a2 || p.a, ink = p.i, m = p.m;
+  return `<g transform="translate(${cx} ${cy})" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="46" stroke="${m}" stroke-width="${sw}" stroke-opacity="0.2"/>
+    <circle r="32" stroke="${a2}" stroke-width="${sw}" stroke-opacity="0.4"/>
+    <circle r="18" stroke="${a}" stroke-width="${sw}" stroke-opacity="0.7"/>
+    <circle r="6" fill="${a}" stroke="none"/>
+    <path d="M0 -46 L0 -56 M0 46 L0 56 M-46 0 L-56 0 M46 0 L56 0" stroke="${a}" stroke-width="${sw}" stroke-opacity="0.5"/>
+  </g>`;
+}
+
+export const MOTIFS = [motifNetwork, motifPath, motifShield, motifOutline, motifChart, motifLayers, motifSpark, motifTarget];
+export const MOTIF_NAMES = ["network", "path", "shield", "outline", "chart", "layers", "spark", "target"];
