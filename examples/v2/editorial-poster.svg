@@ -1,10 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600">
-  <title>V2 Editorial Poster</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" width="900" height="1200" role="img" aria-labelledby="v2ep">
+  <title id="v2ep">V2 Editorial Poster</title>
   <g data-style-id="editorial" data-palette="light" data-layout="poster">
-    <rect width="1200" height="1600" fill="#F6F1E8"/>
-    <text x="100" y="360" fill="#111" font-size="96" font-family="serif" font-weight="700">SVG</text>
-    <text x="100" y="500" fill="#111" font-size="48" font-family="serif">is a visual language</text>
-    <line x1="100" y1="600" x2="1000" y2="600" stroke="#111"/>
-    <text x="100" y="720" fill="#555" font-size="24" font-family="sans-serif">Typography • Grid • Restraint</text>
+    <rect width="900" height="1200" fill="#F6F1E8"/>
+    <!-- font-size 72 = display token; 48 = title token; 24 = heading token -->
+    <!-- gap display→title = 72 × 1.45 = 104; gap title→heading = 48 × 1.45 = 70 -->
+    <text x="72" y="300" fill="#111" font-size="72" font-family="Georgia, Times New Roman, serif" font-weight="700">SVG</text>
+    <text x="72" y="404" fill="#111" font-size="48" font-family="Georgia, Times New Roman, serif">is a visual language</text>
+    <line x1="72" y1="474" x2="828" y2="474" stroke="#111" stroke-width="2"/>
+    <text x="72" y="544" fill="#555" font-size="24" font-family="system-ui, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif">Typography • Grid • Restraint</text>
   </g>
 </svg>
