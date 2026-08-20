@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SVG Visual Editor — svg-optimization-skill</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="preview-panel">
+    <div class="preview-header">
+      <div class="preview-title"><span class="preview-title-dot"></span><span class="preview-label">实时预览</span></div>
+      <span class="preview-size" id="sizeIndicator">1100 × 300</span>
+    </div>
+    <div class="canvas-wrap" id="canvasWrap">
+      <div class="canvas-grid" id="canvasGrid"></div>
+      <div class="canvas-svg" id="canvasSvg"></div>
+    </div>
+    <div class="preview-footer">
+      <button class="btn btn-primary" id="exportSvg">导出 SVG</button>
+      <button class="btn" id="exportPng">导出 PNG</button>
+      <button class="btn" id="copySvg">复制代码</button>
+      <span class="status" id="status">就绪</span>
+    </div>
+  </div>
+  <div class="control-panel">
+    <div class="control-section">
+      <h2>布局</h2>
+      <div class="btn-group" id="layoutGroup">
+        <button class="seg-btn active" data-layout="banner">Banner</button>
+        <button class="seg-btn" data-layout="card">Card</button>
+        <button class="seg-btn" data-layout="gallery">Gallery</button>
+        <button class="seg-btn" data-layout="poster">Poster</button>
+      </div>
+    </div>
+    <div class="control-section">
+      <h2>配色</h2>
+      <div class="palette-grid" id="paletteGrid">
+        <button class="palette-btn active" data-palette="brand" style="--sw1:#eef4ff;--sw2:#f6efff;--sw3:#8b7cf6;--sw4:#38bdf8">Brand</button>
+        <button class="palette-btn" data-palette="dreamlight" style="--sw1:#080B18;--sw2:#1B2140;--sw3:#8BE9FF;--sw4:#8b7cf6">Dreamlight</button>
+        <button class="palette-btn" data-palette="editorial" style="--sw1:#F6F1E8;--sw2:#F6F1E8;--sw3:#5649c2;--sw4:#7c6ee0">Editorial</button>
+        <button class="palette-btn" data-palette="glass" style="--sw1:#111827;--sw2:#030712;--sw3:#7DD3FC;--sw4:#a78bfa">Glass</button>
+        <button class="palette-btn" data-palette="mono" style="--sw1:#1a1a2e;--sw2:#16213e;--sw3:#0ea5e9;--sw4:#0ea5e9">Mono</button>
+        <button class="palette-btn" data-palette="earth" style="--sw1:#fff8ec;--sw2:#ffedd5;--sw3:#f59e0b;--sw4:#fb923c">Earth</button>
+      </div>
+    </div>
+    <div class="control-section">
+      <h2>内容</h2>
+      <label>标题<input type="text" id="titleInput" value="知了学习 · 知识组织与核验助手"></label>
+      <label>副标题<input type="text" id="subtitleInput" value="把章节连成关系网，让每次复习都有据可查"></label>
+      <label>CTA 文字<input type="text" id="ctaInput" value="开始核验"></label>
+    </div>
+    <div class="control-section">
+      <h2>字号 Token</h2>
+      <div class="token-display" id="fontTokens">
+        <span class="token-chip" data-size="72">Display 72</span><span class="token-chip" data-size="48">Title 48</span>
+        <span class="token-chip" data-size="32">Section 32</span><span class="token-chip" data-size="24">Heading 24</span>
+        <span class="token-chip" data-size="18">Body 18</span><span class="token-chip" data-size="13">Caption 13</span>
+      </div>
+    </div>
+    <div class="control-section">
+      <h2>间距 Token</h2>
+      <div class="token-display" id="spaceTokens">
+        <span class="token-chip">4</span><span class="token-chip">8</span><span class="token-chip">16</span>
+        <span class="token-chip">24</span><span class="token-chip">32</span><span class="token-chip">48</span>
+        <span class="token-chip">64</span><span class="token-chip">96</span><span class="token-chip">128</span>
+      </div>
+    </div>
+    <div class="control-section">
+      <h2>线宽 Token</h2>
+      <div class="token-display" id="strokeTokens">
+        <span class="token-chip">Hairline 1</span><span class="token-chip">Thin 1.5</span>
+        <span class="token-chip">Medium 2</span><span class="token-chip">Bold 3</span><span class="token-chip">Heavy 4</span>
+      </div>
+    </div>
+    <div class="control-section gallery-only" id="galleryControls" style="display:none">
+      <h2>Gallery 设置</h2>
+      <label>列数<input type="number" id="colsInput" value="3" min="1" max="5"></label>
+      <label>行数<input type="number" id="rowsInput" value="2" min="1" max="4"></label>
+    </div>
+    <div class="control-section">
+      <h2>JSON 配置</h2>
+      <textarea id="jsonConfig" rows="8" spellcheck="false"></textarea>
+      <button class="btn" id="applyJson" style="margin-top:10px;width:100%">应用 JSON</button>
+    </div>
+  </div>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
