@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { computeSnap } from '../../src/editor/snap-engine.mjs';
+import { computeSnap, detectEquality, clusterSimilar } from '../../src/editor/snap-engine.mjs';
 
 const canvas = { x: 0, y: 0, w: 800, h: 400 };
 
@@ -39,4 +39,40 @@ test('guide:false bypass returns zero', () => {
   const scene = [{ id: 'a', x: 100, y: 100, w: 96, h: 32 }];
   const r = computeSnap({ moving:{id:'m',x:103,y:103,w:80,h:32}, scene, canvas, opts:{threshold:6, guide:false} });
   assert.deepEqual([r.dx, r.dy], [0, 0]);
+});
+
+test('equal spacing detection', () => {
+  // a |24| moving |24| b
+  const r = detectEquality({ moving:{id:'m',x:150,y:0,w:60,h:32},
+    neighbors:[{id:'a',x:66,y:0,w:60,h:32},{id:'b',x:234,y:0,w:60,h:32}] });
+  assert.equal(r.axis, 'h'); assert.equal(r.gap, 24);
+});
+
+test('no equality when gaps differ', () => {
+  const r = detectEquality({ moving:{id:'m',x:150,y:0,w:60,h:32},
+    neighbors:[{id:'a',x:60,y:0,w:60,h:32},{id:'b',x:260,y:100,w:60,h:32}] });
+  assert.equal(r, null);
+});
+
+test('cluster by signature and size within 15%', () => {
+  const items = [
+    {id:'1',w:96,h:32,signature:'g>rect+text'}, {id:'2',w:98,h:33,signature:'g>rect+text'},
+    {id:'3',w:140,h:40,signature:'g>rect+text'}, {id:'4',w:96,h:32,signature:'path'}];
+  const groups = clusterSimilar(items);
+  assert.deepEqual(groups.find(g => g.includes('1')), ['1','2']);
+});
+
+test('semantic column target overrides guide snap', () => {
+  const scene = [{id:'a',x:30,y:20,w:96,h:32},{id:'b',x:30,y:70,w:96,h:32}];
+  const r = computeSnap({ moving:{id:'m',x:60,y:120,w:97,h:32}, scene, canvas,
+    opts:{threshold:6, semantic:true}, signatures:{a:'g>rect+text',b:'g>rect+text',m:'g>rect+text'} });
+  assert.equal(r.dx, -30); // 吸到同列 x=30（30px 距离，在 48px 捕获半径内）
+  assert.match(r.semantic.reason, /同类/);
+});
+
+test('semantic ignores different signature', () => {
+  const scene = [{id:'a',x:130,y:20,w:96,h:32}];
+  const r = computeSnap({ moving:{id:'m',x:60,y:120,w:97,h:32}, scene, canvas,
+    opts:{threshold:6, semantic:true}, signatures:{a:'path',m:'g>rect+text'} });
+  assert.equal(r.dx, 0); assert.equal(r.semantic, null);
 });
