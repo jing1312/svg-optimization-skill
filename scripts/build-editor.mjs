@@ -1,0 +1,11 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const srcDir = join(root, 'src', 'editor');
+const ORDER = ['theme-tokens.mjs','geometry.mjs','text-measurer.mjs','snap-engine.mjs','export-sanitizer.mjs'];
+const core = ORDER.map(f => readFileSync(join(srcDir, f), 'utf8').replace(/^export\s+/gm, '')).join('\n');
+const tpl = readFileSync(join(srcDir, 'ui.template.html'), 'utf8');
+const out = tpl.replace('/*@@CORE@@*/', core);
+writeFileSync(join(root, 'scripts', 'editor.html'), out);
+console.log('built scripts/editor.html', out.length, 'bytes');
