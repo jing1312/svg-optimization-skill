@@ -48,6 +48,9 @@
     padding:6px 16px; border-radius:8px; display:none; z-index:99; max-width:70%; font-size:12.5px; }
   #svgo-textedit { position:absolute; display:none; border:1px dashed var(--accent); background:#ffffffee;
     font-size:13px; padding:2px 4px; z-index:15; outline:none; }
+  #svgo-dropzone { position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+    background:#4f7cff14; border:3px dashed var(--accent); z-index:90; pointer-events:none;
+    font-size:20px; color:var(--accent); font-weight:700; }
 </style>
 </head>
 <body>
@@ -102,6 +105,7 @@
 </div>
 
 <div id="svgo-toast"></div>
+<div id="svgo-dropzone">松手载入 SVG</div>
 <input id="svgo-file-input" type="file" accept=".svg,image/svg+xml" style="display:none">
 
 <script>
@@ -243,6 +247,34 @@ async function openPicker() {
   }
   $('svgo-file-input').value = ''; $('svgo-file-input').click();
 }
+$('svgo-file-input').addEventListener('change', async (e) => {
+  const f = e.target.files[0]; if (!f) return;
+  S.fileHandle = null;
+  loadSvgText(await f.text(), f.name);
+});
+
+// ============================ 拖拽导入（全窗口捕获，防浏览器默认打开） ============================
+let dragDepth = 0;
+const dropzone = $('svgo-dropzone');
+window.addEventListener('dragenter', e => {
+  if (![...(e.dataTransfer.types || [])].includes('Files')) return;
+  e.preventDefault();
+  dragDepth++;
+  dropzone.style.display = 'flex';
+}, true);
+window.addEventListener('dragover', e => { e.preventDefault(); }, true);
+window.addEventListener('dragleave', () => {
+  dragDepth = Math.max(0, dragDepth - 1);
+  if (!dragDepth) dropzone.style.display = 'none';
+}, true);
+window.addEventListener('drop', async e => {
+  e.preventDefault();
+  dragDepth = 0; dropzone.style.display = 'none';
+  const f = [...(e.dataTransfer.files || [])].find(f => /\.svg$/i.test(f.name));
+  if (!f) return toast('请拖入 .svg 文件');
+  S.fileHandle = null;
+  loadSvgText(await f.text(), f.name);
+}, true);
 
 // ============================ 撤销 / 重做 ============================
 function pushCommand(cmd) {
