@@ -180,6 +180,9 @@ function loadSvgText(text, fileName) {
   $('svgo-welcome').style.display = 'none';
   $('svgo-filename').textContent = fileName;
   $('svgo-save').disabled = false;
+  if (window.__editorEnableFileButtons) window.__editorEnableFileButtons();
+  if (localStorage.getItem('svgEditorDraft:' + fileName))
+    toast('检测到「' + fileName + '」的自动保存草稿，点工具栏 ⟲草稿 可恢复', 4200);
   setStatus('已打开，试试拖动元素');
 }
 function renderAll() {
@@ -490,6 +493,8 @@ window.addEventListener('keydown', e => {
   if (mod && e.key.toLowerCase() === 's') { e.preventDefault(); saveFile(); return; }
   if (mod && e.key.toLowerCase() === 'c') { if (S.selection.size) copySelection(); return; }
   if (mod && e.key.toLowerCase() === 'v') { pasteClipboard(); return; }
+  if (e.key.toLowerCase() === 'f' && S.selection.size) { e.preventDefault(); focusSelection(); return; }
+  if (mod && e.key === '0') { e.preventDefault(); resetView(); return; }
   if (!S.sourceRoot) return;
 
   if (mod && e.key.toLowerCase() === 'a') {
@@ -581,17 +586,43 @@ function renderLayers() {
 
 // ============================ 组件库（占位，任务 18 实现） ============================
 const COMP_STUBS = [
-  ['徽章', 'pill'], ['按钮', 'btn'], ['状态卡', 'status'],
+  ['徽章', 'badge'], ['按钮', 'btn'], ['状态卡', 'status'],
   ['Logo 瓦片', 'logo'], ['分隔线', 'divider'], ['浏览器框', 'browser'],
 ];
 function renderCompGrid() {
   const g = $('svgo-comp-grid'); g.textContent = '';
-  for (const [name] of COMP_STUBS) {
+  for (const [name, kind] of COMP_STUBS) {
     const d = document.createElement('div');
-    d.className = 'comp'; d.title = name + '（组件插入即将开放）';
+    d.className = 'comp'; d.title = '点击插入：' + name;
     d.innerHTML = '<div class="glyph">▫</div>' + name;
+    d.addEventListener('click', () => insertComponent(kind));
     g.appendChild(d);
   }
+  const old = document.getElementById('svgo-mine-wrap');
+  if (old) old.remove();
+  const wrap = document.createElement('div'); wrap.id = 'svgo-mine-wrap';
+  const mineLabel = document.createElement('p');
+  mineLabel.className = 'panel-label'; mineLabel.style.margin = '12px 0 6px';
+  mineLabel.textContent = '我的组件';
+  wrap.appendChild(mineLabel);
+  const mine = loadMyComponents();
+  const box = document.createElement('div');
+  for (let i = 0; i < mine.length; i++) {
+    (function(i) {
+      const row = document.createElement('div');
+      row.className = 'layer';
+      row.innerHTML = '<span class="nm">' + mine[i].name + '</span><b class="ly" title="删除" style="cursor:pointer">✕</b>';
+      row.querySelector('.nm').addEventListener('click', () => insertMyComponent(i));
+      row.querySelector('.ly').addEventListener('click', () => {
+        const list = loadMyComponents(); list.splice(i, 1); saveMyComponents(list);
+        renderCompGrid();
+      });
+      box.appendChild(row);
+    })(i);
+  }
+  if (!mine.length) box.innerHTML = '<span style="color:var(--sub)">选中元素后右键「存为我的组件」</span>';
+  wrap.appendChild(box);
+  g.parentElement.appendChild(wrap);
 }
 
 // ============================ 工具栏 / 吸附控制台绑定 ============================
@@ -607,14 +638,50 @@ function bindChrome() {
     opt.value = t.id; opt.textContent = t.name;
     sel.appendChild(opt);
   }
-  sel.addEventListener('change', () => toast('主题应用将在下一步开放（当前仅记录选择）'));
+  const applyBtn = document.createElement('button');
+  applyBtn.className = 'tbtn'; applyBtn.id = 'svgo-theme-apply';
+  applyBtn.textContent = '应用主题'; applyBtn.style.display = 'none';
+  applyBtn.addEventListener('click', confirmTheme);
+  sel.after(applyBtn);
+  sel.addEventListener('change', () => { if (S.sourceRoot) previewTheme(sel.value); });
   for (const key of ['guide','spacing','semantic']) {
     $('svgo-sn-' + key).addEventListener('change', e => { S.snap[key] = e.target.checked; });
   }
   const th = $('svgo-sn-threshold');
   th.addEventListener('input', () => { S.snap.threshold = +th.value; $('svgo-sn-thval').textContent = th.value + 'px'; });
   window.addEventListener('resize', () => fitToView());
+
+  // 工具栏扩展按钮：PNG / 复制代码 / 草稿
+  const top = $('svgo-top'), saveBtn = $('svgo-save');
+  function addTool(label, title, fn) {
+    const b = document.createElement('button');
+    b.className = 'tbtn'; b.textContent = label; b.title = title; b.disabled = true;
+    b.addEventListener('click', fn);
+    top.insertBefore(b, saveBtn);
+    return b;
+  }
+  const pngBtn = addTool('🖼 PNG', '导出 PNG（点击=2x，按住 Alt 点击=4x）', e => exportPNG(e.altKey ? 4 : 2));
+  const copyBtn = addTool('⧉ 复制代码', '复制干净 SVG 源码', copyCode);
+  const draftBtn = addTool('⟲ 草稿', '恢复上次自动保存的草稿', restoreDraft);
+  window.__editorEnableFileButtons = () => { pngBtn.disabled = copyBtn.disabled = draftBtn.disabled = false; };
+  // 右栏：布局 / 混色（v1 说明见 README）
+  const right = $('svgo-right');
+  const mkSel = (label, items, tip) => {
+    const wrap = document.createElement('div'); wrap.className = 'frow';
+    const lab = document.createElement('label'); lab.textContent = label;
+    const s = document.createElement('select');
+    for (const it of items) {
+      const o = document.createElement('option'); o.value = it.id; o.textContent = it.name; s.appendChild(o);
+    }
+    s.title = tip;
+    s.addEventListener('change', () => toast(tip));
+    wrap.appendChild(lab); wrap.appendChild(s); right.appendChild(wrap);
+    return s;
+  };
+  mkSel('布局', LAYOUTS, 'v1：新插入组件按此风格取色，已有图的整体重排暂不支持（可用对齐工具手动排）');
+  mkSel('混色', MIXES, 'v1：作为新组件/新画布的配色手法预设，改已载入图请用主题下拉');
 }
+window.__editorEnableFileButtons = () => {};
 
 // ============================ 启动 ============================
 const EditorBoot = {
@@ -629,6 +696,277 @@ window.EditorDebug = {
   selectFirst() { const el = topLevelEls().find(visibleUnlocked); if (el) setSelection([el]); },
 };
 window.addEventListener('DOMContentLoaded', () => EditorBoot.start());
+
+// ============================ 主题引擎（任务 18） ============================
+function hexToRgb(h) {
+  const n = parseInt(h.slice(1), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+function colorDist(a, b) {
+  const A = hexToRgb(a), B = hexToRgb(b);
+  return Math.abs(A[0]-B[0]) + Math.abs(A[1]-B[1]) * 1.2 + Math.abs(A[2]-B[2]);
+}
+const COLOR_ATTRS = ['fill','stroke','stop-color'];
+function themeTokensOf(id) {
+  const t = THEMES.find(t => t.id === id) || THEMES[0];
+  return t.tokens;
+}
+// 把 el 子树内「接近某 token 色」的颜色改写为目标主题对应值；远离所有 token 的颜色视为用户自定义，不动
+function collectThemeChanges(rootEl, targetTokens, tol = 110) {
+  const changes = [];
+  const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_ELEMENT);
+  let node = walker.currentNode;
+  while (node) {
+    if (node.nodeType === 1) {
+      for (const attr of COLOR_ATTRS) {
+        const v = node.getAttribute(attr);
+        if (!v || !/^#[0-9a-fA-F]{6}$/.test(v)) continue;
+        let bestK = null, bestD = Infinity;
+        for (const k of TOKEN_KEYS) {
+          const d = colorDist(v.toLowerCase(), String(targetTokens[k]).toLowerCase());
+          if (d < bestD) { bestD = d; bestK = k; }
+        }
+        if (bestK && bestD <= tol && String(targetTokens[bestK]).toLowerCase() !== v.toLowerCase())
+          changes.push({ el:node, attr, before:v, after:String(targetTokens[bestK]) });
+      }
+    }
+    node = walker.nextNode();
+  }
+  return changes;
+}
+let pendingPreview = null; // [{el,attr,before}]
+function revertPreview() {
+  if (!pendingPreview) return;
+  for (const c of pendingPreview) c.el.setAttribute(c.attr, c.before);
+  pendingPreview = null;
+}
+function previewTheme(id) {
+  revertPreview();
+  const tokens = themeTokensOf(id);
+  const roots = S.selection.size ? [...S.selection] : topLevelEls();
+  pendingPreview = collectThemeChanges.length ? [] : [];
+  const all = [];
+  for (const r of roots) all.push(...collectThemeChanges(r, tokens));
+  for (const c of all) c.el.setAttribute(c.attr, c.after);
+  pendingPreview = all.map(c => ({ el:c.el, attr:c.attr, before:c.before }));
+  $('svgo-theme-apply').style.display = all.length ? 'inline-block' : 'none';
+}
+function confirmTheme() {
+  if (!pendingPreview) return;
+  // 用当前已套用的值作为 after
+  const changes = pendingPreview.map(c => ({ el:c.el, attr:c.attr, before:c.before, after:c.el.getAttribute(c.attr) }));
+  pendingPreview = null;
+  pushCommand(makeAttrCommand('换主题', changes));
+  $('svgo-theme-apply').style.display = 'none';
+  toast('主题已应用，Ctrl+Z 可撤销');
+}
+
+// ============================ 内置组件库（任务 18） ============================
+function compText(x, y, str, fs, fill, weight) {
+  const t = ovEl('text', { x:round1(x), y:round1(y), 'font-size':fs, fill,
+    'text-anchor':'middle', 'font-family':'PingFang SC, Microsoft YaHei, sans-serif' });
+  if (weight) t.setAttribute('font-weight', weight);
+  t.textContent = str; return t;
+}
+function buildComponent(kind) {
+  const tok = themeTokensOf($('svgo-theme-sel').value);
+  const g = ovEl('g', {});
+  if (kind === 'badge') {
+    const label = '徽章', fs = 14, w = MEASURER.fitWidth(label, { fontSize: fs }), h = 32;
+    g.appendChild(ovEl('rect', { width:w, height:h, rx:h/2, fill:tok.primary }));
+    g.appendChild(compText(w/2, h/2 + fs*0.35, label, fs, '#ffffff'));
+  } else if (kind === 'btn') {
+    const label = '按钮', fs = 15, w = MEASURER.fitWidth(label, { fontSize: fs }) + 16, h = 40;
+    g.appendChild(ovEl('rect', { width:w, height:h, rx:8, fill:tok.primaryDark }));
+    g.appendChild(compText((w+16)/2, h/2 + fs*0.35, label, fs, '#ffffff'));
+  } else if (kind === 'status') {
+    const label = '平台就绪', fs = 14, w = 150, h = 44;
+    g.appendChild(ovEl('rect', { width:w, height:h, rx:10, fill:tok.surface }));
+    g.appendChild(ovEl('circle', { cx:22, cy:h/2, r:9, fill:tok.success }));
+    g.appendChild(compText(22, h/2 + 3.5, '✓', 11, '#ffffff'));
+    const t = ovEl('text', { x:40, y:h/2 + fs*0.35, 'font-size':fs, fill:tok.title,
+      'font-family':'PingFang SC, Microsoft YaHei, sans-serif' });
+    t.textContent = label; g.appendChild(t);
+  } else if (kind === 'logo') {
+    const gid = 'lg' + Date.now();
+    const defs = ovEl('linearGradient', { id:gid, x1:0, y1:0, x2:1, y2:1 });
+    const s1 = ovEl('stop', {}); s1.setAttribute('offset', '0'); s1.setAttribute('stop-color', tok.primary);
+    const s2 = ovEl('stop', {}); s2.setAttribute('offset', '1'); s2.setAttribute('stop-color', tok.primaryDark);
+    defs.appendChild(s1); defs.appendChild(s2);
+    g.appendChild(defs);
+    g.appendChild(ovEl('circle', { cx:32, cy:28, r:30, fill:tok.accent, opacity:0.25 }));
+    g.appendChild(ovEl('rect', { x:4, y:4, width:56, height:56, rx:13, fill:'url(#'+gid+')' }));
+    const bolt = ovEl('path', { d:'M36 15 L21 35 h9 L27 50 L41 33 h-9 Z', fill:'#ffffff' });
+    g.appendChild(bolt);
+  } else if (kind === 'divider') {
+    g.appendChild(ovEl('line', { x1:0, y1:0, x2:220, y2:0, stroke:tok.muted, 'stroke-width':1.5 }));
+  } else if (kind === 'browser') {
+    const W = 560, H = 380, bar = 42;
+    g.appendChild(ovEl('rect', { width:W, height:H, rx:12, fill:tok.surface }));
+    g.appendChild(ovEl('path', { d:'M0 12 a12 12 0 0 1 12 -12 H'+W+' a12 12 0 0 1 12 12 V'+bar+' H0 Z', fill:tok.bg }));
+    ['','#ff5f57','#febc2e','#28c840'].slice(1).forEach((c,i) =>
+      g.appendChild(ovEl('circle', { cx:20+i*18, cy:bar/2, r:5.5, fill:c })));
+    g.appendChild(ovEl('rect', { x:80, y:bar/2-10, width:W-160, height:20, rx:10, fill:'#ffffff' }));
+    g.appendChild(compText(W/2, bar/2+4, 'example.com', 11, tok.muted));
+    g.appendChild(ovEl('rect', { x:10, y:bar+10, width:W-20, height:H-bar-20, rx:8,
+      fill:'none', stroke:tok.muted, 'stroke-width':1 }));
+  }
+  return g;
+}
+function insertComponent(kind) {
+  if (!S.sourceRoot) { toast('请先打开一个 SVG 文件'); return; }
+  const el = buildComponent(kind);
+  el.__uid = 'el' + (++UID);
+  el.__baseTransform = ''; el.__tx = 0; el.__ty = 0;
+  const c = stage.__canvas;
+  const bb = el.getBBox ? null : null;
+  contentG.appendChild(el);
+  // 居中放置：渲染后量一次
+  const b = elBox(el);
+  el.__tx = c.x + c.w/2 - (b.x - el.__tx) - b.w/2;
+  el.__ty = c.y + c.h/2 - (b.y - el.__ty) - b.h/2;
+  applyOffset(el);
+  pushCommand(makeAddCommand('插入组件', [{ parent:contentG, el, next:null }]));
+  setSelection([el]);
+}
+// ============================ 自定义组件（任务 18） ============================
+function loadMyComponents() {
+  try { return JSON.parse(localStorage.getItem('svgEditorComponents') || '[]'); }
+  catch (e) { return []; }
+}
+function saveMyComponents(list) {
+  localStorage.setItem('svgEditorComponents', JSON.stringify(list));
+}
+function saveSelectionAsComponent() {
+  if (!S.selection.size) { toast('先选中要收藏的元素'); return; }
+  const name = prompt('组件名称：', '我的组件 ' + (loadMyComponents().length + 1));
+  if (!name) return;
+  const svg = [...S.selection].map(el => el.outerHTML).join('\n');
+  const list = loadMyComponents(); list.push({ name, svg });
+  saveMyComponents(list);
+  renderCompGrid();
+  toast('已存为我的组件：「' + name + '」');
+}
+function insertMyComponent(idx) {
+  if (!S.sourceRoot) { toast('请先打开一个 SVG 文件'); return; }
+  const item = loadMyComponents()[idx]; if (!item) return;
+  const doc = new DOMParser().parseFromString('<svg xmlns="http://www.w3.org/2000/svg">' + item.svg + '</svg>', 'image/svg+xml');
+  const tokens = themeTokensOf($('svgo-theme-sel').value);
+  const added = [], newSel = [];
+  for (const child of [...doc.documentElement.children]) {
+    if (child.nodeType !== 1) continue;
+    const changes = collectThemeChanges(child, tokens, Infinity); // 自定义组件全量跟随主题
+    for (const c of changes) c.el.setAttribute(c.attr, c.after);
+    const el = document.importNode(child, true);
+    el.__uid = 'el' + (++UID);
+    el.__baseTransform = el.getAttribute('transform') || '';
+    el.__tx = 12; el.__ty = 12;
+    contentG.appendChild(el); applyOffset(el);
+    added.push({ parent:contentG, el, next:null });
+    newSel.push(el);
+  }
+  if (!added.length) return;
+  pushCommand(makeAddCommand('插入我的组件', added));
+  setSelection(newSel);
+}
+
+// ============================ PNG 导出 / 复制代码 / 草稿（任务 19） ============================
+async function exportPNG(scale) {
+  if (!S.sourceRoot) return;
+  const text = serializeCurrent();
+  const c = stage.__canvas;
+  const img = new Image();
+  const url = URL.createObjectURL(new Blob([text], { type:'image/svg+xml' }));
+  img.onload = () => {
+    const cv = document.createElement('canvas');
+    cv.width = Math.round(c.w * scale); cv.height = Math.round(c.h * scale);
+    const ctx2 = cv.getContext('2d');
+    ctx2.drawImage(img, 0, 0, cv.width, cv.height);
+    URL.revokeObjectURL(url);
+    cv.toBlob(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = (S.fileName || 'drawing').replace(/\.svg$/i, '') + '@' + scale + 'x.png';
+      a.click();
+      toast('已导出 PNG（' + scale + 'x）');
+    }, 'image/png');
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); toast('PNG 导出失败：文件含浏览器无法光栅化的内容'); };
+  img.src = url;
+}
+async function copyCode() {
+  if (!S.sourceRoot) return;
+  try { await navigator.clipboard.writeText(serializeCurrent()); toast('SVG 代码已复制到剪贴板'); }
+  catch (e) { toast('复制失败：' + e.message); }
+}
+function draftKey() { return 'svgEditorDraft:' + (S.fileName || ''); }
+function restoreDraft() {
+  const d = localStorage.getItem(draftKey());
+  if (!d) { toast('没有可恢复的草稿'); return; }
+  if (!confirm('恢复上次自动保存的草稿？当前未保存的修改将丢失。')) return;
+  S.fileHandle = S.fileHandle; // 保持句柄
+  loadSvgText(d, S.fileName);
+  toast('草稿已恢复');
+}
+
+// ============================ 字号阶梯提醒（任务 20） ============================
+const FONT_LADDER = [12, 13.5, 14, 15, 16, 18, 20, 24, 26, 72];
+function applyFontLadder(fs) {
+  if (FONT_LADDER.includes(fs)) return fs;
+  const near = FONT_LADDER.reduce((a, b) => Math.abs(b - fs) < Math.abs(a - fs) ? b : a);
+  if (confirm('字号 ' + fs + ' 不在统一字号阶梯中，改为最接近的 ' + near + '？（保持全图字体节奏）'))
+    return near;
+  return fs;
+}
+
+// ============================ 画布导航：滚轮缩放 / 空格平移 / F 聚焦 / Ctrl+0（任务 20） ============================
+function viewBox() {
+  const vb = stage.getAttribute('viewBox').split(/[\s,]+/).map(Number);
+  return { x:vb[0], y:vb[1], w:vb[2], h:vb[3] };
+}
+function setViewBox(v) {
+  stage.setAttribute('viewBox', [v.x, v.y, v.w, v.h].map(round1).join(' '));
+  S.zoom = stage.clientWidth ? stage.clientWidth / v.w : 1;
+  setStatus();
+}
+stage.addEventListener('wheel', e => {
+  if (!S.sourceRoot) return;
+  e.preventDefault();
+  const v = viewBox();
+  const k = e.deltaY > 0 ? 1.12 : 1 / 1.12;
+  const nw = Math.min(Math.max(v.w * k, stage.__canvas.w / 8), stage.__canvas.w * 4);
+  const ratio = nw / v.w;
+  const p = svgPoint(e);
+  setViewBox({ x:p.x - (p.x - v.x) * ratio, y:p.y - (p.y - v.y) * ratio, w:nw, h:v.h * ratio });
+}, { passive:false });
+
+let spaceDown = false, panDrag = null;
+window.addEventListener('keydown', e => { if (e.code === 'Space' && !(e.target.tagName || '').match(/INPUT|SELECT|TEXTAREA/)) spaceDown = true; });
+window.addEventListener('keyup', e => { if (e.code === 'Space') spaceDown = false; });
+stage.addEventListener('pointerdown', e => {
+  if (!spaceDown || !S.sourceRoot || e.button !== 0) return;
+  const v = viewBox();
+  panDrag = { start:e.clientX, startY:e.clientY, vb:{ ...v }, sx:stage.clientWidth / v.w };
+  stage.setPointerCapture(e.pointerId);
+  S.drag = null;
+});
+stage.addEventListener('pointermove', e => {
+  if (!panDrag) return;
+  const v = panDrag.vb, k = v.w / stage.clientWidth;
+  setViewBox({ x:v.x - (e.clientX - panDrag.start) * k, y:v.y - (e.clientY - panDrag.startY) * k, w:v.w, h:v.h });
+});
+stage.addEventListener('pointerup', () => { panDrag = null; });
+
+function focusSelection() {
+  const ub = unionOfSelection(); if (!ub) return;
+  const padX = ub.w * 0.15, padY = ub.h * 0.15;
+  setViewBox({ x:ub.x - padX, y:ub.y - padY, w:ub.w + padX * 2, h:ub.h + padY * 2 });
+}
+function resetView() {
+  setViewBox({ ...stage.__canvas }); fitToView();
+}
+
+// @@PART9@@
 // ============================ 缩放手柄（任务 14） ============================
 const HANDLE_MODES = ['nw','n','ne','e','se','s','sw','w'];
 function handlePositions(b) {
@@ -785,7 +1123,13 @@ function startTextEdit(textEl) {
     inp.style.display = 'none';
     const newText = inp.value;
     if (newText === oldText) return;
+    const useFs = applyFontLadder(fs);
     const cmds = [];
+    if (useFs !== fs)
+      cmds.push({
+        undo() { textEl.setAttribute('font-size', String(fs)); },
+        redo() { textEl.setAttribute('font-size', String(useFs)); },
+      });
     cmds.push({
       undo() { textEl.textContent = oldText; },
       redo() { textEl.textContent = newText; },
@@ -795,7 +1139,7 @@ function startTextEdit(textEl) {
       const oldW = parseFloat(boxRect.getAttribute('width'));
       const oldTextW = MEASURER.width(oldText, fs);
       const pad = Math.min(24, Math.max(8, (oldW - oldTextW) / 2));
-      const newW = round1(MEASURER.fitWidth(newText, { fontSize: fs }) - 32 + pad * 2);
+      const newW = round1(MEASURER.fitWidth(newText, { fontSize: useFs }) - 32 + pad * 2);
       const oldX = parseFloat(boxRect.getAttribute('x'));
       const anchor = textEl.getAttribute('text-anchor');
       const newX = round1(anchor === 'middle' ? oldX + oldW / 2 - newW / 2 : oldX);
@@ -887,6 +1231,7 @@ stage.addEventListener('contextmenu', e => {
     menu.appendChild(menuItem('删除　Del', deleteSelection));
     menu.appendChild(menuItem('置于顶层', () => orderSelection('top')));
     menu.appendChild(menuItem('置于底层', () => orderSelection('bottom')));
+    menu.appendChild(menuItem('存为我的组件', saveSelectionAsComponent));
   }
   if (CLIPBOARD.length) menu.appendChild(menuItem('粘贴　Ctrl+V', pasteClipboard));
   if (!menu.children.length) return;
