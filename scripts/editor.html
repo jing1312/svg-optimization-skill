@@ -281,9 +281,15 @@ function setStatus(snapText) {
 function round1(n) { return Math.round(n * 10) / 10; }
 
 // ============================ 几何辅助 ============================
+const NON_GRAPHIC = new Set(['defs','title','desc','metadata','style','script',
+  'symbol','clipPath','mask','filter','marker','pattern','view','linearGradient','radialGradient','pattern']);
+function isGraphic(el) { return !!(el && el.tagName && !NON_GRAPHIC.has(el.tagName)); }
+function graphicEls() { return topLevelEls().filter(isGraphic); }
 function topLevelEls() { return [...contentG.children]; }
 function elBox(el) {
-  const bb = el.getBBox();
+  if (typeof el.getBBox !== 'function') return { id: el.__uid, x: 0, y: 0, w: 0, h: 0 };
+  let bb;
+  try { bb = el.getBBox(); } catch (e) { return { id: el.__uid, x: 0, y: 0, w: 0, h: 0 }; }
   const t = el.__tx || 0, u = el.__ty || 0;
   return { id: el.__uid, x: bb.x + t, y: bb.y + u, w: bb.width, h: bb.height };
 }
@@ -326,8 +332,10 @@ function loadSvgText(text, fileName) {
     toast('提示：文件包含位图 image，将按原样保留');
   S.sourceRoot = root; S.fileName = fileName;
   S.selection.clear(); S.history = []; S.future = [];
-  renderAll(); updateHistoryButtons();
   $('svgo-welcome').style.display = 'none';
+  try { renderAll(); }
+  catch (err) { console.error(err); toast('渲染出现问题：' + err.message); }
+  updateHistoryButtons();
   $('svgo-filename').textContent = fileName;
   $('svgo-save').disabled = false;
   if (window.__editorEnableFileButtons) window.__editorEnableFileButtons();
@@ -526,7 +534,7 @@ function drawOverlay(extra) {
     m.setAttribute('stroke-dasharray', '4 3');
     overlayG.appendChild(m);
   }
-  for (const el of topLevelEls()) {
+  for (const el of graphicEls()) {
     if (!visibleUnlocked(el)) continue;
     const b = elBox(el);
     if (b.x < c.x - .5 || b.y < c.y - .5 || b.x + b.w > c.x + c.w + .5 || b.y + b.h > c.y + c.h + .5) {
@@ -558,10 +566,25 @@ stage.addEventListener('pointerdown', e => {
 });
 
 function beginDrag(e, p) {
-  const movers = [...S.selection];
+  let movers = [...S.selection];
   if (!movers.length) return;
+  let cloned = null;
+  if (e.altKey) {
+    const added = [], clones = [];
+    for (const src of movers) {
+      const el = src.cloneNode(true);
+      el.__uid = 'el' + (++UID);
+      el.__baseTransform = el.getAttribute('transform') || '';
+      el.__tx = 0; el.__ty = 0;
+      contentG.appendChild(el);
+      clones.push(el); added.push({ parent:contentG, el, next:null });
+    }
+    setSelection(clones);
+    movers = [...S.selection];
+    cloned = added;
+  }
   S.drag = {
-    kind:'drag', start:p, active:false,
+    kind:'drag', start:p, active:false, cloned,
     movers: movers.map(el => ({
       el, before: el.getAttribute('transform'),
       box: elBox(el), tx0: el.__tx || 0, ty0: el.__ty || 0,
@@ -596,7 +619,7 @@ stage.addEventListener('pointermove', e => {
 
   // ---- 拖动 + 全套吸附 ----
   const selIds = new Set(d.movers.map(m => m.el.__uid));
-  const sceneEls = topLevelEls().filter(el => !selIds.has(el.__uid) && visibleUnlocked(el));
+  const sceneEls = graphicEls().filter(el => !selIds.has(el.__uid) && visibleUnlocked(el));
   const scene = sceneEls.map(elBox);
   const merged = mergeBoxes(d.movers.map(m => m.box));
   const signatures = {};
@@ -636,6 +659,22 @@ stage.addEventListener('pointermove', e => {
 stage.addEventListener('pointerup', e => {
   const d = S.drag; S.drag = null;
   if (!d) { drawOverlay(); return; }
+  // 手动双击检测：未拖动的快速两击同一元素 → 编辑其中的文字（不依赖浏览器 dblclick 合成）
+  if (!d.active && d.kind === 'drag') {
+    const now = Date.now();
+    const el = [...S.selection][0];
+    if (el) {
+      const cur = { t: now, x: e.clientX, y: e.clientY, uid: el.__uid };
+      const L = S._lastClick;
+      S._lastClick = cur;
+      if (L && L.uid === cur.uid && now - L.t < 400 &&
+          Math.hypot(cur.x - L.x, cur.y - L.y) < 5) {
+        S._lastClick = null;
+        const tEl = el.tagName === 'text' ? el : el.querySelector('text');
+        if (tEl) { startTextEdit(tEl); return; }
+      }
+    }
+  }
   if (d.kind === 'resize') {
     if (d.active) commitResize(d);
     drawOverlay(); syncPropertyPanel();
@@ -643,7 +682,7 @@ stage.addEventListener('pointerup', e => {
   }
   if (d.kind === 'marquee') {
     if (d.marqueeRect) {
-      const hits = topLevelEls().filter(el => {
+      const hits = graphicEls().filter(el => {
         if (!visibleUnlocked(el)) return false;
         const b = elBox(el), r = d.marqueeRect;
         return b.x < r.x + r.w && b.x + b.w > r.x && b.y < r.y + r.h && b.y + b.h > r.y;
@@ -656,7 +695,11 @@ stage.addEventListener('pointerup', e => {
   if (!d.active) { drawOverlay(); return; }
   const changes = d.movers.filter(m => m.before !== m.el.getAttribute('transform'))
     .map(m => ({ el:m.el, attr:'transform', before:m.before, after:m.el.getAttribute('transform') }));
-  if (changes.length) pushCommand(makeAttrCommand('移动', changes));
+  if (d.cloned) {
+    pushCommand(makeComposite('复制并移动', [makeAddCommand('复制', d.cloned), makeAttrCommand('移动', changes)]));
+  } else if (changes.length) {
+    pushCommand(makeAttrCommand('移动', changes));
+  }
   drawOverlay(); renderLayers();
 });
 stage.addEventListener('pointercancel', () => { S.drag = null; drawOverlay(); });
@@ -677,7 +720,7 @@ window.addEventListener('keydown', e => {
 
   if (mod && e.key.toLowerCase() === 'a') {
     e.preventDefault();
-    setSelection(topLevelEls().filter(visibleUnlocked)); return;
+    setSelection(graphicEls().filter(visibleUnlocked)); return;
   }
   if (e.key === 'Escape') { setSelection([]); return; }
   if ((e.key === 'Delete' || e.key === 'Backspace') && S.selection.size) {
@@ -694,17 +737,23 @@ window.addEventListener('keydown', e => {
     const step = e.shiftKey ? 10 : 1;
     const dx = e.key === 'ArrowLeft' ? -step : e.key === 'ArrowRight' ? step : 0;
     const dy = e.key === 'ArrowUp' ? -step : e.key === 'ArrowDown' ? step : 0;
-    const changes = [];
     for (const el of S.selection) {
       const before = el.getAttribute('transform');
       el.__tx = (el.__tx || 0) + dx; el.__ty = (el.__ty || 0) + dy;
       applyOffset(el);
-      changes.push({ el, attr:'transform', before, after: el.getAttribute('transform') });
+      nudgeChanges.push({ el, attr:'transform', before, after: el.getAttribute('transform') });
     }
-    pushCommand(makeAttrCommand('微调', changes));
     drawOverlay(); syncPropertyPanel();
+    clearTimeout(nudgeTimer);
+    nudgeTimer = setTimeout(() => {
+      if (!nudgeChanges.length) return;
+      pushCommand(makeAttrCommand('微调', nudgeChanges));
+      nudgeChanges = [];
+    }, 450);
   }
 });
+
+let nudgeTimer = null, nudgeChanges = [];
 
 // ============================ 属性面板 ============================
 function syncPropertyPanel() {
@@ -732,7 +781,7 @@ function layerName(el) {
 function renderLayers() {
   const box = $('svgo-layers');
   box.textContent = '';
-  const els = topLevelEls();
+  const els = graphicEls();
   if (!els.length) { box.innerHTML = '<span style="color:var(--sub)">（空）</span>'; return; }
   for (const el of [...els].reverse()) {
     const row = document.createElement('div');
@@ -871,7 +920,7 @@ const EditorBoot = {
 window.EditorBoot = EditorBoot;
 window.EditorDebug = {
   state: S,
-  selectFirst() { const el = topLevelEls().find(visibleUnlocked); if (el) setSelection([el]); },
+  selectFirst() { const el = graphicEls().find(visibleUnlocked); if (el) setSelection([el]); },
 };
 window.addEventListener('DOMContentLoaded', () => EditorBoot.start());
 
@@ -890,12 +939,12 @@ function themeTokensOf(id) {
   return t.tokens;
 }
 // 把 el 子树内「接近某 token 色」的颜色改写为目标主题对应值；远离所有 token 的颜色视为用户自定义，不动
-function collectThemeChanges(rootEl, targetTokens, tol = 110) {
+function collectThemeChanges(rootEl, targetTokens) {
   const changes = [];
   const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_ELEMENT);
   let node = walker.currentNode;
   while (node) {
-    if (node.nodeType === 1) {
+    if (node.nodeType === 1 && !NON_GRAPHIC.has(node.tagName)) {
       for (const attr of COLOR_ATTRS) {
         const v = node.getAttribute(attr);
         if (!v || !/^#[0-9a-fA-F]{6}$/.test(v)) continue;
@@ -904,7 +953,8 @@ function collectThemeChanges(rootEl, targetTokens, tol = 110) {
           const d = colorDist(v.toLowerCase(), String(targetTokens[k]).toLowerCase());
           if (d < bestD) { bestD = d; bestK = k; }
         }
-        if (bestK && bestD <= tol && String(targetTokens[bestK]).toLowerCase() !== v.toLowerCase())
+        // 就近全量映射：任意配色都能落到新主题（url(#id) 引用与非 hex 值不动）
+        if (bestK && String(targetTokens[bestK]).toLowerCase() !== v.toLowerCase())
           changes.push({ el:node, attr, before:v, after:String(targetTokens[bestK]) });
       }
     }
@@ -921,10 +971,8 @@ function revertPreview() {
 function previewTheme(id) {
   revertPreview();
   const tokens = themeTokensOf(id);
-  const roots = S.selection.size ? [...S.selection] : topLevelEls();
-  pendingPreview = collectThemeChanges.length ? [] : [];
   const all = [];
-  for (const r of roots) all.push(...collectThemeChanges(r, tokens));
+  for (const r of topLevelEls()) all.push(...collectThemeChanges(r, tokens));
   for (const c of all) c.el.setAttribute(c.attr, c.after);
   pendingPreview = all.map(c => ({ el:c.el, attr:c.attr, before:c.before }));
   $('svgo-theme-apply').style.display = all.length ? 'inline-block' : 'none';
@@ -1062,6 +1110,7 @@ async function exportPNG(scale) {
     ctx2.drawImage(img, 0, 0, cv.width, cv.height);
     URL.revokeObjectURL(url);
     cv.toBlob(blob => {
+      if (!blob) { toast('PNG 编码失败'); return; }
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = (S.fileName || 'drawing').replace(/\.svg$/i, '') + '@' + scale + 'x.png';
@@ -1092,9 +1141,8 @@ const FONT_LADDER = [12, 13.5, 14, 15, 16, 18, 20, 24, 26, 72];
 function applyFontLadder(fs) {
   if (FONT_LADDER.includes(fs)) return fs;
   const near = FONT_LADDER.reduce((a, b) => Math.abs(b - fs) < Math.abs(a - fs) ? b : a);
-  if (confirm('字号 ' + fs + ' 不在统一字号阶梯中，改为最接近的 ' + near + '？（保持全图字体节奏）'))
-    return near;
-  return fs;
+  toast('字号 ' + fs + ' 已归入统一阶梯 ' + near + '（保持全图字体节奏，Ctrl+Z 可还原）');
+  return near;
 }
 
 // ============================ 画布导航：滚轮缩放 / 空格平移 / F 聚焦 / Ctrl+0（任务 20） ============================
@@ -1272,8 +1320,20 @@ function makeAddCommand(label, added) {
 // ============================ 双击改字 + 自动撑框（任务 15） ============================
 stage.addEventListener('dblclick', e => {
   if (!S.sourceRoot) return;
-  let tEl = e.target.closest ? e.target.closest('text') : null;
-  if (!tEl || !contentG.contains(tEl)) return;
+  // 穿透透明遮挡：从命中点的所有元素里找第一个可编辑的 <text>
+  const pts = document.elementsFromPoint(e.clientX, e.clientY);
+  let tEl = null;
+  for (const cand of pts) {
+    if (!contentG.contains(cand)) continue;
+    const t = cand.tagName === 'text' ? cand : (cand.closest ? cand.closest('text') : null);
+    if (t && contentG.contains(t)) { tEl = t; break; }
+    if (isGraphic(cand)) break; // 先碰到别的图形就停，避免穿透到底层
+  }
+  if (!tEl) {
+    const direct = e.target.closest ? e.target.closest('text') : null;
+    if (direct && contentG.contains(direct)) tEl = direct;
+  }
+  if (!tEl) return;
   startTextEdit(tEl);
 });
 function findBoxRectOf(textEl) {
@@ -1359,7 +1419,7 @@ const _renderLayersBase = renderLayers;
 renderLayers = function() {
   _renderLayersBase();
   const rows = [...$('svgo-layers').children];
-  const els = topLevelEls().reverse();
+  const els = graphicEls().reverse();
   rows.forEach((row, i) => {
     const el = els[i]; if (!el || !row.classList.contains('layer')) return;
     const nm = row.querySelector('.nm');
