@@ -118,6 +118,7 @@ const S = {
 };
 const $ = (id) => document.getElementById(id);
 const stage = $('svgo-stage'), contentG = $('svgo-content'), overlayG = $('svgo-overlay');
+const MEASURER = createTextMeasurer(bindCanvasMeasure(), { pad: 16 });
 
 function toast(msg, ms = 2600) {
   const t = $('svgo-toast'); t.textContent = msg; t.style.display = 'block';
@@ -363,6 +364,8 @@ function svgPoint(evt) {
 stage.addEventListener('pointerdown', e => {
   if (e.button !== 0 || !S.sourceRoot) return;
   const p = svgPoint(e);
+  const mode = hitHandle(p);
+  if (mode) { beginResize(mode, e); return; }
   const hitEl = hitTopLevel(e.target);
   if (hitEl) {
     if (!S.selection.has(hitEl)) e.shiftKey ? toggleSelection(hitEl) : setSelection([hitEl]);
@@ -401,6 +404,12 @@ stage.addEventListener('pointermove', e => {
   if (d.kind === 'marquee') {
     drawOverlay({ marquee: normRect(d.start, p) });
     d.marqueeRect = normRect(d.start, p);
+    return;
+  }
+
+  if (d.kind === 'resize') {
+    applyResize(d, p.x - d.start.x, p.y - d.start.y, e.shiftKey);
+    drawOverlay(); syncPropertyPanel();
     return;
   }
 
@@ -446,6 +455,11 @@ stage.addEventListener('pointermove', e => {
 stage.addEventListener('pointerup', e => {
   const d = S.drag; S.drag = null;
   if (!d) { drawOverlay(); return; }
+  if (d.kind === 'resize') {
+    if (d.active) commitResize(d);
+    drawOverlay(); syncPropertyPanel();
+    return;
+  }
   if (d.kind === 'marquee') {
     if (d.marqueeRect) {
       const hits = topLevelEls().filter(el => {
@@ -474,6 +488,8 @@ window.addEventListener('keydown', e => {
   if (mod && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? doRedo() : doUndo(); return; }
   if (mod && e.key.toLowerCase() === 'y') { e.preventDefault(); doRedo(); return; }
   if (mod && e.key.toLowerCase() === 's') { e.preventDefault(); saveFile(); return; }
+  if (mod && e.key.toLowerCase() === 'c') { if (S.selection.size) copySelection(); return; }
+  if (mod && e.key.toLowerCase() === 'v') { pasteClipboard(); return; }
   if (!S.sourceRoot) return;
 
   if (mod && e.key.toLowerCase() === 'a') {
@@ -613,6 +629,372 @@ window.EditorDebug = {
   selectFirst() { const el = topLevelEls().find(visibleUnlocked); if (el) setSelection([el]); },
 };
 window.addEventListener('DOMContentLoaded', () => EditorBoot.start());
+// ============================ 缩放手柄（任务 14） ============================
+const HANDLE_MODES = ['nw','n','ne','e','se','s','sw','w'];
+function handlePositions(b) {
+  return {
+    nw:[b.x,b.y], n:[b.x+b.w/2,b.y], ne:[b.x+b.w,b.y],
+    w:[b.x,b.y+b.h/2], e:[b.x+b.w,b.y+b.h/2],
+    sw:[b.x,b.y+b.h], s:[b.x+b.w/2,b.y+b.h], se:[b.x+b.w,b.y+b.h],
+  };
+}
+// drawOverlay 的单选分支升级：带 mode 数据的手柄
+const _drawOverlayBase = drawOverlay;
+drawOverlay = function(extra) {
+  _drawOverlayBase(extra);
+  if (S.selection.size === 1 && !S.drag) {
+    const b = selectionBoxes()[0];
+    const hs = 8 / S.zoom;
+    for (const mode of HANDLE_MODES) {
+      const [hx, hy] = handlePositions(b)[mode];
+      const h = ovEl('rect', { x:hx-hs/2, y:hy-hs/2, width:hs, height:hs, fill:'#fff', stroke:'#4f7cff' });
+      h.setAttribute('stroke-width', 1.2 / S.zoom);
+      h.setAttribute('pointer-events', 'all');
+      h.setAttribute('data-handle-mode', mode);
+      overlayG.appendChild(h);
+    }
+  }
+};
+
+function hitHandle(p) {
+  if (S.selection.size !== 1) return null;
+  const b = selectionBoxes()[0];
+  const tol = 7 / S.zoom;
+  for (const mode of HANDLE_MODES) {
+    const [hx, hy] = handlePositions(b)[mode];
+    if (Math.abs(p.x - hx) <= tol && Math.abs(p.y - hy) <= tol) return mode;
+  }
+  return null;
+}
+
+const RESIZABLE = { rect:1, circle:1, ellipse:1, text:1, image:1 };
+function geometrySnapshot(el) {
+  const out = {};
+  for (const a of ['x','y','width','height','r','rx','ry','cx','cy','font-size'])
+    out[a] = el.getAttribute(a);
+  return out;
+}
+function beginResize(mode, evt) {
+  const el = [...S.selection][0];
+  if (!RESIZABLE[el.tagName]) { toast('「' + el.tagName + '」暂不支持缩放（支持：rect / circle / ellipse / text / image）'); return; }
+  S.drag = {
+    kind:'resize', mode, active:true,
+    el, box: elBox(el), bb: el.getBBox(),
+    before: geometrySnapshot(el),
+    start: svgPoint(evt),
+  };
+  stage.setPointerCapture(evt.pointerId);
+}
+function applyResize(d, dxTotal, dyTotal, shiftKey) {
+  const { box, mode } = d;
+  let nw = box.w, nh = box.h;
+  if (mode.includes('e')) nw = box.w + dxTotal;
+  if (mode.includes('s')) nh = box.h + dyTotal;
+  if (mode.includes('w')) nw = box.w - dxTotal;
+  if (mode.includes('n')) nh = box.h - dyTotal;
+  nw = Math.max(4, nw); nh = Math.max(4, nh);
+  if (shiftKey && mode.length === 2) {
+    const s = Math.max(nw / box.w, nh / box.h);
+    nw = box.w * s; nh = box.h * s;
+  }
+  const nb = { x: box.x, y: box.y, w: nw, h: nh };
+  if (mode.includes('w')) nb.x = box.x + box.w - nw;
+  if (mode.includes('n')) nb.y = box.y + box.h - nh;
+  d.newBox = nb;
+
+  const el = d.el, tx = el.__tx || 0, ty = el.__ty || 0;
+  if (el.tagName === 'rect' || el.tagName === 'image') {
+    el.setAttribute('x', round1(nb.x - tx));
+    el.setAttribute('y', round1(nb.y - ty));
+    el.setAttribute('width', round1(nb.w));
+    el.setAttribute('height', round1(nb.h));
+    if (el.tagName === 'rect' && d.before.rx !== null)
+      el.setAttribute('rx', round1(Math.min((parseFloat(d.before.rx) || 0) * (nb.h / box.h), nb.h / 2)));
+  } else if (el.tagName === 'circle') {
+    const r = Math.min(nb.w, nb.h) / 2;
+    el.setAttribute('r', round1(r));
+    el.setAttribute('cx', round1(nb.x - tx + r));
+    el.setAttribute('cy', round1(nb.y - ty + r));
+  } else if (el.tagName === 'ellipse') {
+    el.setAttribute('rx', round1(nb.w / 2));
+    el.setAttribute('ry', round1(nb.h / 2));
+    el.setAttribute('cx', round1(nb.x - tx + nb.w / 2));
+    el.setAttribute('cy', round1(nb.y - ty + nb.h / 2));
+  } else if (el.tagName === 'text') {
+    const s = nb.h / box.h;
+    const fs = parseFloat(d.before['font-size']) || 16;
+    el.setAttribute('font-size', round1(fs * s));
+    el.setAttribute('x', round1(nb.x - tx));
+    const ascentGap = (parseFloat(d.before.y) || 0) - d.bb.y;
+    el.setAttribute('y', round1((nb.y - ty) + ascentGap * s));
+  }
+}
+function commitResize(d) {
+  const after = geometrySnapshot(d.el);
+  const changes = [];
+  for (const k of ['x','y','width','height','r','rx','ry','cx','cy','font-size'])
+    if (d.before[k] !== after[k])
+      changes.push({ el:d.el, attr:k, before:d.before[k], after:after[k] });
+  if (changes.length) pushCommand(makeAttrCommand('缩放', changes));
+}
+// ============================ 复合命令 ============================
+function makeComposite(label, cmds) {
+  return {
+    label,
+    undo() { for (let i = cmds.length - 1; i >= 0; i--) cmds[i].undo(); },
+    redo() { for (const c of cmds) c.redo(); },
+  };
+}
+function makeAddCommand(label, added) {
+  return {
+    label,
+    undo() { for (const a of added) a.el.remove(); },
+    redo() { for (const a of added) a.parent.insertBefore(a.el, a.next); },
+  };
+}
+
+// ============================ 双击改字 + 自动撑框（任务 15） ============================
+stage.addEventListener('dblclick', e => {
+  if (!S.sourceRoot) return;
+  let tEl = e.target.closest ? e.target.closest('text') : null;
+  if (!tEl || !contentG.contains(tEl)) return;
+  startTextEdit(tEl);
+});
+function findBoxRectOf(textEl) {
+  const p = textEl.parentElement;
+  if (p && p !== contentG) {
+    const r = p.querySelector('rect');
+    if (r) return r;
+  }
+  return null;
+}
+function startTextEdit(textEl) {
+  const inp = $('svgo-textedit');
+  const oldText = textEl.textContent;
+  const fs = parseFloat(textEl.getAttribute('font-size')) || 16;
+  const tr = textEl.getBoundingClientRect(), cr = $('svgo-center').getBoundingClientRect();
+  inp.style.display = 'block';
+  inp.style.left = (tr.left - cr.left - 4) + 'px';
+  inp.style.top = (tr.top - cr.top - 2) + 'px';
+  inp.style.width = Math.max(80, tr.width * S.zoom + 24) + 'px';
+  inp.style.fontSize = Math.max(11, fs * S.zoom) + 'px';
+  inp.value = oldText;
+  inp.focus(); inp.select();
+
+  function commit() {
+    inp.style.display = 'none';
+    const newText = inp.value;
+    if (newText === oldText) return;
+    const cmds = [];
+    cmds.push({
+      undo() { textEl.textContent = oldText; },
+      redo() { textEl.textContent = newText; },
+    });
+    const boxRect = findBoxRectOf(textEl);
+    if (boxRect) {
+      const oldW = parseFloat(boxRect.getAttribute('width'));
+      const oldTextW = MEASURER.width(oldText, fs);
+      const pad = Math.min(24, Math.max(8, (oldW - oldTextW) / 2));
+      const newW = round1(MEASURER.fitWidth(newText, { fontSize: fs }) - 32 + pad * 2);
+      const oldX = parseFloat(boxRect.getAttribute('x'));
+      const anchor = textEl.getAttribute('text-anchor');
+      const newX = round1(anchor === 'middle' ? oldX + oldW / 2 - newW / 2 : oldX);
+      const bw = boxRect.getAttribute('width'), bx = boxRect.getAttribute('x');
+      cmds.push({
+        undo() { boxRect.setAttribute('width', bw); boxRect.setAttribute('x', bx); },
+        redo() { boxRect.setAttribute('width', String(newW)); boxRect.setAttribute('x', String(newX)); },
+      });
+    }
+    // 先应用再入栈，保证 redo 幂等
+    for (const c of cmds) c.redo();
+    pushCommand(makeComposite('改文字', cmds));
+    renderLayers(); drawOverlay();
+  }
+  inp.onkeydown = ev => {
+    if (ev.key === 'Enter') commit();
+    if (ev.key === 'Escape') { inp.value = oldText; commit._cancel = true; inp.blur(); }
+  };
+  inp.onblur = () => { if (inp.style.display !== 'none') commit(); };
+}
+
+// ============================ 图层增强：重命名 / 上移下移（任务 16） ============================
+function reorderLayer(el, dir) {
+  const refBefore = el.nextSibling;
+  const moved = dir > 0
+    ? (refBefore ? (contentG.insertBefore(el, refBefore.nextSibling), true) : false)
+    : (el.previousSibling ? (contentG.insertBefore(el, el.previousSibling), true) : false);
+  if (!moved) return;
+  const refAfter = el.nextSibling;
+  pushCommand({
+    label: '排序',
+    undo() { contentG.insertBefore(el, refBefore); },
+    redo() { contentG.insertBefore(el, refAfter); },
+  });
+  renderLayers();
+}
+// 在 renderLayers 的行内追加重命名与排序（包装原函数）
+const _renderLayersBase = renderLayers;
+renderLayers = function() {
+  _renderLayersBase();
+  const rows = [...$('svgo-layers').children];
+  const els = topLevelEls().reverse();
+  rows.forEach((row, i) => {
+    const el = els[i]; if (!el || !row.classList.contains('layer')) return;
+    const nm = row.querySelector('.nm');
+    nm.addEventListener('dblclick', ev => {
+      ev.stopPropagation();
+      const name = prompt('图层名称：', el.getAttribute('data-name') || layerName(el));
+      if (name === null) return;
+      const before = el.getAttribute('data-name');
+      el.setAttribute('data-name', name);
+      pushCommand(makeAttrCommand('重命名', [{ el, attr:'data-name', before, after:name }]));
+      renderLayers();
+    });
+    const tools = document.createElement('span');
+    tools.innerHTML = '<b class="ly" title="上移一层">▲</b><b class="ly" title="下移一层">▼</b>';
+    tools.querySelector('.ly').addEventListener('click', ev => { ev.stopPropagation(); reorderLayer(el, +1); });
+    tools.querySelectorAll('.ly')[1].addEventListener('click', ev => { ev.stopPropagation(); reorderLayer(el, -1); });
+    row.appendChild(tools);
+  });
+};
+
+// ============================ 右键菜单（任务 16） ============================
+let CLIPBOARD = [];
+const menu = document.createElement('div');
+menu.id = 'svgo-menu';
+menu.style.cssText = 'position:fixed;display:none;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px #0002;padding:4px;z-index:60;min-width:150px';
+document.body.appendChild(menu);
+function menuItem(label, fn) {
+  const it = document.createElement('div');
+  it.textContent = label;
+  it.style.cssText = 'padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px';
+  it.addEventListener('mouseenter', () => it.style.background = '#f0f4fb');
+  it.addEventListener('mouseleave', () => it.style.background = '');
+  it.addEventListener('click', () => { hideMenu(); fn(); });
+  return it;
+}
+function hideMenu() { menu.style.display = 'none'; }
+window.addEventListener('pointerdown', e => { if (!menu.contains(e.target)) hideMenu(); });
+
+stage.addEventListener('contextmenu', e => {
+  if (!S.sourceRoot) return;
+  e.preventDefault();
+  const hitEl = hitTopLevel(e.target);
+  if (hitEl && !S.selection.has(hitEl)) setSelection([hitEl]);
+  menu.textContent = '';
+  if (S.selection.size) {
+    menu.appendChild(menuItem('复制　Ctrl+C', copySelection));
+    menu.appendChild(menuItem('删除　Del', deleteSelection));
+    menu.appendChild(menuItem('置于顶层', () => orderSelection('top')));
+    menu.appendChild(menuItem('置于底层', () => orderSelection('bottom')));
+  }
+  if (CLIPBOARD.length) menu.appendChild(menuItem('粘贴　Ctrl+V', pasteClipboard));
+  if (!menu.children.length) return;
+  menu.style.left = Math.min(e.clientX, innerWidth - 170) + 'px';
+  menu.style.top = Math.min(e.clientY, innerHeight - 200) + 'px';
+  menu.style.display = 'block';
+});
+
+function copySelection() { CLIPBOARD = [...S.selection].map(el => el.cloneNode(true)); toast('已复制 ' + CLIPBOARD.length + ' 个元素'); }
+function deleteSelection() {
+  if (!S.selection.size) return;
+  const removed = [...S.selection].map(el => ({ parent:contentG, el, next:el.nextSibling }));
+  for (const r of removed) r.el.remove();
+  S.selection.clear();
+  pushCommand(makeNodeCommand('删除', removed));
+  syncPropertyPanel(); renderLayers(); drawOverlay();
+}
+function pasteClipboard() {
+  if (!CLIPBOARD.length || !S.sourceRoot) return;
+  const added = [];
+  const newSel = [];
+  for (const proto of CLIPBOARD) {
+    const el = proto.cloneNode(true);
+    el.__uid = 'el' + (++UID);
+    el.__baseTransform = el.getAttribute('transform') || '';
+    el.__tx = 10; el.__ty = 10; applyOffset(el);
+    added.push({ parent:contentG, el, next:null });
+    newSel.push(el);
+  }
+  for (const a of added) a.parent.appendChild(a.el);
+  pushCommand(makeAddCommand('粘贴', added));
+  setSelection(newSel);
+}
+function orderSelection(where) {
+  const cmds = [];
+  for (const el of [...S.selection]) {
+    const refBefore = el.nextSibling;
+    let redoFn;
+    if (where === 'top') { const refAfter = null; contentG.appendChild(el); redoFn = () => contentG.appendChild(el); }
+    else { contentG.insertBefore(el, contentG.firstChild); redoFn = () => contentG.insertBefore(el, contentG.firstChild); }
+    cmds.push({ undo() { contentG.insertBefore(el, refBefore); }, redo: redoFn });
+  }
+  pushCommand(makeComposite('调整层级', cmds));
+  renderLayers();
+}
+
+// ============================ 对齐分布工具栏（任务 17） ============================
+const alignBar = document.createElement('div');
+alignBar.id = 'svgo-alignbar';
+alignBar.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);bottom:44px;display:none;gap:6px;' +
+  'background:#ffffffee;border:1px solid var(--line);border-radius:8px;padding:4px 6px;z-index:10';
+$('svgo-center').appendChild(alignBar);
+const ALIGN_DEFS = [['⇤','left'],['⇔','cx'],['⇥','right'],['⇡','top'],['⇕','cy'],['⇣','bottom'],['⋮⋮','disth'],['⋯','distv']];
+for (const [label, kind] of ALIGN_DEFS) {
+  const b = document.createElement('button');
+  b.className = 'tbtn'; b.textContent = label;
+  b.title = { left:'左对齐', cx:'水平居中', right:'右对齐', top:'顶对齐', cy:'垂直居中', bottom:'底对齐',
+              disth:'水平等距分布(≥3)', distv:'垂直等距分布(≥3)' }[kind];
+  b.addEventListener('click', () => alignSelection(kind));
+  alignBar.appendChild(b);
+}
+const _syncPanelBase = syncPropertyPanel;
+syncPropertyPanel = function() {
+  _syncPanelBase();
+  alignBar.style.display = (S.sourceRoot && S.selection.size >= 2) ? 'flex' : 'none';
+};
+function alignSelection(kind) {
+  const els = [...S.selection].filter(visibleUnlocked);
+  const horizDist = kind === 'disth', vertDist = kind === 'distv';
+  if ((horizDist || vertDist) && els.length < 3) { toast('等距分布需要 ≥ 3 个元素'); return; }
+  const boxes = els.map(el => ({ el, b: elBox(el) }));
+  const ub = mergeBoxes(boxes.map(x => x.b));
+  let moves = [];
+  if (horizDist || vertDist) {
+    boxes.sort((a, b) => horizDist ? a.b.x - b.b.x : a.b.y - b.b.y);
+    const span = horizDist ? ub.w : ub.h;
+    const sizes = boxes.reduce((s, x) => s + (horizDist ? x.b.w : x.b.h), 0);
+    const gap = (span - sizes) / (boxes.length - 1);
+    let cur = horizDist ? ub.x : ub.y;
+    moves = boxes.map(x => {
+      const m = horizDist ? cur - x.b.x : cur - x.b.y;
+      cur += (horizDist ? x.b.w : x.b.h) + gap;
+      return { el:x.el, dx: horizDist ? m : 0, dy: horizDist ? 0 : m };
+    });
+  } else {
+    moves = boxes.map(({ el, b }) => {
+      let dx = 0, dy = 0;
+      if (kind === 'left') dx = ub.x - b.x;
+      if (kind === 'right') dx = ub.x + ub.w - (b.x + b.w);
+      if (kind === 'cx') dx = ub.x + ub.w / 2 - (b.x + b.w / 2);
+      if (kind === 'top') dy = ub.y - b.y;
+      if (kind === 'bottom') dy = ub.y + ub.h - (b.y + b.h);
+      if (kind === 'cy') dy = ub.y + ub.h / 2 - (b.y + b.h / 2);
+      return { el, dx, dy };
+    });
+  }
+  const changes = [];
+  for (const m of moves) {
+    if (!m.dx && !m.dy) continue;
+    const before = m.el.getAttribute('transform');
+    m.el.__tx = (m.el.__tx || 0) + m.dx; m.el.__ty = (m.el.__ty || 0) + m.dy;
+    applyOffset(m.el);
+    changes.push({ el:m.el, attr:'transform', before, after:m.el.getAttribute('transform') });
+  }
+  if (changes.length) pushCommand(makeAttrCommand('对齐分布', changes));
+  drawOverlay(); syncPropertyPanel();
+};
+
 </script>
 </body>
 </html>
