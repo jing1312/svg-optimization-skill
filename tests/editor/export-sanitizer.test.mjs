@@ -22,3 +22,14 @@ test('keeps existing xmlns and other attrs intact', () => {
   assert.ok(out.includes('width="2.2"'));
   assert.ok(out.includes('fill="#ff0000"'));
 });
+
+test('strips editor artifacts (data-svgo-*, data-name, mover class)', () => {
+  const src = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 4">' +
+    '<g class="svgo-mover" data-svgo-locked="1"><rect width="2" height="2"/></g>' +
+    '<g data-name="标题组"><circle r="1"/></g></svg>';
+  const out = sanitizeSvg(src);
+  assert.ok(!out.includes('svgo-mover'), 'mover class stripped');
+  assert.ok(!out.includes('data-svgo'), 'data-svgo stripped');
+  assert.ok(!out.includes('data-name'), 'data-name stripped');
+  assert.ok(out.includes('<rect') && out.includes('<circle'), 'content kept');
+});

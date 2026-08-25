@@ -138,7 +138,22 @@ function round1(n) { return Math.round(n * 10) / 10; }
 const NON_GRAPHIC = new Set(['defs','title','desc','metadata','style','script',
   'symbol','clipPath','mask','filter','marker','pattern','view','linearGradient','radialGradient','pattern']);
 function isGraphic(el) { return !!(el && el.tagName && !NON_GRAPHIC.has(el.tagName)); }
-function graphicEls() { return topLevelEls().filter(isGraphic); }
+const VISIBLE_SELECTOR = 'rect,circle,ellipse,line,polyline,polygon,path,text,image,use';
+function isRenderable(el) {
+  if (!el.querySelector) return false;
+  for (const n of el.querySelectorAll(VISIBLE_SELECTOR)) {
+    let p = n, buried = false;
+    while (p && p !== el) {
+      if (NON_GRAPHIC.has(p.tagName)) { buried = true; break; }
+      p = p.parentElement;
+    }
+    if (!buried) return true;
+  }
+  return false;
+}
+function graphicEls() {
+  return topLevelEls().filter(el => isGraphic(el) && isRenderable(el));
+}
 function topLevelEls() { return [...contentG.children]; }
 function elBox(el) {
   if (typeof el.getBBox !== 'function') return { id: el.__uid, x: 0, y: 0, w: 0, h: 0 };
@@ -155,8 +170,10 @@ function applyOffset(el) {
   else el.removeAttribute('transform');
 }
 function signatureOf(el) {
-  const kids = [...el.children].map(c => c.tagName).join('+');
-  return el.tagName + (kids ? '>' + kids : '');
+  const n = el.firstElementChild;
+  if (!n) return el.tagName;
+  const kids = [...n.children].map(c => c.tagName).join('+');
+  return n.tagName + (kids ? '>' + kids : '');
 }
 function visibleUnlocked(el) {
   return el.getAttribute('data-svgo-hidden') !== '1' && el.getAttribute('data-svgo-locked') !== '1';
@@ -168,6 +185,13 @@ function normRect(p1, p2) {
   return { x: Math.min(p1.x, p2.x), y: Math.min(p1.y, p2.y), w: Math.abs(p1.x - p2.x), h: Math.abs(p1.y - p2.y) };
 }
 let UID = 0;
+function wrapAsMover(node) {
+  const m = document.createElementNS(SVGNS, 'g');
+  m.setAttribute('class', 'svgo-mover');
+  m.appendChild(node);
+  return m;
+}
+function innerOf(mover) { return mover.firstElementChild; }
 function prepareLoaded() {
   for (const el of topLevelEls()) {
     el.__uid = 'el' + (++UID);
@@ -202,7 +226,7 @@ function renderAll() {
   overlayG.textContent = '';
   if (!S.sourceRoot) return;
   for (const child of [...S.sourceRoot.children])
-    contentG.appendChild(document.importNode(child, true));
+    contentG.appendChild(wrapAsMover(document.importNode(child, true)));
   const vb = (S.sourceRoot.getAttribute('viewBox') || '').trim().split(/[\s,]+/).map(Number);
   let x = 0, y = 0, w = 800, h = 400;
   if (vb.length === 4 && vb.every(Number.isFinite)) [x, y, w, h] = vb;
@@ -223,8 +247,16 @@ function fitToView() {
 function serializeCurrent() {
   if (!S.sourceRoot) return '';
   const attrs = [...S.sourceRoot.attributes].map(a => a.name + '="' + a.value + '"').join(' ');
-  const inner = topLevelEls().map(el => new XMLSerializer().serializeToString(el)).join('\n');
-  return sanitizeSvg('<svg ' + attrs + '>\n' + inner + '\n</svg>');
+  const parts = [];
+  for (const el of topLevelEls()) {
+    if (el.getAttribute('class') === 'svgo-mover') {
+      for (const c of [...el.childNodes])
+        parts.push(new XMLSerializer().serializeToString(c));
+    } else {
+      parts.push(new XMLSerializer().serializeToString(el));
+    }
+  }
+  return sanitizeSvg('<svg ' + attrs + '>\n' + parts.join('\n') + '\n</svg>');
 }
 async function saveFile() {
   if (!S.sourceRoot) return;
@@ -293,10 +325,17 @@ function pushCommand(cmd) {
   try { localStorage.setItem('svgEditorDraft:' + (S.fileName || ''), serializeCurrent()); } catch (e) {}
 }
 function makeAttrCommand(label, changes) {
+  const sync = (el, attr) => {
+    if (attr === 'transform' && el.classList && el.classList.contains('svgo-mover')) {
+      const m = /translate\(\s*(-?[\d.]+)[ ,]+(-?[\d.]+)\s*\)/.exec(el.getAttribute('transform') || '');
+      el.__tx = m ? parseFloat(m[1]) : 0;
+      el.__ty = m ? parseFloat(m[2]) : 0;
+    }
+  };
   return {
     label,
-    undo() { for (const c of changes) c.before === null ? c.el.removeAttribute(c.attr) : c.el.setAttribute(c.attr, c.before); },
-    redo() { for (const c of changes) c.el.setAttribute(c.attr, c.after); },
+    undo() { for (const c of changes) { c.before === null ? c.el.removeAttribute(c.attr) : c.el.setAttribute(c.attr, c.before); sync(c.el, c.attr); } },
+    redo() { for (const c of changes) { c.el.setAttribute(c.attr, c.after); sync(c.el, c.attr); } },
   };
 }
 function makeNodeCommand(label, removed) {
@@ -314,11 +353,13 @@ function updateHistoryButtons() {
 function doUndo() {
   const cmd = S.history.pop(); if (!cmd) return;
   cmd.undo(); S.future.push(cmd);
+  S.selection = new Set([...S.selection].filter(el => el.isConnected));
   updateHistoryButtons(); renderLayers(); drawOverlay(); syncPropertyPanel();
 }
 function doRedo() {
   const cmd = S.future.pop(); if (!cmd) return;
   cmd.redo(); S.history.push(cmd);
+  S.selection = new Set([...S.selection].filter(el => el.isConnected));
   updateHistoryButtons(); renderLayers(); drawOverlay(); syncPropertyPanel();
 }
 
@@ -895,16 +936,15 @@ function buildComponent(kind) {
 }
 function insertComponent(kind) {
   if (!S.sourceRoot) { toast('请先打开一个 SVG 文件'); return; }
-  const el = buildComponent(kind);
+  const inner = buildComponent(kind);
+  const el = wrapAsMover(inner);
   el.__uid = 'el' + (++UID);
   el.__baseTransform = ''; el.__tx = 0; el.__ty = 0;
   const c = stage.__canvas;
-  const bb = el.getBBox ? null : null;
   contentG.appendChild(el);
-  // 居中放置：渲染后量一次
   const b = elBox(el);
-  el.__tx = c.x + c.w/2 - (b.x - el.__tx) - b.w/2;
-  el.__ty = c.y + c.h/2 - (b.y - el.__ty) - b.h/2;
+  el.__tx = c.x + c.w / 2 - b.x - b.w / 2;
+  el.__ty = c.y + c.h / 2 - b.y - b.h / 2;
   applyOffset(el);
   pushCommand(makeAddCommand('插入组件', [{ parent:contentG, el, next:null }]));
   setSelection([el]);
@@ -935,12 +975,12 @@ function insertMyComponent(idx) {
   const added = [], newSel = [];
   for (const child of [...doc.documentElement.children]) {
     if (child.nodeType !== 1) continue;
-    const changes = collectThemeChanges(child, tokens, Infinity); // 自定义组件全量跟随主题
+    const changes = collectThemeChanges(child, tokens); // 自定义组件全量跟随主题
     for (const c of changes) c.el.setAttribute(c.attr, c.after);
-    const el = document.importNode(child, true);
+    const inner = document.importNode(child, true);
+    const el = wrapAsMover(inner);
     el.__uid = 'el' + (++UID);
-    el.__baseTransform = el.getAttribute('transform') || '';
-    el.__tx = 12; el.__ty = 12;
+    el.__baseTransform = ''; el.__tx = 12; el.__ty = 12;
     contentG.appendChild(el); applyOffset(el);
     added.push({ parent:contentG, el, next:null });
     newSel.push(el);
@@ -1093,11 +1133,14 @@ function geometrySnapshot(el) {
   return out;
 }
 function beginResize(mode, evt) {
-  const el = [...S.selection][0];
-  if (!RESIZABLE[el.tagName]) { toast('「' + el.tagName + '」暂不支持缩放（支持：rect / circle / ellipse / text / image）'); return; }
+  const mover = [...S.selection][0];
+  const el = innerOf(mover);
+  const tag = el ? el.tagName : mover.tagName;
+  if (!RESIZABLE[tag]) { toast('「' + tag + '」暂不支持缩放（支持：rect / circle / ellipse / text / image）'); return; }
+  if (el.getAttribute('transform')) { toast('该元素自带 transform，暂不支持缩放，请先手动归一化'); return; }
   S.drag = {
     kind:'resize', mode, active:true,
-    el, box: elBox(el), bb: el.getBBox(),
+    mover, el, box: elBox(mover), bb: el.getBBox(),
     before: geometrySnapshot(el),
     start: svgPoint(evt),
   };
@@ -1120,7 +1163,8 @@ function applyResize(d, dxTotal, dyTotal, shiftKey) {
   if (mode.includes('n')) nb.y = box.y + box.h - nh;
   d.newBox = nb;
 
-  const el = d.el, tx = el.__tx || 0, ty = el.__ty || 0;
+  const tx = d.mover.__tx || 0, ty = d.mover.__ty || 0;
+  const el = d.el;
   if (el.tagName === 'rect' || el.tagName === 'image') {
     el.setAttribute('x', round1(nb.x - tx));
     el.setAttribute('y', round1(nb.y - ty));
