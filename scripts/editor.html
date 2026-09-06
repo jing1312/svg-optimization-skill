@@ -83,7 +83,7 @@
       <div class="big">把 .svg 文件拖进来</div>
       <div>或点左上角「打开」 · 全程本地处理，不会上传</div>
     </div>
-    <div id="svgo-status"><span id="svgo-status-zoom">缩放 100%</span><span id="svgo-status-snap">未打开文件</span></div>
+    <div id="svgo-status"><span id="svgo-status-zoom">缩放 100%</span><span id="svgo-status-snap">未打开文件</span><span id="svgo-status-oob"></span></div>
     <input id="svgo-textedit" type="text">
   </div>
 
@@ -578,10 +578,18 @@ function drawOverlay(extra) {
     m.setAttribute('stroke-dasharray', '4 3');
     overlayG.appendChild(m);
   }
-  for (const el of graphicEls()) {
-    if (!visibleUnlocked(el)) continue;
+  // 越界：平时只在状态栏计数；拖动中的选中元素才画红框
+  const oobEls = graphicEls().filter(el => {
+    if (!visibleUnlocked(el)) return false;
     const b = elBox(el);
-    if (b.x < c.x - .5 || b.y < c.y - .5 || b.x + b.w > c.x + c.w + .5 || b.y + b.h > c.y + c.h + .5) {
+    return b.x < c.x - .5 || b.y < c.y - .5 || b.x + b.w > c.x + c.w + .5 || b.y + b.h > c.y + c.h + .5;
+  });
+  const oobSpan = $('svgo-status-oob');
+  if (oobSpan) oobSpan.textContent = oobEls.length ? ('⚠ 越界 ' + oobEls.length + ' 个元素') : '';
+  if (S.drag && S.drag.active && S.drag.kind === 'drag') {
+    for (const el of oobEls) {
+      if (!S.selection.has(el)) continue;
+      const b = elBox(el);
       overlayG.appendChild(ovEl('rect', { x:b.x - 1, y:b.y - 1, width:b.w + 2, height:b.h + 2,
         fill:'none', stroke:'#e5484d', 'stroke-width':2 / S.zoom }));
     }
@@ -977,33 +985,46 @@ function colorDist(a, b) {
   const A = hexToRgb(a), B = hexToRgb(b);
   return Math.abs(A[0]-B[0]) + Math.abs(A[1]-B[1]) * 1.2 + Math.abs(A[2]-B[2]);
 }
+function lum(hex) { const [r, g, b] = hexToRgb(hex); return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255; }
+function sat(hex) { const [r, g, b] = hexToRgb(hex); const mx = Math.max(r, g, b), mn = Math.min(r, g, b); return mx === 0 ? 0 : (mx - mn) / mx; }
 const COLOR_ATTRS = ['fill','stroke','stop-color'];
 function themeTokensOf(id) {
   const t = THEMES.find(t => t.id === id) || THEMES[0];
   return t.tokens;
 }
-// 把 el 子树内「接近某 token 色」的颜色改写为目标主题对应值；远离所有 token 的颜色视为用户自定义，不动
+// 整族重绘：彩色 → 主题三档彩色(primary/primaryDark/accent)，中性 → 五档中性(bg/surface/muted/body/title)，
+// 各自按明度分位映射，保留原图层次；url(#grad) 与非 hex 值不动
 function collectThemeChanges(rootEl, targetTokens) {
   const changes = [];
+  const entries = [];
   const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_ELEMENT);
   let node = walker.currentNode;
   while (node) {
-    if (node.nodeType === 1 && !NON_GRAPHIC.has(node.tagName)) {
+    if (node.nodeType === 1) {
       for (const attr of COLOR_ATTRS) {
         const v = node.getAttribute(attr);
-        if (!v || !/^#[0-9a-fA-F]{6}$/.test(v)) continue;
-        let bestK = null, bestD = Infinity;
-        for (const k of TOKEN_KEYS) {
-          const d = colorDist(v.toLowerCase(), String(targetTokens[k]).toLowerCase());
-          if (d < bestD) { bestD = d; bestK = k; }
-        }
-        // 就近全量映射：任意配色都能落到新主题（url(#id) 引用与非 hex 值不动）
-        if (bestK && String(targetTokens[bestK]).toLowerCase() !== v.toLowerCase())
-          changes.push({ el:node, attr, before:v, after:String(targetTokens[bestK]) });
+        if (v && /^#[0-9a-fA-F]{6}$/.test(v)) entries.push({ el: node, attr, val: v.toLowerCase() });
       }
     }
     node = walker.nextNode();
   }
+  const chromaKeys = ['primary', 'primaryDark', 'accent'];
+  const neutraKeys = ['bg', 'surface', 'muted', 'body', 'title'];
+  const byLum = (keys) => keys.map(k => ({ k, v: String(targetTokens[k]).toLowerCase() }))
+    .sort((a, b) => lum(a.v) - lum(b.v));
+  const chromaT = byLum(chromaKeys), neutraT = byLum(neutraKeys);
+  const assign = (list, targets) => {
+    if (!list.length || !targets.length) return;
+    const sorted = [...list].sort((a, b) => lum(a.val) - lum(b.val));
+    sorted.forEach((e, i) => {
+      const idx = sorted.length === 1 ? Math.floor(targets.length / 2)
+        : Math.round(i * (targets.length - 1) / (sorted.length - 1));
+      const t = targets[idx];
+      if (e.val !== t.v) changes.push({ el: e.el, attr: e.attr, before: e.val, after: t.v });
+    });
+  };
+  assign(entries.filter(e => sat(e.val) >= 0.18), chromaT);
+  assign(entries.filter(e => sat(e.val) < 0.18), neutraT);
   return changes;
 }
 let pendingPreview = null; // [{el,attr,before}]
