@@ -1,5 +1,7 @@
 # Third-Party Notices
 
+## Example assets
+
 The example SVGs embed vector path data from Lucide Icons:
 
 - `book-open-check`
@@ -14,6 +16,9 @@ ISC License
 
 Copyright (c) 2026 Lucide Icons and Contributors
 
+Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of
+Feather (MIT).
+
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
 copyright notice and this permission notice appear in all copies.
@@ -25,3 +30,15 @@ SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
 RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
 USE OR PERFORMANCE OF THIS SOFTWARE.
+
+## Logo
+
+The current logo is an **original single mark** designed for this skill and
+bundles no third-party asset.
+
+The retired predecessor logo (a multi-icon assembly of an open book, node ring
+and shield, frozen in the deep-sea baseline) adapted the
+[Lucide](https://lucide.dev) icon `book-open-check`. Its license is reproduced
+above for that historical reference only.
+
+No other third-party assets, fonts or runtime dependencies are bundled.

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 300" width="1100" height="300" role="img" aria-labelledby="gbT gbD">
+  <title id="gbT">山月香氛 · 仲夏夜之梦：暮色天光下的月光山谷</title>
+  <desc id="gbD">示例：流光体系的暮色气候 —— 天光渐变、远中近三层山谷、月亮主光晕与雾带，文案居于左侧安静区。</desc>
+  <defs>
+    <linearGradient id="gbDusk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#252b55"/>
+      <stop offset="0.3" stop-color="#37407c"/>
+      <stop offset="0.55" stop-color="#6a5e9e"/>
+      <stop offset="0.78" stop-color="#c98ba0"/>
+      <stop offset="1" stop-color="#f4c39a"/>
+    </linearGradient>
+    <radialGradient id="gbMoonBloom" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff6e8" stop-opacity="0.55"/>
+      <stop offset="0.4" stop-color="#ffe9d2" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffe9d2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gbMoonDisc" cx="0.4" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#fffdf4"/>
+      <stop offset="0.75" stop-color="#fbeed4"/>
+      <stop offset="1" stop-color="#f3ddb8"/>
+    </radialGradient>
+    <radialGradient id="gbCornerDeep" cx="0.3" cy="0.2" r="0.85">
+      <stop offset="0" stop-color="#1d2246" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#1d2246" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#1d2246" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gbSparkGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff6e8" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#fff6e8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="gbMist" x="-30%" y="-260%" width="160%" height="620%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+
+  <!-- 暮色天光 + 左角压深（文字的安静区） -->
+  <rect width="1100" height="300" fill="url(#gbDusk)"/>
+  <rect width="1100" height="300" fill="url(#gbCornerDeep)"/>
+
+  <!-- motif：月亮是这支香的序章 -->
+  <g data-motif="moonrise" data-motif-message="月光是这支香的序章，山谷是它的产地记忆">
+    <circle cx="880" cy="86" r="44" fill="url(#gbMoonDisc)"/>
+    <circle cx="880" cy="86" r="44" fill="none" stroke="#fff6e8" stroke-opacity="0.5" stroke-width="1"/>
+    <g fill="#fff6e8">
+      <circle cx="700" cy="54" r="16" fill="url(#gbSparkGlow)"/>
+      <path d="M700 45 C 701.5 52.5 701.5 52.5 709 54 C 701.5 55.5 701.5 55.5 700 63 C 698.5 55.5 698.5 55.5 691 54 C 698.5 52.5 698.5 52.5 700 45 Z"/>
+      <circle cx="1032" cy="150" r="12" fill="url(#gbSparkGlow)"/>
+      <path d="M1032 143.5 C 1033 149 1033 149 1038.5 150 C 1033 151 1033 151 1032 156.5 C 1031 151 1031 151 1025.5 150 C 1031 149 1031 149 1032 143.5 Z" fill-opacity="0.9"/>
+      <circle cx="784" cy="158" r="9" fill="url(#gbSparkGlow)"/>
+      <path d="M784 153 C 784.8 157.2 784.8 157.2 789 158 C 784.8 158.8 784.8 158.8 784 163 C 783.2 158.8 783.2 158.8 779 158 C 783.2 157.2 783.2 157.2 784 153 Z" fill-opacity="0.85"/>
+    </g>
+  </g>
+
+  <!-- motif：前中后调化作三段星轨，汇入月亮 -->
+  <g data-motif="scent-notes" data-motif-message="前中后调化作三段星轨，汇入月亮">
+    <g fill="none" stroke="#fdf3e3" stroke-linecap="round">
+      <path d="M 520 150 Q 700 92 856 70" stroke-width="2.2" stroke-opacity="0.4" stroke-dasharray="0.1 9"/>
+      <path d="M 560 192 Q 736 142 872 106" stroke-width="2" stroke-opacity="0.32" stroke-dasharray="0.1 10"/>
+      <path d="M 600 226 Q 764 186 884 148" stroke-width="1.8" stroke-opacity="0.26" stroke-dasharray="0.1 11"/>
+    </g>
+  </g>
+
+  <!-- 山谷三层 + 雾带（远虚近实） -->
+  <path d="M0 232 C 180 190 320 208 480 196 C 640 184 760 210 920 196 C 1020 188 1080 200 1100 194 L 1100 300 L 0 300 Z" fill="#5d5a99" fill-opacity="0.7"/>
+  <path d="M0 258 C 160 224 340 244 520 230 C 700 216 820 244 1100 226 L 1100 300 L 0 300 Z" fill="#413f77" fill-opacity="0.85"/>
+  <ellipse cx="550" cy="262" rx="520" ry="24" fill="#f6e3d2" fill-opacity="0.18" filter="url(#gbMist)"/>
+  <ellipse cx="280" cy="218" rx="240" ry="16" fill="#f6e3d2" fill-opacity="0.12" filter="url(#gbMist)"/>
+  <path d="M0 284 C 220 260 420 278 640 266 C 840 256 980 276 1100 268 L 1100 300 L 0 300 Z" fill="#34346a" fill-opacity="0.92"/>
+
+
+  <!-- 漂浮微尘：暮色空气里的光点 -->
+  <g fill="#fff2d9">
+    <circle cx="300" cy="92" r="2" fill-opacity="0.4"/>
+    <circle cx="438" cy="132" r="2.4" fill-opacity="0.35"/>
+    <circle cx="540" cy="66" r="1.8" fill-opacity="0.45"/>
+    <circle cx="664" cy="132" r="2.6" fill-opacity="0.38"/>
+    <circle cx="760" cy="210" r="2.2" fill-opacity="0.32"/>
+  </g>
+  <g fill="#f5cf9f">
+    <circle cx="560" cy="238" r="2.2" fill-opacity="0.5"/>
+    <circle cx="676" cy="226" r="2.6" fill-opacity="0.42"/>
+  </g>
+
+  <!-- 山脊上一枚流萤 -->
+  <circle cx="430" cy="258" r="8" fill="url(#gbSparkGlow)"/>
+  <path d="M430 253 C 430.8 257.2 430.8 257.2 435 258 C 430.8 258.8 430.8 258.8 430 263 C 429.2 258.8 429.2 258.8 425 258 C 429.2 257.2 429.2 257.2 430 253 Z" fill="#f5cf9f" fill-opacity="0.95"/>
+  <!-- 安静区：排印 -->
+  <text x="64" y="72" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" font-weight="600" fill="#f5cf9f" letter-spacing="5">SANYUE PARFUM · MIDNIGHT EDITION</text>
+  <text x="64" y="132" data-role="banner-title" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="40" font-weight="700" fill="#fdf3e3" letter-spacing="3">山月香氛 · 仲夏夜之梦</text>
+  <text x="64" y="170" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="16" fill="#f4ead9">月光、山谷与晚风，封进一支香</text>
+
+  <g data-role="cta">
+    <text x="64" y="240" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="17" font-weight="600" fill="#fdf6ec">预约品鉴</text>
+    <line x1="152" y1="234" x2="212" y2="234" stroke="#f5cf9f" stroke-width="1.2"/>
+    <path d="M206 229 l 8 5 l -8 5" fill="none" stroke="#f5cf9f" stroke-width="1.2"/>
+  </g>
+
+  <text x="1036" y="278" text-anchor="end" font-family="Georgia, Times New Roman, serif" font-size="13" font-style="italic" fill="#e8d9c6">EAU DE PARFUM · 50 ML</text>
+</svg>

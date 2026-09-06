@@ -1,10 +1,15 @@
 {
   "name": "svg-optimization-skill",
-  "version": "0.2.0",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
+  "description": "Cross-agent SVG design skill: semantic motifs, layered effect budget, machine geometry/reference/contrast gates, a visual editor and a render-verified loop. Zero runtime dependencies.",
   "scripts": {
     "test": "node --test tests/*.test.mjs tests/editor/*.test.mjs",
-    "check": "npm test && node evals/grade.mjs --check-logo assets/examples/banner-example.svg && node evals/grade.mjs --check-logo assets/examples/popup-mockup-example.svg"
+    "check": "npm test && node evals/grade.mjs --check-logo assets/examples/banner-example.svg && node evals/grade.mjs --check-logo assets/examples/popup-mockup-example.svg",
+    "render": "node scripts/render.mjs"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img">
+  <title id="t">Intentionally broken fixture: bugs the old regex gate could not see</title>
+  <!-- font-size hidden in a style attribute makes this line overflow the canvas -->
+  <text x="20" y="80" style="font-size:64px">这一行六十四像素的字会冲出画布右边界</text>
+  <!-- rotate(45): the unrotated bounding box is wrong; the gate must compose transforms -->
+  <g transform="rotate(45 200 150)">
+    <text x="60" y="150" font-size="18">旋转之后这行文字的包围盒必须重新计算才对</text>
+  </g>
+</svg>

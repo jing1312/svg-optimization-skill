@@ -4,3 +4,4 @@ node_modules/
 *.png
 .superpowers/
 preview.html
+*.corrupt-*.bak

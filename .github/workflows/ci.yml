@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Unit + repository tests
+        run: npm test
+      - name: Grade every shipped SVG
+        run: npm run check
+
+  render-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install a rasterizer for tier-T2 smoke render
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+      - name: Render smoke (T2 path exercised, geometry only)
+        run: |
+          mkdir -p /tmp/render-smoke
+          node scripts/render.mjs examples/banner-generic.svg examples/style-gallery.svg --out /tmp/render-smoke
+          test -s /tmp/render-smoke/banner-generic.png
+          test -s /tmp/render-smoke/style-gallery.png

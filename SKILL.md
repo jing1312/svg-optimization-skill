@@ -1,22 +1,30 @@
 ---
 name: svg-optimization
 description: >-
-  Create and optimize compact SVG illustrations for READMEs, documentation,
-  and product pages, including banners, UI mockups, flow diagrams, social
-  cards, icons, and logo lockups. Use when SVG text overflows, layout feels
-  unbalanced, exported markup is bloated, or a project needs a polished vector
-  asset. Use this skill for SVG redesigns, logo polish, and requests for
-  multiple visual directions. The workflow measures text, selects semantically
-  appropriate icons from established open-source libraries, records attribution,
-  renders in a browser, and iterates from visual evidence.
+  Design, generate, restyle and validate SVG assets through a complete visual
+  direction system: create banners, UI mockups, flow diagrams, social cards,
+  icons, and logo lockups for READMEs, documentation, and product pages. Use
+  when SVG text overflows, layout feels unbalanced, exported markup is
+  bloated, or a project needs a polished vector asset. The workflow applies
+  design tokens and style archetypes, measures text, selects semantically
+  appropriate icons from established open-source libraries, records
+  attribution, renders in a browser, and iterates from visual evidence
+  through tiered quality gates.
 ---
 
-# SVG Illustration and Optimization
+# SVG Visual Direction Engine
 
 Hand-author the composition and layout. For recognizable interface icons and
 logo glyphs, prefer established open-source paths over improvised geometry.
-The goal is a small, legible SVG with an intentional visual idea, not merely a
-file that passes structural checks.
+The goal is a small, legible SVG with an intentional visual idea — not merely
+a file that passes structural checks.
+
+> SVG 不是代码片段，而是一套视觉语言。门禁保证 SVG 不坏，设计系统保证 SVG 不普通。
+
+A high quality SVG is built in this order: Intent → Visual Concept →
+Composition → Style System → Design Tokens → Material → Motion →
+Verification. Never start from effects: blur, gradients, shadows, and
+particles are implementation details, not design.
 
 ## Safety boundary
 
@@ -30,11 +38,19 @@ context.
 - Use fictional names and `example.com` in public examples.
 - Before publishing, run `npm test`; its privacy checks scan tracked files.
 
+## When to use
+
+Use this skill when a project needs a new SVG asset, a repair to an existing
+one, a restyle across a family of assets, or several visual directions to
+choose from. Skip the full design pass for a narrow overflow fix or markup
+cleanup.
+
 ## Workflow
 
 For a new direction or substantial redesign, read
-`references/design-system.md` before drawing. A narrow overflow or markup
-repair can skip the full design pass.
+`references/design-system.md` before drawing. If the style needs a stronger
+system backbone, also read `references/style-library.md`,
+`references/design-tokens.md`, and `references/anti-ai.md`.
 
 1. Define the visual brief: artifact, audience, primary message, reading order,
    mood, semantic motif, and delivery constraints.
@@ -45,9 +61,11 @@ repair can skip the full design pass.
    state, border, highlight, and shadow.
 5. Map every text role to a type scale and every group to a spacing rhythm.
 6. Build the SVG in layers: root, metadata, defs, background, content, and one
-   coherent semantic motif. Stay inside the material and effect budget.
+   coherent semantic motif. Stay inside the material and effect budget
+   (`references/design-principles.md`).
 7. Add motion only when it communicates entrance, progress, state change, or
-   material response; preserve a complete static state.
+   material response; preserve a complete static state
+   (`references/motion-library.md`).
 8. Measure every visible string with `scripts/measure_text.html`, then backfill
    box widths and chained coordinates.
 9. Render the file in a browser and inspect the actual pixels at target size,
@@ -56,7 +74,7 @@ repair can skip the full design pass.
     five-part scorecard in `references/design-system.md`.
 11. Run structural and logo checks, then iterate on visual issues.
 
-## Style selection and visual comparison
+## Style-choice flow
 
 Do not interrupt a simple repair when the desired style is already explicit.
 Offer style selection when the brief is ambiguous, the user asks for a redesign,
@@ -89,51 +107,48 @@ Use this delivery order:
    by stable labels. The workflow must remain usable in Codex, OpenCode,
    Claude Code, and agents with no special UI.
 
-## Privacy-first local preference learning
+## Design tokens and visual system
 
-Preference learning is an optional, local-only recommendation aid. Ask before
-persisting anything across sessions. Store only allowlisted numeric weights via
-`scripts/preferences.mjs`; never store raw feedback, prompts, project names,
-file contents, URLs, local paths, usernames, or free text. Preferences may
-change the order of suggested styles, but never silently choose a style or
-rewrite this public skill. Without a writable local profile, keep the signal in
-the current session only.
+Colors, type, spacing, stroke, and canvas sizes come from a single source of
+truth, not isolated taste decisions:
 
-Supported controls:
-
-```text
-node scripts/preferences.mjs show
-node scripts/preferences.mjs forget --key material.glass
-node scripts/preferences.mjs reset
+```js
+import { T } from "./scripts/tokens.js";
+T.font.title     // 48
+T.space(2)       // 16
+T.stroke.medium  // 2
+T.canvas.banner  // { w: 1100, h: 300 }
 ```
 
-Record a preference only after explicit consent, for example:
+Five archetypes anchor the style library (`references/style-library.md`):
+Dreamlight, Editorial, Material Craft, Glass Intelligence, and Mono System.
+Pick one `Archetype × Palette × Layout` combination and never mix styles
+randomly. For JSON-driven generation use `scripts/generate-svg.mjs`
+(`node scripts/generate-svg.mjs --layout banner --palette dreamlight --title "标题"`),
+which computes coordinates from the token system.
 
-```text
-node scripts/preferences.mjs record --key background.edge_clipped_bubbles --delta 1
-```
+Materials must behave physically — glass has transparency, reflection, and
+depth; paper has grain, edge, and warm shadow; light has direction, source,
+and falloff. Never use material effects as decoration. Premium design comes
+from editing, not accumulation: reject random gradient blobs, meaningless glow
+spheres, excessive glass layers, decorative particle fields, and
+icon-title-subtitle templates (`references/anti-ai.md`).
 
-Tell the user what is stored and how to forget it. The profile is outside the
-repository by default, so sharing or publishing the skill does not share a
-person's taste profile.
+## Typography
 
-## SVG foundation
+Use three or four font sizes. Adjacent levels should be visibly different.
 
-The root must include identical intrinsic dimensions and viewBox dimensions:
+- Default scale: display 72, title 48, section 32, heading 24, body 18,
+  caption 13 (`references/typography.md`).
+- README banner: title 60-72, subtitle 22-28, metadata 16-18.
+- UI mockup: title 22-28, section 15-17, body/action 14-16.
+- Do not use tiny captions to make a layout fit. Resize the composition.
+- Use a spacing ladder such as 8 / 16 / 24 / 32.
+- Large headings need more space below than small labels.
 
-```svg
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="1100" height="300" viewBox="0 0 1100 300"
-     font-family="PingFang SC, Microsoft YaHei, sans-serif"
-     role="img" aria-labelledby="title desc">
-  <title id="title">Project banner</title>
-  <desc id="desc">A short description of the visible composition.</desc>
-</svg>
-```
-
-Keep `<defs>` near the top, define gradients and filters once, and reuse them
-with `url(#id)`. Do not include editor namespaces, metadata dumps, embedded
-rasters, scripts, or external resources.
+Letter spacing should be `0` unless the typography has a specific measured
+reason. Never rely on arbitrary tracking to make a heading feel designed.
+Typography has priority over decoration.
 
 ## Logo brief
 
@@ -164,7 +179,7 @@ Do not use `zap`, a generic sparkle, or a random monogram as an automatic
 default. Use a generic symbol only when the product meaning genuinely matches
 it, and record that decision with `data-logo-allow-generic="true"`.
 
-### Assemble the mark
+## Logo rules
 
 The container supports the glyph; it is not the concept.
 
@@ -182,6 +197,9 @@ The container supports the glyph; it is not the concept.
   glyph. The goal is controlled depth, not a flat tile and not a pile of
   effects.
 - Record intent, source, icon name, and license in data attributes.
+- Prefer one original fused mark over an icon assembly when the brand allows
+  it: a single silhouette that carries the semantics in one gesture, declared
+  with `data-logo-intent` and no `data-icon-source`.
 
 ```svg
 <g data-role="logo"
@@ -228,19 +246,6 @@ For pills, use at least 12 px horizontal padding per side; 18-20 px usually
 looks better. Prefer `text-anchor="middle"` for labels. Recompute the whole row
 when any label changes.
 
-## Type and spacing
-
-Use three or four font sizes. Adjacent levels should be visibly different.
-
-- README banner: title 60-72, subtitle 22-28, metadata 16-18.
-- UI mockup: title 22-28, section 15-17, body/action 14-16.
-- Do not use tiny captions to make a layout fit. Resize the composition.
-- Use a spacing ladder such as 8 / 16 / 24 / 32.
-- Large headings need more space below than small labels.
-
-Letter spacing should be `0` unless the typography has a specific measured
-reason. Never rely on arbitrary tracking to make a heading feel designed.
-
 ## Composition patterns
 
 ### README banner
@@ -276,18 +281,40 @@ See `references/design-patterns.md` for copy-ready layout patterns and
 `references/logo-system.md` for icon selection and optical checks. Read
 `references/design-system.md` for the shared color, type, spacing, material,
 motion, and anti-pattern gates. Read `references/style-system.md` when preparing
-visual choices.
+visual choices, and `references/premium-craft.md` for dark editorial and
+dreamlight flagship treatments.
 
-## Browser verification
+## Memory and local preferences
 
-Inspect rendered pixels, not only source code:
+Two kinds of memory help future runs without leaking private context:
 
-1. Open the SVG in a browser at its intrinsic size.
-2. Check the full composition and the logo at 100%, 50%, and favicon-like size.
-3. Confirm text padding, baselines, icon clearspace, contrast, and clipping.
-4. Compare against the brief: can a viewer infer the subject without reading
-   the title?
-5. Iterate until visual defects stop changing between passes.
+- Design memory (`memory/successful-compositions.md`,
+  `memory/rejected-patterns.md`) records which compositions worked and which
+  rules to reject, generalized into reusable guidance.
+- Preference learning is an optional, local-only recommendation aid. Ask before
+  persisting anything across sessions. Store only allowlisted numeric weights
+  via `scripts/preferences.mjs`; never store raw feedback, prompts, project
+  names, file contents, URLs, local paths, usernames, or free text. The
+  workflow must never silently choose a style: preferences may reorder
+  suggestions, but the user always picks.
+
+Supported controls:
+
+```text
+node scripts/preferences.mjs show
+node scripts/preferences.mjs forget --key material.glass
+node scripts/preferences.mjs reset
+```
+
+Record a preference only after explicit consent, for example:
+
+```text
+node scripts/preferences.mjs record --key background.edge_clipped_bubbles --delta 1
+```
+
+Tell the user what is stored and how to forget it. The profile is outside the
+repository by default, so sharing or publishing the skill does not share a
+person's taste profile.
 
 ## Visual editor for human fine-tuning
 
@@ -316,37 +343,76 @@ point them at `scripts/editor.html` (double-click to open, Chrome/Edge):
 - Exports strip every editor artifact, so files remain hand-written-clean
   after round-trips.
 
-## Automated checks
+A separate config-driven previewer for the JSON generator lives in
+`tools/editor/` (serve the repo over HTTP and open `/tools/editor/`).
 
-From the skill repository:
+## Verification tiers
+
+Technical correctness is necessary but not sufficient. Verify in tiers:
+
+### T0 Visual reasoning
+
+Check concept clarity, hierarchy, composition, and style consistency against
+the brief and `references/design-review-checklist.md`.
+
+### T1 Machine validation
 
 ```bash
 npm test
+node evals/grade.mjs                                  # gates over examples/ and docs/
 node evals/grade.mjs --check-logo assets/examples/banner-example.svg
 node evals/grade.mjs --workspace ./my-eval-workspace --iteration iteration-1
+node evals/aggregate.mjs --workspace ./my-eval-workspace --iteration iteration-1
 ```
 
-Automated checks are guardrails. They catch leakage, missing provenance,
+Gates: XML validity, reference integrity, duplicate IDs, logo provenance,
+bounded blur, motif messages, geometry (G1 text inside canvas, G2 text fits
+containers, G3 text/motif separation, G4 no text overlap) and contrast
+(WCAG 4.5:1 / 3:1). Automated checks catch leakage, missing provenance,
 unbounded effects, inaccessible markup, overflow, and structural regressions.
-They cannot prove that a logo is distinctive or beautiful; browser inspection
-against the semantic brief remains required.
+They cannot prove that a logo is distinctive or beautiful.
+
+### T2 Render review
+
+```bash
+node scripts/render.mjs asset.svg
+```
+
+Inspect the actual pixels at intrinsic size, 50%, and favicon-like size:
+visual balance, typography, spacing, material realism, aesthetic quality
+(`evals/aesthetic-score.md`). Confirm text padding, baselines, icon
+clearspace, contrast, and clipping. Compare against the brief: can a viewer
+infer the subject without reading the title? Iterate until visual defects stop
+changing between passes.
+
+A green technical check does not mean the design is good.
+
+## Brand packs
+
+A brand pack freezes a fully worked brand: `brand-packs/zhiliao-study.md`
+declares its single fused mark, seasonal directions, and example renders under
+`examples/zhiliao-study/`. Brand packs are references, not templates — the
+skill files themselves stay brand-neutral, and new work must not reuse a
+frozen brand's identity for a different product.
 
 ## Delivery checklist
 
 - [ ] Public content contains no private prompt, transcript, local path, or user identifier.
 - [ ] Visual brief, reading order, and semantic motif are written before styling.
-- [ ] Colors, typography, spacing, material, and motion use explicit roles.
+- [ ] One archetype, one palette system, one layout grammar — chosen, not mixed.
+- [ ] Colors, typography, spacing, material, and motion use explicit token roles.
 - [ ] The anti-pattern gate in `references/design-system.md` has no unresolved rejection.
 - [ ] SVG includes matching width, height, and viewBox.
 - [ ] SVG has non-empty `<title>` and `<desc>`.
-- [ ] Logo has a written semantic intent and a matching glyph.
+- [ ] Logo has a written semantic intent and a matching glyph or fused mark.
 - [ ] Third-party icon source, name, and license are recorded.
 - [ ] Generic bolt/sparkle marks are not used without an explicit reason.
 - [ ] Halo is subordinate to the tile; glyph has optical clearspace.
 - [ ] Text was measured with the rendered font stack.
 - [ ] Boxed text is centered and padded; sibling elements do not overlap.
 - [ ] Font sizes and spacing come from small, consistent ladders.
+- [ ] Materials behave physically; every effect layer has a distinct job.
 - [ ] Motion has a semantic purpose and a complete static fallback, or is omitted.
 - [ ] The candidate was compared with sibling directions or the incumbent.
 - [ ] The SVG was rendered and inspected at target size.
-- [ ] `npm test` and the relevant eval command pass.
+- [ ] `npm test`, the quality gates, and the relevant eval command pass.

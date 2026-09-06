@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 300" width="1100" height="300" role="img" aria-labelledby="bannerTitle bannerDesc">
+  <title id="bannerTitle">知了学习 banner：知识组织与核验助手，主题 J 梦幻极光</title>
+  <desc id="bannerDesc">单一符号 Logo（书页的一笔即核验勾，臂端是章节节点）；右侧图案讲述章节沿复习路径汇入核验、产出知识包。</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef4ff"/>
+      <stop offset="0.55" stop-color="#f3f0ff"/>
+      <stop offset="1" stop-color="#f6efff"/>
+    </linearGradient>
+    <radialGradient id="haloViolet" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#8b7cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="haloCyan" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bubbleSoft" cx="0.42" cy="0.36" r="0.72">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="0.65" stop-color="#c4b5fd" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#a5b4fc" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tileJ" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eceffb"/>
+    </linearGradient>
+    <filter id="liftJ" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#8b7cf6" flood-opacity="0.28"/>
+    </filter>
+    <clipPath id="edgeClip"><rect x="0" y="0" width="1100" height="300"/></clipPath>
+    <!-- 单一符号：书页的一笔长成为核验勾，臂端悬着章节节点 -->
+    <symbol id="zlMark" viewBox="0 0 96 96">
+      <rect x="16" y="16" width="64" height="64" rx="18" fill="url(#tileJ)" filter="url(#liftJ)"/>
+      <rect x="21.5" y="21.5" width="53" height="53" rx="14.5" fill="none" stroke="#8b7cf6" stroke-opacity="0.35" stroke-width="1.4"/>
+      <g transform="translate(45 47)" fill="none" stroke="#2b2f55" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M -21 0 C -14 8 -6 12 0 17 C 7 13 15 4 23 -7" stroke-width="3.4"/>
+        <path d="M -22 -2 C -15 -11 -7 -13 0 -9 C 7 -13 14 -12 18 -7" stroke-width="2.6"/>
+        <circle cx="25" cy="-9" r="4.2" fill="#38bdf8" stroke="#ffffff" stroke-width="1.2"/>
+      </g>
+    </symbol>
+  </defs>
+
+  <rect width="1100" height="300" fill="url(#bgGrad)"/>
+  <ellipse cx="180" cy="30" rx="400" ry="220" fill="url(#haloViolet)"/>
+  <ellipse cx="980" cy="300" rx="460" ry="240" fill="url(#haloCyan)"/>
+
+  <!-- 两个裁切气泡，各有职责：右下承托叙事区，上方平衡 Logo 列 -->
+  <g data-role="edge-clipped-bubbles" clip-path="url(#edgeClip)">
+    <circle cx="1086" cy="318" r="105" fill="url(#bubbleSoft)"/>
+    <circle cx="986" cy="-18" r="56" fill="#ffffff" fill-opacity="0.12" stroke="#8b7cf6" stroke-opacity="0.35" stroke-width="1.4"/>
+  </g>
+
+  <g data-role="logo" data-logo-intent="knowledge verification" data-logo-secondary-motif="page becomes the check; node is the result">
+    <use href="#zlMark" x="64" y="84" width="120" height="120"/>
+  </g>
+
+  <text data-role="banner-title" x="226" y="130" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="40" font-weight="600" fill="#2b2f55" letter-spacing="1">知了学习 · 知识组织与核验助手</text>
+  <text x="228" y="176" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="19" fill="#454b73">把章节连成关系网，让每次复习都有据可查</text>
+
+  <!-- motif：三级章节沿复习路径汇入核验节点，再产出知识包 -->
+  <g data-motif="review-path" data-motif-message="章节沿复习路径逐级汇入核验，产出可导出的知识包" transform="translate(650 198)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 66 C 32 60 44 54 58 48 C 74 41 88 35 102 30 C 122 22 144 20 164 22" stroke="#8b7cf6" stroke-width="1.8" stroke-opacity="0.75"/>
+    <path d="M220 38 C 212 30 200 24 182 22" stroke="#8b7cf6" stroke-width="1.4" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+    <circle cx="14" cy="66" r="5" fill="#ffffff" stroke="#8b7cf6" stroke-width="1.6"/>
+    <circle cx="58" cy="48" r="6.5" fill="#ffffff" stroke="#8b7cf6" stroke-width="1.6"/>
+    <circle cx="102" cy="30" r="8" fill="#ffffff" stroke="#8b7cf6" stroke-width="1.6"/>
+    <circle cx="168" cy="22" r="11" fill="#ffffff" stroke="#8b7cf6" stroke-width="2"/>
+    <path d="M162.5 22 l 4 4 l 8 -8" stroke="#38bdf8" stroke-width="2.4"/>
+    <rect x="222" y="26" width="46" height="30" rx="6" fill="#ffffff" stroke="#8b7cf6" stroke-width="1.4"/>
+    <path d="M231 36 h 22 M231 44 h 14" stroke="#8b7cf6" stroke-opacity="0.55" stroke-width="1.5"/>
+  </g>
+</svg>

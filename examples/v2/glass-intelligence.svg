@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-labelledby="v2gi">
+  <title id="v2gi">V2 Glass Intelligence</title>
+  <defs>
+    <linearGradient id="night" x2="0" y2="1"><stop stop-color="#111827"/><stop offset="1" stop-color="#030712"/></linearGradient>
+  </defs>
+  <g data-style-id="glass-intelligence" data-palette="night" data-layout="object-showcase">
+    <rect width="1200" height="800" fill="url(#night)"/>
+    <rect x="250" y="170" width="700" height="420" rx="32" fill="white" fill-opacity=".08" stroke="white" stroke-opacity=".18" stroke-width="1.5"/>
+    <circle cx="850" cy="280" r="100" fill="#7DD3FC" fill-opacity=".12"/>
+    <!-- font-size 48 = title token; positioned with consistent baseline -->
+    <text x="320" y="400" fill="white" font-size="48" font-family="system-ui, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif">Glass Intelligence</text>
+  </g>
+</svg>

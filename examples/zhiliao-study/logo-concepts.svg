@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" role="img" aria-labelledby="lcT lcD">
+  <title id="lcT">知了学习 Logo：单一符号在两套季节主题下的呈现与 48px 验证</title>
+  <desc id="lcD">书页的一笔长成为核验勾，臂端悬着章节节点；无盾牌、无节点环、无第二枚图形。</desc>
+  <defs>
+    <linearGradient id="tileJ" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eceffb"/>
+    </linearGradient>
+    <linearGradient id="tileK" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#effef7"/>
+    </linearGradient>
+    <filter id="liftJ" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#8b7cf6" flood-opacity="0.25"/>
+    </filter>
+    <filter id="liftK" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#14b8a6" flood-opacity="0.22"/>
+    </filter>
+    <symbol id="logoJ" viewBox="0 0 96 96">
+      <rect x="16" y="16" width="64" height="64" rx="20" fill="url(#tileJ)" filter="url(#liftJ)"/>
+      <rect x="21.5" y="21.5" width="53" height="53" rx="16" fill="none" stroke="#8b7cf6" stroke-opacity="0.35" stroke-width="1.4"/>
+      <g transform="translate(45 47)" fill="none" stroke="#2b2f55" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M -21 0 C -14 8 -6 12 0 17 C 7 13 15 4 23 -7" stroke-width="3.4"/>
+        <path d="M -22 -2 C -15 -11 -7 -13 0 -9 C 7 -13 14 -12 18 -7" stroke-width="2.6"/>
+        <circle cx="25" cy="-9" r="4.2" fill="#38bdf8" stroke="#ffffff" stroke-width="1.2"/>
+      </g>
+    </symbol>
+    <symbol id="logoK" viewBox="0 0 96 96">
+      <rect x="16" y="16" width="64" height="64" rx="20" fill="url(#tileK)" filter="url(#liftK)"/>
+      <rect x="21.5" y="21.5" width="53" height="53" rx="16" fill="none" stroke="#14b8a6" stroke-opacity="0.4" stroke-width="1.4"/>
+      <g transform="translate(45 47)" fill="none" stroke="#1f3d3a" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M -21 0 C -14 8 -6 12 0 17 C 7 13 15 4 23 -7" stroke-width="3.4"/>
+        <path d="M -22 -2 C -15 -11 -7 -13 0 -9 C 7 -13 14 -12 18 -7" stroke-width="2.6"/>
+        <circle cx="25" cy="-9" r="4.2" fill="#fb7185" stroke="#ffffff" stroke-width="1.2"/>
+      </g>
+    </symbol>
+  </defs>
+
+  <rect width="1000" height="560" fill="#f4f3fb"/>
+
+  <text x="60" y="72" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" font-weight="600" fill="#5c569c" letter-spacing="5">LOGO SYSTEM · SINGLE MARK, TWO SEASONS</text>
+  <text x="60" y="124" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="32" font-weight="700" fill="#26243a">一个符号，全部语义</text>
+  <text x="60" y="158" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" fill="#454b73">书页的一笔长成为核验勾，臂端悬着章节节点 —— 没有盾牌、没有节点环、没有第二枚图形</text>
+
+  <g data-role="logo" data-logo-intent="knowledge verification" data-logo-secondary-motif="page becomes the check; node is the result">
+    <use href="#logoJ" x="90" y="196" width="200" height="200"/>
+  </g>
+  <text x="90" y="436" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="14" font-weight="600" fill="#2b2f55">J · 梦幻极光 —— 青色章节节点</text>
+  <g data-role="logo-preview" data-size="48">
+    <use href="#logoJ" x="90" y="452" width="48" height="48"/>
+  </g>
+  <text x="152" y="482" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#454b73">48 px 可辨：一笔勾与节点依然分明</text>
+
+  <g data-role="logo" data-logo-intent="knowledge verification" data-logo-secondary-motif="page becomes the check; node is the result">
+    <use href="#logoK" x="450" y="196" width="200" height="200"/>
+  </g>
+  <text x="450" y="436" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="14" font-weight="600" fill="#2b2f55">K · 夏日汽水 —— 珊瑚章节节点</text>
+  <g data-role="logo-preview" data-size="48">
+    <use href="#logoK" x="450" y="452" width="48" height="48"/>
+  </g>
+  <text x="512" y="482" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#454b73">换季只换色板，符号不动</text>
+
+  <text x="700" y="214" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#26243a">为什么废弃拼装版</text>
+  <g font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" fill="#454b73">
+    <text x="700" y="244">旧版：图标 + 节点环 + 盾牌双勾</text>
+    <text x="700" y="270">三个语义互相抢戏，48px 缩成一团</text>
+    <text x="700" y="296">新版：书页的一笔 = 核验的勾</text>
+    <text x="700" y="322">臂端的节点，是章节汇入的结果</text>
+    <text x="700" y="348">一个手势，任何尺寸都一致</text>
+  </g>
+
+  <line x1="60" y1="520" x2="940" y2="520" stroke="#37326e" stroke-opacity="0.1" stroke-width="1"/>
+  <text x="60" y="544" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12.5" fill="#5c569c">沿革：旧版源自 Lucide book-open-check（ISC，见 THIRD_PARTY_NOTICES.md）；本版为原创图形，保留其"打开的书 + 核验"语义</text>
+</svg>
