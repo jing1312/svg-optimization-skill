@@ -3,9 +3,11 @@ import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
-const repoRoot = join(import.meta.dirname, '..');
+// import.meta.dirname 需要 Node 20.11+，CI 的 node 18 矩阵没有该属性
+const repoRoot = join(fileURLToPath(new URL('.', import.meta.url)), '..');
 const script = join(repoRoot, 'scripts', 'preferences.mjs');
 
 function run(args, path) {

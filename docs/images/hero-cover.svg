@@ -1,162 +1,118 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-labelledby="hcT hcD">
-  <title id="hcT">svg-optimization-skill · 流光体系：光是画出来的</title>
-  <desc id="hcD">梦幻流光主视觉：光谱底色上漂着三团漂移光场与微尘，一匹两端收尖的绸带手势贯穿画面，玻璃浮球连成关系图，其中一枚承载核验勾。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-labelledby="hcT hcD" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+  <title id="hcT">svg-optimization-skill · SVG 视觉系统引擎</title>
+  <desc id="hcD">项目主视觉：左侧是产品定位与三大能力（主题换肤、设计 Token、质量门禁），右侧是可视化编辑器的迷你场景——选中元素的八向手柄、红色吸附参考线与等距徽章，下方挂着门禁通过的绿色徽章。</desc>
   <defs>
-    <linearGradient id="hcBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f5f7ff"/>
-      <stop offset="0.22" stop-color="#eef0ff"/>
-      <stop offset="0.45" stop-color="#ece6fb"/>
-      <stop offset="0.68" stop-color="#f2e4f6"/>
-      <stop offset="0.85" stop-color="#f9e9ee"/>
-      <stop offset="1" stop-color="#fdf0ea"/>
+    <linearGradient id="hgBase" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#f6f7ff"/>
+      <stop offset="0.4" stop-color="#f1eefc"/>
+      <stop offset="0.72" stop-color="#f7ecf4"/>
+      <stop offset="1" stop-color="#fdf1e9"/>
     </linearGradient>
-    <radialGradient id="hcBloom" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#fff7ec" stop-opacity="0.9"/>
-      <stop offset="0.32" stop-color="#ffe9d9" stop-opacity="0.45"/>
-      <stop offset="0.65" stop-color="#f4dded" stop-opacity="0.18"/>
-      <stop offset="1" stop-color="#f4dded" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="hcDriftLav" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#cdd4ff" stop-opacity="0.32"/>
+    <radialGradient id="hgDriftLav" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#cdd4ff" stop-opacity="0.34"/>
       <stop offset="1" stop-color="#cdd4ff" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="hcDriftRose" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#ffd4e0" stop-opacity="0.28"/>
+    <radialGradient id="hgDriftRose" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffd4e0" stop-opacity="0.3"/>
       <stop offset="1" stop-color="#ffd4e0" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="hcDriftAqua" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#c9f0ea" stop-opacity="0.26"/>
+    <radialGradient id="hgDriftAqua" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#c9f0ea" stop-opacity="0.28"/>
       <stop offset="1" stop-color="#c9f0ea" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="hcRibbonFill" gradientUnits="userSpaceOnUse" x1="-80" y1="480" x2="1290" y2="80">
+    <linearGradient id="hgRibbon" gradientUnits="userSpaceOnUse" x1="-60" y1="500" x2="1280" y2="330">
       <stop offset="0" stop-color="#6ee3d4"/>
-      <stop offset="0.35" stop-color="#82b0f2"/>
-      <stop offset="0.68" stop-color="#a48df0"/>
+      <stop offset="0.4" stop-color="#82b0f2"/>
+      <stop offset="0.72" stop-color="#a48df0"/>
       <stop offset="1" stop-color="#f4aac6"/>
     </linearGradient>
-    <linearGradient id="hcRibbonCore" gradientUnits="userSpaceOnUse" x1="-80" y1="480" x2="1290" y2="80">
-      <stop offset="0" stop-color="#eafffb"/>
-      <stop offset="0.35" stop-color="#e7efff"/>
-      <stop offset="0.68" stop-color="#f0e6ff"/>
-      <stop offset="1" stop-color="#ffeaf2"/>
+    <linearGradient id="hgSel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#82b0f2"/>
+      <stop offset="1" stop-color="#a48df0"/>
     </linearGradient>
-    <radialGradient id="hcOrbA" cx="0.62" cy="0.3" r="0.8">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="0.45" stop-color="#e6e0fb" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#bcaef2" stop-opacity="0.14"/>
-    </radialGradient>
-    <radialGradient id="hcOrbB" cx="0.64" cy="0.3" r="0.8">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.98"/>
-      <stop offset="0.5" stop-color="#ddd3f8" stop-opacity="0.6"/>
-      <stop offset="1" stop-color="#a99aef" stop-opacity="0.2"/>
-    </radialGradient>
-    <radialGradient id="hcOrbShadow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#8f7fd8" stop-opacity="0.3"/>
-      <stop offset="1" stop-color="#8f7fd8" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="hcSparkGlow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="hcFog" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="hgFog" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.24"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.05"/>
     </linearGradient>
-    <filter id="hcSilkBlur" x="-30%" y="-220%" width="160%" height="540%">
-      <feGaussianBlur stdDeviation="12"/>
+    <filter id="hgCardShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#8f7fe8" flood-opacity="0.22"/>
     </filter>
-    <filter id="hcEchoBlur" x="-30%" y="-300%" width="160%" height="700%">
-      <feGaussianBlur stdDeviation="7"/>
-    </filter>
-    <filter id="hcInkLift" x="-30%" y="-60%" width="160%" height="240%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#8f7fe8" flood-opacity="0.3"/>
+    <filter id="hgSilkBlur" x="-30%" y="-120%" width="160%" height="340%">
+      <feGaussianBlur stdDeviation="9"/>
     </filter>
   </defs>
 
-  <!-- 光场：光谱底 + 漂移光场（天气，不是壁纸） -->
-  <rect width="1200" height="560" fill="url(#hcBase)"/>
-  <ellipse cx="250" cy="170" rx="330" ry="190" fill="url(#hcDriftLav)"/>
-  <ellipse cx="1000" cy="440" rx="360" ry="210" fill="url(#hcDriftRose)"/>
-  <ellipse cx="640" cy="40" rx="300" ry="140" fill="url(#hcDriftAqua)"/>
-  <circle cx="850" cy="120" r="470" fill="url(#hcBloom)"/>
+  <!-- 底色光场 -->
+  <rect width="1200" height="560" fill="url(#hgBase)"/>
+  <ellipse cx="220" cy="140" rx="320" ry="180" fill="url(#hgDriftLav)"/>
+  <ellipse cx="1030" cy="470" rx="340" ry="200" fill="url(#hgDriftRose)"/>
+  <ellipse cx="660" cy="30" rx="290" ry="130" fill="url(#hgDriftAqua)"/>
 
-  <!-- 手势：一匹绸 —— 两端收尖、中段丰盈，双层半透明 + 上缘受光 -->
-  <path d="M -80 464 C 190 436 360 262 620 240 C 880 218 1082 156 1290 74 L 1290 86 C 1040 200 900 268 650 300 C 430 338 240 468 -80 500 Z" fill="url(#hcRibbonFill)" opacity="0.55" filter="url(#hcSilkBlur)"/>
-  <path d="M -60 182 C 300 164 560 114 920 86 C 1080 74 1200 52 1268 36 L 1268 44 C 1192 62 1072 86 916 98 C 566 126 306 178 -60 196 Z" fill="url(#hcRibbonFill)" opacity="0.22" filter="url(#hcEchoBlur)"/>
-  <path d="M -80 468 C 200 444 380 278 630 258 C 880 238 1080 176 1290 80 L 1290 88 C 1046 194 902 282 656 306 C 446 328 262 462 -80 494 Z" fill="url(#hcRibbonCore)" opacity="0.92"/>
-  <path d="M -80 464 C 190 436 360 262 620 240 C 880 218 1082 156 1290 74" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.5"/>
-  <path d="M 470 296 C 540 282 610 276 690 278" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 940 232 C 1010 210 1080 182 1140 150" fill="none" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M -60 492 C 240 460 430 336 650 302 C 890 270 1050 206 1270 92" fill="none" stroke="#7a6cc8" stroke-opacity="0.18" stroke-width="3" stroke-linecap="round"/>
+  <!-- 底部绸带：氛围层，压低不抢内容 -->
+  <path d="M -60 512 C 260 492 520 420 780 404 C 980 392 1140 366 1280 336 L 1280 348 C 1120 392 950 424 760 438 C 520 456 260 520 -60 536 Z" fill="url(#hgRibbon)" opacity="0.4" filter="url(#hgSilkBlur)"/>
+  <path d="M -60 516 C 270 498 530 428 790 412 C 985 400 1145 374 1280 344 L 1280 350 C 1130 396 955 430 765 444 C 525 462 265 524 -60 540 Z" fill="url(#hgRibbon)" opacity="0.2"/>
+  <path d="M 470 434 C 560 420 660 414 750 418" fill="none" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2" stroke-linecap="round"/>
+  <rect x="0" y="330" width="1200" height="230" fill="url(#hgFog)"/>
 
-  <!-- 浮层雾 -->
-  <rect x="0" y="300" width="1200" height="260" fill="url(#hcFog)"/>
-
-  <!-- 远景浮球（左下裁切，浅景深） -->
-  <circle cx="-40" cy="470" r="210" fill="url(#hcOrbA)" stroke="#ffffff" stroke-opacity="0.45" stroke-width="1.2"/>
-
-  <!-- 暖色视觉锚点 -->
-  <ellipse cx="960" cy="360" rx="150" ry="104" fill="url(#hcDriftRose)"/>
-
-  <!-- 中近景浮球关系图（motif：浮球连成关系，其中一枚承载核验） -->
-  <g data-motif="verify-nodes" data-motif-message="浮球连成关系图，一枚承载核验勾：秩序内在于光">
-    <circle cx="952" cy="352" r="92" fill="url(#hcSparkGlow)"/>
-    <circle cx="566" cy="88" r="40" fill="url(#hcSparkGlow)"/>
-    <!-- 关系连线 -->
-    <g fill="none" stroke="#6b64a8" stroke-opacity="0.35" stroke-width="1">
-      <path d="M 586 94 Q 830 120 1076 202"/>
-      <path d="M 1080 220 Q 1046 288 966 336"/>
-      <path d="M 582 106 Q 770 220 934 336"/>
-    </g>
-    <circle cx="952" cy="352" r="62" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1"/>
-    <circle cx="932" cy="326" r="7" fill="#ffffff" fill-opacity="0.9"/>
-    <!-- 核验勾：秩序内在于光 -->
-    <path d="M 934 356 l 13 13 l 26 -26" fill="none" stroke="#4f4794" stroke-opacity="0.9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="566" cy="88" r="22" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1"/>
-    <circle cx="558" cy="80" r="3" fill="#ffffff" fill-opacity="0.95"/>
-    <circle cx="1088" cy="208" r="13" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1"/>
-    <g fill="#ffffff">
-      <circle cx="760" cy="180" r="20" fill="url(#hcSparkGlow)"/>
-      <path d="M760 166 C 762.2 177.8 762.2 177.8 774 180 C 762.2 182.2 762.2 182.2 760 194 C 757.8 182.2 757.8 182.2 746 180 C 757.8 177.8 757.8 177.8 760 166 Z"/>
-      <circle cx="1016" cy="116" r="14" fill="url(#hcSparkGlow)"/>
-      <path d="M1016 107 C 1017.5 114.5 1017.5 114.5 1025 116 C 1017.5 117.5 1017.5 117.5 1016 125 C 1014.5 117.5 1014.5 117.5 1007 116 C 1014.5 114.5 1014.5 114.5 1016 107 Z" fill-opacity="0.95"/>
-      <circle cx="560" cy="142" r="10" fill="url(#hcSparkGlow)"/>
-      <path d="M560 136 C 561 141 561 141 566 142 C 561 143 561 143 560 148 C 559 143 559 143 554 142 C 559 141 559 141 560 136 Z" fill-opacity="0.9"/>
-    </g>
-  </g>
-
-  <!-- 漂浮微尘：让空气可见（疏密不一，绝不排排坐） -->
+  <!-- 左：产品信息 -->
   <g>
-    <circle cx="368" cy="142" r="3" fill="#ffffff" fill-opacity="0.38"/>
-    <circle cx="610" cy="304" r="2.2" fill="#ffffff" fill-opacity="0.45"/>
-    <circle cx="540" cy="398" r="4" fill="#ffffff" fill-opacity="0.3"/>
-    <circle cx="824" cy="238" r="2.6" fill="#ffffff" fill-opacity="0.5"/>
-    <circle cx="1120" cy="306" r="3.4" fill="#ffffff" fill-opacity="0.35"/>
-    <circle cx="232" cy="332" r="2.4" fill="#ffffff" fill-opacity="0.38"/>
-    <circle cx="700" cy="140" r="2" fill="#ffffff" fill-opacity="0.48"/>
-    <circle cx="984" cy="472" r="3" fill="#ffffff" fill-opacity="0.3"/>
-    <circle cx="1150" cy="180" r="2.2" fill="#ffffff" fill-opacity="0.42"/>
-    <circle cx="430" cy="470" r="3.6" fill="#ffffff" fill-opacity="0.33"/>
-    <circle cx="884" cy="212" r="2.8" fill="#ffffff" fill-opacity="0.55"/>
-    <circle cx="884" cy="212" r="10" fill="url(#hcSparkGlow)"/>
-    <circle cx="180" cy="120" r="16" fill="url(#hcSparkGlow)" fill-opacity="0.5"/>
-    <circle cx="1040" cy="500" r="18" fill="url(#hcSparkGlow)" fill-opacity="0.45"/>
-    <!-- 成簇微尘：真实的尘埃不均匀 -->
-    <circle cx="714" cy="130" r="3.2" fill="#ffffff" fill-opacity="0.4"/>
-    <circle cx="688" cy="150" r="1.6" fill="#ffffff" fill-opacity="0.5"/>
-    <circle cx="1132" cy="296" r="1.8" fill="#ffffff" fill-opacity="0.45"/>
+    <text x="80" y="152" font-size="14" font-weight="700" letter-spacing="4.5" fill="#615cae">SVG-OPTIMIZATION-SKILL</text>
+    <text x="80" y="248" font-size="62" font-weight="800" fill="#343063">SVG 视觉系统引擎</text>
+    <text x="80" y="304" font-size="21" fill="#454079">让 AI 生成的每一张图，都有设计系统与质量门禁兜底</text>
+    <text x="80" y="342" font-size="17" fill="#413c76">生成规范 · 手工打磨 · 门禁放行，一条完整工作流</text>
+    <g font-size="17" font-weight="600">
+      <rect x="80" y="392" width="152" height="40" rx="20" fill="#ffffff" fill-opacity="0.86" stroke="#ddd6f4" stroke-width="1"/>
+      <text x="156" y="417" text-anchor="middle" fill="#4a4494">12 主题编辑器</text>
+      <rect x="248" y="392" width="166" height="40" rx="20" fill="#ffffff" fill-opacity="0.86" stroke="#ddd6f4" stroke-width="1"/>
+      <text x="331" y="417" text-anchor="middle" fill="#4a4494">设计 Token 系统</text>
+      <rect x="430" y="392" width="172" height="40" rx="20" fill="#ffffff" fill-opacity="0.86" stroke="#ddd6f4" stroke-width="1"/>
+      <text x="516" y="417" text-anchor="middle" fill="#4a4494">G1–G4 质量门禁</text>
+    </g>
+    <text x="80" y="498" font-size="15" font-weight="600" fill="#454079">99 项自动化测试 · 21 道静态门禁 · 离线单文件编辑器</text>
   </g>
 
-  <!-- 安静区：排印 -->
-  <text x="84" y="118" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="13" font-weight="600" fill="#5c569c" letter-spacing="5">SVG ATELIER · DREAMLIGHT N°01</text>
-  <text x="84" y="246" font-family="Songti SC, STSong, SimSun, Noto Serif SC, serif" font-size="72" font-weight="700" fill="#37326e" letter-spacing="7" filter="url(#hcInkLift)">光是画出来的</text>
-  <text x="84" y="298" font-family="Georgia, Times New Roman, serif" font-size="23" font-style="italic" filter="url(#hcInkLift)" fill="#6b64a8">Where light is drawn, order follows.</text>
-
-  <g data-role="atelier-mark">
-    <circle cx="1064" cy="512" r="9" fill="url(#hcOrbB)" stroke="#ffffff" stroke-opacity="0.6" stroke-width="0.8"/>
-    <path d="M 1059 512 l 4 4 l 9 -9" fill="none" stroke="#4f4794" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="1046" y="516" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="12" font-weight="600" fill="#5c569c" letter-spacing="3.5">SVG ATELIER</text>
+  <!-- 右：迷你编辑器场景（motif：选中手柄 + 吸附线 + 等距徽章） -->
+  <g data-motif="editor-canvas" data-motif-message="迷你编辑器画布：八向选中手柄、红色吸附参考线与等距徽章，下方门禁通过章——所见即产品">
+    <!-- 画布卡片 -->
+    <rect x="700" y="110" width="384" height="304" rx="20" fill="#ffffff" fill-opacity="0.9" stroke="#dcd5f5" stroke-width="1.2" filter="url(#hgCardShadow)"/>
+    <!-- 画布网格点 -->
+    <g fill="#b9b2e2" fill-opacity="0.4">
+      <circle cx="736" cy="146" r="1.6"/><circle cx="784" cy="146" r="1.6"/><circle cx="832" cy="146" r="1.6"/><circle cx="880" cy="146" r="1.6"/><circle cx="928" cy="146" r="1.6"/><circle cx="976" cy="146" r="1.6"/><circle cx="1024" cy="146" r="1.6"/>
+      <circle cx="736" cy="194" r="1.6"/><circle cx="784" cy="194" r="1.6"/><circle cx="832" cy="194" r="1.6"/><circle cx="880" cy="194" r="1.6"/><circle cx="928" cy="194" r="1.6"/><circle cx="976" cy="194" r="1.6"/><circle cx="1024" cy="194" r="1.6"/>
+      <circle cx="736" cy="242" r="1.6"/><circle cx="784" cy="242" r="1.6"/><circle cx="832" cy="242" r="1.6"/><circle cx="880" cy="242" r="1.6"/><circle cx="928" cy="242" r="1.6"/><circle cx="976" cy="242" r="1.6"/><circle cx="1024" cy="242" r="1.6"/>
+      <circle cx="736" cy="290" r="1.6"/><circle cx="784" cy="290" r="1.6"/><circle cx="832" cy="290" r="1.6"/><circle cx="880" cy="290" r="1.6"/><circle cx="928" cy="290" r="1.6"/><circle cx="976" cy="290" r="1.6"/><circle cx="1024" cy="290" r="1.6"/>
+      <circle cx="736" cy="338" r="1.6"/><circle cx="784" cy="338" r="1.6"/><circle cx="832" cy="338" r="1.6"/><circle cx="880" cy="338" r="1.6"/><circle cx="928" cy="338" r="1.6"/><circle cx="976" cy="338" r="1.6"/><circle cx="1024" cy="338" r="1.6"/>
+      <circle cx="736" cy="386" r="1.6"/><circle cx="784" cy="386" r="1.6"/><circle cx="832" cy="386" r="1.6"/><circle cx="880" cy="386" r="1.6"/><circle cx="928" cy="386" r="1.6"/><circle cx="976" cy="386" r="1.6"/><circle cx="1024" cy="386" r="1.6"/>
+    </g>
+    <!-- 吸附参考线（编辑器签名：红色对齐线） -->
+    <line x1="1000" y1="86" x2="1000" y2="352" stroke="#ff5b7f" stroke-width="1.3" stroke-opacity="0.85"/>
+    <line x1="712" y1="305" x2="1176" y2="305" stroke="#ff5b7f" stroke-width="1.3" stroke-opacity="0.85"/>
+    <!-- 邻居元素 -->
+    <circle cx="762" cy="212" r="30" fill="#cdd4ff"/>
+    <circle cx="754" cy="204" r="9" fill="#ffffff" fill-opacity="0.55"/>
+    <rect x="928" y="140" width="72" height="72" rx="14" fill="#f3d9e6"/>
+    <!-- 等距徽章：圆与选中矩形的间距 -->
+    <rect x="784" y="270" width="52" height="24" rx="12" fill="#ffffff" stroke="#c9c2ef" stroke-width="1"/>
+    <text x="810" y="286.5" text-anchor="middle" font-size="13" font-weight="700" fill="#5b53b8">40</text>
+    <!-- 选中元素 + 八向手柄 -->
+    <rect x="830" y="250" width="170" height="110" rx="10" fill="url(#hgSel)"/>
+    <rect x="830" y="250" width="170" height="110" rx="10" fill="none" stroke="#5b6be8" stroke-width="1.4"/>
+    <g fill="#ffffff" stroke="#5b6be8" stroke-width="1.3">
+      <rect x="825" y="245" width="10" height="10" rx="2"/>
+      <rect x="910" y="245" width="10" height="10" rx="2"/>
+      <rect x="995" y="245" width="10" height="10" rx="2"/>
+      <rect x="825" y="300" width="10" height="10" rx="2"/>
+      <rect x="995" y="300" width="10" height="10" rx="2"/>
+      <rect x="825" y="355" width="10" height="10" rx="2"/>
+      <rect x="910" y="355" width="10" height="10" rx="2"/>
+      <rect x="995" y="355" width="10" height="10" rx="2"/>
+    </g>
+    <!-- 卡片内标题字：示意排版测量 -->
+    <text x="846" y="316" font-size="26" font-weight="700" fill="#2d2a5e">设计</text>
+    <!-- 门禁通过章 -->
+    <rect x="918" y="446" width="172" height="42" rx="21" fill="#ffffff" fill-opacity="0.94" stroke="#bfe8d4" stroke-width="1.2"/>
+    <path d="M 944 467 l 8 8 l 15 -16" fill="none" stroke="#147a52" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="978" y="473" font-size="16" font-weight="700" fill="#147a52">G1–G4 通过</text>
   </g>
-  <text x="96" y="510" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="14" fill="#5c569c">机器门禁 G1–G4 · 引用完整性 R1·R2 · 渲染实测 T0 / T1 / T2</text>
 </svg>

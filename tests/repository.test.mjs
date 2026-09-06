@@ -391,18 +391,22 @@ test('generic banner builds a fictional brand inside the house style', () => {
   assert.ok(!src.includes('知了'), 'generic example must not reuse the demo brand');
 });
 
-test('hero carries the skill meaning: verify-nodes motif + atelier mark + silk ribbon', () => {
-  for (const f of ['docs/images/hero-cover.svg', 'examples/hero-summer.svg']) {
-    const src = read(f);
-    assert.match(src, /data-motif="verify-nodes"/, `${f} must keep the semantic motif`);
-    assert.match(src, /data-role="atelier-mark"/, `${f} must keep the atelier mark`);
-    assert.match(src, /RibbonCore|sgCore/i, `${f} ribbon must be a layered filled band, not stroke tubes`);
-    assert.match(src, /漂移光场|drift/i, `${f} background must float`);
-    assert.ok(!/R 86|drafting|刻度/.test(src), `${f} must not carry drafting chrome`);
-  }
-  // the summer variant is the same composition in a warm climate
-  assert.match(read('examples/hero-summer.svg'), /#fff6f0/);
-  assert.ok(!read('docs/images/hero-cover.svg').includes('#fff6f0'), 'cool hero must not drift into the warm recipe');
+test('heroes carry their intended meaning: product cover + atelier summer variant', () => {
+  // README 封面：产品语义——编辑器场景 motif + 标题 + 能力章 + 门禁通过章
+  const src = read('docs/images/hero-cover.svg');
+  assert.match(src, /data-motif="editor-canvas"/, 'hero-cover must keep the editor scene motif');
+  assert.match(src, /SVG 视觉系统引擎/, 'hero-cover must carry the product title');
+  assert.match(src, /G1–G4 质量门禁/, 'hero-cover must name the quality gates');
+  assert.match(src, /G1–G4 通过/, 'hero-cover must carry the gate stamp');
+  assert.match(src, /hgDrift|漂移/, 'hero-cover background must float');
+  assert.ok(!/R 86|drafting|刻度/.test(src), 'hero-cover must not carry drafting chrome');
+  // hero-summer 保留旧艺术宣言构图（暖色变体），锚点不变
+  const summer = read('examples/hero-summer.svg');
+  assert.match(summer, /data-motif="verify-nodes"/, 'hero-summer must keep the semantic motif');
+  assert.match(summer, /data-role="atelier-mark"/, 'hero-summer must keep the atelier mark');
+  assert.match(summer, /RibbonCore|sgCore/i, 'hero-summer ribbon must be a layered filled band');
+  assert.match(summer, /#fff6f0/, 'summer stays in the warm climate');
+  assert.ok(!src.includes('#fff6f0'), 'cool hero must not drift into the warm recipe');
 });
 
 test('every shipped SVG is well-formed XML with an accessible title', () => {

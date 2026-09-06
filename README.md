@@ -208,8 +208,8 @@ needed only for automated checks, generator tooling, and evals.
 
 ## Validation
 
-SVG 输出经过三层检查：Design Intent → Structural Validation → Aesthetic Review
-→ Release。
+SVG 输出经过四道关口：Design Intent → Structural Validation → Aesthetic
+Review → Release。前三道由 agent 自检执行，最后一道跑自动化检查：
 
 ```bash
 npm test
