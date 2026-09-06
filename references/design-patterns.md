@@ -19,12 +19,12 @@ without relation to the title.
   <defs><!-- background, tile, halo, and shadow definitions --></defs>
   <rect width="1100" height="300" rx="24" fill="url(#bg)"/>
 
-  <text x="70" y="112" font-size="68" font-weight="700" fill="#fff">开卷助手</text>
-  <text x="70" y="174" font-size="24" fill="#c9e8f5">整理公开课程资料 · 生成练习与复习提纲</text>
+  <text x="70" y="112" font-size="68" font-weight="700" fill="#FFFFFF">开卷助手</text>
+  <text x="70" y="174" font-size="24" fill="#F5F3F0">整理公开课程资料 · 生成练习与复习提纲</text>
 
   <g font-size="18">
-    <rect x="70" y="210" width="224" height="44" rx="22" fill="#fff" fill-opacity=".09"/>
-    <text x="182" y="238.3" text-anchor="middle" fill="#fff">Chrome / Edge</text>
+    <rect x="70" y="210" width="224" height="44" rx="22" fill="#FFFFFF" fill-opacity=".09"/>
+    <text x="182" y="238.3" text-anchor="middle" fill="#FFFFFF">Chrome / Edge</text>
   </g>
 
   <!-- Semantic logo lockup in the right region; see logo-system.md. -->
@@ -52,9 +52,9 @@ feels integrated with the surface.
     <rect width="1100" height="300" rx="24"/>
   </clipPath>
   <radialGradient id="bubble" cx=".3" cy=".26" r=".82">
-    <stop offset="0" stop-color="#fff" stop-opacity=".18"/>
-    <stop offset=".5" stop-color="#7dd3fc" stop-opacity=".08"/>
-    <stop offset="1" stop-color="#38bdf8" stop-opacity=".01"/>
+    <stop offset="0" stop-color="#FFFFFF" stop-opacity=".18"/>
+    <stop offset=".5" stop-color="#A79AE8" stop-opacity=".08"/>
+    <stop offset="1" stop-color="#5F61C7" stop-opacity=".01"/>
   </radialGradient>
 </defs>
 
@@ -62,7 +62,7 @@ feels integrated with the surface.
   <!-- center is above the canvas: only the lower segment is visible -->
   <circle cx="1048" cy="-82" r="226" fill="url(#bubble)"/>
   <circle cx="1048" cy="-82" r="194" fill="none"
-          stroke="#fff" stroke-opacity=".09" stroke-width="1.5"/>
+          stroke="#FFFFFF" stroke-opacity=".09" stroke-width="1.5"/>
 
   <!-- center is beyond the left/bottom edge -->
   <circle cx="-58" cy="322" r="184" fill="url(#bubble)" opacity=".65"/>
@@ -87,7 +87,7 @@ often works better inside a compact UI than a large icon stacked over a title.
   <circle data-role="logo-halo" cx="44" cy="44" r="43" fill="url(#halo)"/>
   <rect data-role="logo-tile" x="10" y="10" width="68" height="68" rx="17" fill="url(#tile)"/>
   <g data-role="logo-glyph" transform="translate(23.6 23.6) scale(1.7)"
-     fill="none" stroke="#fff" stroke-width="1.7"
+     fill="none" stroke="#FFFFFF" stroke-width="1.7"
      stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 5v16"/>
     <path d="m16 12 2 2 4-4"/>
@@ -95,7 +95,7 @@ often works better inside a compact UI than a large icon stacked over a title.
   </g>
 </g>
 <text x="116" y="42" font-size="24" font-weight="700">Product name</text>
-<text x="116" y="68" font-size="14" fill="#64748b">Short functional description</text>
+<text x="116" y="68" font-size="14" fill="#686979">Short functional description</text>
 ```
 
 The halo diameter may exceed the tile, but its radius must remain at or below
@@ -122,11 +122,11 @@ background tints before adding another border.
 
 ```svg
 <rect x="0" y="0" width="164" height="54" rx="8"
-      fill="#ecfdf3" stroke="#bbf7d0"/>
-<circle cx="24" cy="27" r="9" fill="#16a34a"/>
-<path d="m20.5 27 2.5 2.5 4.8-5" fill="none" stroke="#fff"
+      fill="#F5F3F0" stroke="#D8D8E5"/>
+<circle cx="24" cy="27" r="9" fill="#56B59A"/>
+<path d="m20.5 27 2.5 2.5 4.8-5" fill="none" stroke="#FFFFFF"
       stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="42" y="32.2" font-size="15" font-weight="600" fill="#15803d">页面就绪</text>
+<text x="42" y="32.2" font-size="15" font-weight="600" fill="#383B73">页面就绪</text>
 ```
 
 The icon owns a fixed 18 px area. The label begins after that area plus a
@@ -138,12 +138,12 @@ causes it to collide with the icon.
 ```svg
 <rect x="0" y="0" width="256" height="56" rx="8" fill="url(#action)"/>
 <text x="128" y="33.6" font-size="16" font-weight="700"
-      fill="#fff" text-anchor="middle">Primary action</text>
+      fill="#FFFFFF" text-anchor="middle">Primary action</text>
 
 <rect x="272" y="0" width="256" height="56" rx="8"
-      fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+      fill="#FFFFFF" stroke="#5F61C7" stroke-width="1.5"/>
 <text x="400" y="33.6" font-size="16" font-weight="600"
-      fill="#1d4ed8" text-anchor="middle">Secondary action</text>
+      fill="#383B73" text-anchor="middle">Secondary action</text>
 ```
 
 ## Text measurement and centering
@@ -186,3 +186,24 @@ structure so the brand color does not occupy every element.
 - Check that equal states use equal colors.
 - Check that repeated items share width, inset, and baseline.
 - Verify no text or vector extends beyond the viewBox.
+
+## Theme tokens (single source of truth)
+
+The 12 built-in themes and their token keys (bg, surface, primary, primaryDark,
+accent, title, body, muted, success, warning, danger) live in
+`src/editor/theme-tokens.mjs`. When generating SVG by hand, pick one theme and
+draw every color from its tokens; the visual editor maps colors back to the
+nearest token on theme switches and preserves anything that is farther than a
+token radius (hand-picked accents survive re-theming).
+
+The repaint engine (`src/editor/color-map.mjs`) encodes the final mapping
+rules: identical source colors always map to the same token (tie clustering);
+text never lands on a mid-tone token — light source text stays light, dark
+stays dark, with WCAG contrast floors (3:1 large, 4.5:1 body) guarded by
+polarity locking; highlights and decorations below 0.3 opacity are skipped;
+semantic success/warning/danger tokens stay fixed across all themes; and a
+color counts as chromatic only above a dual threshold (saturation ≥ 0.18 AND
+absolute max-min channel spread ≥ 24) so near-black navy text is not mistaken
+for brand color. The same module can distill an arbitrary color set into a
+token palette (`paletteFromColors`), which powers the editor's cross-theme
+default component colors.

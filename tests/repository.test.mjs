@@ -23,9 +23,34 @@ function read(relativePath) {
   return readFileSync(join(repoRoot, relativePath), 'utf8');
 }
 
+const publicExamples = [
+  'assets/examples/banner-example.svg',
+  'assets/examples/popup-mockup-example.svg',
+  'assets/examples/dreamy-detail-board.svg',
+  'assets/examples/style-options-example.svg',
+  'assets/examples/logo-concepts.svg',
+  'assets/examples/brand-theme-pair.svg',
+];
+
+const brandTokens = new Set([
+  '#F5F3F0', '#FBFAF8', '#24263A', '#686979', '#5F61C7', '#383B73',
+  '#A79AE8', '#56B59A', '#E8A38F', '#D8D8E5', '#FFFFFF', '#54516F',
+]);
+
+function hexColors(svg) {
+  return [...svg.matchAll(/#[0-9A-Fa-f]{6}/g)].map(match => match[0].toUpperCase());
+}
+
 test('private feedback handoff is not published', () => {
   assert.equal(existsSync(join(repoRoot, 'USER-FEEDBACK-HANDOFF.md')), false);
   assert.doesNotMatch(read('README.md'), /USER-FEEDBACK-HANDOFF|用户逐轮真实反馈/);
+});
+
+test('public files do not contain shared-chat or repository-specific handoff artifacts', () => {
+  const unsafeFilename = /(?:^|\/)(?:user[-_ ]?feedback|handoff|chat[-_ ]?transcript|raw[-_ ]?prompt)/i;
+  const unsafeContent = /chatgpt\.com\/share\/|USER-FEEDBACK-HANDOFF/i;
+  assert.deepEqual(publicFiles().filter(file => unsafeFilename.test(file)), []);
+  assert.deepEqual(publicFiles().filter(file => unsafeContent.test(read(file))), []);
 });
 
 test('public files do not expose local home directories', () => {
@@ -85,6 +110,57 @@ test('style chooser uses complete directions and host-compatible fallbacks', () 
   assert.equal((options.match(/开卷助手/g) || []).length >= 3, true);
 });
 
+test('design system foundation defines coherent visual roles and rejection gates', () => {
+  const skill = read('SKILL.md');
+  const systemPath = join(repoRoot, 'references', 'design-system.md');
+  assert.equal(existsSync(systemPath), true);
+
+  const system = read('references/design-system.md');
+  assert.match(skill, /references\/design-system\.md/);
+  assert.match(system, /## 2\. Visual hierarchy/);
+  assert.match(system, /## 3\. Role-based color system/);
+  assert.match(system, /## 4\. Typography scale/);
+  assert.match(system, /## 5\. Spacing rhythm/);
+  assert.match(system, /## 6\. Material and effect budget/);
+  assert.match(system, /## 8\. Motion principles/);
+  assert.match(system, /## 9\. Anti-pattern gate/);
+  assert.match(system, /random gradients/);
+  assert.match(system, /obvious decorative curves/);
+  assert.match(system, /unrelated motifs/);
+  assert.match(system, /logo container overpowering glyph/);
+  assert.match(system, /motion without semantic purpose/);
+});
+
+test('design workflow follows brief, system, rendering, and comparison order', () => {
+  const skill = read('SKILL.md');
+  const orderedSteps = [
+    'Define the visual brief',
+    'Choose one design language',
+    'Write a semantic logo brief',
+    'Assign role-based color tokens',
+    'Map every text role',
+    'Add motion only when',
+    'Measure every visible string',
+    'Render the file in a browser',
+    'Compare the candidate',
+  ];
+  let previous = -1;
+  for (const step of orderedSteps) {
+    const position = skill.indexOf(step);
+    assert.ok(position > previous, `workflow step is missing or out of order: ${step}`);
+    previous = position;
+  }
+});
+
+test('self-evolution boundary is local, allowlisted, and human-reviewed', () => {
+  const system = read('references/design-system.md');
+  assert.match(system, /local preference ranking, not autonomous rewriting/i);
+  assert.match(system, /allowlisted numeric weight/i);
+  assert.match(system, /Never persist raw feedback, private prompts/i);
+  assert.match(system, /Never send\s+the profile to a remote service/i);
+  assert.match(system, /human-reviewed code change/i);
+});
+
 test('approved seasonal themes share one brand semantic system', () => {
   const pair = read('assets/examples/brand-theme-pair.svg');
   assert.match(pair, /J · 梦幻极光/);
@@ -94,18 +170,50 @@ test('approved seasonal themes share one brand semantic system', () => {
   assert.match(pair, /共享 Logo、文案和信息结构/);
 });
 
+test('public SVG examples use one shared brand token palette', () => {
+  for (const file of publicExamples) {
+    const svg = read(file);
+    assert.match(svg, /viewBox="[^"]+"/);
+    assert.match(svg, /<title\b[^>]*>[^<]+<\/title>/);
+    assert.match(svg, /<desc\b[^>]*>[^<]+<\/desc>/);
+    assert.match(svg, /#5F61C7/i, `${file} should expose the primary indigo token`);
+    assert.match(svg, /#A79AE8/i, `${file} should expose the supporting indigo token`);
+
+    const unexpected = [...new Set(hexColors(svg).filter(color => !brandTokens.has(color)))];
+    assert.deepEqual(unexpected, [], `${file} contains non-system colors: ${unexpected.join(', ')}`);
+  }
+});
+
+test('equivalent success states use one stable mint token', () => {
+  const statefulExamples = publicExamples.filter(file => file !== 'assets/examples/banner-example.svg');
+  for (const file of statefulExamples) {
+    const svg = read(file);
+    assert.match(svg, /#56B59A/i, `${file} should use semantic.success for ready or checked states`);
+    assert.doesNotMatch(svg, /#(?:16A34A|15803D|0F9F6E|27AF9C|42AAA8|7DC5B5)/i);
+  }
+});
+
 test('dreamy detail board encodes motifs and a measured type ladder', () => {
   const board = read('assets/examples/dreamy-detail-board.svg');
-  const ornate = read('assets/examples/ornate-style-gallery.svg');
   const system = read('references/style-system.md');
   assert.match(board, /CHAPTER RELATIONSHIP/);
   assert.match(board, /SOURCE TO OUTLINE/);
   assert.match(board, /READ \/ TEST \/ RECALL/);
   assert.match(board, /CARD VERIFICATION/);
-  assert.match(ornate, /LECTURE TRANSCRIPT/);
-  assert.match(ornate, /EXPORT PACKAGE/);
+  assert.match(board, /章节页/);
+  assert.match(board, /概念索引/);
+  assert.match(board, /原文段落/);
+  assert.match(board, /复习提纲/);
+  assert.match(board, /读/);
+  assert.match(board, /练/);
+  assert.match(board, /忆/);
+  assert.match(board, /题面/);
+  assert.match(board, /答案/);
+  assert.match(board, /data-motif="chapter-map"/);
+  assert.doesNotMatch(board, /verification shield|知识星座/);
   assert.match(board, /Georgia, Times New Roman, serif/);
   assert.match(system, /three-level text ladder/);
+  assert.match(system, /motif budget/);
   assert.match(system, /node constellations/);
 });
 
@@ -113,6 +221,17 @@ test('logo concepts declare a meaningful secondary motif', () => {
   const logos = read('assets/examples/logo-concepts.svg');
   assert.match(logos, /data-logo-secondary-motif="chapter relationship \+ verification shield"/);
   assert.match(logos, /verification shield/);
+  assert.doesNotMatch(logos, /M56 93c/);
+  assert.match(logos, /M58 91 112 50 169 95/);
+});
+
+test('detail-board microcopy is centered on its visual containers', () => {
+  const board = read('assets/examples/dreamy-detail-board.svg');
+  assert.match(board, /\.motif-label[^}]*text-anchor: middle/);
+  assert.ok((board.match(/text-anchor="middle"/g) || []).length >= 10);
+  assert.match(board, /text x="35" y="15" text-anchor="middle"[^>]*>01<\/text>/);
+  assert.match(board, /text x="27" y="68" text-anchor="middle"[^>]*>读<\/text>/);
+  assert.match(board, /text x="455" y="603" class="motif-label"/);
 });
 
 test('preference guidance keeps learning local and structured', () => {

@@ -11,6 +11,29 @@ copies. Describe each direction across four independent dimensions:
 Keep the semantic logo, copy, dimensions, and content order constant while
 comparing directions. A useful first set is:
 
+## Brand invariants across directions
+
+J, K, and L are presentation choices inside one product system. They may change
+the material, light direction, crop, and perceived temperature, but they do not
+create separate brands:
+
+- Keep `#5F61C7` / `#383B73` as the Logo, primary action, and structural indigo
+  across every direction. A lighter surface can expose more `#A79AE8`, but it
+  cannot recolor the mark to orange, teal, or pink.
+- Keep `#24263A` and `#686979` for text, `#D8D8E5` for quiet borders, and
+  `#54516F` for the shared shadow family.
+- Keep `#56B59A` for every equivalent success, checked, ready, or completed
+  state. Use `#E8A38F` only for a warm temperature cue or a genuinely different
+  warning-like state.
+- Keep approximately 80% neutral surfaces/structure, 15% indigo brand color,
+  and 5% semantic or temperature emphasis. Each direction gets no more than
+  one primary brand color and one semantic emphasis color.
+- A gradient may describe pearl, paper, glass, or a passing highlight by
+  blending the shared tokens. It must not become an extra palette.
+
+This makes a style chooser useful: the user compares material and composition,
+not three unrelated products wearing the same copy.
+
 | Label | Composition | Material | Motion | Mood |
 |---|---|---|---|---|
 | A · Deep-sea glass | asymmetrical anchor with open reading field | translucent glass | slow orbital bubbles clipped by edges | calm, premium |
@@ -21,9 +44,9 @@ comparing directions. A useful first set is:
 | G · Refractive glass | overlapping panes and sliced highlights | refractive glass | light passing across planes | expressive, modern |
 | H · Contour field | contour lines framing a quiet center | ink on tinted stock | flowing paths | exploratory, intelligent |
 | I · Minimal signal | one strong mark and ample negative space | flat neutral surface | one directional cue | focused, efficient |
-| J · Dreamy aurora | soft asymmetry with luminous ribbons | lavender-peach glass | drifting light bands | dreamy, gentle |
-| K · Summer soda | sun disc, wave rail, and open sky | mint, aqua, lemon, coral | buoyant bubbles and a rising sweep | bright, playful |
-| L · Warm paper sun | layered sheets with an offset mark | apricot, terracotta, cream | slow folded depth | warm, human |
+| J · Dreamy aurora | soft asymmetry with luminous ribbons | pearl glass with indigo light | drifting light bands | dreamy, gentle |
+| K · Summer soda | open pearl field with a mint success cue | translucent pearl with a warm sun cue | buoyant bubbles and a rising sweep | bright, playful |
+| L · Warm paper sun | layered pearl sheets with an offset mark | warm paper surface, indigo structure | slow folded depth | warm, human |
 
 When the user asks for more options, expand to four to six directions, keeping
 at least two dimensions different between neighboring options. Do not present
@@ -72,11 +95,26 @@ repeatable system:
   tracking, display title at 28–34 px, and body at 13–15 px with a 1.35–1.5
   line-height. Leave 20–28 px between title and body, then anchor the card with
   a thin baseline or divider.
+- Set a motif budget before drawing: one primary visual, one supporting action,
+  and at most one soft glow. A large curve is not a detail system by itself;
+  use a short straight rail or two-segment path when direction matters. If the
+  viewer notices the decoration before the title, remove half of it.
 - For Logo lockups, keep the semantic glyph unchanged while varying only the
   container treatment. Use an outer halo, a quiet ring, a rounded tile, a
   single inner keyline, and at most one clipped gloss or bloom; the halo must
   remain subordinate to the glyph while the effects fade into the card.
 
-The reference implementations are `assets/examples/dreamy-detail-board.svg`
-for the semantic baseline and `assets/examples/ornate-style-gallery.svg` for
-the richer six-motif treatment.
+### Book-page mapping direction
+
+When the user chooses a document or knowledge-mapping direction, use one
+repeatable grammar across the board: page tabs or source rows on one side,
+an outline or answer card on the other, and straight connectors that show the
+actual transformation. Label stages or states when the copy names them (for
+example `01 / 02 / 03` or `读 / 练 / 忆`). A shield, star, or colored node is
+not a substitute for a chapter, concept, question, or answer. Add detail by
+showing those real objects, their hierarchy, and their state changes rather
+than by adding unrelated dots or decorative curves.
+
+The reference implementation is `assets/examples/dreamy-detail-board.svg`.
+It is intentionally a quiet four-card board: use it as a baseline, then add
+detail only when the brief names the product meaning that detail carries.

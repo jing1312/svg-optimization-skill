@@ -2,70 +2,56 @@
   <title id="title">开卷助手梦幻、夏日与暖阳风格对比</title>
   <desc id="desc">三个保持相同内容的完整视觉方向：梦幻极光、夏日汽水和暖阳纸片，分别包含 banner 缩略图与弹窗局部。</desc>
   <defs>
-    <linearGradient id="dream" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7067d8"/><stop offset=".48" stop-color="#c49be8"/><stop offset="1" stop-color="#ffb59f"/></linearGradient>
-    <linearGradient id="summer" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4edbd0"/><stop offset=".52" stop-color="#8de9c1"/><stop offset="1" stop-color="#ffd66d"/></linearGradient>
-    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bd5f62"/><stop offset=".5" stop-color="#ef9274"/><stop offset="1" stop-color="#ffd19a"/></linearGradient>
-    <linearGradient id="dreamMini" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b7de0"/><stop offset="1" stop-color="#f3a89f"/></linearGradient>
-    <linearGradient id="summerMini" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2cb7ba"/><stop offset="1" stop-color="#f5bd58"/></linearGradient>
-    <linearGradient id="warmMini" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a94f5a"/><stop offset="1" stop-color="#e9866d"/></linearGradient>
-    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#5b4a61" flood-opacity=".2"/></filter>
+    <linearGradient id="dream" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#383B73"/><stop offset=".48" stop-color="#5F61C7"/><stop offset="1" stop-color="#A79AE8"/></linearGradient>
+    <linearGradient id="summer" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5F61C7"/><stop offset=".52" stop-color="#A79AE8"/><stop offset="1" stop-color="#E8A38F"/></linearGradient>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#383B73"/><stop offset=".5" stop-color="#E8A38F"/><stop offset="1" stop-color="#F5F3F0"/></linearGradient>
+    <linearGradient id="brandMini" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#A79AE8"/><stop offset="1" stop-color="#5F61C7"/></linearGradient>
+    <linearGradient id="warmMini" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5F61C7"/><stop offset="1" stop-color="#383B73"/></linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#54516F" flood-opacity=".2"/></filter>
     <filter id="glow"><feGaussianBlur stdDeviation="14"/></filter>
     <clipPath id="dreamClip"><rect x="22" y="104" width="338" height="188" rx="20"/></clipPath>
     <clipPath id="summerClip"><rect x="392" y="104" width="338" height="188" rx="20"/></clipPath>
     <clipPath id="warmClip"><rect x="762" y="104" width="338" height="188" rx="20"/></clipPath>
   </defs>
-  <rect width="1120" height="620" fill="#fbf7f3"/>
-  <text x="56" y="56" font-size="28" font-weight="700" fill="#332d3b">选择你的色彩气质</text>
-  <text x="56" y="83" font-size="15" fill="#817786">同一份内容与 Logo，只改变材质、光线和情绪</text>
+  <rect width="1120" height="620" fill="#F5F3F0"/>
+  <text x="56" y="44" font-size="28" font-weight="700" fill="#24263A">选择你的色彩气质</text>
+  <text x="56" y="68" font-size="15" fill="#686979">同一份内容与 Logo，只改变材质、光线和情绪</text>
 
   <g>
-    <text x="22" y="92" font-size="16" font-weight="700" fill="#7568c8">J · 梦幻极光</text>
+    <text x="22" y="92" font-size="16" font-weight="700" fill="#5F61C7">J · 梦幻极光</text>
     <g clip-path="url(#dreamClip)">
       <rect x="22" y="104" width="338" height="188" rx="20" fill="url(#dream)"/>
-      <circle cx="55" cy="116" r="66" fill="#fff" fill-opacity=".18" filter="url(#glow)"/>
-      <circle cx="350" cy="274" r="106" fill="#ffcfb7" fill-opacity=".28"/>
-      <path d="M-12 254 C70 190 128 282 204 214 S330 176 382 230" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="18"/>
-      <path d="M-18 271 C56 214 128 299 212 238 S326 201 380 254" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="5"/>
-      <text x="48" y="169" font-size="29" font-weight="700" fill="#fff9ff">开卷助手</text>
-      <text x="48" y="197" font-size="12" fill="#f8eaff">整理课程资料 · 生成复习提纲</text>
-      <rect x="48" y="222" width="116" height="28" rx="14" fill="#fff" fill-opacity=".18" stroke="#fff" stroke-opacity=".36"/>
-      <text x="106" y="240" text-anchor="middle" font-size="11" fill="#fff">知识核验</text>
-      <rect x="275" y="170" width="54" height="54" rx="18" fill="#6e61c8" fill-opacity=".74" stroke="#fff" stroke-opacity=".55"/>
-      <g transform="translate(286 181) scale(1.55)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
+      <circle cx="55" cy="116" r="66" fill="#A79AE8" fill-opacity=".18" filter="url(#glow)"/><circle cx="350" cy="274" r="106" fill="#E8A38F" fill-opacity=".16"/>
+      <path d="M-12 254 C70 190 128 282 204 214 S330 176 382 230" fill="none" stroke="#FFFFFF" stroke-opacity=".22" stroke-width="18"/><path d="M-18 271 C56 214 128 299 212 238 S326 201 380 254" fill="none" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="5"/>
+      <text x="48" y="169" font-size="29" font-weight="700" fill="#FFFFFF">开卷助手</text><text x="48" y="197" font-size="12" fill="#F5F3F0">整理课程资料 · 生成复习提纲</text>
+      <rect x="48" y="222" width="116" height="28" rx="14" fill="#FFFFFF" fill-opacity=".18" stroke="#FFFFFF" stroke-opacity=".36"/><text x="106" y="240" text-anchor="middle" font-size="11" fill="#FFFFFF">知识核验</text>
+      <rect x="275" y="170" width="54" height="54" rx="18" fill="url(#brandMini)" stroke="#FFFFFF" stroke-opacity=".55"/><g transform="translate(286 181) scale(1.55)" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
     </g>
-    <g filter="url(#softShadow)"><rect x="22" y="320" width="338" height="220" rx="20" fill="#fffaff"/><rect x="42" y="340" width="44" height="44" rx="14" fill="url(#dreamMini)"/><g transform="translate(52 350) scale(1.45)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g><text x="100" y="360" font-size="16" font-weight="700" fill="#443d62">开卷助手</text><text x="100" y="379" font-size="11" fill="#958aa4">页面就绪 · 24/24</text><line x1="42" y1="408" x2="340" y2="408" stroke="#eee4f2"/><text x="42" y="436" font-size="12" font-weight="700" fill="#665578">同步进度</text><rect x="42" y="452" width="298" height="10" rx="5" fill="#f0e4f6"/><rect x="42" y="452" width="244" height="10" rx="5" fill="url(#dreamMini)"/><rect x="42" y="482" width="142" height="36" rx="18" fill="#7364c9"/><text x="113" y="505" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">整理章节资料</text></g>
+    <g filter="url(#softShadow)"><rect x="22" y="320" width="338" height="220" rx="20" fill="#FBFAF8" stroke="#D8D8E5"/><rect x="42" y="340" width="44" height="44" rx="14" fill="url(#brandMini)"/><g transform="translate(52 350) scale(1.45)" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g><text x="100" y="360" font-size="16" font-weight="700" fill="#24263A">开卷助手</text><text x="100" y="379" font-size="11" fill="#686979">页面就绪 · 24/24</text><line x1="42" y1="408" x2="340" y2="408" stroke="#D8D8E5"/><text x="42" y="436" font-size="12" font-weight="700" fill="#383B73">同步进度</text><rect x="42" y="452" width="298" height="10" rx="5" fill="#D8D8E5"/><rect x="42" y="452" width="244" height="10" rx="5" fill="url(#brandMini)"/><rect x="42" y="482" width="142" height="36" rx="18" fill="#5F61C7"/><text x="113" y="505" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">整理章节资料</text></g>
   </g>
 
   <g>
-    <text x="392" y="92" font-size="16" font-weight="700" fill="#169b9c">K · 夏日汽水</text>
+    <text x="392" y="92" font-size="16" font-weight="700" fill="#5F61C7">K · 夏日汽水</text>
     <g clip-path="url(#summerClip)">
-      <rect x="392" y="104" width="338" height="188" rx="20" fill="url(#summer)"/>
-      <circle cx="682" cy="116" r="72" fill="#fff5ae" fill-opacity=".65"/>
-      <path d="M370 250 C450 172 518 280 590 198 S704 192 752 240 V310 H370Z" fill="#fff" fill-opacity=".22"/>
-      <path d="M370 271 C450 202 522 299 596 226 S708 220 752 266" fill="none" stroke="#fff" stroke-opacity=".52" stroke-width="4"/>
-      <circle cx="485" cy="138" r="7" fill="#fff" fill-opacity=".55"/><circle cx="509" cy="126" r="4" fill="#fff" fill-opacity=".7"/><circle cx="531" cy="148" r="5" fill="#fff" fill-opacity=".5"/>
-      <text x="418" y="169" font-size="29" font-weight="700" fill="#104d5d">开卷助手</text>
-      <text x="418" y="197" font-size="12" fill="#286d76">整理课程资料 · 生成复习提纲</text>
-      <rect x="418" y="222" width="116" height="28" rx="14" fill="#fff" fill-opacity=".62"/><text x="476" y="240" text-anchor="middle" font-size="11" fill="#136d72">知识核验</text>
-      <rect x="645" y="170" width="54" height="54" rx="18" fill="#f19b5b" stroke="#fff" stroke-opacity=".7"/>
-      <g transform="translate(656 181) scale(1.55)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
+      <rect x="392" y="104" width="338" height="188" rx="20" fill="url(#summer)"/><circle cx="682" cy="116" r="72" fill="#E8A38F" fill-opacity=".38"/>
+      <path d="M370 250 C450 172 518 280 590 198 S704 192 752 240 V310 H370Z" fill="#FFFFFF" fill-opacity=".22"/><path d="M370 271 C450 202 522 299 596 226 S708 220 752 266" fill="none" stroke="#FFFFFF" stroke-opacity=".52" stroke-width="4"/>
+      <circle cx="485" cy="138" r="7" fill="#FFFFFF" fill-opacity=".55"/><circle cx="509" cy="126" r="4" fill="#FFFFFF" fill-opacity=".7"/><circle cx="531" cy="148" r="5" fill="#FFFFFF" fill-opacity=".5"/>
+      <text x="418" y="169" font-size="29" font-weight="700" fill="#FFFFFF">开卷助手</text><text x="418" y="197" font-size="12" fill="#F5F3F0">整理课程资料 · 生成复习提纲</text>
+      <rect x="418" y="222" width="116" height="28" rx="14" fill="#FFFFFF" fill-opacity=".62"/><text x="476" y="240" text-anchor="middle" font-size="11" fill="#383B73">知识核验</text>
+      <rect x="645" y="170" width="54" height="54" rx="18" fill="url(#brandMini)" stroke="#FFFFFF" stroke-opacity=".7"/><g transform="translate(656 181) scale(1.55)" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
     </g>
-    <g filter="url(#softShadow)"><rect x="392" y="320" width="338" height="220" rx="20" fill="#fbfffb"/><rect x="412" y="340" width="298" height="54" rx="16" fill="#e3faf0"/><circle cx="440" cy="367" r="13" fill="#27af9c"/><path d="m434 367 4 4 8-9" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="464" y="363" font-size="14" font-weight="700" fill="#176b68">页面就绪</text><text x="464" y="381" font-size="11" fill="#5b8b86">解析完成，可开始整理</text><text x="412" y="430" font-size="12" font-weight="700" fill="#286d76">选择导出范围</text><rect x="412" y="446" width="142" height="36" rx="18" fill="#159b9d"/><text x="483" y="469" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">整理章节资料</text><rect x="570" y="446" width="140" height="36" rx="18" fill="#fff" stroke="#f19b5b" stroke-width="2"/><text x="640" y="469" text-anchor="middle" font-size="11" font-weight="700" fill="#d97947">导出提纲</text><rect x="412" y="504" width="298" height="8" rx="4" fill="#e4f5e8"/><rect x="412" y="504" width="214" height="8" rx="4" fill="#f0ae58"/></g>
+    <g filter="url(#softShadow)"><rect x="392" y="320" width="338" height="220" rx="20" fill="#FBFAF8" stroke="#D8D8E5"/><rect x="412" y="340" width="298" height="54" rx="16" fill="#F5F3F0" stroke="#D8D8E5"/><circle cx="440" cy="367" r="13" fill="#56B59A"/><path d="m434 367 4 4 8-9" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="464" y="363" font-size="14" font-weight="700" fill="#383B73">页面就绪</text><text x="464" y="381" font-size="11" fill="#686979">解析完成，可开始整理</text><text x="412" y="430" font-size="12" font-weight="700" fill="#383B73">选择导出范围</text><rect x="412" y="446" width="142" height="36" rx="18" fill="#5F61C7"/><text x="483" y="469" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">整理章节资料</text><rect x="570" y="446" width="140" height="36" rx="18" fill="#FFFFFF" stroke="#5F61C7" stroke-width="2"/><text x="640" y="469" text-anchor="middle" font-size="11" font-weight="700" fill="#383B73">导出提纲</text><rect x="412" y="504" width="298" height="8" rx="4" fill="#D8D8E5"/><rect x="412" y="504" width="214" height="8" rx="4" fill="#56B59A"/></g>
   </g>
 
   <g>
-    <text x="762" y="92" font-size="16" font-weight="700" fill="#b25561">L · 暖阳纸片</text>
+    <text x="762" y="92" font-size="16" font-weight="700" fill="#5F61C7">L · 暖阳纸片</text>
     <g clip-path="url(#warmClip)">
-      <rect x="762" y="104" width="338" height="188" rx="20" fill="url(#warm)"/>
-      <circle cx="1065" cy="122" r="82" fill="#ffe2ae" fill-opacity=".55"/>
-      <path d="M746 226 826 152l64 58 70-84 158 110v86H746Z" fill="#8d4059" fill-opacity=".35"/>
-      <path d="M776 276 850 194l72 54 66-72 128 100" fill="none" stroke="#fff1d0" stroke-opacity=".7" stroke-width="3"/>
-      <rect x="790" y="130" width="90" height="10" rx="5" fill="#fff1d0" fill-opacity=".65"/>
-      <text x="788" y="169" font-size="29" font-weight="700" fill="#fff8ec">开卷助手</text>
-      <text x="788" y="197" font-size="12" fill="#ffe6c8">整理课程资料 · 生成复习提纲</text>
-      <rect x="788" y="222" width="116" height="28" rx="14" fill="#803d55"/><text x="846" y="240" text-anchor="middle" font-size="11" fill="#fff3dd">知识核验</text>
-      <rect x="1015" y="170" width="54" height="54" rx="16" fill="#fff1d0" fill-opacity=".9"/><g transform="translate(1026 181) scale(1.55)" fill="none" stroke="#a84e5b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
+      <rect x="762" y="104" width="338" height="188" rx="20" fill="url(#warm)"/><circle cx="1065" cy="122" r="82" fill="#E8A38F" fill-opacity=".42"/>
+      <path d="M746 226 826 152l64 58 70-84 158 110v86H746Z" fill="#383B73" fill-opacity=".3"/><path d="M776 276 850 194l72 54 66-72 128 100" fill="none" stroke="#F5F3F0" stroke-opacity=".72" stroke-width="3"/>
+      <rect x="790" y="130" width="90" height="10" rx="5" fill="#F5F3F0" fill-opacity=".65"/><text x="788" y="169" font-size="29" font-weight="700" fill="#FFFFFF">开卷助手</text><text x="788" y="197" font-size="12" fill="#F5F3F0">整理课程资料 · 生成复习提纲</text>
+      <rect x="788" y="222" width="116" height="28" rx="14" fill="#383B73"/><text x="846" y="240" text-anchor="middle" font-size="11" fill="#FFFFFF">知识核验</text>
+      <rect x="1015" y="170" width="54" height="54" rx="16" fill="url(#brandMini)"/><g transform="translate(1026 181) scale(1.55)" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g>
     </g>
-    <g filter="url(#softShadow)"><rect x="762" y="320" width="338" height="220" rx="20" fill="#fffaf3"/><rect x="782" y="338" width="298" height="58" rx="4" fill="#fff1d9" transform="rotate(-2 931 367)"/><rect x="796" y="346" width="44" height="44" rx="12" fill="url(#warmMini)"/><g transform="translate(806 356) scale(1.45)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g><text x="854" y="362" font-size="16" font-weight="700" fill="#6b3f46">开卷助手</text><text x="854" y="380" font-size="11" fill="#a1746c">页面就绪 · 24/24</text><text x="782" y="432" font-size="12" font-weight="700" fill="#874956">同步进度</text><rect x="782" y="448" width="298" height="10" rx="5" fill="#f7dfc8"/><rect x="782" y="448" width="226" height="10" rx="5" fill="url(#warmMini)"/><rect x="782" y="480" width="142" height="36" rx="8" fill="#a84e5b"/><text x="853" y="503" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">整理章节资料</text></g>
+    <g filter="url(#softShadow)"><rect x="762" y="320" width="338" height="220" rx="20" fill="#FBFAF8" stroke="#D8D8E5"/><rect x="782" y="338" width="298" height="58" rx="4" fill="#F5F3F0" stroke="#D8D8E5" transform="rotate(-2 931 367)"/><rect x="796" y="346" width="44" height="44" rx="12" fill="url(#warmMini)"/><g transform="translate(806 356) scale(1.45)" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/></g><text x="854" y="362" font-size="16" font-weight="700" fill="#24263A">开卷助手</text><text x="854" y="380" font-size="11" fill="#686979">页面就绪 · 24/24</text><text x="782" y="432" font-size="12" font-weight="700" fill="#383B73">同步进度</text><rect x="782" y="448" width="298" height="10" rx="5" fill="#D8D8E5"/><rect x="782" y="448" width="226" height="10" rx="5" fill="#E8A38F"/><rect x="782" y="480" width="142" height="36" rx="8" fill="#5F61C7"/><text x="853" y="503" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">整理章节资料</text></g>
   </g>
 </svg>

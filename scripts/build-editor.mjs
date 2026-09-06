@@ -3,7 +3,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const srcDir = join(root, 'src', 'editor');
-const ORDER = ['theme-tokens.mjs','geometry.mjs','text-measurer.mjs','snap-engine.mjs','export-sanitizer.mjs'];
+const ORDER = ['theme-tokens.mjs','color-map.mjs','resize-transform.mjs','layout-arrange.mjs','geometry.mjs','text-measurer.mjs','snap-engine.mjs','export-sanitizer.mjs'];
 const core = ORDER.map(f => readFileSync(join(srcDir, f), 'utf8').replace(/^export\s+/gm, '')).join('\n');
 const tpl = readFileSync(join(srcDir, 'ui.template.html'), 'utf8');
 const out = tpl.replace('/*@@CORE@@*/', core);

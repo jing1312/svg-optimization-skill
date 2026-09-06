@@ -3,82 +3,82 @@
   <desc id="desc">深色项目横幅，左侧是虚构产品名称和能力标签，右侧是带打开书本和对勾图形的应用图标。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0b1220"/>
-      <stop offset="0.58" stop-color="#15325d"/>
-      <stop offset="1" stop-color="#155e75"/>
+      <stop offset="0" stop-color="#383B73"/>
+      <stop offset="0.58" stop-color="#5F61C7"/>
+      <stop offset="1" stop-color="#383B73"/>
     </linearGradient>
     <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#38bdf8"/>
-      <stop offset="0.52" stop-color="#2563eb"/>
-      <stop offset="1" stop-color="#1d4ed8"/>
+      <stop offset="0" stop-color="#A79AE8"/>
+      <stop offset="0.52" stop-color="#5F61C7"/>
+      <stop offset="1" stop-color="#383B73"/>
     </linearGradient>
     <linearGradient id="version" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#22d3ee"/>
-      <stop offset="1" stop-color="#38bdf8"/>
+      <stop offset="0" stop-color="#A79AE8"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
     </linearGradient>
     <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#67e8f9" stop-opacity="0.42"/>
-      <stop offset="1" stop-color="#67e8f9" stop-opacity="0"/>
+      <stop offset="0" stop-color="#A79AE8" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#A79AE8" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="bubbleIce" cx="0.3" cy="0.26" r="0.82">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
-      <stop offset="0.48" stop-color="#7dd3fc" stop-opacity="0.09"/>
-      <stop offset="1" stop-color="#38bdf8" stop-opacity="0.015"/>
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="0.48" stop-color="#A79AE8" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#5F61C7" stop-opacity="0.015"/>
     </radialGradient>
     <radialGradient id="bubbleTeal" cx="0.34" cy="0.3" r="0.86">
-      <stop offset="0" stop-color="#a5f3fc" stop-opacity="0.14"/>
-      <stop offset="0.56" stop-color="#2dd4bf" stop-opacity="0.07"/>
-      <stop offset="1" stop-color="#0f766e" stop-opacity="0.01"/>
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/>
+      <stop offset="0.56" stop-color="#A79AE8" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="#383B73" stop-opacity="0.01"/>
     </radialGradient>
     <radialGradient id="bubbleInk" cx="0.62" cy="0.22" r="0.9">
-      <stop offset="0" stop-color="#93c5fd" stop-opacity="0.12"/>
-      <stop offset="0.62" stop-color="#1e3a8a" stop-opacity="0.08"/>
-      <stop offset="1" stop-color="#020617" stop-opacity="0.02"/>
+      <stop offset="0" stop-color="#A79AE8" stop-opacity="0.12"/>
+      <stop offset="0.62" stop-color="#383B73" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#24263A" stop-opacity="0.02"/>
     </radialGradient>
     <clipPath id="bannerClip">
       <rect width="1100" height="300" rx="24"/>
     </clipPath>
     <filter id="shadow" x="-35%" y="-35%" width="170%" height="180%">
-      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#020617" flood-opacity="0.36"/>
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#54516F" flood-opacity="0.36"/>
     </filter>
   </defs>
 
   <rect width="1100" height="300" rx="24" fill="url(#bg)"/>
   <g clip-path="url(#bannerClip)" aria-hidden="true">
     <circle cx="1048" cy="-82" r="226" fill="url(#bubbleIce)"/>
-    <circle cx="1048" cy="-82" r="194" fill="none" stroke="#ffffff" stroke-opacity="0.09" stroke-width="1.5"/>
-    <path d="M920 16c54 31 128 38 198 13" fill="none" stroke="#d8f3ff" stroke-opacity="0.14" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="1048" cy="-82" r="194" fill="none" stroke="#FFFFFF" stroke-opacity="0.09" stroke-width="1.5"/>
+    <path d="M920 16c54 31 128 38 198 13" fill="none" stroke="#FFFFFF" stroke-opacity="0.14" stroke-width="3" stroke-linecap="round"/>
 
     <circle cx="1148" cy="262" r="244" fill="url(#bubbleTeal)"/>
-    <circle cx="1148" cy="262" r="206" fill="none" stroke="#99f6e4" stroke-opacity="0.08" stroke-width="1.5"/>
-    <path d="M1010 118c64 9 118 39 151 85" fill="none" stroke="#ccfbf1" stroke-opacity="0.1" stroke-width="2"/>
+    <circle cx="1148" cy="262" r="206" fill="none" stroke="#A79AE8" stroke-opacity="0.08" stroke-width="1.5"/>
+    <path d="M1010 118c64 9 118 39 151 85" fill="none" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="2"/>
 
     <circle cx="-58" cy="322" r="184" fill="url(#bubbleInk)"/>
-    <circle cx="-58" cy="322" r="148" fill="none" stroke="#bfdbfe" stroke-opacity="0.08" stroke-width="1.5"/>
-    <path d="M-12 187c51 18 90 54 111 101" fill="none" stroke="#dbeafe" stroke-opacity="0.08" stroke-width="2"/>
+    <circle cx="-58" cy="322" r="148" fill="none" stroke="#A79AE8" stroke-opacity="0.08" stroke-width="1.5"/>
+    <path d="M-12 187c51 18 90 54 111 101" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2"/>
 
-    <ellipse cx="620" cy="348" rx="306" ry="106" fill="#ffffff" opacity="0.025"/>
-    <path d="M286 300c118-58 241-57 356-9 126 52 272 38 458-39v48H286Z" fill="#67e8f9" opacity="0.025"/>
+    <ellipse cx="620" cy="348" rx="306" ry="106" fill="#FFFFFF" opacity="0.025"/>
+    <path d="M286 300c118-58 241-57 356-9 126 52 272 38 458-39v48H286Z" fill="#A79AE8" opacity="0.025"/>
     <circle cx="282" cy="-132" r="170" fill="url(#bubbleIce)" opacity="0.48"/>
   </g>
 
-  <text x="70" y="112" font-size="68" font-weight="700" fill="#ffffff">开卷助手</text>
-  <text x="70" y="174" font-size="24" fill="#c9e8f5">整理公开课程资料 · 生成练习与复习提纲</text>
+  <text x="70" y="112" font-size="68" font-weight="700" fill="#FFFFFF">开卷助手</text>
+  <text x="70" y="174" font-size="24" fill="#F5F3F0">整理公开课程资料 · 生成练习与复习提纲</text>
 
   <g font-size="18">
-    <rect x="70" y="210" width="276" height="44" rx="22" fill="#ffffff" fill-opacity="0.09" stroke="#ffffff" stroke-opacity="0.22"/>
-    <text x="208" y="238.3" fill="#f8fafc" text-anchor="middle">浏览器扩展 · Chrome / Edge</text>
-    <rect x="362" y="210" width="204" height="44" rx="22" fill="#ffffff" fill-opacity="0.09" stroke="#ffffff" stroke-opacity="0.22"/>
-    <text x="464" y="238.3" fill="#f8fafc" text-anchor="middle">JSON + Markdown</text>
+    <rect x="70" y="210" width="276" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.09" stroke="#FFFFFF" stroke-opacity="0.22"/>
+    <text x="208" y="238.3" fill="#FFFFFF" text-anchor="middle">浏览器扩展 · Chrome / Edge</text>
+    <rect x="362" y="210" width="204" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.09" stroke="#FFFFFF" stroke-opacity="0.22"/>
+    <text x="464" y="238.3" fill="#FFFFFF" text-anchor="middle">JSON + Markdown</text>
     <rect x="582" y="210" width="108" height="44" rx="22" fill="url(#version)"/>
-    <text x="636" y="238.3" fill="#082f49" font-weight="700" text-anchor="middle">v 1.0.0</text>
+    <text x="636" y="238.3" fill="#24263A" font-weight="700" text-anchor="middle">v 1.0.0</text>
   </g>
 
   <g data-role="logo" data-logo-intent="knowledge verification" data-icon-source="lucide" data-icon-name="book-open-check" data-icon-license="ISC">
     <circle data-role="logo-halo" cx="930" cy="150" r="78" fill="url(#halo)"/>
     <rect data-role="logo-tile" x="870" y="90" width="120" height="120" rx="28" fill="url(#tile)" filter="url(#shadow)"/>
-    <rect x="871" y="91" width="118" height="118" rx="27" fill="none" stroke="#ffffff" stroke-opacity="0.2"/>
-    <g data-role="logo-glyph" transform="translate(894 114) scale(3)" fill="none" stroke="#ffffff" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="871" y="91" width="118" height="118" rx="27" fill="none" stroke="#FFFFFF" stroke-opacity="0.2"/>
+    <g data-role="logo-glyph" transform="translate(894 114) scale(3)" fill="none" stroke="#FFFFFF" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 5v16"/>
       <path d="m16 12 2 2 4-4"/>
       <path d="M22 6V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2h4.001A2 2 0 0 0 22 17v-1.344"/>

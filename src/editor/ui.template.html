@@ -224,6 +224,7 @@ function loadSvgText(text, fileName) {
 function renderAll() {
   contentG.textContent = '';
   overlayG.textContent = '';
+  S.contrastMarks = new Set(); S.contrastInfo = new Map(); // 新文件不保留体检标记
   if (!S.sourceRoot) return;
   for (const child of [...S.sourceRoot.children])
     contentG.appendChild(wrapAsMover(document.importNode(child, true)));
@@ -625,7 +626,10 @@ window.addEventListener('keydown', e => {
     e.preventDefault();
     setSelection(graphicEls().filter(visibleUnlocked)); return;
   }
-  if (e.key === 'Escape') { setSelection([]); return; }
+  if (e.key === 'Escape') {
+    if (S.contrastMarks && S.contrastMarks.size) { S.contrastMarks.clear(); drawOverlay(); }
+    setSelection([]); return;
+  }
   if ((e.key === 'Delete' || e.key === 'Backspace') && S.selection.size) {
     e.preventDefault();
     const removed = [...S.selection].map(el => ({ parent:contentG, el, next:el.nextSibling }));
@@ -773,7 +777,12 @@ function bindChrome() {
   applyBtn.textContent = '应用主题'; applyBtn.style.display = 'none';
   applyBtn.addEventListener('click', confirmTheme);
   sel.after(applyBtn);
-  sel.addEventListener('change', () => { if (S.sourceRoot) previewTheme(sel.value); });
+  const savedTheme = localStorage.getItem('svgEditorTheme');
+  if (savedTheme && THEMES.some(t => t.id === savedTheme)) sel.value = savedTheme;
+  sel.addEventListener('change', () => {
+    localStorage.setItem('svgEditorTheme', sel.value);
+    if (S.sourceRoot) previewTheme(sel.value);
+  });
   for (const key of ['guide','spacing','semantic']) {
     $('svgo-sn-' + key).addEventListener('change', e => { S.snap[key] = e.target.checked; });
   }
@@ -790,13 +799,16 @@ function bindChrome() {
     top.insertBefore(b, saveBtn);
     return b;
   }
-  const pngBtn = addTool('🖼 PNG', '导出 PNG（点击=2x，按住 Alt 点击=4x）', e => exportPNG(e.altKey ? 4 : 2));
+  const pngBtn = addTool('🖼 PNG', '导出 PNG（点击=2x，Alt=4x，Shift=按内容裁剪空白）', e => exportPNG(e.altKey ? 4 : 2, e.shiftKey));
   const copyBtn = addTool('⧉ 复制代码', '复制干净 SVG 源码', copyCode);
   const draftBtn = addTool('⟲ 草稿', '恢复上次自动保存的草稿', restoreDraft);
-  window.__editorEnableFileButtons = () => { pngBtn.disabled = copyBtn.disabled = draftBtn.disabled = false; };
+  const checkBtn = addTool('◐ 体检', '对比度体检：检查文本与背景的 WCAG 对比度是否达标', checkContrast);
+  window.__editorEnableFileButtons = () => {
+    pngBtn.disabled = copyBtn.disabled = draftBtn.disabled = checkBtn.disabled = false;
+  };
   // 右栏：布局 / 混色（v1 说明见 README）
   const right = $('svgo-right');
-  const mkSel = (label, items, tip) => {
+  const mkSel = (label, items, tip, opts) => {
     const wrap = document.createElement('div'); wrap.className = 'frow';
     const lab = document.createElement('label'); lab.textContent = label;
     const s = document.createElement('select');
@@ -804,12 +816,154 @@ function bindChrome() {
       const o = document.createElement('option'); o.value = it.id; o.textContent = it.name; s.appendChild(o);
     }
     s.title = tip;
-    s.addEventListener('change', () => toast(tip));
+    if (!(opts && opts.silent)) s.addEventListener('change', () => toast(tip));
     wrap.appendChild(lab); wrap.appendChild(s); right.appendChild(wrap);
     return s;
   };
-  mkSel('布局', LAYOUTS, 'v1：新插入组件按此风格取色，已有图的整体重排暂不支持（可用对齐工具手动排）');
-  mkSel('混色', MIXES, 'v1：作为新组件/新画布的配色手法预设，改已载入图请用主题下拉');
+  const layoutSel = mkSel('布局', LAYOUTS, '排列选中的元素（按画布排版，可撤销）；未选中时无效果', { silent: true });
+  layoutSel.addEventListener('change', () => applyLayoutToSelection(layoutSel.value));
+  const mixSel = mkSel('混色', MIXES, '新插入组件的配色手法：纯色 / 渐变带 / 极光渐变 / 多彩轮换');
+  mixSel.addEventListener('change', () => { S.mixId = mixSel.value; });
+  S.mixId = mixSel.value;
+  // 跨主题默认配色：组件配色可锁定为收藏的自定义色，不再跟随主题
+  const palRow = document.createElement('div'); palRow.className = 'frow';
+  const capBtn = document.createElement('button');
+  capBtn.className = 'tbtn'; capBtn.textContent = '🎨 收藏配色';
+  capBtn.title = '把选中元素的配色存为组件默认色（新组件用它，不再跟随主题）';
+  capBtn.addEventListener('click', capturePaletteFromSelection);
+  const folBtn = document.createElement('button');
+  folBtn.className = 'tbtn'; folBtn.textContent = '↺ 跟随主题';
+  folBtn.title = '组件配色恢复为跟随主题下拉';
+  folBtn.addEventListener('click', () => {
+    localStorage.setItem('svgEditorPalette', JSON.stringify({ followTheme: true }));
+    toast('组件配色已恢复跟随主题');
+  });
+  palRow.appendChild(capBtn); palRow.appendChild(folBtn);
+  right.appendChild(palRow);
+}
+
+// 组件默认配色：followTheme=false 时用收藏的自定义色板，否则跟随主题下拉
+function paletteStore() {
+  try { return JSON.parse(localStorage.getItem('svgEditorPalette') || '{"followTheme":true}'); }
+  catch (e) { return { followTheme: true }; }
+}
+function componentTokens() {
+  const st = paletteStore();
+  if (!st.followTheme && st.palette) return st.palette;
+  return themeTokensOf($('svgo-theme-sel').value);
+}
+function capturePaletteFromSelection() {
+  if (!S.selection.size) { toast('先选中元素，再收藏配色'); return; }
+  const colors = [];
+  for (const root of [...S.selection].filter(visibleUnlocked)) {
+    const inner = innerOf(root) || root;
+    const w = document.createTreeWalker(inner, NodeFilter.SHOW_ELEMENT);
+    let n = w.currentNode;
+    while (n) {
+      if (n.nodeType === 1) for (const a of ['fill', 'stroke']) {
+        const v = n.getAttribute(a);
+        if (v && /^#[0-9a-fA-F]{6}$/i.test(v)) colors.push(v);
+      }
+      n = w.nextNode();
+    }
+  }
+  if (!colors.length) { toast('选中元素没有可取的纯色填充'); return; }
+  const palette = paletteFromColors(colors, themeTokensOf($('svgo-theme-sel').value));
+  localStorage.setItem('svgEditorPalette', JSON.stringify({ followTheme: false, palette }));
+  toast('已收藏为组件默认配色（🎨 新组件将使用它，点「↺ 跟随主题」可恢复）');
+}
+
+// ============================ 对比度体检 ============================
+// 文本填充 vs 其下方最上层纯色背景的 WCAG 对比度；阈值规则在 color-map.mjs
+function findSolidFill(el) {
+  const inner = innerOf(el) || el;
+  const w = document.createTreeWalker(inner, NodeFilter.SHOW_ELEMENT);
+  let n = w.currentNode, found = null;
+  while (n) {
+    if (n.nodeType === 1) {
+      const v = n.getAttribute('fill');
+      if (v && /^#[0-9a-fA-F]{6}$/i.test(v)) found = v.toLowerCase(); // 最深层 = 最上层绘制
+    }
+    n = w.nextNode();
+  }
+  return found;
+}
+// 文本下方最上层纯色背景（文档序靠后 = 绘制更上层）；无纯色背景返回 null
+function topmostSolidBg(t, scene) {
+  const mb = elBox(t.closest('.svgo-mover') || t);
+  if (!mb.w) return null;
+  const cx = mb.x + mb.w / 2, cy = mb.y + mb.h / 2;
+  let bg = null;
+  for (const { el, b } of scene) {
+    if (el.contains(t)) continue;
+    if (cx < b.x || cx > b.x + b.w || cy < b.y || cy > b.y + b.h) continue;
+    const f = findSolidFill(el);
+    if (f) bg = f;
+  }
+  return bg;
+}
+function checkContrast() {
+  const texts = [];
+  for (const root of topLevelEls()) {
+    if (!visibleUnlocked(root)) continue;
+    const inner = innerOf(root) || root;
+    const w = document.createTreeWalker(inner, NodeFilter.SHOW_ELEMENT);
+    let n = w.currentNode;
+    while (n) {
+      if (n.nodeType === 1 && (n.tagName === 'text' || n.tagName === 'tspan')
+        && (n.getAttribute('data-svgo-hidden') !== '1')) texts.push(n);
+      n = w.nextNode();
+    }
+  }
+  if (!texts.length) { toast('没有找到文本元素'); return; }
+  const scene = graphicEls().filter(visibleUnlocked).map(el => ({ el, b: elBox(el) }));
+  S.contrastMarks = new Set(); S.contrastInfo = new Map();
+  let checked = 0; const bad = [];
+  for (const t of texts) {
+    const fill = (t.getAttribute('fill') || '').toLowerCase();
+    if (!/^#[0-9a-fA-F]{6}$/.test(fill)) continue; // 渐变/继承色暂不判定
+    const bg = topmostSolidBg(t, scene);
+    if (!bg) continue;
+    checked++;
+    const fs = parseFloat(t.getAttribute('font-size')) || 16;
+    const bold = /bold|[6-9]00/i.test(t.getAttribute('font-weight') || '');
+    const min = contrastMinRatio(fs, bold);
+    const ratio = wcagContrast(fill, bg);
+    if (ratio < min) {
+      const rec = { fill, bg, ratio: Math.round(ratio * 10) / 10, min };
+      bad.push(rec);
+      const mover = t.closest('.svgo-mover');
+      if (mover) { S.contrastMarks.add(mover); S.contrastInfo.set(mover, rec); }
+    }
+  }
+  drawOverlay();
+  if (!checked) { toast('文本底下没有可判定的纯色背景，跳过体检'); return; }
+  if (!bad.length) { toast('◐ 对比度体检通过：' + checked + ' 处文本全部达标'); return; }
+  const worst = bad.slice().sort((a, b) => a.ratio - b.ratio)[0];
+  toast('◐ 对比度体检：' + bad.length + '/' + checked + ' 处不达标，最差 '
+    + worst.fill + ' vs ' + worst.bg + '（' + worst.ratio + ':1，需 ' + worst.min + ':1）', 4600);
+}
+
+// 布局模板：对选中元素按画布排版，算法在 layout-arrange.mjs（纯函数，可单测）
+function applyLayoutToSelection(id) {
+  if (!S.sourceRoot) return;
+  const els = [...S.selection].filter(visibleUnlocked);
+  if (!els.length) { toast('先选中要排列的元素，再选布局'); return; }
+  const boxes = els.map(elBox);
+  const targets = arrangeLayout(id, boxes, stage.__canvas);
+  const changes = [];
+  els.forEach((el, i) => {
+    const before = el.getAttribute('transform');
+    el.__tx = (el.__tx || 0) + (targets[i].x - boxes[i].x);
+    el.__ty = (el.__ty || 0) + (targets[i].y - boxes[i].y);
+    applyOffset(el);
+    const after = el.getAttribute('transform');
+    if (before !== after) changes.push({ el, attr:'transform', before, after });
+  });
+  if (changes.length) pushCommand(makeAttrCommand('布局排列', changes));
+  drawOverlay(); syncPropertyPanel();
+  const l = LAYOUTS.find(x => x.id === id);
+  toast('已按「' + (l ? l.name : id) + '」排列，Ctrl+Z 可撤销');
 }
 window.__editorEnableFileButtons = () => {};
 
@@ -828,25 +982,14 @@ window.EditorDebug = {
 window.addEventListener('DOMContentLoaded', () => EditorBoot.start());
 
 // ============================ 主题引擎（任务 18） ============================
-function hexToRgb(h) {
-  const n = parseInt(h.slice(1), 16);
-  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-}
-function colorDist(a, b) {
-  const A = hexToRgb(a), B = hexToRgb(b);
-  return Math.abs(A[0]-B[0]) + Math.abs(A[1]-B[1]) * 1.2 + Math.abs(A[2]-B[2]);
-}
-function lum(hex) { const [r, g, b] = hexToRgb(hex); return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255; }
-function sat(hex) { const [r, g, b] = hexToRgb(hex); const mx = Math.max(r, g, b), mn = Math.min(r, g, b); return mx === 0 ? 0 : (mx - mn) / mx; }
 const COLOR_ATTRS = ['fill','stroke','stop-color'];
 function themeTokensOf(id) {
   const t = THEMES.find(t => t.id === id) || THEMES[0];
   return t.tokens;
 }
-// 整族重绘：彩色 → 主题三档彩色(primary/primaryDark/accent)，中性 → 五档中性(bg/surface/muted/body/title)，
-// 各自按明度分位映射，保留原图层次；url(#grad) 与非 hex 值不动
+// 整族重绘规则与算法在 color-map.mjs（R1 同色同档 / R2 文字禁中间档 /
+// R4 低透明度装饰跳过 / R5 语义色固定 / R6 彩色三档+中性五档），此处只做 DOM 收集
 function collectThemeChanges(rootEl, targetTokens) {
-  const changes = [];
   const entries = [];
   const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_ELEMENT);
   let node = walker.currentNode;
@@ -859,30 +1002,28 @@ function collectThemeChanges(rootEl, targetTokens) {
     }
     node = walker.nextNode();
   }
-  const chromaKeys = ['primary', 'primaryDark', 'accent'];
-  const neutraKeys = ['bg', 'surface', 'muted', 'body', 'title'];
-  const byLum = (keys) => keys.map(k => ({ k, v: String(targetTokens[k]).toLowerCase() }))
-    .sort((a, b) => lum(a.v) - lum(b.v));
-  const chromaT = byLum(chromaKeys), neutraT = byLum(neutraKeys);
-  const assign = (list, targets) => {
-    if (!list.length || !targets.length) return;
-    const sorted = [...list].sort((a, b) => lum(a.val) - lum(b.val));
-    sorted.forEach((e, i) => {
-      const idx = sorted.length === 1 ? Math.floor(targets.length / 2)
-        : Math.round(i * (targets.length - 1) / (sorted.length - 1));
-      const t = targets[idx];
-      if (e.val !== t.v) changes.push({ el: e.el, attr: e.attr, before: e.val, after: t.v });
-    });
-  };
-  assign(entries.filter(e => sat(e.val) >= 0.18), chromaT);
-  assign(entries.filter(e => sat(e.val) < 0.18), neutraT);
-  return changes;
+  return planThemeChanges(entries, targetTokens);
 }
 let pendingPreview = null; // [{el,attr,before}]
 function revertPreview() {
   if (!pendingPreview) return;
   for (const c of pendingPreview) c.el.setAttribute(c.attr, c.before);
   pendingPreview = null;
+}
+// 换肤预检：DOM 已处于预览态，直接检查改色文本与背景的对比度，返回不达标数
+function countWeakContrast(fillChanges) {
+  const scene = graphicEls().filter(visibleUnlocked).map(el => ({ el, b: elBox(el) }));
+  let warns = 0;
+  for (const c of fillChanges) {
+    const tag = (c.el.tagName || '').toLowerCase();
+    if (tag !== 'text' && tag !== 'tspan') continue;
+    const bg = topmostSolidBg(c.el, scene);
+    if (!bg) continue;
+    const fs = parseFloat(c.el.getAttribute('font-size')) || 16;
+    const bold = /bold|[6-9]00/i.test(c.el.getAttribute('font-weight') || '');
+    if (wcagContrast(String(c.after).toLowerCase(), bg) < contrastMinRatio(fs, bold)) warns++;
+  }
+  return warns;
 }
 function previewTheme(id) {
   revertPreview();
@@ -891,7 +1032,10 @@ function previewTheme(id) {
   for (const r of topLevelEls()) all.push(...collectThemeChanges(r, tokens));
   for (const c of all) c.el.setAttribute(c.attr, c.after);
   pendingPreview = all.map(c => ({ el:c.el, attr:c.attr, before:c.before }));
-  $('svgo-theme-apply').style.display = all.length ? 'inline-block' : 'none';
+  const btn = $('svgo-theme-apply');
+  btn.style.display = all.length ? 'inline-block' : 'none';
+  const warns = countWeakContrast(all.filter(c => c.attr === 'fill'));
+  btn.textContent = '应用主题' + (warns ? '（⚠ ' + warns + ' 处对比度弱）' : '');
 }
 function confirmTheme() {
   if (!pendingPreview) return;
@@ -899,7 +1043,9 @@ function confirmTheme() {
   const changes = pendingPreview.map(c => ({ el:c.el, attr:c.attr, before:c.before, after:c.el.getAttribute(c.attr) }));
   pendingPreview = null;
   pushCommand(makeAttrCommand('换主题', changes));
-  $('svgo-theme-apply').style.display = 'none';
+  const btn = $('svgo-theme-apply');
+  btn.style.display = 'none';
+  btn.textContent = '应用主题';
   toast('主题已应用，Ctrl+Z 可撤销');
 }
 
@@ -910,16 +1056,35 @@ function compText(x, y, str, fs, fill, weight) {
   if (weight) t.setAttribute('font-weight', weight);
   t.textContent = str; return t;
 }
+let mixSeq = 0, mixCounter = 0;
+// 按「混色」下拉把组件主色变成纯色 / 渐变 / 轮换色，渐变 def 挂在组件 g 内
+function compPaint(defsHost, plan) {
+  if (plan.type === 'gradient') {
+    const gid = 'mx' + (++mixSeq);
+    const lg = ovEl('linearGradient', { id: gid, x1: 0, y1: 0, x2: plan.vertical ? 0 : 1, y2: plan.vertical ? 1 : 0 });
+    plan.stops.forEach((c, i) => {
+      const s = ovEl('stop', {});
+      s.setAttribute('offset', String(i / (plan.stops.length - 1)));
+      s.setAttribute('stop-color', c);
+      lg.appendChild(s);
+    });
+    defsHost.appendChild(lg);
+    return 'url(#' + gid + ')';
+  }
+  return plan.color;
+}
 function buildComponent(kind) {
-  const tok = themeTokensOf($('svgo-theme-sel').value);
+  const tok = componentTokens();
+  const mixIdx = mixCounter++;
+  const paint = (swap) => compPaint(g, mixPaintPlan(S.mixId || 'solid', tok, mixIdx, swap));
   const g = ovEl('g', {});
   if (kind === 'badge') {
     const label = '徽章', fs = 14, w = MEASURER.fitWidth(label, { fontSize: fs }), h = 32;
-    g.appendChild(ovEl('rect', { width:w, height:h, rx:h/2, fill:tok.primary }));
+    g.appendChild(ovEl('rect', { width:w, height:h, rx:h/2, fill:paint(false) }));
     g.appendChild(compText(w/2, h/2 + fs*0.35, label, fs, '#ffffff'));
   } else if (kind === 'btn') {
     const label = '按钮', fs = 15, w = MEASURER.fitWidth(label, { fontSize: fs }) + 16, h = 40;
-    g.appendChild(ovEl('rect', { width:w, height:h, rx:8, fill:tok.primaryDark }));
+    g.appendChild(ovEl('rect', { width:w, height:h, rx:8, fill:paint(true) }));
     g.appendChild(compText((w+16)/2, h/2 + fs*0.35, label, fs, '#ffffff'));
   } else if (kind === 'status') {
     const label = '平台就绪', fs = 14, w = 150, h = 44;
@@ -992,7 +1157,7 @@ function insertMyComponent(idx) {
   if (!S.sourceRoot) { toast('请先打开一个 SVG 文件'); return; }
   const item = loadMyComponents()[idx]; if (!item) return;
   const doc = new DOMParser().parseFromString('<svg xmlns="http://www.w3.org/2000/svg">' + item.svg + '</svg>', 'image/svg+xml');
-  const tokens = themeTokensOf($('svgo-theme-sel').value);
+  const tokens = componentTokens(); // 自定义组件同样支持跨主题锁定配色
   const added = [], newSel = [];
   for (const child of [...doc.documentElement.children]) {
     if (child.nodeType !== 1) continue;
@@ -1012,15 +1177,28 @@ function insertMyComponent(idx) {
 }
 
 // ============================ PNG 导出 / 复制代码 / 草稿（任务 19） ============================
-async function exportPNG(scale) {
+async function exportPNG(scale, trim) {
   if (!S.sourceRoot) return;
-  const text = serializeCurrent();
+  let text = serializeCurrent();
   const c = stage.__canvas;
+  let vx = c.x, vy = c.y, vw = c.w, vh = c.h;
+  if (trim) {
+    // 按内容包围盒裁剪：去掉画布空白，四周留 8 单位出血
+    const boxes = graphicEls().filter(visibleUnlocked).map(elBox).filter(b => b.w && b.h);
+    if (boxes.length) {
+      const u = mergeBoxes(boxes), m = 8;
+      vx = round1(u.x - m); vy = round1(u.y - m);
+      vw = round1(u.w + 2 * m); vh = round1(u.h + 2 * m);
+      text = text.replace(/viewBox="[^"]*"/, 'viewBox="' + vx + ' ' + vy + ' ' + vw + ' ' + vh + '"');
+      text = text.replace(/\swidth="[^"]*"/, ' width="' + vw + '"');
+      text = text.replace(/\sheight="[^"]*"/, ' height="' + vh + '"');
+    }
+  }
   const img = new Image();
   const url = URL.createObjectURL(new Blob([text], { type:'image/svg+xml' }));
   img.onload = () => {
     const cv = document.createElement('canvas');
-    cv.width = Math.round(c.w * scale); cv.height = Math.round(c.h * scale);
+    cv.width = Math.round(vw * scale); cv.height = Math.round(vh * scale);
     const ctx2 = cv.getContext('2d');
     ctx2.drawImage(img, 0, 0, cv.width, cv.height);
     URL.revokeObjectURL(url);
@@ -1028,9 +1206,9 @@ async function exportPNG(scale) {
       if (!blob) { toast('PNG 编码失败'); return; }
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = (S.fileName || 'drawing').replace(/\.svg$/i, '') + '@' + scale + 'x.png';
+      a.download = (S.fileName || 'drawing').replace(/\.svg$/i, '') + '@' + scale + 'x' + (trim ? '-trim' : '') + '.png';
       a.click();
-      toast('已导出 PNG（' + scale + 'x）');
+      toast('已导出 PNG（' + scale + 'x' + (trim ? '，内容裁剪' : '') + '）');
     }, 'image/png');
   };
   img.onerror = () => { URL.revokeObjectURL(url); toast('PNG 导出失败：文件含浏览器无法光栅化的内容'); };
@@ -1117,7 +1295,7 @@ function handlePositions(b) {
     sw:[b.x,b.y+b.h], s:[b.x+b.w/2,b.y+b.h], se:[b.x+b.w,b.y+b.h],
   };
 }
-// drawOverlay 的单选分支升级：带 mode 数据的手柄
+// drawOverlay 的单选分支升级：带 mode 数据的手柄 + 对比度体检标记
 const _drawOverlayBase = drawOverlay;
 drawOverlay = function(extra) {
   _drawOverlayBase(extra);
@@ -1133,6 +1311,25 @@ drawOverlay = function(extra) {
       overlayG.appendChild(h);
     }
   }
+  // 体检标记：红虚线框 + 最差对比度角标（Esc 或重新体检清除）
+  if (S.contrastMarks && S.contrastMarks.size && !S.drag) {
+    for (const el of S.contrastMarks) {
+      const b = elBox(el);
+      if (!b.w) continue;
+      const r = ovEl('rect', { x:b.x-2, y:b.y-2, width:b.w+4, height:b.h+4,
+        fill:'none', stroke:'#e5484d', 'stroke-dasharray': (6/S.zoom) + ' ' + (4/S.zoom) });
+      r.setAttribute('stroke-width', 1.5 / S.zoom);
+      r.setAttribute('pointer-events', 'none');
+      overlayG.appendChild(r);
+      const info = S.contrastInfo && S.contrastInfo.get(el);
+      if (info) {
+        const t = ovEl('text', { x:b.x, y:b.y - 6/S.zoom, 'font-size': 11/S.zoom, fill:'#e5484d',
+          'font-family':'PingFang SC, Microsoft YaHei, sans-serif' });
+        t.textContent = info.ratio + ':1';
+        overlayG.appendChild(t);
+      }
+    }
+  }
 };
 
 function hitHandle(p) {
@@ -1146,22 +1343,27 @@ function hitHandle(p) {
   return null;
 }
 
-const RESIZABLE = { rect:1, circle:1, ellipse:1, text:1, image:1 };
+// path / g 走 transform 缩放（scaleMode）：写内层 transform 前缀，
+// mover.getBBox() 会把内层 transform 计入，elBox/吸附/框选因此始终正确
+const RESIZABLE = { rect:1, circle:1, ellipse:1, text:1, image:1, path:1, g:1 };
 function geometrySnapshot(el) {
   const out = {};
-  for (const a of ['x','y','width','height','r','rx','ry','cx','cy','font-size'])
+  for (const a of ['x','y','width','height','r','rx','ry','cx','cy','font-size','transform'])
     out[a] = el.getAttribute(a);
   return out;
 }
 function beginResize(mode, evt) {
   const mover = [...S.selection][0];
-  const el = innerOf(mover);
-  const tag = el ? el.tagName : mover.tagName;
-  if (!RESIZABLE[tag]) { toast('「' + tag + '」暂不支持缩放（支持：rect / circle / ellipse / text / image）'); return; }
-  if (el.getAttribute('transform')) { toast('该元素自带 transform，暂不支持缩放，请先手动归一化'); return; }
+  const inner = innerOf(mover);
+  const el = inner || mover;
+  const tag = inner ? inner.tagName : mover.tagName;
+  if (!RESIZABLE[tag]) { toast('「' + tag + '」暂不支持缩放（支持：rect / circle / ellipse / text / image / path / g）'); return; }
+  // path/g 用 transform 缩放，允许自带 transform（直接复合前缀）；几何缩放类型仍要求先归一化
+  const scaleMode = tag === 'path' || tag === 'g';
+  if (!scaleMode && el.getAttribute('transform')) { toast('该元素自带 transform，暂不支持缩放，请先手动归一化'); return; }
   S.drag = {
-    kind:'resize', mode, active:true,
-    mover, el, box: elBox(mover), bb: el.getBBox(),
+    kind:'resize', mode, active:true, scaleMode,
+    mover, el, box: elBox(mover), rbox: mover.getBBox(), bb: el.getBBox ? el.getBBox() : null,
     before: geometrySnapshot(el),
     start: svgPoint(evt),
   };
@@ -1210,12 +1412,16 @@ function applyResize(d, dxTotal, dyTotal, shiftKey) {
     el.setAttribute('x', round1(nb.x - tx));
     const ascentGap = (parseFloat(d.before.y) || 0) - d.bb.y;
     el.setAttribute('y', round1((nb.y - ty) + ascentGap * s));
+  } else if (d.scaleMode) {
+    // path/g：绕固定锚点（手柄对侧）的 scale 变换，算法在 resize-transform.mjs；
+    // 顶层元素恒被 wrapAsMover 包裹，el 是内层节点，撤销走 transform 属性 diff
+    el.setAttribute('transform', composeScaleTransform(d.mode, box, d.rbox, nb, d.before.transform));
   }
 }
 function commitResize(d) {
   const after = geometrySnapshot(d.el);
   const changes = [];
-  for (const k of ['x','y','width','height','r','rx','ry','cx','cy','font-size'])
+  for (const k of ['x','y','width','height','r','rx','ry','cx','cy','font-size','transform'])
     if (d.before[k] !== after[k])
       changes.push({ el:d.el, attr:k, before:d.before[k], after:after[k] });
   if (changes.length) pushCommand(makeAttrCommand('缩放', changes));

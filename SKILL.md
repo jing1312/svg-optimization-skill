@@ -32,28 +32,48 @@ context.
 
 ## Workflow
 
-1. Write a one-line content brief: audience, message, format, and intended use.
-2. Define the canvas, type ladder, palette, and layout regions before drawing.
-3. Write a logo brief before choosing a glyph.
-4. Build the SVG in layers: root, metadata, defs, background, content, details.
-5. Measure every visible string with `scripts/measure_text.html`, then backfill
+For a new direction or substantial redesign, read
+`references/design-system.md` before drawing. A narrow overflow or markup
+repair can skip the full design pass.
+
+1. Define the visual brief: artifact, audience, primary message, reading order,
+   mood, semantic motif, and delivery constraints.
+2. Choose one design language. If style is unresolved, compare complete
+   directions from `references/style-system.md` with the same content.
+3. Write a semantic logo brief and select a glyph before styling its container.
+4. Assign role-based color tokens, including surfaces, text, brand, semantic
+   state, border, highlight, and shadow.
+5. Map every text role to a type scale and every group to a spacing rhythm.
+6. Build the SVG in layers: root, metadata, defs, background, content, and one
+   coherent semantic motif. Stay inside the material and effect budget.
+7. Add motion only when it communicates entrance, progress, state change, or
+   material response; preserve a complete static state.
+8. Measure every visible string with `scripts/measure_text.html`, then backfill
    box widths and chained coordinates.
-6. Render the file in a browser and inspect the actual pixels at target size.
-7. Run structural and logo checks, then iterate on visual issues.
+9. Render the file in a browser and inspect the actual pixels at target size,
+   50%, and the smallest logo size.
+10. Compare the candidate with its sibling directions or incumbent using the
+    five-part scorecard in `references/design-system.md`.
+11. Run structural and logo checks, then iterate on visual issues.
 
 ## Style selection and visual comparison
 
 Do not interrupt a simple repair when the desired style is already explicit.
 Offer style selection when the brief is ambiguous, the user asks for a redesign,
 or the user says the result is plain, generic, or unattractive. Read
-`references/style-system.md` and show two or three complete directions first.
+`references/design-system.md`, then `references/style-system.md`, and show two
+or three complete directions first.
 Each direction must reuse the same title, copy, logo meaning, and canvas so the
 comparison isolates design decisions rather than content changes. Show both a
 banner thumbnail and a small popup/UI crop; a color swatch alone is not enough.
 For dreamy or pastel directions, also vary the motif language deliberately
 (networks, waves, progress paths, or memory cards) and apply a measured eyebrow,
 display title, body, and baseline rhythm. Read the detail guidance in
-`references/style-system.md` before drawing decorative patterns.
+`references/style-system.md` before drawing decorative patterns. Keep the
+motif budget explicit: one focal illustration per card, one supporting action,
+and no large curve, ring, or node field unless it explains the product action.
+When a user says a new version is worse than the previous one, compare against
+the incumbent first and remove additions before inventing another layer.
 
 Use this delivery order:
 
@@ -172,7 +192,7 @@ The container supports the glyph; it is not the concept.
   <circle data-role="logo-halo" cx="80" cy="80" r="43" fill="url(#halo)"/>
   <rect data-role="logo-tile" x="46" y="46" width="68" height="68" rx="17" fill="url(#tile)"/>
   <g data-role="logo-glyph" transform="translate(59.6 59.6) scale(1.7)"
-     fill="none" stroke="#fff" stroke-width="1.7"
+     fill="none" stroke="#FFFFFF" stroke-width="1.7"
      stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 5v16"/>
     <path d="m16 12 2 2 4-4"/>
@@ -235,6 +255,10 @@ reason. Never rely on arbitrary tracking to make a heading feel designed.
   clip the whole decoration layer with the banner's rounded rectangle. Show
   fragments, not a row of fully visible circles. Vary scale and opacity, keep
   the reading area quiet, and use at most one faint highlight arc per bubble.
+- For semantic detail cards, use one illustration grammar across the board:
+  either straight relationship lines, a quiet directional rail, or layered
+  documents. Do not combine a prominent wave, constellation, halo, and extra
+  card inside one motif. Curves are an accent, never the subject.
 - Rounded corners are appropriate for a standalone banner but not mandatory
   when the image is intended to bleed into a page background.
 
@@ -250,7 +274,9 @@ reason. Never rely on arbitrary tracking to make a heading feel designed.
 
 See `references/design-patterns.md` for copy-ready layout patterns and
 `references/logo-system.md` for icon selection and optical checks. Read
-`references/style-system.md` when preparing visual choices.
+`references/design-system.md` for the shared color, type, spacing, material,
+motion, and anti-pattern gates. Read `references/style-system.md` when preparing
+visual choices.
 
 ## Browser verification
 
@@ -262,6 +288,33 @@ Inspect rendered pixels, not only source code:
 4. Compare against the brief: can a viewer infer the subject without reading
    the title?
 5. Iterate until visual defects stop changing between passes.
+
+## Visual editor for human fine-tuning
+
+When the user wants hands-on adjustments — nudging positions with snap guides,
+equal-spacing a badge row, swapping themes, inserting ready-made components —
+point them at `scripts/editor.html` (double-click to open, Chrome/Edge):
+
+- Drag the SVG file in (or use 打开), edit visually, and Ctrl+S writes back to
+  the same file via the File System Access API.
+- Smart snapping is on by default: guide lines (edge/center), live equal-gap
+  detection, and same-kind recognition that snaps badges into columns with
+  matching widths. Hold Ctrl to place freely.
+- Double-click any text to retype it; its container re-measures and re-fits
+  automatically — the same measure-and-backfill rule this skill encodes.
+- 12 built-in themes apply with preview-then-confirm; the chosen theme is
+  remembered between sessions, and components can be locked to a custom
+  palette (`🎨 收藏配色`) that survives theme switches.
+- `g`/`path` elements support the same 8-way resize handles (anchor-preserving
+  scale transforms); layout templates arrange the current selection with one
+  undo step; the mix dropdown styles newly inserted components (solid, band
+  gradient, aurora gradient, or color cycling).
+- `◐ 体检` flags text that fails WCAG contrast against its background (3:1
+  large text, 4.5:1 body) with on-canvas markers, and theme previews warn
+  before applying a low-contrast recolor. PNG export supports Shift-click
+  content trimming.
+- Exports strip every editor artifact, so files remain hand-written-clean
+  after round-trips.
 
 ## Automated checks
 
@@ -281,6 +334,9 @@ against the semantic brief remains required.
 ## Delivery checklist
 
 - [ ] Public content contains no private prompt, transcript, local path, or user identifier.
+- [ ] Visual brief, reading order, and semantic motif are written before styling.
+- [ ] Colors, typography, spacing, material, and motion use explicit roles.
+- [ ] The anti-pattern gate in `references/design-system.md` has no unresolved rejection.
 - [ ] SVG includes matching width, height, and viewBox.
 - [ ] SVG has non-empty `<title>` and `<desc>`.
 - [ ] Logo has a written semantic intent and a matching glyph.
@@ -290,5 +346,7 @@ against the semantic brief remains required.
 - [ ] Text was measured with the rendered font stack.
 - [ ] Boxed text is centered and padded; sibling elements do not overlap.
 - [ ] Font sizes and spacing come from small, consistent ladders.
+- [ ] Motion has a semantic purpose and a complete static fallback, or is omitted.
+- [ ] The candidate was compared with sibling directions or the incumbent.
 - [ ] The SVG was rendered and inspected at target size.
 - [ ] `npm test` and the relevant eval command pass.
