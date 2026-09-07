@@ -1,29 +1,93 @@
-<div align="center">
-  <img src="docs/images/hero-cover.svg" alt="SVG Visual System Engine" width="100%" />
-</div>
+<p align="center">
+  <img src="docs/images/hero-cover.svg" alt="SVG Visual System Engine — design tokens, five style languages, a visual editor, and quality gates for AI-generated SVG assets" width="100%" />
+</p>
 
-<div align="center">
+<p align="center">
+  <b>SVG 不是代码片段，而是一套视觉语言。</b><br/>
+  AI 生成带设计规则、材质逻辑与排版体系的 SVG 资产 → 用可视化编辑器手工打磨 → 经质量门禁放行。
+</p>
 
-# svg-optimization-skill
-
-## SVG Visual System Engine
-
-**SVG 不是代码片段，而是一套视觉语言。**
-
-让 AI Agent 生成具有设计规则、材质逻辑、排版体系和质量审查能力的 SVG 资产，
-再用可视化编辑器手工打磨，最后经质量门禁与评测管线放行。
-
-[![ci](https://github.com/jing1312/svg-optimization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/jing1312/svg-optimization-skill/actions/workflows/ci.yml)
-
-</div>
-
----
+<p align="center">
+  <a href="https://github.com/jing1312/svg-optimization-skill/actions/workflows/ci.yml"><img src="https://github.com/jing1312/svg-optimization-skill/actions/workflows/ci.yml/badge.svg" alt="CI (Node 18/20/22)" /></a>
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT" />
+  <img src="https://img.shields.io/badge/dependencies-none-brightgreen" alt="zero runtime dependencies" />
+</p>
 
 A practical skill for creating and repairing compact SVG assets used in
 READMEs, documentation, and product pages. It combines hand-authored
 composition with measured typography, semantically selected open-source icon
 paths, a design-token system, a JSON-driven SVG generator, and a full visual
 editor — all verified by automated quality gates and eval tooling.
+
+---
+
+## Showcase
+
+**同一份内容，一套视觉系统，五种风格语言。** Every figure below is a
+hand-authored SVG — no image generators, no design tools, just the workflow
+documented in this repository.
+
+### Style breadth — one system, many languages
+
+<p align="center">
+  <img src="examples/style-gallery.svg" alt="Three complete visual grammars under one quality gate: dreamlight flow, paper grain, glass vessel" width="760" />
+  <br/>
+  <sub>三种语法（流光 / 暖纸压印 / 玻璃器物）的差别在构图、材质与图形语言，不只是换色。</sub>
+</p>
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="examples/v2/dreamlight-hero.svg" alt="Dreamlight hero: drifting light field" width="340"><br>
+      <sub>Dreamlight — 漂浮的流光场</sub>
+    </td>
+    <td align="center">
+      <img src="examples/v2/glass-intelligence.svg" alt="Glass intelligence: translucent vessel panels" width="340"><br>
+      <sub>Glass Intelligence — 半透明器物面板</sub>
+    </td>
+    <td align="center">
+      <img src="examples/zhiliao-study/layout-premium.svg" alt="Premium ad layout: dark base, gold accents, centered serif" width="340"><br>
+      <sub>Material Craft — 深底金点的材质排版</sub>
+    </td>
+  </tr>
+</table>
+
+### Shipped artifacts — the full editorial workflow
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="assets/examples/banner-example.svg" alt="Brand banner produced with this skill" width="340"><br>
+      <sub>Banner with edge-entering bubble depth</sub>
+    </td>
+    <td align="center">
+      <img src="assets/examples/popup-mockup-example.svg" alt="Product popup mockup" width="340"><br>
+      <sub>Popup mockup with measured typography</sub>
+    </td>
+    <td align="center">
+      <img src="assets/examples/dreamy-detail-board.svg" alt="Dreamy detail board" width="340"><br>
+      <sub>Detail board: layered material, soft palette</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/examples/style-options-example.svg" alt="Complete style directions compared side by side" width="340"><br>
+      <sub>Three complete directions on one brief</sub>
+    </td>
+    <td align="center">
+      <img src="assets/examples/brand-theme-pair.svg" alt="Seasonal brand and theme pair" width="340"><br>
+      <sub>Seasonal brand suite, shared tokens</sub>
+    </td>
+    <td align="center">
+      <img src="assets/examples/logo-concepts.svg" alt="Logo concept sheet with semantic motifs" width="340"><br>
+      <sub>Logo concepts: semantic motif + bounded effects</sub>
+    </td>
+  </tr>
+</table>
+
+Every shipped asset above passes the same automated gates (G1–G4 geometry,
+C1 contrast, XML/refs/logo checks). Open any file in `scripts/editor.html` to
+see the visual-editor round-trip.
 
 ## Why
 
@@ -37,6 +101,26 @@ editor — all verified by automated quality gates and eval tooling.
 - **Palette** — 颜色是角色不是装饰：surface / ink / accent / material /
   shadow / glow 全部走 token
 - **Layout** — Hero / Grid / Poster / Object Showcase，一个主题一个主视觉一个层级
+
+## Quick start
+
+```bash
+# 1. Install — copy into your agent's skills folder
+cp -r svg-optimization-skill ~/.agents/skills/svg-optimization
+
+# 2. Generate an SVG from a JSON config
+echo '{"layout":"banner","palette":"brand","title":"Hello"}' \
+  | node scripts/generate-svg.mjs --stdin > output.svg
+
+# 3. Open the visual editor, drag the SVG in, edit by hand (Ctrl+S writes back)
+#    scripts/editor.html — double-click to open; Chrome/Edge recommended
+
+# 4. Gate the result
+node evals/grade.mjs --check-logo output.svg
+```
+
+No runtime dependency is required for normal skill use. Node.js 18 or newer is
+needed only for automated checks, generator tooling, and evals.
 
 ## Design Token System
 
@@ -66,7 +150,6 @@ T.canvas.banner     // { w: 1100, h: 300 }
 
 ```bash
 node scripts/generate-svg.mjs config.json > output.svg
-echo '{"layout":"banner","palette":"brand","title":"Hello"}' | node scripts/generate-svg.mjs --stdin
 node scripts/generate-svg.mjs --layout banner --palette dreamlight --title "标题" --subtitle "副标题"
 ```
 
@@ -76,52 +159,44 @@ const svg = generate({ layout: "gallery", palette: "editorial", title: "功能�
   cols: 3, rows: 2, items: [{ title: "卡片一", subtitle: "描述" }] });
 ```
 
-## Examples
+## Visual editor
 
-### Hand-authored examples (`assets/examples/`)
+`scripts/editor.html` is a single-file, offline, dependency-free visual editor.
+Drag an SVG in, edit it by hand, and Ctrl+S writes back to the same file.
 
-Every figure below is a hand-authored SVG — no image generators, no design
-tools, just the workflow documented in this repository. Open any of them in
-`scripts/editor.html` to see the visual editor round-trip.
+- Full smart snapping: red guide lines (edge/center), live equal-gap badges,
+  and same-kind recognition. Hold Ctrl to place freely.
+- Double-click text to retype — containers re-measure and re-fit automatically.
+- 8-way resize handles for rect / circle / ellipse / text / image **and
+  g / path** (anchor-preserving scale transforms — consecutive resizes compose,
+  and snapping stays correct under composed transforms).
+- Layout templates (布局 dropdown): left-right columns, centered stack,
+  title + feature row, diagonal flow — each arrangement is one undo step.
+- Component colors follow the theme by default; `🎨 收藏配色` locks a palette
+  so new components keep it across themes. The theme choice persists between
+  sessions.
+- `◐ 体检` runs a WCAG contrast check (3:1 large text / 4.5:1 otherwise),
+  marks failures with dashed red boxes and ratio badges; the theme button
+  pre-checks contrast before you apply a recolor.
+- The mix dropdown (混色) styles new components: solid, vertical band
+  gradient, diagonal aurora gradient, or cycling multi-color.
+- 12 built-in themes with preview-then-confirm recoloring; PNG 2x/4x export
+  (Shift-click trims to content bounds); one-click clean-SVG copy; autosaved
+  drafts with restore.
+- Shortcuts: arrows nudge, Alt-drag duplicates, Ctrl+Z/Y undo, F focus,
+  wheel zoom, Space+drag pan.
 
-<p align="center">
-  <img src="assets/examples/banner-example.svg" alt="Banner produced with this skill" width="640">
-</p>
+Rebuild the artifact after editing `src/editor/*`:
 
-<table>
-  <tr>
-    <td align="center">
-      <img src="assets/examples/style-options-example.svg" alt="Style options comparison" width="340"><br>
-      <sub>Complete style directions compared side by side</sub>
-    </td>
-    <td align="center">
-      <img src="assets/examples/brand-theme-pair.svg" alt="Seasonal brand and theme pair" width="340"><br>
-      <sub>Seasonal brand suite with matching theme tokens</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="assets/examples/dreamy-detail-board.svg" alt="Dreamy detail board" width="340"><br>
-      <sub>Detail board with layered material and soft palette</sub>
-    </td>
-    <td align="center">
-      <img src="assets/examples/popup-mockup-example.svg" alt="Popup mockup" width="340"><br>
-      <sub>Popup mockup with measured typography</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">
-      <img src="assets/examples/logo-concepts.svg" alt="Logo concept sheet" width="480"><br>
-      <sub>Logo concepts with semantic motifs and bounded effects</sub>
-    </td>
-  </tr>
-</table>
+```bash
+node scripts/build-editor.mjs
+```
 
-### Visual reference standards (`examples/`)
+### Config previewer (`tools/editor/`)
 
-`examples/v2/`（dreamlight-hero / editorial-poster / glass-intelligence）与
-`examples/zhiliao-study/`、`examples/hero-summer.svg` 等是 AI 的视觉参考标准：
-每种风格声明 `data-style-id`、语义 motif 与材质预算，由质量门禁全量扫描。
+A separate lightweight previewer for the JSON generator: pick layout / palette /
+text and gallery rows, edit the JSON config directly, and export SVG or 2x PNG.
+Serve the repo over HTTP (`npx serve .`) and open `/tools/editor/`.
 
 ## Workflow
 
@@ -141,70 +216,6 @@ tools, just the workflow documented in this repository. Open any of them in
 8. Inspect at intrinsic and small sizes, compare against the incumbent, and
    apply the anti-pattern gate.
 9. Run the automated checks.
-
-## Visual editor
-
-`scripts/editor.html` is a single-file, offline, dependency-free visual editor
-(double-click to open; Chrome/Edge recommended). Drag an SVG in, edit it by
-hand, and Ctrl+S writes back to the same file.
-
-- Full smart snapping: red guide lines (edge/center), live equal-gap badges,
-  and same-kind recognition that snaps a third badge into the column with the
-  matching width and gap. Hold Ctrl to place freely.
-- Double-click text to retype — containers re-measure and re-fit automatically.
-- 8-way resize handles for rect / circle / ellipse / text / image **and
-  g / path** (anchor-preserving scale transforms — consecutive resizes compose,
-  and snapping/marquee stay correct because the mover's bbox already reflects
-  the composed transform).
-- Layout templates (布局 dropdown) arrange the current selection on the canvas:
-  left-right columns, centered stack, title + feature row, and diagonal flow.
-  Every arrangement is one undo step.
-- Component colors follow the theme dropdown by default; `🎨 收藏配色` locks a
-  palette captured from the selection so new components keep it across themes,
-  and `↺ 跟随主题` restores theme-following. The chosen theme itself is
-  remembered between sessions.
-- `◐ 体检` runs a WCAG contrast check: it tests every text fill against the
-  topmost solid background beneath it (3:1 for large text, 4.5:1 otherwise),
-  marks failures with dashed red boxes and ratio badges (Esc clears), and the
-  theme button pre-checks contrast before you apply a recolor.
-- The mix dropdown (混色) styles newly inserted components: solid, vertical
-  band gradient, diagonal aurora gradient, or cycling multi-color.
-- 12 built-in themes with preview-then-confirm recoloring that preserves
-  hand-picked colors; PNG 2x/4x export (Shift-click trims empty canvas margins
-  to the content bounds); one-click clean-SVG copy; autosaved drafts with
-  restore.
-- Shortcuts: arrows nudge 1px (Shift 10px), Alt-drag duplicates, Ctrl+Z/Y undo,
-  Ctrl+C/V, F focus selection, Ctrl+0 reset view, wheel zoom, Space+drag pan.
-
-Rebuild the artifact after editing `src/editor/*`:
-
-```bash
-node scripts/build-editor.mjs
-```
-
-### Config previewer (`tools/editor/`)
-
-A separate lightweight previewer for the JSON generator: pick layout / palette /
-text and gallery rows, edit the JSON config directly, and export SVG or 2x PNG.
-Serve the repo over HTTP (`npx serve .`) and open `/tools/editor/`.
-
-## Installation
-
-Copy this repository directory into the skills folder used by your agent:
-
-```bash
-# Codex
-cp -r svg-optimization-skill ~/.codex/skills/svg-optimization
-
-# Claude Code
-cp -r svg-optimization-skill ~/.claude/skills/svg-optimization
-
-# Agents / OpenCode
-cp -r svg-optimization-skill ~/.agents/skills/svg-optimization
-```
-
-No runtime dependency is required for normal skill use. Node.js 18 or newer is
-needed only for automated checks, generator tooling, and evals.
 
 ## Validation
 
